@@ -1,0 +1,4 @@
+{
+  "title": "Learn FB15k Data Set with SimplE as described by Kazemi et al., 2018",
+  "comments": "They make use of inverse relations. Normalization argument of regularizer is set to false."
+}
