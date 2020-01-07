@@ -1,0 +1,13 @@
+{
+  "pykeen_version": "0.0.1-dev",
+  "pykeen_git_hash": "f9af833e",
+  "dataset": "wn18rr",
+  "model": "unstructuredmodel",
+  "loss": "marginranking",
+  "regularizer": "no",
+  "optimizer": "adadelta",
+  "training_loop": "owa",
+  "negative_sampler": "basic",
+  "evaluator": "rankbased",
+  "metric": "hits@10"
+}
