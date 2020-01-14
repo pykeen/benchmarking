@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 
 import click
 import matplotlib.pyplot as plt
@@ -63,6 +64,15 @@ def main():
                 os.path.join(result_dir, f'{dataset}_{ablation_header}.tsv'),
                 sep='\t',
             )
+
+    with open(os.path.join(result_dir, 'README.md'), 'w') as file:
+        print('# HPO Ablation Results\n', file=file)
+        print(f'Output at {time.asctime()}\n', file=file)
+        for dataset in df.dataset.unique():
+            print(f'## {dataset}\n', file=file)
+            for ablation_header in ablation_headers:
+                print(f'### {ablation_header}\n', file=file)
+                print(f'''<img src="{f'{dataset}_{ablation_header}.png'}" />\n''', file=file)
 
 
 def _clean_model(x):
