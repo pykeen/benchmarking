@@ -1,0 +1,12 @@
+{
+  "pykeen_version": "0.0.1-dev",
+  "pykeen_git_hash": "d50cd48b",
+  "dataset": "wn18rr",
+  "model": "distmult",
+  "loss": "bceaftersigmoid",
+  "regularizer": "lp",
+  "optimizer": "adam",
+  "training_loop": "lcwa",
+  "evaluator": "rankbased",
+  "metric": "hits@10"
+}
