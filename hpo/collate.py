@@ -39,31 +39,49 @@ def main():
     for dataset in df.dataset.unique():
         sub_df = df[df.dataset == dataset]
         for ablation_header in ablation_headers:
-            # Aggregate the dataset just for this
+            # Show distributions
+
+            # Aggregate the dataset by maximum for this header
             idx = sub_df.groupby([ablation_header])[target_header].transform(max) == df[target_header]
             sub_df_agg = sub_df[idx]
             sub_df_agg.index = sub_df_agg[ablation_header]
             sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
 
-            sns.barplot(
-                data=sub_df_agg,
-                x=ablation_header,
-                y=target_header,
-            )
-            plt.xticks(
-                rotation=45,
-                horizontalalignment='right',
-                fontweight='light',
-                fontsize='x-large'
-            )
-            plt.tight_layout()
-            plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}.png'))
+            # sns.barplot(
+            #     data=sub_df_agg,
+            #     x=ablation_header,
+            #     y=target_header,
+            # )
+            # plt.xticks(
+            #     rotation=45,
+            #     horizontalalignment='right',
+            #     fontweight='light',
+            #     fontsize='x-large'
+            # )
+            # plt.tight_layout()
+            # plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}.png'))
 
             del sub_df_agg[ablation_header]
             sub_df_agg.to_csv(
                 os.path.join(result_dir, f'{dataset}_{ablation_header}.tsv'),
                 sep='\t',
             )
+
+            f, ax = plt.subplots(figsize=(7, 6))
+
+            sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
+            sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, linewidth=1.0, order=sub_df_agg.index)
+            if len(sub_df_agg.index) > 4:
+                plt.xticks(
+                    rotation=45,
+                    horizontalalignment='right',
+                    fontweight='light',
+                    fontsize='x-large'
+                )
+            ax.set_title(f'{dataset} - {ablation_header}')
+            ax.set_xlabel('')
+            plt.tight_layout()
+            plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}_dist.png'))
 
     with open(os.path.join(result_dir, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)
@@ -78,6 +96,8 @@ def main():
 def _clean_model(x):
     if x == 'unstructuredmodel':
         return 'um'
+    elif x == 'structuredembedding':
+        return 'se'
     return x
 
 
