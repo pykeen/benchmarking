@@ -17,6 +17,7 @@ ablation_headers = [
     'loss',
     'model',
     'optimizer',
+    'training_loop',
 ]
 
 
@@ -81,7 +82,7 @@ def main():
             ax.set_title(f'{dataset} - {ablation_header}')
             ax.set_xlabel('')
             plt.tight_layout()
-            plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}_dist.png'))
+            plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}.png'))
 
     with open(os.path.join(result_dir, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)

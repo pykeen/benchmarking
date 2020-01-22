@@ -1,6 +1,6 @@
 # HPO Ablation Results
 
-Output at Mon Jan 20 21:19:51 2020
+Output at Wed Jan 22 18:03:16 2020
 
 ## wn18rr
 
@@ -15,4 +15,8 @@ Output at Mon Jan 20 21:19:51 2020
 ### optimizer
 
 <img src="wn18rr_optimizer.png" />
+
+### training_loop
+
+<img src="wn18rr_training_loop.png" />
 
