@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "best_trial_evaluation": 0.0009985164897866028,
+    "best_trial_number": 16,
+    "git_hash": "31cfbd84",
+    "version": "0.0.1-dev"
+  },
+  "pipeline": {
+    "dataset": "fb15k237",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "early_stopping_kwargs": {
+      "delta": 0.002,
+      "evaluation_batch_size": 16,
+      "frequency": 50,
+      "patience": 2
+    },
+    "evaluation_kwargs": {
+      "batch_size": 16
+    },
+    "evaluator": "rankbased",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "loss": "negativesamplingselfadversarial",
+    "loss_kwargs": {
+      "adversarial_temperature": 0.4152872633142787,
+      "margin": 28.35327105173146
+    },
+    "metric": "hits@10",
+    "model": "distmult",
+    "model_kwargs": {
+      "embedding_dim": 250.0
+    },
+    "negative_sampler": "basic",
+    "negative_sampler_kwargs": {
+      "num_negs_per_pos": 110.0
+    },
+    "optimizer": "adadelta",
+    "optimizer_kwargs": {
+      "lr": 0.0064599257127569585,
+      "weight_decay": 0.0
+    },
+    "regularizer": "no",
+    "training_kwargs": {
+      "batch_size": 256,
+      "label_smoothing": 0.0,
+      "num_epochs": 500.0
+    },
+    "training_loop": "owa"
+  }
+}
