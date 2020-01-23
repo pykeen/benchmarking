@@ -40,6 +40,9 @@ def main():
 
     for dataset in df.dataset.unique():
         sub_df = df[df.dataset == dataset]
+        dataset_dir = os.path.join(result_dir, dataset)
+        os.makedirs(dataset_dir, exist_ok=True)
+
         for ablation_header in ablation_headers:
             # Show distributions
 
@@ -65,7 +68,7 @@ def main():
 
             del sub_df_agg[ablation_header]
             sub_df_agg.to_csv(
-                os.path.join(result_dir, f'{dataset}_{ablation_header}.tsv'),
+                os.path.join(dataset_dir, f'{ablation_header}.tsv'),
                 sep='\t',
             )
 
@@ -83,7 +86,7 @@ def main():
             ax.set_title(f'{dataset} - {ablation_header}')
             ax.set_xlabel('')
             plt.tight_layout()
-            plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}.png'))
+            plt.savefig(os.path.join(dataset_dir, f'{ablation_header}.png'))
 
     with open(os.path.join(result_dir, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)
@@ -92,7 +95,10 @@ def main():
             print(f'## {dataset}\n', file=file)
             for ablation_header in ablation_headers:
                 print(f'### {ablation_header}\n', file=file)
-                print(f'''<img src="{f'{dataset}_{ablation_header}.png'}" />\n''', file=file)
+                print(
+                    f'<img src="/{dataset}/{ablation_header}.png" alt="{dataset} {ablation_header}"/>\n',
+                    file=file,
+                )
 
 
 def _clean_model(x):
