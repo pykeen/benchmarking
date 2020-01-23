@@ -33,6 +33,7 @@ def main():
     df['model'] = df['model'].map(_clean_model)
     df['loss'] = df['loss'].map(_clean_loss)
 
+    df = df.sort_values(ablation_headers)
     df.to_csv(os.path.join(result_dir, 'results.tsv'), sep='\t', index=False)
 
     target_header = 'best_trial_evaluation'
