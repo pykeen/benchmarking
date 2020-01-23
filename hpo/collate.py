@@ -96,7 +96,7 @@ def main():
             for ablation_header in ablation_headers:
                 print(f'### {ablation_header}\n', file=file)
                 print(
-                    f'<img src="/{dataset}/{ablation_header}.png" alt="{dataset} {ablation_header}"/>\n',
+                    f'<img src="{dataset}/{ablation_header}.png" alt="{dataset} {ablation_header}"/>\n',
                     file=file,
                 )
 
