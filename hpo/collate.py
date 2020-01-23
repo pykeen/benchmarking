@@ -43,7 +43,7 @@ def main():
             # Show distributions
 
             # Aggregate the dataset by maximum for this header
-            idx = sub_df.groupby([ablation_header])[target_header].transform(max) == df[target_header]
+            idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
             sub_df_agg = sub_df[idx]
             sub_df_agg.index = sub_df_agg[ablation_header]
             sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
