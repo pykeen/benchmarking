@@ -14,8 +14,8 @@ from poem.utils import flatten_dictionary
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 ablation_headers = [
-    'loss',
     'model',
+    'loss',
     'optimizer',
     'training_loop',
 ]
@@ -96,7 +96,9 @@ def main():
             for ablation_header in ablation_headers:
                 print(f'### {ablation_header}\n', file=file)
                 print(
-                    f'<img src="{dataset}/{ablation_header}.png" alt="{dataset} {ablation_header}"/>\n',
+                    f'<img src="{dataset}/{ablation_header}.png"'
+                    f' alt="{dataset} {ablation_header}"'
+                    f' height="300" />\n',
                     file=file,
                 )
 
