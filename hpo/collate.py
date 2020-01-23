@@ -94,7 +94,7 @@ def main():
         for dataset in df.dataset.unique():
             print(f'## {dataset}\n', file=file)
             for ablation_header in ablation_headers:
-                print(f'### {ablation_header}\n', file=file)
+                print(f'### {dataset} {ablation_header}\n', file=file)
                 print(
                     f'<img src="{dataset}/{ablation_header}.png"'
                     f' alt="{dataset} {ablation_header}"'

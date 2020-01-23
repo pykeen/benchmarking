@@ -1,40 +1,40 @@
 # HPO Ablation Results
 
-Output at Thu Jan 23 14:18:30 2020
+Output at Thu Jan 23 14:21:35 2020
 
 ## fb15k237
 
-### model
+### fb15k237 model
 
 <img src="fb15k237/model.png" alt="fb15k237 model" height="300" />
 
-### loss
+### fb15k237 loss
 
 <img src="fb15k237/loss.png" alt="fb15k237 loss" height="300" />
 
-### optimizer
+### fb15k237 optimizer
 
 <img src="fb15k237/optimizer.png" alt="fb15k237 optimizer" height="300" />
 
-### training_loop
+### fb15k237 training_loop
 
 <img src="fb15k237/training_loop.png" alt="fb15k237 training_loop" height="300" />
 
 ## wn18rr
 
-### model
+### wn18rr model
 
 <img src="wn18rr/model.png" alt="wn18rr model" height="300" />
 
-### loss
+### wn18rr loss
 
 <img src="wn18rr/loss.png" alt="wn18rr loss" height="300" />
 
-### optimizer
+### wn18rr optimizer
 
 <img src="wn18rr/optimizer.png" alt="wn18rr optimizer" height="300" />
 
-### training_loop
+### wn18rr training_loop
 
 <img src="wn18rr/training_loop.png" alt="wn18rr training_loop" height="300" />
 
