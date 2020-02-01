@@ -124,6 +124,7 @@
     "training_kwargs": {
       "ComplEx": {
         "owa": {
+          "num_epochs": 1000,
           "batch_size": 512,
           "sub_batch_size": 256,
           "label_smoothing": 0.0
@@ -132,14 +133,7 @@
     },
     "training_kwargs_ranges": {
       "ComplEx": {
-        "owa": {
-          "num_epochs": {
-            "type": "int",
-            "low": 500,
-            "high": 1000,
-            "q": 100
-          }
-        }
+        "owa": {}
       }
     },
     "early_stopping": true,
