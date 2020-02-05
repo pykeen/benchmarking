@@ -102,6 +102,7 @@
     "training_kwargs": {
       "HolE": {
         "lcwa": {
+          "num_epochs": 1000,
           "batch_size": 512,
           "sub_batch_size": 256
         }
@@ -110,12 +111,6 @@
     "training_kwargs_ranges": {
       "HolE": {
         "lcwa": {
-          "num_epochs": {
-            "type": "int",
-            "low": 500,
-            "high": 1000,
-            "q": 100
-          },
           "label_smoothing": {
             "type": "float",
             "low": 0.001,
