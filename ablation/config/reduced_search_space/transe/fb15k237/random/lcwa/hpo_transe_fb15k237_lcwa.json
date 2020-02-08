@@ -18,7 +18,7 @@
           "type": "int",
           "low": 64,
           "high": 192,
-          "q": 640
+          "q": 64
         },
         "scoring_fct_norm": {
           "type": "int",
