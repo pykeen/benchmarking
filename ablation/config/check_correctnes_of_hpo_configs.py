@@ -127,12 +127,11 @@ def check_embedding_setting(configuration: json, model: str, setting: Dict):
     configured_embedding = relevant_part[MODEL_DIRECTORIES_TO_MODEL_NAME[model]]['embedding_dim']
     embedding_setting = setting['embedding']
     keys = configured_embedding.keys()
-    assert len(keys) == len(setting[
-                                'embedding'].keys()) and 'type' in keys and 'low' in keys and 'high' in keys \
-           and 'q' in keys, 'keys not correct.'
+    assert len(keys) == len(embedding_setting.keys()) and [k in embedding_setting for k in keys]
     for k in keys:
         assert configured_embedding[k] == embedding_setting[k], f'expected {k} is {embedding_setting[k]},' \
             f'but got {configured_embedding}'
+
 
 if __name__ == '__main__':
     iterator = iterate_config_paths(root_directory='reduced_search_space')
