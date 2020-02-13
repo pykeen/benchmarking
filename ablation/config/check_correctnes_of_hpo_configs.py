@@ -50,7 +50,7 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
         # Check, whether required datasets are defined
         datasets = os.listdir(model_directory)
 
-        assert len(datasets) == 5 and [dataset in datasets for dataset in DATASET_NAMES], \
+        assert len(datasets) == len(DATASET_NAMES) and [dataset in datasets for dataset in DATASET_NAMES], \
             f'It is excepted that configurations for fb15k237, kinships, wn18rr and yago310 are prvoded, but got' \
                 f' {datasets[0]}, {datasets[1]}, {datasets[2]} and {datasets[3]}.'
 
@@ -82,15 +82,14 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                     f'{training_assumptions[0]} and {training_assumptions[1]}'
 
             for training_assumption in training_assumptions:
-                configs = os.listdir(
-                    os.path.join(
-                        root_directory,
-                        model_directory,
-                        dataset,
-                        hpo_approach[0],
-                        training_assumption,
-                    )
+                configs_directory = os.path.join(
+                    root_directory,
+                    model_directory,
+                    dataset,
+                    hpo_approach[0],
+                    training_assumption,
                 )
+                configs = os.listdir(configs_directory)
 
                 # Check, whether correct number of configurations are defined
                 if training_assumption == 'lcwa':
