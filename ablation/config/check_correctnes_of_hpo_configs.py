@@ -121,16 +121,15 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                     yield model, dataset, hpo_approach, training_assumption, config, configs_directory
 
 
-def check_embedding_setting(configuration: json, model: str, setting: Dict):
+def check_embedding_setting(config_name: str, configuration: json, model: str, setting: Dict):
     """."""
     relevant_part = configuration['ablation']['model_kwargs_ranges']
     configured_embedding = relevant_part[MODEL_DIRECTORIES_TO_MODEL_NAME[model]]['embedding_dim']
     embedding_setting = setting['embedding']
     keys = configured_embedding.keys()
     assert len(keys) == len(embedding_setting.keys()) and [k in embedding_setting for k in keys]
-    for k in keys:
-        assert configured_embedding[k] == embedding_setting[k], f'expected {k} is {embedding_setting[k]},' \
-            f'but got {configured_embedding}'
+    assert [configured_embedding[k] == embedding_setting[k] for k in
+            keys], f'Value error in embedding setting for configuration {config_name}.'
 
 
 if __name__ == '__main__':
@@ -139,4 +138,9 @@ if __name__ == '__main__':
     for model, dataset, hpo_approach, training_assumption, config_name, path in iterator:
         with open(os.path.join(path, config_name)) as file:
             configuration = json.load(file)
-            check_embedding_setting(configuration=configuration, model=model, setting=REDUCED_SETTING)
+            check_embedding_setting(
+                config_name=config_name,
+                configuration=configuration,
+                model=model,
+                setting=REDUCED_SETTING,
+            )
