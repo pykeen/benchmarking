@@ -51,8 +51,9 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
         datasets = os.listdir(model_directory)
 
         assert len(datasets) == len(DATASET_NAMES) and [dataset in datasets for dataset in DATASET_NAMES], \
-            f'It is excepted that configurations for fb15k237, kinships, wn18rr and yago310 are prvoded, but got' \
-                f' {datasets[0]}, {datasets[1]}, {datasets[2]} and {datasets[3]}.'
+            f'It is excepted that configurations for \'examples\', \'fb15k237\', \'kinships\', \'wn18rr\' and' \
+                f' \'yago310\' are prvovided, but got' \
+                f' {datasets[0]}, {datasets[1]}, {datasets[2]}, {datasets[3]} and {datasets[4]}.'
 
         for dataset in datasets:
             if dataset not in DATASET_NAMES and dataset != 'examples':
