@@ -2,38 +2,55 @@
 
 """Validates the HPO configs."""
 
+import json
 import os
-from typing import Iterable
+from typing import Dict, Iterable
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-MODEL_DIRECTORIES = [
-    'complex',
-    'conve',
-    'convkb',
-    'distmult',
-    'ermlp',
-    'hole',
-    'kg2e',
-    'ntn',
-    'proje',
-    'rescal',
-    'rgcn',
-    'rotate',
-    'simple',
-    'structuredembedding',
-    'transd',
-    'transe',
-    'transh',
-    'transr',
-    'tucker',
-    'um',
-]
+MODEL_DIRECTORIES_TO_MODEL_NAME = {
+    'complex': 'ComplEx',
+    'conve': 'ConvE',
+    'convkb': 'ConvKB',
+    'distmult': 'DistMult',
+    'ermlp': 'ERMLP',
+    'hole': 'HolE',
+    'kg2e': 'KG2E',
+    'ntn': 'NTN',
+    'proje': 'ProjE',
+    'rescal': 'RESCAL',
+    'rgcn': 'RGCN',
+    'rotate': 'RotatE',
+    'simple': 'SimplE',
+    'structuredembedding': 'StructuredEmbedding',
+    'transd': 'TransD',
+    'transe': 'TransE',
+    'transh': 'TransH',
+    'transr': 'TransR',
+    'tucker': 'TuckER',
+    'um': 'UnstructuredModel',
+}
 
 DATASET_NAMES = ['fb15k237', 'kinships', 'wn18rr', 'yago310', 'examples']
 
 NUM_LCWA_CONFIGS = 1
 NUM_OWA_CONFIGS = 4
+
+REDUCED = 'reduced'
+REDUCED_EMBEDDING_SETTING = {
+    "type": "int",
+    "low": 64,
+    "high": 192,
+    "q": 64,
+}
+
+REDUCED_SETTING = {
+    'embedding': REDUCED_EMBEDDING_SETTING,
+}
+
+SETTING = {
+    REDUCED: REDUCED_SETTING,
+}
 
 
 def iterate_config_paths(root_directory: str) -> Iterable[str]:
@@ -44,7 +61,7 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
         if model.startswith('.'):
             break
 
-        assert model in MODEL_DIRECTORIES, f'Model {model} is unknown'
+        assert model in MODEL_DIRECTORIES_TO_MODEL_NAME, f'Model {model} is unknown'
         model_directory = os.path.join(root_directory, model)
 
         # Check, whether required datasets are defined
@@ -101,11 +118,26 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                         f' are required, but {len(configs)} were provided'
 
                 for config in configs:
-                    yield model, dataset, hpo_approach, training_assumption, config
+                    yield model, dataset, hpo_approach, training_assumption, config, configs_directory
 
+
+def check_embedding_dimensions(configuration: json, model: str, setting: Dict):
+    """."""
+    relevant_part = configuration['ablation']['model_kwargs_ranges']
+    configured_embedding = relevant_part[MODEL_DIRECTORIES_TO_MODEL_NAME[model]]['embedding_dim']
+    embedding_setting = setting['embedding']
+    keys = configured_embedding.keys()
+    assert len(keys) == len(setting[
+                                'embedding'].keys()) and 'type' in keys and 'low' in keys and 'high' in keys \
+           and 'q' in keys, 'keys not correct.'
+    for k in keys:
+        assert configured_embedding[k] == embedding_setting[k], f'expected {k} is {embedding_setting[k]},' \
+            f'but got {configured_embedding}'
 
 if __name__ == '__main__':
     iterator = iterate_config_paths(root_directory='reduced_search_space')
 
-    for model, dataset, hpo_approach, training_assumption, config in iterator:
-        pass
+    for model, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+        with open(os.path.join(path, config_name)) as file:
+            configuration = json.load(file)
+            check_embedding_dimensions(configuration=configuration, model=model, setting=REDUCED_SETTING)
