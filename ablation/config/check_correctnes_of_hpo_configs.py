@@ -45,7 +45,7 @@ REDUCED_EMBEDDING_SETTING = {
 }
 
 REDUCED_SETTING = {
-    'embedding': REDUCED_EMBEDDING_SETTING,
+    'embedding_dim': REDUCED_EMBEDDING_SETTING,
 }
 
 SETTING = {
@@ -130,51 +130,86 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                     yield model, dataset, hpo_approach, training_assumption, config, configs_directory
 
 
-def check_embedding_setting(config_name: str, configuration: json, model: str, setting: Dict) -> None:
+
+def filter_provided_setting(model_name: str, provided_setting: Dict, key_of_interest: str) -> Dict:
+    """"""
+    provided_setting = {model_name:
+        {
+            key: value for key, value in provided_setting.items() if key == key_of_interest
+        }
+    }
+
+    return provided_setting
+
+
+def create_expected_setting(model_name: str, key: str) -> Dict:
     """."""
+    expected_setting = {model_name: {key: REDUCED_SETTING[key]}}
 
-    relevant_part = configuration['ablation']['model_kwargs_ranges']
-    configured_embedding = relevant_part[MODEL_DIRECTORIES_TO_MODEL_NAME[model]]['embedding_dim']
-    embedding_setting = setting['embedding']
-    keys = configured_embedding.keys()
-    assert len(keys) == len(embedding_setting.keys()) and [k in embedding_setting for k in keys]
-    assert [configured_embedding[k] == embedding_setting[k] for k in
-            keys], f'Value error in embedding setting for configuration {config_name}.'
-
-
-def check_regularization_setting(config_name: str, configuration: json, model: str) -> None:
-    """."""
-
-    regularization_setting = configuration['ablation']['regularizers']
-
-    assert len(
-        regularization_setting) == NUM_REGULARIZERS, f"Exactly {NUM_REGULARIZERS} expected," \
-        f" but got {len(regularization_setting)}"
-
-    assert [regularization_setting in DEFINED_REGULARIZERS for r in regularization_setting], f'Value Error ' \
-        f'for regularization setting in {config_name}'
-
-    kwargs = configuration['ablation']['regularizer_kwargs'][MODEL_DIRECTORIES_TO_MODEL_NAME[model]]
-    assert [reg in REGULARIZER_KWARGS and kwargs[reg] == REGULARIZER_KWARGS[reg] for reg, reg_setting in
-            kwargs.items()], f'Error in regularization kwargs setting in {config_name}.'
-
-    kwargs_ranges = configuration['ablation']['regularizer_kwargs_ranges'][MODEL_DIRECTORIES_TO_MODEL_NAME[model]]
-    assert [reg in REGULARIZER_KWARGS_RANGES and kwargs_ranges[reg] == REGULARIZER_KWARGS_RANGES[reg] for
-            reg, reg_setting in kwargs_ranges.items()], f'Error in regularization kwargs setting in {config_name}.'
+    return expected_setting
 
 
 if __name__ == '__main__':
     iterator = iterate_config_paths(root_directory='reduced_search_space')
 
-    for model, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+    for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
         with open(os.path.join(path, config_name)) as file:
             configuration = json.load(file)
+            ablation_setting = configuration['ablation']
+            model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
 
-            check_embedding_setting(
-                config_name=config_name,
-                configuration=configuration,
-                model=model,
-                setting=REDUCED_SETTING,
+            # check embedding setting
+            provided_setting = ablation_setting['model_kwargs'][model_name]
+            assert 'embedding_dim' not in provided_setting, f'Embedding dimension provided' \
+                f' in model_kwargs for {config_name}'
+
+            provided_setting = ablation_setting['model_kwargs_ranges'][model_name]
+            provided_setting = filter_provided_setting(
+                model_name=model_name,
+                provided_setting=provided_setting,
+                key_of_interest='embedding_dim',
             )
+            expected_setting = create_expected_setting(model_name=model_name, key='embedding_dim')
+            assert expected_setting == provided_setting, f'Error in embedding setting' \
+                f' for configuration {config_name}.'
 
-            check_regularization_setting(config_name=config_name, configuration=configuration, model=model)
+            # check regularization setting
+            provided_setting_kwargs = ablation_setting['regularizer_kwargs']
+            provided_setting_kwargs_ranges = ablation_setting['regularizer_kwargs_ranges']
+            if model_name == 'TransH':
+                expected_setting_kwargs = {
+                    "TransH": {
+                        "TransH": {
+                            "epsilon": 1e-5
+                        }
+                    }
+                }
+                expected_setting_kwargs_ranges = {
+                    "TransH": {
+                        "TransH": {
+                            "weight": {
+                                "type": "float",
+                                "low": 0.01,
+                                "high": 0.3,
+                                "scale": "log"
+                            }
+                        }
+                    }
+                }
+            else:
+                expected_setting_kwargs = {
+                    model_name: {
+                        "NoRegularizer": {}
+                    }
+                }
+                expected_setting_kwargs_ranges = expected_setting_kwargs
+
+            assert expected_setting_kwargs == provided_setting_kwargs, f'Regularizer arguments provided' \
+                f' in regularizer_kwargs for {config_name}'
+
+            assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Regularizer arguments provided' \
+                f' in regularizer_kwargs_ranges for {config_name}'
+
+            #
+            # check_regularization_setting(config_name=config_name, configuration=configuration,
+            #                              model=model_name_normalized)
