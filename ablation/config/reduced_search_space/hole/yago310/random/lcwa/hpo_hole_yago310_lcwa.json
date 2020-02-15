@@ -10,7 +10,9 @@
       "HolE"
     ],
     "model_kwargs": {
-      "HolE": {}
+      "HolE": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "HolE": {

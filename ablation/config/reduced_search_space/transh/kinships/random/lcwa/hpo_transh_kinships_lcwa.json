@@ -10,7 +10,9 @@
       "TransH"
     ],
     "model_kwargs": {
-      "TransH": {}
+      "TransH": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "TransH": {

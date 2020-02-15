@@ -10,7 +10,9 @@
       "ComplEx"
     ],
     "model_kwargs": {
-      "ComplEx": {}
+      "ComplEx": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "ComplEx": {
@@ -105,7 +107,7 @@
             "type": "int",
             "low": 1,
             "high": 100,
-            "q": 10
+            "q": 5
           }
         }
       }

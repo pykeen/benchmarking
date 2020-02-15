@@ -10,7 +10,9 @@
       "RESCAL"
     ],
     "model_kwargs": {
-      "RESCAL": {}
+      "RESCAL": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "RESCAL": {

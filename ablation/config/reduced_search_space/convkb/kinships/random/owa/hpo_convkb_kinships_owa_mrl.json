@@ -10,7 +10,9 @@
       "ConvKB"
     ],
     "model_kwargs": {
-      "ConvKB": {}
+      "ConvKB": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "ConvKB": {
@@ -117,7 +119,7 @@
             "type": "int",
             "low": 1,
             "high": 100,
-            "q": 10
+            "q": 5
           }
         }
       }

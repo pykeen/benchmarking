@@ -10,7 +10,9 @@
       "TransR"
     ],
     "model_kwargs": {
-      "TransR": {}
+      "TransR": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "TransR": {

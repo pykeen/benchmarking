@@ -11,7 +11,8 @@
     ],
     "model_kwargs": {
       "NTN": {
-        "num_slices": 4
+        "num_slices": 4,
+        "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
@@ -113,7 +114,7 @@
             "type": "int",
             "low": 1,
             "high": 100,
-            "q": 10
+            "q": 5
           }
         }
       }

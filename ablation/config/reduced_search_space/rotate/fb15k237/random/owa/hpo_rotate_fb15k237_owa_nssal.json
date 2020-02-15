@@ -10,7 +10,9 @@
       "RotatE"
     ],
     "model_kwargs": {
-      "RotatE": {}
+      "RotatE": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "RotatE": {
@@ -111,7 +113,7 @@
             "type": "int",
             "low": 1,
             "high": 100,
-            "q": 10
+            "q": 5
           }
         }
       }

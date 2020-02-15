@@ -3,87 +3,67 @@
 """Manipulates HPO configs."""
 import json
 import os
-from typing import Iterable
+from typing import Dict
 
-from ablation.config.check_correctnes_of_hpo_configs import MODEL_DIRECTORIES_TO_MODEL_NAME
+from ablation.config.check_correctnes_of_hpo_configs import MODEL_DIRECTORIES_TO_MODEL_NAME, iterate_config_paths
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-
-def iterate_config_paths(root_directory: str) -> Iterable[str]:
-    """."""
-
-    root_directory = os.path.join(HERE, root_directory)
-    for model in os.listdir(root_directory):
-        if model.startswith('.'):
-            continue
-        assert model in MODEL_DIRECTORIES_TO_MODEL_NAME, f'Model {model} is unknown'
-        model_directory = os.path.join(root_directory, model)
-        datasets = os.listdir(model_directory)
-
-        for dataset in datasets:
-            if dataset.startswith('examples'):
-                continue
-            dataset_directory = os.path.join(model_directory, dataset)
-            for directory, b, filenames in os.walk(dataset_directory):
-                for config in filenames:
-                    if not config.startswith('hpo'):
-                        continue
-                    path = os.path.join(directory, config)
-                    if not os.path.isfile(path) or not path.endswith('.json'):
-                        continue
-                    yield config, path, model
-
-
-def remove_entry(config, key: str) -> None:
+def remove_entry(config: Dict, key: str) -> None:
     if key in config:
         del config[key]
 
-def remove_batch_size():
+
+def add_batch_size_kwargs_ranges(config):
     """."""
-    iterator = iterate_config_paths(root_directory='reduced_search_space')
+    config['batch_size'] = {
+        "type": "int",
+        "low": 7,
+        "high": 9,
+        "scale": 'power_two'
+    }
 
-    for config, path, model_name in iterator:
-        model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name]
-        try:
-            with open(path) as file:
-                config = json.load(file)
-        except:
-            raise Exception(f"Cannot load {path}")
 
-        if 'lcwa' in config['ablation']['training_kwargs'][model_name]:
-            remove_entry(config=config['ablation']['training_kwargs'][model_name]['lcwa'], key='batch_size')
-        elif 'owa' in config['ablation']['training_kwargs'][model_name]:
-            remove_entry(config=config['ablation']['training_kwargs'][model_name]['owa'], key='batch_size')
-        else:
-            print(config['ablation']['training_kwargs'][model_name])
-            raise Exception(f"Key error in {config['ablation']['training_kwargs'][model_name]} for {path}")
-
-        with open(path, 'w') as file:
-            json.dump(config, file, indent=2)
-
-def remove_sub_batch_size():
+def add_negative_samples_kwargs_ranges(config):
     """."""
-    iterator = iterate_config_paths(root_directory='reduced_search_space')
+    config['num_negs_per_pos'] = {
+        "type": "int",
+        "low": 1,
+        "high": 100,
+        "q": 5
+    }
 
-    for config, path, model_name in iterator:
-        model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name]
-        try:
-            with open(path) as file:
-                config = json.load(file)
-        except:
-            raise Exception(f"Cannot load {path}")
+def add_automatic_memory_optimization(config:Dict):
+    """."""
+    config['automatic_memory_optimization'] = True
 
-        if 'lcwa' in config['ablation']['training_kwargs'][model_name]:
-            remove_entry(config=config['ablation']['training_kwargs'][model_name]['lcwa'], key='sub_batch_size')
-        elif 'owa' in config['ablation']['training_kwargs'][model_name]:
-            remove_entry(config=config['ablation']['training_kwargs'][model_name]['owa'], key='sub_batch_size')
-        else:
-            print(config['ablation']['training_kwargs'][model_name])
-            raise Exception(f"Key error in {config['ablation']['training_kwargs'][model_name]} for {path}")
-
-        with open(path, 'w') as file:
-            json.dump(config, file, indent=2)
 if __name__ == '__main__':
-    remove_batch_size()
-    remove_sub_batch_size()
+
+    iterator = iterate_config_paths(root_directory='reduced_search_space')
+
+    for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+        model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+        with open(os.path.join(path, config_name), 'r') as file:
+            try:
+                config = json.load(file)
+            except:
+                raise Exception(f"{config_name} could not be loaded.")
+
+        remove_entry(config=config['ablation']['training_kwargs'][model_name][training_assumption], key='batch_size')
+
+        remove_entry(
+            config=config['ablation']['training_kwargs'][model_name][training_assumption],
+            key='sub_batch_size',
+        )
+
+        add_batch_size_kwargs_ranges(
+            config['ablation']['training_kwargs_ranges'][model_name][training_assumption])
+
+        if training_assumption.lower() == 'owa':
+            add_negative_samples_kwargs_ranges(
+                config=config['ablation']['negative_sampler_kwargs_ranges'][model_name]['BasicNegativeSampler']
+            )
+        add_automatic_memory_optimization(config=config['ablation']['model_kwargs'][model_name])
+
+        with open(os.path.join(path, config_name), 'w') as file:
+            json.dump(config, file, indent=2)

@@ -10,7 +10,9 @@
       "UnstructuredModel"
     ],
     "model_kwargs": {
-      "UnstructuredModel": {}
+      "UnstructuredModel": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "UnstructuredModel": {
