@@ -173,9 +173,11 @@ if __name__ == '__main__':
                 f' for configuration {config_name}.'
 
             # check regularization setting
+            provided_regularizers = ablation_setting['regularizers']
             provided_setting_kwargs = ablation_setting['regularizer_kwargs']
             provided_setting_kwargs_ranges = ablation_setting['regularizer_kwargs_ranges']
             if model_name == 'TransH':
+                expected_regularizers = ['TransH']
                 expected_setting_kwargs = {
                     "TransH": {
                         "TransH": {
@@ -196,6 +198,7 @@ if __name__ == '__main__':
                     }
                 }
             else:
+                expected_regularizers = ['NoRegularizer']
                 expected_setting_kwargs = {
                     model_name: {
                         "NoRegularizer": {}
@@ -203,6 +206,7 @@ if __name__ == '__main__':
                 }
                 expected_setting_kwargs_ranges = expected_setting_kwargs
 
+            assert expected_regularizers == provided_regularizers, f'Wrong regularizers defiend in {config_name}.'
             assert expected_setting_kwargs == provided_setting_kwargs, f'Regularizer arguments provided' \
                 f' in regularizer_kwargs for {config_name}'
 
@@ -210,7 +214,7 @@ if __name__ == '__main__':
                 f' in regularizer_kwargs_ranges for {config_name}'
 
             # Check correctness of negative sampling setting for OWA
-            if training_assumption == 'OWA':
+            if training_assumption.lower() == 'owa':
                 provided_setting_kwargs = ablation_setting['negative_sampler_kwargs']
                 provided_setting_kwargs_ranges = ablation_setting['negative_sampler_kwargs_ranges']
                 expected_setting_kwargs = {
