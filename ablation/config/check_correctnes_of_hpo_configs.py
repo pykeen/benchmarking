@@ -74,6 +74,8 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
         assert model in MODEL_DIRECTORIES_TO_MODEL_NAME, f'Model {model} is unknown'
         model_directory = os.path.join(root_directory, model)
 
+
+
         # Check, whether required datasets are defined
         datasets = os.listdir(model_directory)
 
@@ -235,8 +237,13 @@ if __name__ == '__main__':
                         }
                     }
                 }
+
                 assert expected_setting_kwargs == provided_setting_kwargs, f'Negative saompler arguments provided' \
                     f' in negative_sampler_kwargs for {config_name}.'
-
-                assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Error in ' \
-                    f' negative_sampler_kwargs_ranges for {config_name}.'
+                if expected_setting_kwargs_ranges != provided_setting_kwargs_ranges:
+                    print(expected_setting_kwargs_ranges)
+                    print()
+                    print(provided_setting_kwargs_ranges)
+                    exit(0)
+                # assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Error in ' \
+                #     f' negative_sampler_kwargs_ranges for {config_name}.'
