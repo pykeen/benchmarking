@@ -72,7 +72,9 @@
       }
     },
     "regularizer_kwargs_ranges": {
-      "ComplEx": {}
+      "ComplEx": {
+        "NoRegularizer": {}
+      }
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {

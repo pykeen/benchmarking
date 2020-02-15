@@ -120,7 +120,7 @@
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
-            "low": 10,
+            "low": 1,
             "high": 100,
             "q": 10
           }

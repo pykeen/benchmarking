@@ -86,7 +86,6 @@
     "regularizer_kwargs_ranges": {
       "SimplE": {
         "NoRegularizer": {}
-        }
       }
     },
     "create_inverse_triples": [

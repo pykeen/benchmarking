@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "HPO Over YAGO3-10 for SimplE"
+    "title": "HPO Over YAGO-310 for SimplE"
   },
   "ablation": {
     "datasets": [
@@ -86,7 +86,6 @@
     "regularizer_kwargs_ranges": {
       "SimplE": {
         "NoRegularizer": {}
-        }
       }
     },
     "create_inverse_triples": [
