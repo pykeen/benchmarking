@@ -126,6 +126,12 @@
             "low": 0.001,
             "high": 1.0,
             "scale": "log"
+          },
+          "batch_size": {
+            "type": "int",
+            "low": 7,
+            "high": 9,
+            "scale": "power_two"
           }
         }
       }

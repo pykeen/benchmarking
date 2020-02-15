@@ -126,7 +126,14 @@
     },
     "training_kwargs_ranges": {
       "TransR": {
-        "owa": {}
+        "owa": {
+          "batch_size": {
+            "type": "int",
+            "low": 7,
+            "high": 9,
+            "scale": "power_two"
+          }
+        }
       }
     },
     "early_stopping": true,
