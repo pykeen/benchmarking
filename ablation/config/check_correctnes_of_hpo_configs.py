@@ -28,7 +28,7 @@ MODEL_DIRECTORIES_TO_MODEL_NAME = {
     'transh': 'TransH',
     'transr': 'TransR',
     'tucker': 'TuckER',
-    'um': 'UnstructuredModel',
+    'unstructured_model': 'UnstructuredModel',
 }
 
 DATASET_NAMES = ['fb15k237', 'kinships', 'wn18rr', 'yago310', 'examples']
@@ -66,9 +66,10 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
     """Iterate over all configuration paths."""
     root_directory = os.path.join(HERE, root_directory)
     for model in os.listdir(root_directory):
+        print(model)
         # Check, whether model is valid
         if model.startswith('.'):
-            break
+            continue
 
         assert model in MODEL_DIRECTORIES_TO_MODEL_NAME, f'Model {model} is unknown'
         model_directory = os.path.join(root_directory, model)
