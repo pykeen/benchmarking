@@ -133,8 +133,6 @@
       "NTN": {
         "owa": {
           "num_epochs": 1000,
-          "batch_size": 512,
-          "sub_batch_size": 256,
           "label_smoothing": 0.0
         }
       }
@@ -160,4 +158,3 @@
     "pruner": "nop"
   }
 }
-

@@ -90,7 +90,7 @@
     "regularizer_kwargs": {
       "TransH": {
         "TransH": {
-          "epsilon": 1e-5
+          "epsilon": 1e-05
         }
       }
     },
@@ -139,8 +139,6 @@
       "TransH": {
         "owa": {
           "num_epochs": 1000,
-          "batch_size": 512,
-          "sub_batch_size": 256,
           "label_smoothing": 0.0
         }
       }
@@ -166,4 +164,3 @@
     "pruner": "nop"
   }
 }
-

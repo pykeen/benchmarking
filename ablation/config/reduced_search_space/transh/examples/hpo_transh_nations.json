@@ -1,46 +1,43 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for ComplEx"
+    "title": "HPO Over Nations for TransH"
   },
   "ablation": {
     "datasets": [
-      "fb15k237"
+      "nations"
     ],
     "models": [
-      "ComplEx"
+      "TransH"
     ],
     "model_kwargs": {
-      "ComplEx": {}
+      "TransH": {}
     },
     "model_kwargs_ranges": {
-      "ComplEx": {
+      "TransH": {
         "embedding_dim": {
           "type": "int",
-          "low": 64,
-          "high": 192,
-          "q": 64
+          "low": 10,
+          "high": 30,
+          "q": 10
         }
       }
     },
     "training_loops": [
-      "owa"
+      "owa",
+      "lcwa"
     ],
     "optimizers": [
       "adam",
       "adadelta"
     ],
     "optimizer_kwargs": {
-      "ComplEx": {
-        "adam": {
-          "weight_decay": 0.0
-        },
-        "adadelta": {
-          "weight_decay": 0.0
-        }
+      "TransH": {
+        "adam": {},
+        "adadelta": {}
       }
     },
     "optimizer_kwargs_ranges": {
-      "ComplEx": {
+      "TransH": {
         "adam": {
           "lr": {
             "type": "float",
@@ -60,46 +57,61 @@
       }
     },
     "loss_functions": [
-      "MarginRankingLoss"
+      "MarginRankingLoss",
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "ComplEx": {
-        "MarginRankingLoss": {}
+      "TransH": {
+        "MarginRankingLoss": {},
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "ComplEx": {
+      "TransH": {
         "MarginRankingLoss": {
           "margin": {
             "type": "float",
             "low": 0.5,
-            "high": 10,
-            "q": 1.0
+            "high": 1.5,
+            "q": 0.1
+          }
+        },
+        "BCEAfterSigmoidLoss": {}
+      }
+    },
+    "regularizers": [
+      "NoRegularizer",
+      "PowerSumRegularizer"
+    ],
+    "regularizer_kwargs": {
+      "TransH": {
+        "NoRegularizer": {},
+        "PowerSumRegularizer": {
+          "p": 2.0
+        }
+      }
+    },
+    "regularizer_kwargs_ranges": {
+      "TransH": {
+        "NoRegularizer": {},
+        "PowerSumRegularizer": {
+          "weight": {
+            "type": "float",
+            "low": 0.01,
+            "high": 1.0,
+            "scale": "log"
           }
         }
       }
     },
-    "regularizers": [
-      "NoRegularizer"
-    ],
-    "regularizer_kwargs": {
-      "ComplEx": {
-        "NoRegularizer": {}
-      }
-    },
-    "regularizer_kwargs_ranges": {
-      "ComplEx": {
-        "NoRegularizer": {}
-      }
-    },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "ComplEx": {
+      "TransH": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "ComplEx": {
+      "TransH": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -111,42 +123,68 @@
       }
     },
     "create_inverse_triples": [
-      false,
-      true
+      true,
+      false
     ],
     "evaluator": "RankBasedEvaluator",
     "evaluator_kwargs": {
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 1
+      "batch_size": 16
     },
     "training_kwargs": {
-      "ComplEx": {
-        "owa": {
-          "num_epochs": 1000,
+      "TransH": {
+        "owa": {},
+        "lcwa": {
           "label_smoothing": 0.0
         }
       }
     },
     "training_kwargs_ranges": {
-      "ComplEx": {
-        "owa": {}
+      "TransH": {
+        "owa": {
+          "num_epochs": {
+            "type": "int",
+            "low": 5,
+            "high": 10,
+            "q": 100
+          },
+          "batch_size": {
+            "type": "int",
+            "low": 128,
+            "high": 512,
+            "q": 100
+          }
+        },
+        "lcwa": {
+          "num_epochs": {
+            "type": "int",
+            "low": 5,
+            "high": 10,
+            "q": 100
+          },
+          "batch_size": {
+            "type": "int",
+            "low": 128,
+            "high": 200,
+            "q": 10
+          }
+        }
       }
     },
     "early_stopping": true,
     "early_stopping_kwargs": {
       "frequency": 50,
-      "patience": 2,
-      "delta": 0.002
+      "patience": 2
     }
   },
   "optuna": {
-    "n_trials": 100,
-    "timeout": 86400,
+    "n_trials": 2,
+    "timeout": 10,
     "metric": "hits@10",
     "direction": "maximize",
-    "sampler": "random",
+    "sampler": "TPE",
     "pruner": "nop"
   }
 }

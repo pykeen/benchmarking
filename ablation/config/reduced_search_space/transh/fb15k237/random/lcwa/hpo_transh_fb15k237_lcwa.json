@@ -86,7 +86,7 @@
     "regularizer_kwargs": {
       "TransH": {
         "TransH": {
-          "epsilon": 1e-5
+          "epsilon": 1e-05
         }
       }
     },
@@ -116,9 +116,7 @@
     "training_kwargs": {
       "TransH": {
         "lcwa": {
-          "num_epochs": 1000,
-          "batch_size": 512,
-          "sub_batch_size": 256
+          "num_epochs": 1000
         }
       }
     },
@@ -150,4 +148,3 @@
     "pruner": "nop"
   }
 }
-
