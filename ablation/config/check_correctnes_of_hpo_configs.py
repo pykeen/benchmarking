@@ -130,7 +130,6 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                     yield model, dataset, hpo_approach, training_assumption, config, configs_directory
 
 
-
 def filter_provided_setting(model_name: str, provided_setting: Dict, key_of_interest: str) -> Dict:
     """"""
     provided_setting = {model_name:
@@ -210,6 +209,29 @@ if __name__ == '__main__':
             assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Regularizer arguments provided' \
                 f' in regularizer_kwargs_ranges for {config_name}'
 
-            #
-            # check_regularization_setting(config_name=config_name, configuration=configuration,
-            #                              model=model_name_normalized)
+            # Check correctness of negative sampling setting for OWA
+            if training_assumption == 'OWA':
+                provided_setting_kwargs = ablation_setting['negative_sampler_kwargs']
+                provided_setting_kwargs_ranges = ablation_setting['negative_sampler_kwargs_ranges']
+                expected_setting_kwargs = {
+                    model_name: {
+                        "BasicNegativeSampler": {}
+                    }
+                }
+                expected_setting_kwargs_ranges = {
+                    model_name: {
+                        "BasicNegativeSampler": {
+                            "num_negs_per_pos": {
+                                "type": "int",
+                                "low": 1,
+                                "high": 100,
+                                "q": 10
+                            }
+                        }
+                    }
+                }
+                assert expected_setting_kwargs == provided_setting_kwargs, f'Negative saompler arguments provided' \
+                    f' in negative_sampler_kwargs for {config_name}.'
+
+                assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Error in ' \
+                    f' negative_sampler_kwargs_ranges for {config_name}.'
