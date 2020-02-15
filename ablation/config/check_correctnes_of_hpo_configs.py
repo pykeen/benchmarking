@@ -52,6 +52,15 @@ SETTING = {
     REDUCED: REDUCED_SETTING,
 }
 
+DEFINED_REGULARIZERS = ['NoRegularizer']
+NUM_REGULARIZERS = 1
+REGULARIZER_KWARGS = {
+    'NoRegularizer': {}
+}
+REGULARIZER_KWARGS_RANGES = {
+    'NoRegularizer': {}
+}
+
 
 def iterate_config_paths(root_directory: str) -> Iterable[str]:
     """Iterate over all configuration paths."""
@@ -121,8 +130,9 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                     yield model, dataset, hpo_approach, training_assumption, config, configs_directory
 
 
-def check_embedding_setting(config_name: str, configuration: json, model: str, setting: Dict):
+def check_embedding_setting(config_name: str, configuration: json, model: str, setting: Dict) -> None:
     """."""
+
     relevant_part = configuration['ablation']['model_kwargs_ranges']
     configured_embedding = relevant_part[MODEL_DIRECTORIES_TO_MODEL_NAME[model]]['embedding_dim']
     embedding_setting = setting['embedding']
@@ -132,15 +142,39 @@ def check_embedding_setting(config_name: str, configuration: json, model: str, s
             keys], f'Value error in embedding setting for configuration {config_name}.'
 
 
+def check_regularization_setting(config_name: str, configuration: json, model: str) -> None:
+    """."""
+
+    regularization_setting = configuration['ablation']['regularizers']
+
+    assert len(
+        regularization_setting) == NUM_REGULARIZERS, f"Exactly {NUM_REGULARIZERS} expected," \
+        f" but got {len(regularization_setting)}"
+
+    assert [regularization_setting in DEFINED_REGULARIZERS for r in regularization_setting], f'Value Error ' \
+        f'for regularization setting in {config_name}'
+
+    kwargs = configuration['ablation']['regularizer_kwargs'][MODEL_DIRECTORIES_TO_MODEL_NAME[model]]
+    assert [reg in REGULARIZER_KWARGS and kwargs[reg] == REGULARIZER_KWARGS[reg] for reg, reg_setting in
+            kwargs.items()], f'Error in regularization kwargs setting in {config_name}.'
+
+    kwargs_ranges = configuration['ablation']['regularizer_kwargs_ranges'][MODEL_DIRECTORIES_TO_MODEL_NAME[model]]
+    assert [reg in REGULARIZER_KWARGS_RANGES and kwargs_ranges[reg] == REGULARIZER_KWARGS_RANGES[reg] for
+            reg, reg_setting in kwargs_ranges.items()], f'Error in regularization kwargs setting in {config_name}.'
+
+
 if __name__ == '__main__':
     iterator = iterate_config_paths(root_directory='reduced_search_space')
 
     for model, dataset, hpo_approach, training_assumption, config_name, path in iterator:
         with open(os.path.join(path, config_name)) as file:
             configuration = json.load(file)
+
             check_embedding_setting(
                 config_name=config_name,
                 configuration=configuration,
                 model=model,
                 setting=REDUCED_SETTING,
             )
+
+            check_regularization_setting(config_name=config_name, configuration=configuration, model=model)
