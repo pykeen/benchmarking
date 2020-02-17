@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "title": "HPO Over Nations for TuckER"
+    "title": "HPO Over Nations for DistMult"
   },
   "ablation": {
     "datasets": [
       "nations"
     ],
     "models": [
-      "TuckER"
+      "DistMult"
     ],
     "model_kwargs": {
-      "TuckER": {}
+      "DistMult": {}
     },
     "model_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "embedding_dim": {
           "type": "int",
           "low": 10,
@@ -31,13 +31,13 @@
       "adadelta"
     ],
     "optimizer_kwargs": {
-      "TuckER": {
+      "DistMult": {
         "adam": {},
         "adadelta": {}
       }
     },
     "optimizer_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "adam": {
           "lr": {
             "type": "float",
@@ -61,13 +61,13 @@
       "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "TuckER": {
+      "DistMult": {
         "MarginRankingLoss": {},
         "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "MarginRankingLoss": {
           "margin": {
             "type": "float",
@@ -84,7 +84,7 @@
       "PowerSumRegularizer"
     ],
     "regularizer_kwargs": {
-      "TuckER": {
+      "DistMult": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "p": 2.0
@@ -92,7 +92,7 @@
       }
     },
     "regularizer_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "weight": {
@@ -106,12 +106,12 @@
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "TuckER": {
+      "DistMult": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -134,7 +134,7 @@
       "batch_size": 16
     },
     "training_kwargs": {
-      "TuckER": {
+      "DistMult": {
         "owa": {},
         "lcwa": {
           "label_smoothing": 0.0
@@ -142,7 +142,7 @@
       }
     },
     "training_kwargs_ranges": {
-      "TuckER": {
+      "DistMult": {
         "owa": {
           "num_epochs": {
             "type": "int",
