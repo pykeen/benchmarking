@@ -41,9 +41,9 @@ NUM_OWA_CONFIGS = 4
 REDUCED = 'reduced'
 REDUCED_EMBEDDING_SETTING = {
     "type": "int",
-    "low": 64,
-    "high": 192,
-    "q": 64,
+    "low": 6,
+    "high": 8,
+    "scale": "power_two",
 }
 
 REDUCED_SETTING = {
@@ -150,8 +150,97 @@ def create_expected_setting(model_name: str, key: str) -> Dict:
     return expected_setting
 
 
-def check_model(configuration, config_name, model_name_normalized):
+def check_adam_adadelta_configs(configuration, config_name, model_name_normalized):
     """."""
+    optimizers = configuration['ablation']['optimizers']
+    optimizer = optimizers[0]
+
+    assert len(optimizers) == 1
+
+    assert optimizer in config_name
+
+    optimizer_kwargs = configuration['ablation']['optimizer_kwargs'][
+        MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]]
+    assert len(optimizer_kwargs) == 1
+
+    assert len(optimizer_kwargs[optimizer]) == 1
+    assert optimizer_kwargs[optimizer]['weight_decay'] == 0.
+
+    loss_fcts = configuration['ablation']['loss_functions']
+
+    assert len(loss_fcts) == 2
+    assert 'BCEAfterSigmoidLoss' in loss_fcts and 'SoftplusLoss' in loss_fcts
+
+
+def check_mrl_configs(configuration, model_name_normalized):
+    """."""
+
+    optimizers = configuration['ablation']['optimizers']
+
+    assert len(optimizers) == 2
+
+    assert 'adam' in optimizers and 'adadelta' in optimizers
+
+    optimizer_kwargs = configuration['ablation']['optimizer_kwargs'][
+        MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]]
+    assert len(optimizer_kwargs) == 2
+
+    loss_fcts = configuration['ablation']['loss_functions']
+    loss_fct = loss_fcts[0]
+    assert len(loss_fcts) == 1
+    assert 'MarginRankingLoss' == loss_fct
+
+    model = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+    provided_margin = configuration['ablation']['loss_kwargs_ranges'][model]['MarginRankingLoss']['margin']
+    margin = {
+        "type": "float",
+        "low": 0.5,
+        "high": 10,
+        "q": 1.0
+    }
+
+    assert provided_margin == margin
+
+
+def check_nssal_configs(configuration, model_name_normalized):
+    """."""
+
+    optimizers = configuration['ablation']['optimizers']
+
+    assert len(optimizers) == 2
+
+    assert 'adam' in optimizers and 'adadelta' in optimizers
+
+    optimizer_kwargs = configuration['ablation']['optimizer_kwargs'][
+        MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]]
+    assert len(optimizer_kwargs) == 2
+
+    loss_fcts = configuration['ablation']['loss_functions']
+    loss_fct = loss_fcts[0]
+    assert len(loss_fcts) == 1
+    assert 'NegativeSamplingSelfAdversarialLoss' == loss_fct
+
+    model = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+    provided_margin = configuration['ablation']['loss_kwargs_ranges'][model]['NegativeSamplingSelfAdversarialLoss'][
+        'margin']
+    margin = {
+        "type": "float",
+        "low": 1.,
+        "high": 30,
+        "q": 2.0
+    }
+    assert provided_margin == margin
+    provided_temperature = \
+        configuration['ablation']['loss_kwargs_ranges'][model]['NegativeSamplingSelfAdversarialLoss'][
+            'adversarial_temperature']
+    temperature = {
+        "type": "float",
+        "low": 0.1,
+        "high": 1.0,
+        "q": 0.1
+    }
+
+    assert provided_temperature == temperature
 
 
 if __name__ == '__main__':
@@ -278,3 +367,11 @@ if __name__ == '__main__':
                 }
                 provided_setting = configuration['ablation']['stopper_kwargs']
                 assert expected_setting == provided_setting, f'Stopper_kwargs not defined correctly in {config_name}.'
+
+                # Check correctness of loss functions and optimizers
+                if 'adam' in config_name or 'adadelta' in config_name:
+                    check_adam_adadelta_configs(configuration, config_name, model_name_normalized)
+                elif 'mrl' in config_name:
+                    check_mrl_configs(configuration, model_name_normalized)
+                elif 'nssal' in config_name:
+                    check_nssal_configs(configuration, model_name_normalized)
