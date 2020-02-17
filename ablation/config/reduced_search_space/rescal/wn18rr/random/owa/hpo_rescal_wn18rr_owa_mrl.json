@@ -18,9 +18,9 @@
       "RESCAL": {
         "embedding_dim": {
           "type": "int",
-          "low": 64,
-          "high": 192,
-          "q": 64
+          "low": 6,
+          "high": 8,
+          "scale": "power_two"
         }
       }
     },
