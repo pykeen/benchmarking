@@ -59,6 +59,18 @@ def add_stopper(config: Dict) -> None:
     }
 
 
+def add_embedding_dimension(config: Dict) -> None:
+    """."""
+    model = config['ablation']['models'][0]
+    embedding_dim = dict(
+        type='int', low=6, high=8, scale='power_two'
+    )
+    config['ablation']['model_kwargs_ranges'][model]['embedding_dim'] = embedding_dim
+
+    if 'relation_dim' in config['ablation']['model_kwargs_ranges'][model]:
+        config['ablation']['model_kwargs_ranges'][model]['relation_dim'] = embedding_dim
+
+
 if __name__ == '__main__':
 
     iterator = iterate_config_paths(root_directory='reduced_search_space')
@@ -90,6 +102,8 @@ if __name__ == '__main__':
         add_eval_batch_size(config=config)
 
         add_stopper(config=config)
+
+        add_embedding_dimension(config=config)
 
         with open(os.path.join(path, config_name), 'w') as file:
             json.dump(config, file, indent=2)
