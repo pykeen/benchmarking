@@ -9,6 +9,7 @@ from ablation.config.check_correctnes_of_hpo_configs import MODEL_DIRECTORIES_TO
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
+
 def remove_entry(config: Dict, key: str) -> None:
     if key in config:
         del config[key]
@@ -33,9 +34,30 @@ def add_negative_samples_kwargs_ranges(config):
         "q": 5
     }
 
-def add_automatic_memory_optimization(config:Dict):
+
+def add_automatic_memory_optimization(config: Dict) -> None:
     """."""
     config['automatic_memory_optimization'] = True
+
+
+def add_eval_batch_size(config: Dict):
+    """."""
+    config['ablation']['evaluation_kwargs']['batch_size'] = None
+
+
+def add_stopper(config: Dict) -> None:
+    """."""
+    config = config['ablation']
+    if 'early_stopping' in config:
+        del config['early_stopping']
+        del config['early_stopping_kwargs']
+    config['stopper'] = 'early'
+    config['stopper_kwargs'] = {
+        "frequency": 50,
+        "patience": 2,
+        "delta": 0.002
+    }
+
 
 if __name__ == '__main__':
 
@@ -64,6 +86,10 @@ if __name__ == '__main__':
                 config=config['ablation']['negative_sampler_kwargs_ranges'][model_name]['BasicNegativeSampler']
             )
         add_automatic_memory_optimization(config=config['ablation']['model_kwargs'][model_name])
+
+        add_eval_batch_size(config=config)
+
+        add_stopper(config=config)
 
         with open(os.path.join(path, config_name), 'w') as file:
             json.dump(config, file, indent=2)

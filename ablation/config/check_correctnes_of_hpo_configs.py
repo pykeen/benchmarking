@@ -31,6 +31,8 @@ MODEL_DIRECTORIES_TO_MODEL_NAME = {
     'unstructured_model': 'UnstructuredModel',
 }
 
+MODEL_NAME_TO_DIRECTORIES = {val: key for key, val in MODEL_DIRECTORIES_TO_MODEL_NAME.items()}
+
 DATASET_NAMES = ['fb15k237', 'kinships', 'wn18rr', 'yago310', 'examples']
 
 NUM_LCWA_CONFIGS = 1
@@ -72,8 +74,6 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
 
         assert model in MODEL_DIRECTORIES_TO_MODEL_NAME, f'Model {model} is unknown'
         model_directory = os.path.join(root_directory, model)
-
-
 
         # Check, whether required datasets are defined
         datasets = os.listdir(model_directory)
@@ -148,6 +148,10 @@ def create_expected_setting(model_name: str, key: str) -> Dict:
     expected_setting = {model_name: {key: REDUCED_SETTING[key]}}
 
     return expected_setting
+
+
+def check_model(configuration, config_name, model_name_normalized):
+    """."""
 
 
 if __name__ == '__main__':
@@ -234,7 +238,7 @@ if __name__ == '__main__':
                                 "type": "int",
                                 "low": 1,
                                 "high": 100,
-                                "q": 10
+                                "q": 5
                             }
                         }
                     }
@@ -245,3 +249,32 @@ if __name__ == '__main__':
 
                 assert expected_setting_kwargs_ranges == provided_setting_kwargs_ranges, f'Error in ' \
                     f' negative_sampler_kwargs_ranges for {config_name}.'
+
+                # Check, whether correct model is defined
+                defined_models = configuration['ablation']['models']
+                assert len(
+                    defined_models) == 1, f'Expected exactly one model, but provided {len(defined_models)} models.'
+                defined_model = defined_models[0]
+                assert MODEL_NAME_TO_DIRECTORIES[defined_model] in path
+
+                # Check, whether correct dataset is defined
+                defined_datasets = configuration['ablation']['datasets']
+                assert len(
+                    defined_datasets) == 1, f'Expected exactly one dataset, but provided {len(defined_datasets)} datasets.'
+                defined_dataset = defined_datasets[0]
+                assert defined_dataset in path
+                assert defined_dataset in configuration['metadata']['title'].lower().replace('-', '').replace('_', ''), \
+                    f'Wrong dataset defined in title in configuration {config_name}.'
+
+                # Check correctness early stopping config
+                expected_setting = 'early'
+                assert configuration['ablation'][
+                           'stopper'] == expected_setting, f'Stopper not defined correctly in{config_name}.'
+
+                expected_setting = {
+                    "frequency": 50,
+                    "patience": 2,
+                    "delta": 0.002
+                }
+                provided_setting = configuration['ablation']['stopper_kwargs']
+                assert expected_setting == provided_setting, f'Stopper_kwargs not defined correctly in {config_name}.'
