@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for ComplEx"
+    "title": "HPO Over WN18RR for ComplEx"
   },
   "ablation": {
     "datasets": [
@@ -105,7 +105,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 1
+      "batch_size": null
     },
     "training_kwargs": {
       "ComplEx": {
@@ -127,8 +127,8 @@
         }
       }
     },
-    "early_stopping": true,
-    "early_stopping_kwargs": {
+    "stopper": "early",
+    "stopper_kwargs": {
       "frequency": 50,
       "patience": 2,
       "delta": 0.002

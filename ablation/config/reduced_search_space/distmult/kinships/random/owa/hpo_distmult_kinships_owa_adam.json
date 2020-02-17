@@ -105,7 +105,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "DistMult": {
@@ -127,8 +127,8 @@
         }
       }
     },
-    "early_stopping": true,
-    "early_stopping_kwargs": {
+    "stopper": "early",
+    "stopper_kwargs": {
       "frequency": 50,
       "patience": 2,
       "delta": 0.002

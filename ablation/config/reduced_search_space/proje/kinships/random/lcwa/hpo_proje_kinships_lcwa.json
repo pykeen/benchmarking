@@ -99,7 +99,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 1
+      "batch_size": null
     },
     "training_kwargs": {
       "ProjE": {
@@ -126,8 +126,8 @@
         }
       }
     },
-    "early_stopping": true,
-    "early_stopping_kwargs": {
+    "stopper": "early",
+    "stopper_kwargs": {
       "frequency": 50,
       "patience": 2,
       "delta": 0.002

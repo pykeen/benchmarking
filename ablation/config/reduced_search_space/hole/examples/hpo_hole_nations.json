@@ -172,10 +172,11 @@
         }
       }
     },
-    "early_stopping": true,
-    "early_stopping_kwargs": {
-      "frequency": 50,
-      "patience": 2
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 5,
+      "patience": 2,
+      "delta": 0.002
     }
   },
   "optuna": {
