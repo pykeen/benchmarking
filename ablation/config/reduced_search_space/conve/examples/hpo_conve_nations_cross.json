@@ -1,31 +1,53 @@
 {
   "metadata": {
-    "title": "HPO Over Nations for StructuredEmbedding"
+    "title": "HPO Over Nations for ConvE"
   },
   "ablation": {
     "datasets": [
       "nations"
     ],
     "models": [
-      "StructuredEmbedding"
+      "ConvE"
     ],
     "model_kwargs": {
-      "StructuredEmbedding": {
+      "ConvE": {
+        "input_channels": null,
+        "kernel_height": 3,
+        "kernel_width": 3,
+        "embedding_height": null,
+        "embedding_width": null,
         "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "embedding_dim": {
           "type": "int",
-          "low": 10,
-          "high": 30,
-          "q": 10
+          "low": 4,
+          "high": 6,
+          "scale": "power_two"
+        },
+        "input_dropout": {
+          "type": "float",
+          "low": 0.0,
+          "high": 0.5,
+          "q": 0.1
+        },
+        "feature_map_dropout": {
+          "type": "float",
+          "low": 0.0,
+          "high": 0.5,
+          "q": 0.1
+        },
+        "output_dropout": {
+          "type": "float",
+          "low": 0.0,
+          "high": 0.5,
+          "q": 0.1
         }
       }
     },
     "training_loops": [
-      "owa",
       "lcwa"
     ],
     "optimizers": [
@@ -33,13 +55,13 @@
       "adadelta"
     ],
     "optimizer_kwargs": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "adam": {},
         "adadelta": {}
       }
     },
     "optimizer_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "adam": {
           "lr": {
             "type": "float",
@@ -59,26 +81,16 @@
       }
     },
     "loss_functions": [
-      "MarginRankingLoss",
-      "BCEAfterSigmoidLoss"
+      "CrossEntropyLoss"
     ],
     "loss_kwargs": {
-      "StructuredEmbedding": {
-        "MarginRankingLoss": {},
-        "BCEAfterSigmoidLoss": {}
+      "ConvE": {
+        "CrossEntropyLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "StructuredEmbedding": {
-        "MarginRankingLoss": {
-          "margin": {
-            "type": "float",
-            "low": 0.5,
-            "high": 1.5,
-            "q": 0.1
-          }
-        },
-        "BCEAfterSigmoidLoss": {}
+      "ConvE": {
+        "CrossEntropyLoss": {}
       }
     },
     "regularizers": [
@@ -86,7 +98,7 @@
       "PowerSumRegularizer"
     ],
     "regularizer_kwargs": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "p": 2.0
@@ -94,7 +106,7 @@
       }
     },
     "regularizer_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "weight": {
@@ -108,18 +120,18 @@
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
             "low": 1,
-            "high": 100,
-            "q": 10
+            "high": 10,
+            "q": 1
           }
         }
       }
@@ -136,7 +148,7 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "owa": {},
         "lcwa": {
           "label_smoothing": 0.0
@@ -144,19 +156,19 @@
       }
     },
     "training_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "ConvE": {
         "owa": {
           "num_epochs": {
             "type": "int",
             "low": 5,
             "high": 10,
-            "q": 100
+            "q": 1
           },
           "batch_size": {
             "type": "int",
             "low": 128,
-            "high": 512,
-            "q": 100
+            "high": 200,
+            "q": 10
           }
         },
         "lcwa": {
@@ -177,7 +189,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 5,
+      "frequency": 1,
       "patience": 2,
       "delta": 0.002
     }

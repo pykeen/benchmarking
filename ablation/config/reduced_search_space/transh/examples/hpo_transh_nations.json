@@ -10,7 +10,9 @@
       "TransH"
     ],
     "model_kwargs": {
-      "TransH": {}
+      "TransH": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "TransH": {
@@ -131,7 +133,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "TransH": {

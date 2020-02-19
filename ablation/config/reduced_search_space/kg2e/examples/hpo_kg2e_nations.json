@@ -10,7 +10,9 @@
       "KG2E"
     ],
     "model_kwargs": {
-      "KG2E": {}
+      "KG2E": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "KG2E": {
@@ -142,7 +144,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "KG2E": {

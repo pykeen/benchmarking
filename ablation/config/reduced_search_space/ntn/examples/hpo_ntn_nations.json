@@ -1,21 +1,22 @@
 {
   "metadata": {
-    "title": "HPO Over Nations for StructuredEmbedding"
+    "title": "HPO Over Nations for NTN"
   },
   "ablation": {
     "datasets": [
       "nations"
     ],
     "models": [
-      "StructuredEmbedding"
+      "NTN"
     ],
     "model_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
+        "num_slices": 4,
         "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "embedding_dim": {
           "type": "int",
           "low": 10,
@@ -33,13 +34,13 @@
       "adadelta"
     ],
     "optimizer_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
         "adam": {},
         "adadelta": {}
       }
     },
     "optimizer_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "adam": {
           "lr": {
             "type": "float",
@@ -63,13 +64,13 @@
       "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
         "MarginRankingLoss": {},
         "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "MarginRankingLoss": {
           "margin": {
             "type": "float",
@@ -86,7 +87,7 @@
       "PowerSumRegularizer"
     ],
     "regularizer_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "p": 2.0
@@ -94,7 +95,7 @@
       }
     },
     "regularizer_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "weight": {
@@ -108,12 +109,12 @@
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -136,7 +137,7 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "StructuredEmbedding": {
+      "NTN": {
         "owa": {},
         "lcwa": {
           "label_smoothing": 0.0
@@ -144,7 +145,7 @@
       }
     },
     "training_kwargs_ranges": {
-      "StructuredEmbedding": {
+      "NTN": {
         "owa": {
           "num_epochs": {
             "type": "int",
@@ -191,4 +192,3 @@
     "pruner": "nop"
   }
 }
-

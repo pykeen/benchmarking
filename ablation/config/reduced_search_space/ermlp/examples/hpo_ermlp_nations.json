@@ -10,7 +10,9 @@
       "ERMLP"
     ],
     "model_kwargs": {
-      "ERMLP": {}
+      "ERMLP": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "ERMLP": {
@@ -131,7 +133,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "ERMLP": {

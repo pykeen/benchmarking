@@ -1,19 +1,21 @@
 {
   "metadata": {
-    "title": "HPO Over Nations for TransD"
+    "title": "HPO Over Nations for TransR"
   },
   "ablation": {
     "datasets": [
       "nations"
     ],
     "models": [
-      "TransD"
+      "TransR"
     ],
     "model_kwargs": {
-      "TransD": {}
+      "TransR": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "embedding_dim": {
           "type": "int",
           "low": 10,
@@ -37,13 +39,13 @@
       "adadelta"
     ],
     "optimizer_kwargs": {
-      "TransD": {
+      "TransR": {
         "adam": {},
         "adadelta": {}
       }
     },
     "optimizer_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "adam": {
           "lr": {
             "type": "float",
@@ -67,13 +69,13 @@
       "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "TransD": {
+      "TransR": {
         "MarginRankingLoss": {},
         "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "MarginRankingLoss": {
           "margin": {
             "type": "float",
@@ -90,7 +92,7 @@
       "PowerSumRegularizer"
     ],
     "regularizer_kwargs": {
-      "TransD": {
+      "TransR": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "p": 2.0
@@ -98,7 +100,7 @@
       }
     },
     "regularizer_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "NoRegularizer": {},
         "PowerSumRegularizer": {
           "weight": {
@@ -112,12 +114,12 @@
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "TransD": {
+      "TransR": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -137,10 +139,10 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
-      "TransD": {
+      "TransR": {
         "owa": {},
         "lcwa": {
           "label_smoothing": 0.0
@@ -148,7 +150,7 @@
       }
     },
     "training_kwargs_ranges": {
-      "TransD": {
+      "TransR": {
         "owa": {
           "num_epochs": {
             "type": "int",
