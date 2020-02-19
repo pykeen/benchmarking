@@ -10,7 +10,9 @@
       "ComplEx"
     ],
     "model_kwargs": {
-      "ComplEx": {}
+      "ComplEx": {
+        "automatic_memory_optimization": true
+      }
     },
     "model_kwargs_ranges": {
       "ComplEx": {
@@ -131,7 +133,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "ComplEx": {
@@ -175,7 +177,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 5,
+      "frequency": 1,
       "patience": 2,
       "delta": 0.002
     }

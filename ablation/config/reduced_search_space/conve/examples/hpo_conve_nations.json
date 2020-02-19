@@ -15,7 +15,8 @@
         "kernel_height": 3,
         "kernel_width": 3,
         "embedding_height": null,
-        "embedding_width": null
+        "embedding_width": null,
+        "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
@@ -154,7 +155,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "ConvE": {
@@ -198,7 +199,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 5,
+      "frequency": 1,
       "patience": 2,
       "delta": 0.002
     }
