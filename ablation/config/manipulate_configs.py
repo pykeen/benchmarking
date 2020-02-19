@@ -59,6 +59,74 @@ def add_stopper(config: Dict) -> None:
     }
 
 
+def set_optimizer(config: Dict, optimizer: str, model: str):
+    """."""
+    config = config['ablation']
+    config['optimizers'] = [optimizer]
+    config['optimizer_kwargs'][model] = {
+        optimizer: {
+            "weight_decay": 0.0
+        }
+    }
+
+    config['optimizer_kwargs_ranges'][model] = {
+        optimizer: {
+            "lr": {
+                "type": "float",
+                "low": 0.001,
+                "high": 0.1,
+                "scale": "log"
+            }
+        }
+    }
+
+    return config
+
+
+def set_crossentropy_loss(config: Dict, model: str):
+    """."""
+    config = config['ablation']
+    config['loss_functions'] = ['CrossEntropyLoss']
+    config['loss_kwargs'][model] = {
+        'CrossEntropyLoss': {}
+    }
+
+    config['loss_kwargs_ranges'][model] = {
+        'CrossEntropyLoss': {}
+    }
+
+    return config
+
+def split_lcwa_configs(config: Dict, path: str, config_name: str):
+    """."""
+    model = config['ablation']['models'][0]
+    config_adam = config.copy()
+    config_crossentropy = config.copy()
+    config_adadelta = config.copy()
+
+    set_optimizer(config=config_adam, optimizer='adam', model=model)
+
+    set_optimizer(config=config_adadelta, optimizer='adadelta', model=model)
+
+    set_crossentropy_loss(config=config_crossentropy, model=model)
+
+    parts_of_file_name = config_name.split('.json')
+
+    config_name_adam = f'{parts_of_file_name[0]}_adam.json'
+    with open(os.path.join(path, config_name_adam), 'w') as file:
+        json.dump(config_adam, file, indent=2)
+
+    config_name_adadelta = f'{parts_of_file_name[0]}_adadelta.json'
+    with open(os.path.join(path, config_name_adadelta), 'w') as file:
+        json.dump(config_adadelta, file, indent=2)
+
+    config_name_crossentropy = f'{parts_of_file_name[0]}_crossentropy.json'
+    with open(os.path.join(path, config_name_crossentropy), 'w') as file:
+        json.dump(config_crossentropy, file, indent=2)
+
+    os.remove(os.path.join(path, config_name))
+
+
 def add_embedding_dimension(config: Dict) -> None:
     """."""
     model = config['ablation']['models'][0]
@@ -74,6 +142,18 @@ def add_embedding_dimension(config: Dict) -> None:
 if __name__ == '__main__':
 
     iterator = iterate_config_paths(root_directory='reduced_search_space')
+
+    for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+        model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+        with open(os.path.join(path, config_name), 'r') as file:
+            try:
+                config = json.load(file)
+            except:
+                raise Exception(f"{config_name} could not be loaded.")
+        if training_assumption == 'lcwa':
+            split_lcwa_configs(config=config, path=path, config_name=config_name)
+
+    exit(0)
 
     for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
         model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]

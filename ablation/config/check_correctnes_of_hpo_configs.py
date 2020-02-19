@@ -122,7 +122,7 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
 
                 # Check, whether correct number of configurations are defined
                 if training_assumption == 'lcwa':
-                    assert len(configs) == NUM_LCWA_CONFIGS, "More than one LCWA config provided."
+                    assert len(configs) == NUM_LCWA_CONFIGS, f"More than one LCWA config provided ({configs_directory})."
                 else:
                     assert training_assumption == 'owa' and len(
                         configs) == NUM_OWA_CONFIGS, f'For owa exactly {NUM_OWA_CONFIGS} configurations' \
