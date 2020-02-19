@@ -31,7 +31,7 @@ def add_negative_samples_kwargs_ranges(config):
         "type": "int",
         "low": 1,
         "high": 100,
-        "q": 5
+        "q": 1
     }
 
 
