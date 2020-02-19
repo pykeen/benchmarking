@@ -351,7 +351,7 @@ if __name__ == '__main__':
                 assert len(
                     defined_datasets) == 1, f'Expected exactly one dataset, but provided {len(defined_datasets)} datasets.'
                 defined_dataset = defined_datasets[0]
-                assert defined_dataset in path
+                assert defined_dataset in path, f'{defined_dataset} not in {os.path.join(path,config_name)}'
                 assert defined_dataset in configuration['metadata']['title'].lower().replace('-', '').replace('_', ''), \
                     f'Wrong dataset defined in title in configuration {config_name}.'
 
