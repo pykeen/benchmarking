@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "title": "HPO Over YAGO3-10 for TuckER"
+  },
+  "ablation": {
+    "datasets": [
+      "yago310"
+    ],
+    "models": [
+      "TuckER"
+    ],
+    "model_kwargs": {
+      "TuckER": {
+        "automatic_memory_optimization": true
+      }
+    },
+    "model_kwargs_ranges": {
+      "TuckER": {
+        "embedding_dim": {
+          "type": "int",
+          "low": 6,
+          "high": 8,
+          "scale": "power_two"
+        },
+        "relation_dim": {
+          "type": "int",
+          "low": 6,
+          "high": 8,
+          "scale": "power_two"
+        },
+        "dropout_0": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
+        },
+        "dropout_1": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
+        },
+        "dropout_2": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
+        }
+      }
+    },
+    "training_loops": [
+      "owa"
+    ],
+    "optimizers": [
+      "adam",
+      "adadelta"
+    ],
+    "optimizer_kwargs": {
+      "TuckER": {
+        "adam": {
+          "weight_decay": 0.0
+        },
+        "adadelta": {
+          "weight_decay": 0.0
+        }
+      }
+    },
+    "optimizer_kwargs_ranges": {
+      "TuckER": {
+        "adam": {
+          "lr": {
+            "type": "float",
+            "low": 0.001,
+            "high": 0.1,
+            "scale": "log"
+          }
+        },
+        "adadelta": {
+          "lr": {
+            "type": "float",
+            "low": 0.001,
+            "high": 0.1,
+            "scale": "log"
+          }
+        }
+      }
+    },
+    "loss_functions": [
+      "NegativeSamplingSelfAdversarialLoss"
+    ],
+    "loss_kwargs": {
+      "TuckER": {
+        "NegativeSamplingSelfAdversarialLoss": {}
+      }
+    },
+    "loss_kwargs_ranges": {
+      "TuckER": {
+        "NegativeSamplingSelfAdversarialLoss": {
+          "margin": {
+            "type": "float",
+            "low": 1,
+            "high": 30,
+            "q": 2.0
+          },
+          "adversarial_temperature": {
+            "type": "float",
+            "low": 0.1,
+            "high": 1.0,
+            "q": 0.1
+          }
+        }
+      }
+    },
+    "regularizers": [
+      "NoRegularizer"
+    ],
+    "regularizer_kwargs": {
+      "TuckER": {
+        "NoRegularizer": {}
+      }
+    },
+    "regularizer_kwargs_ranges": {
+      "TuckER": {
+        "NoRegularizer": {}
+      }
+    },
+    "negative_sampler": "BasicNegativeSampler",
+    "negative_sampler_kwargs": {
+      "TuckER": {
+        "BasicNegativeSampler": {}
+      }
+    },
+    "negative_sampler_kwargs_ranges": {
+      "TuckER": {
+        "BasicNegativeSampler": {
+          "num_negs_per_pos": {
+            "type": "int",
+            "low": 1,
+            "high": 100,
+            "q": 1
+          }
+        }
+      }
+    },
+    "create_inverse_triples": [
+      true,
+      false
+    ],
+    "evaluator": "RankBasedEvaluator",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "training_kwargs": {
+      "TuckER": {
+        "owa": {
+          "num_epochs": 1000,
+          "label_smoothing": 0.0
+        }
+      }
+    },
+    "training_kwargs_ranges": {
+      "TuckER": {
+        "owa": {
+          "batch_size": {
+            "type": "int",
+            "low": 7,
+            "high": 9,
+            "scale": "power_two"
+          }
+        }
+      }
+    },
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 50,
+      "patience": 2,
+      "delta": 0.002
+    }
+  },
+  "optuna": {
+    "n_trials": 100,
+    "timeout": 86400,
+    "metric": "hits@10",
+    "direction": "maximize",
+    "sampler": "random",
+    "pruner": "nop"
+  }
+}
