@@ -3,8 +3,9 @@
 """Manipulates HPO configs."""
 import json
 import os
-from typing import Dict
 from copy import deepcopy
+from typing import Dict
+
 from ablation.config.check_correctnes_of_hpo_configs import MODEL_DIRECTORIES_TO_MODEL_NAME, iterate_config_paths
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -95,7 +96,6 @@ def set_crossentropy_loss(config: Dict, model: str):
         'CrossEntropyLoss': {}
     }
 
-    return config
 
 def split_lcwa_configs(config: Dict, path: str, config_name: str):
     """."""
@@ -127,6 +127,11 @@ def split_lcwa_configs(config: Dict, path: str, config_name: str):
     os.remove(os.path.join(path, config_name))
 
 
+def add_inverse_triples_setting(config: Dict):
+    """."""
+    config['ablation']['create_inverse_triples'] = [True, False]
+
+
 def add_embedding_dimension(config: Dict) -> None:
     """."""
     model = config['ablation']['models'][0]
@@ -141,19 +146,40 @@ def add_embedding_dimension(config: Dict) -> None:
 
 if __name__ == '__main__':
 
+    # iterator = iterate_config_paths(root_directory='reduced_search_space')
+    #
+    # for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+    #     model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+    #     with open(os.path.join(path, config_name), 'r') as file:
+    #         try:
+    #             config = json.load(file)
+    #         except:
+    #             raise Exception(f"{config_name} could not be loaded.")
+    #     if training_assumption == 'owa' and 'mrl' in config_name:
+    #         crossentropy_config = deepcopy(config)
+    #         set_crossentropy_loss(config=crossentropy_config, model=model_name)
+    #         parts_of_file_name = config_name.split('.json')
+    #         config_name_crossentropy = f'{parts_of_file_name[0]}_crossentropy.json'
+    #         config_name_crossentropy = re.sub('_mrl', '', config_name_crossentropy)
+    #
+    #         with open(os.path.join(path, config_name_crossentropy), 'w') as file:
+    #             json.dump(crossentropy_config, file, indent=2)
+
+    # iterator = iterate_config_paths(root_directory='reduced_search_space')
+    #
+    # for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+    #     model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+    #     with open(os.path.join(path, config_name), 'r') as file:
+    #         try:
+    #             config = json.load(file)
+    #         except:
+    #             raise Exception(f"{config_name} could not be loaded.")
+    #     if training_assumption == 'lcwa':
+    #         split_lcwa_configs(config=config, path=path, config_name=config_name)
+
+    # exit(0)
+
     iterator = iterate_config_paths(root_directory='reduced_search_space')
-
-    for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
-        model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
-        with open(os.path.join(path, config_name), 'r') as file:
-            try:
-                config = json.load(file)
-            except:
-                raise Exception(f"{config_name} could not be loaded.")
-        if training_assumption == 'lcwa':
-            split_lcwa_configs(config=config, path=path, config_name=config_name)
-
-    exit(0)
 
     for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
         model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
@@ -184,6 +210,8 @@ if __name__ == '__main__':
         add_stopper(config=config)
 
         add_embedding_dimension(config=config)
+
+        add_inverse_triples_setting(config=config)
 
         with open(os.path.join(path, config_name), 'w') as file:
             json.dump(config, file, indent=2)
