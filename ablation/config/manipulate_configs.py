@@ -4,7 +4,7 @@
 import json
 import os
 from typing import Dict
-
+from copy import deepcopy
 from ablation.config.check_correctnes_of_hpo_configs import MODEL_DIRECTORIES_TO_MODEL_NAME, iterate_config_paths
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -100,9 +100,9 @@ def set_crossentropy_loss(config: Dict, model: str):
 def split_lcwa_configs(config: Dict, path: str, config_name: str):
     """."""
     model = config['ablation']['models'][0]
-    config_adam = config.copy()
-    config_crossentropy = config.copy()
-    config_adadelta = config.copy()
+    config_adam = deepcopy(config)
+    config_crossentropy = deepcopy(config)
+    config_adadelta = deepcopy(config)
 
     set_optimizer(config=config_adam, optimizer='adam', model=model)
 
