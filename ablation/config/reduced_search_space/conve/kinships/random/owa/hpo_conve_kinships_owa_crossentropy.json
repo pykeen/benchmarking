@@ -129,8 +129,8 @@
       }
     },
     "create_inverse_triples": [
-      false,
-      true
+      true,
+      false
     ],
     "evaluator": "RankBasedEvaluator",
     "evaluator_kwargs": {
