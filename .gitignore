@@ -103,5 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+./try_and_error
+
 .idea
 .DS_Store
