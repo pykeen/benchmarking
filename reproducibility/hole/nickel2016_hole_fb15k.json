@@ -7,7 +7,8 @@
     "dataset": "fb15k",
     "model": "HolE",
     "model_kwargs": {
-      "embedding_dim": 150
+      "embedding_dim": 150,
+      "automatic_memory_optimization": false
     },
     "optimizer": "AdaGrad",
     "optimizer_kwargs": {
@@ -31,7 +32,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 32
+      "batch_size": 128
     }
   }
 }
