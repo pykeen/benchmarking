@@ -36,7 +36,7 @@ MODEL_NAME_TO_DIRECTORIES = {val: key for key, val in MODEL_DIRECTORIES_TO_MODEL
 DATASET_NAMES = ['fb15k237', 'kinships', 'wn18rr', 'yago310', 'examples']
 
 NUM_LCWA_CONFIGS = 3
-NUM_OWA_CONFIGS = 5
+NUM_OWA_CONFIGS = 4
 
 REDUCED = 'reduced'
 REDUCED_EMBEDDING_SETTING = {
@@ -122,7 +122,8 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
 
                 # Check, whether correct number of configurations are defined
                 if training_assumption == 'lcwa':
-                    assert len(configs) == NUM_LCWA_CONFIGS, f"More than one LCWA config provided ({configs_directory})."
+                    assert len(
+                        configs) == NUM_LCWA_CONFIGS, f"More than one LCWA config provided ({configs_directory})."
                 else:
                     assert training_assumption == 'owa' and len(
                         configs) == NUM_OWA_CONFIGS, f'For owa exactly {NUM_OWA_CONFIGS} configurations' \
@@ -351,7 +352,7 @@ if __name__ == '__main__':
                 assert len(
                     defined_datasets) == 1, f'Expected exactly one dataset, but provided {len(defined_datasets)} datasets.'
                 defined_dataset = defined_datasets[0]
-                assert defined_dataset in path, f'{defined_dataset} not in {os.path.join(path,config_name)}'
+                assert defined_dataset in path, f'{defined_dataset} not in {os.path.join(path, config_name)}'
                 assert defined_dataset in configuration['metadata']['title'].lower().replace('-', '').replace('_', ''), \
                     f'Wrong dataset defined in title in configuration {config_name}.'
 
