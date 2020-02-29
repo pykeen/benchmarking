@@ -218,7 +218,7 @@ def check_nssal_configs(configuration, model_name_normalized):
     loss_fcts = configuration['ablation']['loss_functions']
     loss_fct = loss_fcts[0]
     assert len(loss_fcts) == 1
-    assert 'NegativeSamplingSelfAdversarialLoss' == loss_fct
+    assert 'NSSALoss' == loss_fct
 
     model = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
     provided_margin = configuration['ablation']['loss_kwargs_ranges'][model]['NegativeSamplingSelfAdversarialLoss'][

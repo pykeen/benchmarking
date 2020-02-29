@@ -62,16 +62,31 @@
       }
     },
     "loss_functions": [
-      "NegativeSamplingSelfAdversarialLoss"
+      "NSSALoss"
     ],
     "loss_kwargs": {
       "SimplE": {
-        "NegativeSamplingSelfAdversarialLoss": {}
+        "NegativeSamplingSelfAdversarialLoss": {},
+        "NSSALoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "SimplE": {
         "NegativeSamplingSelfAdversarialLoss": {
+          "margin": {
+            "type": "float",
+            "low": 1,
+            "high": 30,
+            "q": 2.0
+          },
+          "adversarial_temperature": {
+            "type": "float",
+            "low": 0.1,
+            "high": 1.0,
+            "q": 0.1
+          }
+        },
+        "NSSALoss": {
           "margin": {
             "type": "float",
             "low": 1,
