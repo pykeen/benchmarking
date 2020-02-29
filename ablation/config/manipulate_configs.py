@@ -143,20 +143,6 @@ def add_embedding_dimension(config: Dict) -> None:
     if 'relation_dim' in config['ablation']['model_kwargs_ranges'][model]:
         config['ablation']['model_kwargs_ranges'][model]['relation_dim'] = embedding_dim
 
-
-def fix_loss_name(config: Dict, model: str, old_loss: str, new_loss: str):
-    """."""
-    config = config['ablation']
-    losses = config['loss_functions']
-    if old_loss in losses:
-        config['loss_functions'] = [new_loss if l == old_loss else l for l in losses]
-        loss_kwargs = config['loss_kwargs'][model][old_loss]
-        config['loss_kwargs'][model][new_loss] = loss_kwargs
-
-        loss_kwargs_ranges = config['loss_kwargs_ranges'][model][old_loss]
-        config['loss_kwargs_ranges'][model][new_loss] = loss_kwargs_ranges
-
-
 if __name__ == '__main__':
 
     # iterator = iterate_config_paths(root_directory='reduced_search_space')
@@ -225,13 +211,6 @@ if __name__ == '__main__':
         add_embedding_dimension(config=config)
 
         add_inverse_triples_setting(config=config)
-
-        fix_loss_name(
-            config=config,
-            model=model_name,
-            old_loss='NegativeSamplingSelfAdversarialLoss',
-            new_loss='NSSALoss'
-        )
 
         with open(os.path.join(path, config_name), 'w') as file:
             json.dump(config, file, indent=2)
