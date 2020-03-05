@@ -37,6 +37,9 @@
     },
     "evaluator_kwargs": {
       "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": 16
     }
   }
 }
