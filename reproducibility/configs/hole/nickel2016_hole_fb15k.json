@@ -32,7 +32,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 128
+      "batch_size": 32
     }
   }
 }
