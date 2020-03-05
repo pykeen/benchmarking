@@ -20,7 +20,7 @@
       "margin": 5
     },
     "training_loop": "OWA",
-    "negative_sampler_cls": "bernoulli",
+    "negative_sampler": "bernoulli",
     "negative_sampler_kwargs": {
       "num_negs_per_pos": 1
     },
