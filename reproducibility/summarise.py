@@ -40,14 +40,13 @@ if __name__ == '__main__':
     }
     agg = df.groupby(by='experiment').agg(f_agg)
     for col in agg_cols:
-        if col.startswith('metrics'):
-            if '.mean_rank.' in col:
-                fmt = '{0:5.2f}'
-                factor = 1
-            else:
-                fmt = '{0:.2f}'
-                factor = 100
-            agg[(col, 'mean_std')] = (factor * agg[(col, 'mean')]).apply(fmt.format) + '±' + (factor * agg[(col, 'std')]).apply(fmt.format)
+        if '.mean_rank.' in col or col.startswith('times'):
+            fmt = '{0:5.2f}'
+            factor = 1
+        else:
+            fmt = '{0:.2f}'
+            factor = 100
+        agg[(col, 'mean_std')] = (factor * agg[(col, 'mean')]).apply(fmt.format) + '±' + (factor * agg[(col, 'std')]).apply(fmt.format)
     agg = agg.swapaxes(0, 1).swaplevel(0, 1).loc['mean_std'].swapaxes(0, 1)
     for dataset in ['fb15k', 'wn18']:
         selection = agg.loc[agg.index.str.endswith(dataset)].copy()
