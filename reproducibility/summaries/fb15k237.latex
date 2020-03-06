@@ -1,0 +1,8 @@
+\begin{tabular}{llllllllllllllllllllll}
+\toprule
+ model & adjusted\_mean\_rank &     evaluation & hits\_at\_k.avg.1 & hits\_at\_k.avg.10 & hits\_at\_k.avg.3 & hits\_at\_k.avg.5 & hits\_at\_k.best.1 & hits\_at\_k.best.10 & hits\_at\_k.best.3 & hits\_at\_k.best.5 & hits\_at\_k.worst.1 & hits\_at\_k.worst.10 & hits\_at\_k.worst.3 & hits\_at\_k.worst.5 &   mean\_rank.avg &  mean\_rank.best & mean\_rank.worst & mean\_reciprocal\_rank.avg & mean\_reciprocal\_rank.best & mean\_reciprocal\_rank.worst &           training \\
+\midrule
+ conve &        3.73 ± 0.13 &   6.71 ±  0.02 &    18.22 ± 0.11 &     44.95 ± 0.17 &    29.51 ± 0.24 &    35.98 ± 0.16 &     18.22 ± 0.11 &      44.95 ± 0.17 &     29.51 ± 0.24 &     35.98 ± 0.16 &      18.22 ± 0.11 &       44.95 ± 0.17 &      29.51 ± 0.24 &      35.98 ± 0.16 &  255.46 ±  6.16 &  255.46 ±  6.16 &  255.46 ±  6.16 &             26.93 ± 0.11 &              26.93 ± 0.11 &               26.93 ± 0.11 &  15044.48 ± 605.70 \\
+\bottomrule
+\end{tabular}
+
