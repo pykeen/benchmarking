@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from poem.utils import flatten_dictionary
+from pykeen.utils import flatten_dictionary
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
