@@ -48,4 +48,9 @@ if __name__ == '__main__':
                 fmt = '{0:.2f}'
                 factor = 100
             agg[(col, 'mean_std')] = (factor * agg[(col, 'mean')]).apply(fmt.format) + '±' + (factor * agg[(col, 'std')]).apply(fmt.format)
-    print(agg.swapaxes(0, 1).swaplevel(0, 1).loc['mean_std'].swapaxes(0, 1).to_latex())
+    agg = agg.swapaxes(0, 1).swaplevel(0, 1).loc['mean_std'].swapaxes(0, 1)
+    for dataset in ['fb15k', 'wn18']:
+        selection = agg.loc[agg.index.str.endswith(dataset)].copy()
+        selection.index = selection.index.str.replace('_' + dataset, '')
+        print(dataset)
+        print(selection.to_latex())
