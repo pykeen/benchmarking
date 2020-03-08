@@ -1,21 +1,57 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
+\usepackage{adjustbox}
 
 \title{Table Test}
 \author{PyKEEN Core Team}
 \date{March 2020}
 
 \begin{document}
-    \maketitle
-    \section{Table}
-    \label{sec:introduction}
-    \begin{tabular}{llllllllllllllllllllll}
+    
+    %\begin{adjustbox}{angle=90}
+    \begin{table}
+\centering
+\caption{wn18rr - avg}
+\begin{tabular}{rrrrrrrr}
 \toprule
- model & adjusted mean rank &     evaluation & hits at k avg 1 & hits at k avg 10 & hits at k avg 3 & hits at k avg 5 & hits at k best 1 & hits at k best 10 & hits at k best 3 & hits at k best 5 & hits at k worst 1 & hits at k worst 10 & hits at k worst 3 & hits at k worst 5 &    mean rank avg &   mean rank best &  mean rank worst & mean reciprocal rank avg & mean reciprocal rank best & mean reciprocal rank worst &           training \\
+ model &           AMR &        hits@1 &       hits@10 &        hits@3 &        hits@5 &               MR &           MRR \\
 \midrule
- conve &       26.49 $\pm$ 0.25 &   1.20 $\pm$  0.26 &    40.98 $\pm$ 0.22 &     51.76 $\pm$ 0.13 &    46.49 $\pm$ 0.14 &    48.92 $\pm$ 0.23 &     40.98 $\pm$ 0.22 &      51.76 $\pm$ 0.13 &     46.49 $\pm$ 0.14 &     48.92 $\pm$ 0.23 &      40.98 $\pm$ 0.22 &       51.76 $\pm$ 0.13 &      46.49 $\pm$ 0.14 &      48.92 $\pm$ 0.23 &  5369.49 $\pm$ 50.92 &  5369.49 $\pm$ 50.92 &  5369.49 $\pm$ 50.92 &             44.69 $\pm$ 0.21 &              44.69 $\pm$ 0.21 &               44.69 $\pm$ 0.21 &  17764.95 $\pm$ 597.17 \\
+ conve &  26.49 $\pm$ 0.25 &  40.98 $\pm$ 0.22 &  51.76 $\pm$ 0.13 &  46.49 $\pm$ 0.14 &  48.92 $\pm$ 0.23 &  5369.49 $\pm$ 50.92 &  44.69 $\pm$ 0.21 \\
 \bottomrule
 \end{tabular}
+\end{table}
 
+    %\end{adjustbox}
+    
+    %\begin{adjustbox}{angle=90}
+    \begin{table}
+\centering
+\caption{wn18rr - best}
+\begin{tabular}{rrrrrrr}
+\toprule
+ model &        hits@1 &       hits@10 &        hits@3 &        hits@5 &               MR &           MRR \\
+\midrule
+ conve &  40.98 $\pm$ 0.22 &  51.76 $\pm$ 0.13 &  46.49 $\pm$ 0.14 &  48.92 $\pm$ 0.23 &  5369.49 $\pm$ 50.92 &  44.69 $\pm$ 0.21 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    %\end{adjustbox}
+    
+    %\begin{adjustbox}{angle=90}
+    \begin{table}
+\centering
+\caption{wn18rr - worst}
+\begin{tabular}{rrrrrrr}
+\toprule
+ model &        hits@1 &       hits@10 &        hits@3 &        hits@5 &               MR &           MRR \\
+\midrule
+ conve &  40.98 $\pm$ 0.22 &  51.76 $\pm$ 0.13 &  46.49 $\pm$ 0.14 &  48.92 $\pm$ 0.23 &  5369.49 $\pm$ 50.92 &  44.69 $\pm$ 0.21 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    %\end{adjustbox}
+    
 \end{document}

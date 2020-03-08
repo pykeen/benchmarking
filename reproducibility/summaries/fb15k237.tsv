@@ -1,2 +1,3 @@
-model	adjusted mean rank	evaluation	hits at k avg 1	hits at k avg 10	hits at k avg 3	hits at k avg 5	hits at k best 1	hits at k best 10	hits at k best 3	hits at k best 5	hits at k worst 1	hits at k worst 10	hits at k worst 3	hits at k worst 5	mean rank avg	mean rank best	mean rank worst	mean reciprocal rank avg	mean reciprocal rank best	mean reciprocal rank worst	training
-conve	3.73 ± 0.13	 6.71 ±  0.02	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	255.46 ±  6.16	255.46 ±  6.16	255.46 ±  6.16	26.93 ± 0.11	26.93 ± 0.11	26.93 ± 0.11	15044.48 ± 605.70
+	avg	avg	avg	avg	avg	avg	avg	best	best	best	best	best	best	worst	worst	worst	worst	worst	worst
+model	AMR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR
+conve	3.73 ± 0.13	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	255.46 ± 6.16	26.93 ± 0.11	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	255.46 ± 6.16	26.93 ± 0.11	18.22 ± 0.11	44.95 ± 0.17	29.51 ± 0.24	35.98 ± 0.16	255.46 ± 6.16	26.93 ± 0.11
