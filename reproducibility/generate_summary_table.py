@@ -3,6 +3,7 @@
 import os
 
 import pandas as pd
+from jinja2 import Environment, FileSystemLoader
 
 from utils import SKIP, get_df
 
@@ -35,12 +36,34 @@ def main():
 
         x = pd.DataFrame(rows, columns=['model', 'columns', 'values'])
         x = x.set_index(['model', 'columns']).unstack(level=-1).reset_index()
-        new_columns = ['model'] + list(x.columns.get_level_values(1))[1:]
+        new_columns = ['model'] + [
+                                      column.replace('_', ' ').replace('.', ' ')
+                                      for column in x.columns.get_level_values(1)
+                                  ][1:]
         x.columns = new_columns
 
+        # Save as TSV
         x.to_csv(os.path.join(SUMMARIES, f'{dataset}.tsv'), sep='\t', index=False)
-        with open(os.path.join(SUMMARIES, f'{dataset}.latex'), 'w') as file:
-            print(x.to_latex(index=False), file=file)
+
+        # Save as Latex table
+        table_latex = x.to_latex(index=False, escape=False).replace('±', '$\\pm$')
+        with open(os.path.join(SUMMARIES, f'{dataset}_table.tex'), 'w') as file:
+            print(table_latex, file=file)
+
+        loader = FileSystemLoader(os.path.join(HERE, 'templates'))
+        environment = Environment(
+            autoescape=False,
+            loader=loader,
+            trim_blocks=False,
+        )
+        r = environment.get_template('table_template.tex').render(table=table_latex, dataset=dataset)
+        with open(os.path.join(SUMMARIES, f'{dataset}.tex'), 'w') as file:
+            print(r, file=file)
+
+        try:
+            os.system(f"cd {SUMMARIES} && latexmk -pdf {dataset}")
+        except Exception:
+            print('Was not able to build PDF.')
 
 
 if __name__ == '__main__':
