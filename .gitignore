@@ -107,3 +107,8 @@ venv.bak/
 
 .idea
 .DS_Store
+*.fdb_latexmk
+*.aux
+*.fls
+*.aux
+*.fdb_latexmk
