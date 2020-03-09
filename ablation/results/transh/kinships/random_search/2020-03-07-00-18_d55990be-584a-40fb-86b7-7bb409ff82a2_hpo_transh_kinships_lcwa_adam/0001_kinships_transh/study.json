@@ -1,0 +1,12 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "softplus",
+  "metric": "hits@10",
+  "model": "transh",
+  "optimizer": "adam",
+  "pykeen_git_hash": "6251470d",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "transh",
+  "training_loop": "lcwa"
+}
