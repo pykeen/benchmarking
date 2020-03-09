@@ -8,9 +8,34 @@
 \date{March 2020}
 
 \begin{document}
-    {% for dataset, table in tables %}
-    %\begin{adjustbox}{angle=90}
-    {{table}}
-    %\end{adjustbox}
-    {% endfor %}
+{% for dataset, tabled in table_results %}
+{{ "\section{" }}{{ dataset }} Evaluation{{ "}" }}
+    \subsection{Average}
+    \subsubsection{Average Hits@K}
+    \begin{center}
+    {{ tabled['avg', 'hits'] }}
+    \end{center}
+    \subsubsection{Average Mean Ranks}
+    \begin{center}
+    {{ tabled['avg', 'rank'] }}
+    \end{center}
+    \subsection{Best}
+    \subsubsection{Best Hits@K}
+    \begin{center}
+    {{ tabled['best', 'hits'] }}
+    \end{center}
+    \subsubsection{Best Mean Ranks}
+    \begin{center}
+    {{ tabled['best', 'rank'] }}
+    \end{center}
+    \subsection{Worst}
+    \subsubsection{Worst Hits@K}
+    \begin{center}
+    {{ tabled['worst', 'hits'] }}
+    \end{center}
+    \subsubsection{Worst Mean Ranks}
+    \begin{center}
+    {{ tabled['worst', 'rank'] }}
+    \end{center}
+{% endfor %}
 \end{document}

@@ -1,3 +1,4 @@
 	avg	avg	avg	avg	avg	avg	avg	best	best	best	best	best	best	worst	worst	worst	worst	worst	worst
-model	AMR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR
+	AMR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR	hits@1	hits@10	hits@3	hits@5	MR	MRR
+model																			
 conve	26.49 ± 0.25	40.98 ± 0.22	51.76 ± 0.13	46.49 ± 0.14	48.92 ± 0.23	5369.49 ± 50.92	44.69 ± 0.21	40.98 ± 0.22	51.76 ± 0.13	46.49 ± 0.14	48.92 ± 0.23	5369.49 ± 50.92	44.69 ± 0.21	40.98 ± 0.22	51.76 ± 0.13	46.49 ± 0.14	48.92 ± 0.23	5369.49 ± 50.92	44.69 ± 0.21
