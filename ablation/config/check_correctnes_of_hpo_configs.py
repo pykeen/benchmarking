@@ -95,8 +95,8 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
             hpo_approach = os.listdir(hpo_approach_directory)
 
             assert len(
-                hpo_approach) == 1 and hpo_approach[0] == 'kinships', \
-                "Currently, only kinships search is allowed as HPO approach."
+                hpo_approach) == 1 and hpo_approach[0] == 'random', \
+                "Currently, only random search is allowed as HPO approach."
 
             # Check, whether correct training assumptions are defined
             training_assumption_directory = os.path.join(

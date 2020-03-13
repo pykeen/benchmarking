@@ -143,6 +143,12 @@ def add_embedding_dimension(config: Dict) -> None:
     if 'relation_dim' in config['ablation']['model_kwargs_ranges'][model]:
         config['ablation']['model_kwargs_ranges'][model]['relation_dim'] = embedding_dim
 
+
+def specify_batch_normalization(config: Dict, model: str):
+    """."""
+    config['ablation']['model_kwargs'][model]['apply_batch_normalization'] = False
+
+
 if __name__ == '__main__':
 
     # iterator = iterate_config_paths(root_directory='reduced_search_space')
@@ -211,6 +217,9 @@ if __name__ == '__main__':
         add_embedding_dimension(config=config)
 
         add_inverse_triples_setting(config=config)
+
+        if model_name == 'TuckER':
+            specify_batch_normalization(config=config, model=model_name)
 
         with open(os.path.join(path, config_name), 'w') as file:
             json.dump(config, file, indent=2)
