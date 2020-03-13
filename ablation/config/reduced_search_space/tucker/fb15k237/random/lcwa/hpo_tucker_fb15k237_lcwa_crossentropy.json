@@ -11,7 +11,8 @@
     ],
     "model_kwargs": {
       "TuckER": {
-        "automatic_memory_optimization": true
+        "automatic_memory_optimization": true,
+        "apply_batch_normalization": false
       }
     },
     "model_kwargs_ranges": {
