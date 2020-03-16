@@ -1,0 +1,7 @@
+{
+  "best_trial_number": 25,
+  "best_trial_evaluation": 0.8838951310861424,
+  "git_hash": "facb419d",
+  "version": "0.1.2-dev",
+  "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}"
+}

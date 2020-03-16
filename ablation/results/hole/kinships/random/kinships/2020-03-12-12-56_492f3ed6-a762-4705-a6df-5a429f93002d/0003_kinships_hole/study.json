@@ -1,0 +1,13 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "marginranking",
+  "metric": "hits@10",
+  "model": "hole",
+  "negative_sampler": "basic",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "facb419d",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}
