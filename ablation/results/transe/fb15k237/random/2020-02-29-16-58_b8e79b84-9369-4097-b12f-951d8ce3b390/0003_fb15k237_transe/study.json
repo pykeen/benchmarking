@@ -1,0 +1,12 @@
+{
+  "dataset": "fb15k237",
+  "evaluator": "rankbased",
+  "loss": "softplus",
+  "metric": "hits@10",
+  "model": "transe",
+  "optimizer": "adam",
+  "pykeen_git_hash": "9c053b40",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}
