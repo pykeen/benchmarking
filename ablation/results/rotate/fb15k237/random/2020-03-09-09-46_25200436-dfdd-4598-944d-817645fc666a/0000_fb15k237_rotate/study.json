@@ -1,0 +1,12 @@
+{
+  "dataset": "fb15k237",
+  "evaluator": "rankbased",
+  "loss": "crossentropy",
+  "metric": "hits@10",
+  "model": "rotate",
+  "optimizer": "adam",
+  "pykeen_git_hash": "ec6b0751",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}

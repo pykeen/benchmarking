@@ -1,0 +1,13 @@
+{
+  "dataset": "fb15k237",
+  "evaluator": "rankbased",
+  "loss": "marginranking",
+  "metric": "hits@10",
+  "model": "rotate",
+  "negative_sampler": "basic",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "ec6b0751",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}
