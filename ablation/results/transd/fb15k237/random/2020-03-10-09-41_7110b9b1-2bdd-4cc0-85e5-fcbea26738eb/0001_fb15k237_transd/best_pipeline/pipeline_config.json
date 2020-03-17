@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}",
+    "best_trial_evaluation": 0.08093689375784549,
+    "best_trial_number": 11,
+    "git_hash": "ec6b0751",
+    "version": "0.1.2-dev"
+  },
+  "pipeline": {
+    "dataset": "fb15k237",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "evaluator": "rankbased",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "loss": "softplus",
+    "model": "transd",
+    "model_kwargs": {
+      "automatic_memory_optimization": true,
+      "embedding_dim": 128,
+      "relation_dim": 256
+    },
+    "negative_sampler": "basic",
+    "negative_sampler_kwargs": {
+      "num_negs_per_pos": 17
+    },
+    "optimizer": "adadelta",
+    "optimizer_kwargs": {
+      "lr": 0.001939555448421748,
+      "weight_decay": 0.0
+    },
+    "regularizer": "no",
+    "training_kwargs": {
+      "batch_size": 128,
+      "label_smoothing": 0.0,
+      "num_epochs": 1000
+    },
+    "training_loop": "owa"
+  }
+}
