@@ -1,0 +1,8 @@
+{
+  "best_trial_number": 40,
+  "best_trial_evaluation": 0.125,
+  "git_hash": "6251470d",
+  "version": "0.1.2-dev",
+  "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}",
+  "_stopper_comment": "While the original config had 150, early stopping will now switch it to 150"
+}
