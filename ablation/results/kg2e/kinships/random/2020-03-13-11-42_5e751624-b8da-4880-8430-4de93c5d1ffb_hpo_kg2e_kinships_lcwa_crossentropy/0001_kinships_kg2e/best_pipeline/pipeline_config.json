@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}",
+    "best_trial_evaluation": 0.6989700374531835,
+    "best_trial_number": 59,
+    "git_hash": "6251470d",
+    "version": "0.1.2-dev"
+  },
+  "pipeline": {
+    "dataset": "kinships",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "evaluator": "rankbased",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "loss": "crossentropy",
+    "model": "kg2e",
+    "model_kwargs": {
+      "automatic_memory_optimization": true,
+      "c_max": 5.917768540682407,
+      "c_min": 0.020357575994408572,
+      "embedding_dim": 256
+    },
+    "optimizer": "adadelta",
+    "optimizer_kwargs": {
+      "lr": 0.05033266283071728,
+      "weight_decay": 0.0
+    },
+    "regularizer": "no",
+    "training_kwargs": {
+      "batch_size": 128,
+      "label_smoothing": 0.2556684692093117,
+      "num_epochs": 1000
+    },
+    "training_loop": "lcwa"
+  }
+}
