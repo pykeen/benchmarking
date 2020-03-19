@@ -1,0 +1,13 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "softplus",
+  "metric": "hits@10",
+  "model": "ermlp",
+  "negative_sampler": "basic",
+  "optimizer": "adam",
+  "pykeen_git_hash": "facb419d",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}

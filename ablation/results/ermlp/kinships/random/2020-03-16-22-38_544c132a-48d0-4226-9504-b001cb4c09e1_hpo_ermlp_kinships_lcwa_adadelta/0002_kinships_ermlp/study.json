@@ -1,0 +1,12 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "bceaftersigmoid",
+  "metric": "hits@10",
+  "model": "ermlp",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "facb419d",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}
