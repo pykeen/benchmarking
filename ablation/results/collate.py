@@ -171,7 +171,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             plt.tight_layout()
             plt.savefig(os.path.join(dataset_dir, f'{ablation_header}.png'))
 
-    with open(os.path.join(result_dir, 'README.md'), 'w') as file:
+    with open(os.path.join(HERE, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)
         print(f'Output at {time.asctime()}\n', file=file)
         for dataset in df.dataset.unique():
@@ -179,7 +179,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             for ablation_header in ablation_headers:
                 print(f'### {dataset} {ablation_header}\n', file=file)
                 print(
-                    f'<img src="{dataset}/{ablation_header}.png"'
+                    f'<img src="{result_dir}/{dataset}/{ablation_header}.png"'
                     f' alt="{dataset} {ablation_header}"'
                     f' height="300" />\n',
                     file=file,

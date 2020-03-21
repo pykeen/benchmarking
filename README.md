@@ -1,4 +1,4 @@
-# PyKEEN Experimenal Results
+# PyKEEN Experimental Results
 
 This repository contains two main experiments:
 
