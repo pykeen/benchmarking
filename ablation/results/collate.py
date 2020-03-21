@@ -112,6 +112,16 @@ ablation_headers = [
     'training_loop',
 ]
 
+MODEL = {
+    'unstructuredmodel': 'um',
+    'structuredembedding': 'se',
+}
+
+LOSS = {
+    'marginranking': 'mr',
+    'crossentropy': 'ce',
+}
+
 
 def make_plots(*, df: pd.DataFrame, target_header: str):
     """Collate all HPO results in a single table."""
@@ -121,33 +131,21 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
     df = df.sort_values(ablation_headers)
     df.to_csv(os.path.join(result_dir, 'results.tsv'), sep='\t', index=False)
 
+    df['model'] = df['model'].map(lambda l: MODEL.get(l, l))
+    df['loss'] = df['loss'].map(lambda l: LOSS.get(l, l))
+
     for dataset in df.dataset.unique():
         sub_df = df[df.dataset == dataset]
         dataset_dir = os.path.join(result_dir, dataset)
         os.makedirs(dataset_dir, exist_ok=True)
 
-        for ablation_header in ablation_headers:
-            # Show distributions
-
+        f, axes = plt.subplots(2, 2, figsize=(14, 12))
+        for ablation_header, ax in zip(ablation_headers, axes.ravel()):
             # Aggregate the dataset by maximum for this header
             idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
             sub_df_agg = sub_df[idx]
             sub_df_agg.index = sub_df_agg[ablation_header]
             sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
-
-            # sns.barplot(
-            #     data=sub_df_agg,
-            #     x=ablation_header,
-            #     y=target_header,
-            # )
-            # plt.xticks(
-            #     rotation=45,
-            #     horizontalalignment='right',
-            #     fontweight='light',
-            #     fontsize='x-large'
-            # )
-            # plt.tight_layout()
-            # plt.savefig(os.path.join(result_dir, f'{dataset}_{ablation_header}.png'))
 
             del sub_df_agg[ablation_header]
             sub_df_agg.to_csv(
@@ -155,21 +153,18 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
                 sep='\t',
             )
 
-            f, ax = plt.subplots(figsize=(7, 6))
-
             sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
             sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, linewidth=1.0, order=sub_df_agg.index)
-            if len(sub_df_agg.index) > 4:
-                plt.xticks(
-                    rotation=45,
-                    horizontalalignment='right',
-                    fontweight='light',
-                    fontsize='x-large'
-                )
-            ax.set_title(f'{dataset} - {ablation_header}')
+
+            ax.set_title(ablation_header)
             ax.set_xlabel('')
-            plt.tight_layout()
-            plt.savefig(os.path.join(dataset_dir, f'{ablation_header}.png'))
+
+            for tick in ax.get_xticklabels():
+                tick.set_rotation(45)
+
+        plt.suptitle(dataset)
+        plt.tight_layout()
+        plt.savefig(os.path.join(dataset_dir, f'{dataset}.png'))
 
     with open(os.path.join(HERE, os.pardir, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)
@@ -178,14 +173,12 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
               ' regenerate this README when new data is available', file=file)
         for dataset in df.dataset.unique():
             print(f'## {dataset}\n', file=file)
-            for ablation_header in ablation_headers:
-                print(f'### {dataset} {ablation_header}\n', file=file)
-                print(
-                    f'<img src="results/_results/{dataset}/{ablation_header}.png"'
-                    f' alt="{dataset} {ablation_header}"'
-                    f' height="300" />\n',
-                    file=file,
-                )
+            print(
+                f'<img src="results/_results/{dataset}.png"'
+                f' alt="{dataset}"'
+                f' height="600" />\n',
+                file=file,
+            )
 
 
 def main():

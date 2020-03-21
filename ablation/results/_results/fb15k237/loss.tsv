@@ -1,6 +1,6 @@
 loss	searcher	dataset	evaluator	model	optimizer	regularizer	training_loop	hits@10	hits@10_std	negative_sampler
 nssa	random	fb15k237	rankbased	rotate	adam	no	owa	0.48177	0.0	basic
 bceaftersigmoid	random	fb15k237	rankbased	rotate	adam	no	lcwa	0.4566	0.0	
-crossentropy	random	fb15k237	rankbased	rotate	adam	no	lcwa	0.45623	0.0	
+ce	random	fb15k237	rankbased	rotate	adam	no	lcwa	0.45623	0.0	
 softplus	random	fb15k237	rankbased	rotate	adam	no	lcwa	0.443	0.0	
-marginranking	random	fb15k237	rankbased	transe	adam	no	owa	0.43927	0.00138	basic
+mr	random	fb15k237	rankbased	transe	adam	no	owa	0.43927	0.00138	basic

@@ -1,6 +1,6 @@
 loss	searcher	dataset	evaluator	model	optimizer	regularizer	training_loop	hits@10	hits@10_std	negative_sampler
-crossentropy	random	kinships	rankbased	complex	adam	no	lcwa	0.97847	0.00222	
+ce	random	kinships	rankbased	complex	adam	no	lcwa	0.97847	0.00222	
 bceaftersigmoid	random	kinships	rankbased	simple	adam	no	owa	0.97812	0.00114	basic
 softplus	random	kinships	rankbased	complex	adam	no	owa	0.97556	0.00333	basic
 nssa	random	kinships	rankbased	complex	adam	no	owa	0.97416	0.00337	basic
-marginranking	random	kinships	rankbased	complex	adadelta	no	owa	0.96241	0.00293	basic
+mr	random	kinships	rankbased	complex	adadelta	no	owa	0.96241	0.00293	basic
