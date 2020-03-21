@@ -1,8 +1,8 @@
 # HPO Ablation Results
 
-Output at Sat Mar 21 18:50:51 2020
+Output at Sat Mar 21 18:51:34 2020
 
-Run <a href="/results/collate.py">collate.py</a> to regenerate this README when new data is available
+Run <a href="results/collate.py">collate.py</a> to regenerate this README when new data is available
 ## fb15k237
 
 ### fb15k237 model

@@ -174,7 +174,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
     with open(os.path.join(HERE, os.pardir, 'README.md'), 'w') as file:
         print('# HPO Ablation Results\n', file=file)
         print(f'Output at {time.asctime()}\n', file=file)
-        print('Run <a href="/results/collate.py">collate.py</a> to'
+        print('Run <a href="results/collate.py">collate.py</a> to'
               ' regenerate this README when new data is available', file=file)
         for dataset in df.dataset.unique():
             print(f'## {dataset}\n', file=file)
