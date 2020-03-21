@@ -156,7 +156,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
             sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, linewidth=1.0, order=sub_df_agg.index)
 
-            ax.set_title(ablation_header)
+            ax.set_title(ablation_header.replace('-', ' ').capitalize())
             ax.set_xlabel('')
 
             for tick in ax.get_xticklabels():
@@ -175,7 +175,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             print(
                 f'<img src="results/_results/{dataset}/{dataset}.png"'
                 f' alt="{dataset}"'
-                f' height="700" />\n',
+                f' height="675" />\n',
                 file=file,
             )
 
