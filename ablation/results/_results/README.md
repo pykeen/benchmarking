@@ -1,6 +1,6 @@
 # HPO Ablation Results
 
-Output at Sat Jan 25 16:17:47 2020
+Output at Sat Mar 21 18:38:31 2020
 
 ## fb15k237
 
@@ -20,21 +20,21 @@ Output at Sat Jan 25 16:17:47 2020
 
 <img src="fb15k237/training_loop.png" alt="fb15k237 training_loop" height="300" />
 
-## wn18rr
+## kinships
 
-### wn18rr model
+### kinships model
 
-<img src="wn18rr/model.png" alt="wn18rr model" height="300" />
+<img src="kinships/model.png" alt="kinships model" height="300" />
 
-### wn18rr loss
+### kinships loss
 
-<img src="wn18rr/loss.png" alt="wn18rr loss" height="300" />
+<img src="kinships/loss.png" alt="kinships loss" height="300" />
 
-### wn18rr optimizer
+### kinships optimizer
 
-<img src="wn18rr/optimizer.png" alt="wn18rr optimizer" height="300" />
+<img src="kinships/optimizer.png" alt="kinships optimizer" height="300" />
 
-### wn18rr training_loop
+### kinships training_loop
 
-<img src="wn18rr/training_loop.png" alt="wn18rr training_loop" height="300" />
+<img src="kinships/training_loop.png" alt="kinships training_loop" height="300" />
 

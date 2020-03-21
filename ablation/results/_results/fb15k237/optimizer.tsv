@@ -1,0 +1,3 @@
+optimizer	searcher	dataset	evaluator	loss	model	regularizer	training_loop	hits@10	hits@10_std	negative_sampler
+adam	random	fb15k237	rankbased	nssa	rotate	no	owa	0.48177	0.0	basic
+adadelta	random	fb15k237	rankbased	nssa	transe	no	owa	0.42613	0.00051	basic

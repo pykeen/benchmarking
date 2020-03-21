@@ -1,17 +1,109 @@
-"""CLI For HPO results."""
-
 import json
+import logging
 import os
 import time
 
-import click
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from pykeen.utils import flatten_dictionary
+from pykeen.models import models
 
-HERE = os.path.abspath(os.path.dirname(__file__))
+HERE = os.path.dirname(__file__)
+
+logger = logging.getLogger(__name__)
+
+
+def _iter_model_dirs():
+    for model in os.listdir(HERE):
+        if model.startswith('_') or model.endswith('.py') or not os.path.isdir(model):
+            continue
+        if model not in models:
+            raise KeyError(f'invalid model name: {model}')
+        assert model in models, f'{model} not found'
+        yield model, os.path.join(HERE, model)
+
+
+def _iter_dataset_dirs():
+    for model, d in _iter_model_dirs():
+        for dataset in os.listdir(d):
+            dataset_d = os.path.join(d, dataset)
+            if not os.path.isdir(dataset_d):
+                continue
+            yield model, dataset, dataset_d
+
+
+def iterate_studies(key: str):
+    for model, dataset, d in _iter_dataset_dirs():
+        for searcher in os.listdir(d):
+            searcher_d = os.path.join(d, searcher)
+            if not os.path.isdir(searcher_d):
+                continue
+            for ablation in os.listdir(searcher_d):
+                ablation_d = os.path.join(searcher_d, ablation)
+                if not os.path.isdir(ablation_d):
+                    continue
+                for hpo in os.listdir(ablation_d):
+                    hpo_d = os.path.join(ablation_d, hpo)
+                    if not os.path.isdir(hpo_d):
+                        continue
+                    study = get_results_from_hpo_directory(hpo_d, key=key)
+                    if study is None:
+                        continue
+                    yield model, dataset, searcher, study
+
+
+def collate(key: str):
+    return pd.DataFrame([
+        dict(searcher=searcher, **study)
+        for model, dataset, searcher, study in iterate_studies(key=key)
+    ])
+
+
+GETTERS = {
+    'hits@10': lambda metrics: metrics['hits_at_k']['avg']['10']
+}
+
+
+def get_results_from_hpo_directory(hpo_experiment_directory: str, key: str):
+    study_path = os.path.join(hpo_experiment_directory, 'study.json')
+    if not os.path.exists(study_path):
+        logger.warning(f'missing study path: {hpo_experiment_directory}')
+        return
+
+    with open(study_path) as file:
+        study = json.load(file)
+
+    for _delete_key in ['metric', 'pykeen_git_hash', 'pykeen_version']:
+        del study[_delete_key]
+
+    metrics = []
+    replicates_directory = os.path.join(hpo_experiment_directory, 'best_pipeline', 'replicates')
+    if not os.path.exists(replicates_directory):
+        raise FileNotFoundError
+    for replicate in os.listdir(replicates_directory):
+        replicate_results_path = os.path.join(replicates_directory, replicate, 'results.json')
+        with open(replicate_results_path) as file:
+            replicate_results = json.load(file)
+        metrics.append(GETTERS[key](replicate_results['metrics']))
+
+    study[key] = np.mean(metrics).round(5)
+    study[f'{key}_std'] = np.std(metrics).round(5)
+
+    return study
+
+
+def get_which_experiments_are_done_df() -> pd.DataFrame:
+    experiments = {model: {} for model in models}
+
+    for model, dataset, dataset_directory in _iter_dataset_dirs():
+        experiments[model][dataset] = True
+        if not os.path.exists(os.path.join(dataset_directory, 'random')):
+            print(model, dataset, 'missing random folder')
+
+    return pd.DataFrame(experiments).fillna(False).transpose()
+
 
 ablation_headers = [
     'model',
@@ -21,22 +113,13 @@ ablation_headers = [
 ]
 
 
-@click.command()
-def main():
+def make_plots(*, df: pd.DataFrame, target_header: str):
     """Collate all HPO results in a single table."""
-    results = list(_iterate_results())
-    df = pd.DataFrame(results)
-
     result_dir = os.path.join(HERE, '_results')
     os.makedirs(result_dir, exist_ok=True)
 
-    df['model'] = df['model'].map(_clean_model)
-    df['loss'] = df['loss'].map(_clean_loss)
-
     df = df.sort_values(ablation_headers)
     df.to_csv(os.path.join(result_dir, 'results.tsv'), sep='\t', index=False)
-
-    target_header = 'best_trial_evaluation'
 
     for dataset in df.dataset.unique():
         sub_df = df[df.dataset == dataset]
@@ -103,32 +186,10 @@ def main():
                 )
 
 
-def _clean_model(x):
-    if x == 'unstructuredmodel':
-        return 'um'
-    elif x == 'structuredembedding':
-        return 'se'
-    return x
-
-
-def _clean_loss(x):
-    if x == 'negativesamplingselfadversarial':
-        return 'nssa'
-    return x
-
-
-def _iterate_results():
-    for directory, _, file_names in os.walk(HERE):
-        if 'hpo_config.json' not in file_names or 'best_pipeline_config.json' not in file_names:
-            continue
-
-        with open(os.path.join(directory, 'best_pipeline_config.json')) as file:
-            r = json.load(file)
-
-        yield {
-            **flatten_dictionary(r['metadata']),
-            **flatten_dictionary(r['pipeline']),
-        }
+def main():
+    key = 'hits@10'
+    df = collate(key=key)
+    make_plots(df=df, target_header=key)
 
 
 if __name__ == '__main__':
