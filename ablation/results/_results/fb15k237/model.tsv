@@ -1,9 +1,0 @@
-model	searcher	dataset	evaluator	loss	optimizer	regularizer	training_loop	hits@10	hits@10_std	negative_sampler
-rotate	random	fb15k237	rankbased	nssa	adam	no	owa	0.48177	0.0	basic
-transe	random	fb15k237	rankbased	ce	adam	no	lcwa	0.444	0.0	
-kg2e	random	fb15k237	rankbased	softplus	adam	no	lcwa	0.43546	0.0	
-complex	random	fb15k237	rankbased	ce	adam	no	lcwa	0.43057	0.0	
-ermlp	random	fb15k237	rankbased	bceaftersigmoid	adam	no	lcwa	0.42149	0.0	
-proje	random	fb15k237	rankbased	ce	adam	no	lcwa	0.40422	0.0	
-transd	random	fb15k237	rankbased	mr	adam	no	owa	0.3974	0.0	basic
-simple	random	fb15k237	rankbased	bceaftersigmoid	adam	no	lcwa	0.39581	0.0	

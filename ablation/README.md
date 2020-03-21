@@ -1,13 +1,8 @@
-# HPO Ablation Results
+# Ablation Results
 
-Output at Sat Mar 21 19:19:31 2020
+Output at Sat Mar 21 21:27:33 2020
 
-Run <a href="results/collate.py">collate.py</a> to regenerate this README when new data is available
-## fb15k237
+<img src="summary/1D-slices/dataset_fb15k237.png" alt="fb15k237"/>
 
-<img src="results/_results/fb15k237/fb15k237.png" alt="fb15k237"/>
-
-## kinships
-
-<img src="results/_results/kinships/kinships.png" alt="kinships"/>
+<img src="summary/1D-slices/dataset_kinships.png" alt="kinships"/>
 
