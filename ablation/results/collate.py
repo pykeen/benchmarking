@@ -174,7 +174,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
         for dataset in df.dataset.unique():
             print(f'## {dataset}\n', file=file)
             print(
-                f'<img src="results/_results/{dataset}.png"'
+                f'<img src="results/_results/{dataset}/{dataset}.png"'
                 f' alt="{dataset}"'
                 f' height="600" />\n',
                 file=file,
