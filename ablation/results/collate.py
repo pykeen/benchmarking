@@ -139,7 +139,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
         dataset_dir = os.path.join(result_dir, dataset)
         os.makedirs(dataset_dir, exist_ok=True)
 
-        f, axes = plt.subplots(2, 2, figsize=(14, 12))
+        f, axes = plt.subplots(2, 2, figsize=(14, 10))
         for ablation_header, ax in zip(ablation_headers, axes.ravel()):
             # Aggregate the dataset by maximum for this header
             idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
@@ -162,7 +162,6 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             for tick in ax.get_xticklabels():
                 tick.set_rotation(45)
 
-        plt.suptitle(dataset)
         plt.tight_layout()
         plt.savefig(os.path.join(dataset_dir, f'{dataset}.png'))
 
@@ -176,7 +175,7 @@ def make_plots(*, df: pd.DataFrame, target_header: str):
             print(
                 f'<img src="results/_results/{dataset}/{dataset}.png"'
                 f' alt="{dataset}"'
-                f' height="600" />\n',
+                f' height="700" />\n',
                 file=file,
             )
 
