@@ -28,15 +28,11 @@
       "lcwa"
     ],
     "optimizers": [
-      "adam",
-      "adadelta"
+      "adam"
     ],
     "optimizer_kwargs": {
       "RotatE": {
         "adam": {
-          "weight_decay": 0.0
-        },
-        "adadelta": {
           "weight_decay": 0.0
         }
       }
@@ -44,14 +40,6 @@
     "optimizer_kwargs_ranges": {
       "RotatE": {
         "adam": {
-          "lr": {
-            "type": "float",
-            "low": 0.001,
-            "high": 0.1,
-            "scale": "log"
-          }
-        },
-        "adadelta": {
           "lr": {
             "type": "float",
             "low": 0.001,
