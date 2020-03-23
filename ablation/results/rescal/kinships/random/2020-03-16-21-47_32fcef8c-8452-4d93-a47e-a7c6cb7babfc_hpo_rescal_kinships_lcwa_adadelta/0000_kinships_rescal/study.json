@@ -8,5 +8,6 @@
   "pykeen_git_hash": "6251470d",
   "pykeen_version": "0.1.2-dev",
   "regularizer": "no",
-  "training_loop": "lcwa"
+  "training_loop": "lcwa",
+  "create_inverse_triples": true
 }
