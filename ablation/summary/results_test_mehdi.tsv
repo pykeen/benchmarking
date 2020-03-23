@@ -1,0 +1,587 @@
+searcher	dataset	evaluator	loss	model	optimizer	regularizer	training_loop	create_inverse_triples	hits@10	hits@10_std	negative_sampler
+random	fb15k237	rankbased	bceaftersigmoid	complex	adadelta	no	lcwa	True	0.00086	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	complex	adadelta	no	lcwa	False	0.00088	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	complex	adadelta	no	owa	True	0.00074	6e-05	basic
+random	fb15k237	rankbased	bceaftersigmoid	complex	adadelta	no	owa	False	0.00079	0.00016	basic
+random	fb15k237	rankbased	bceaftersigmoid	complex	adam	no	lcwa	True	0.33352	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	complex	adam	no	lcwa	False	0.2695	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	complex	adam	no	owa	True	0.30656	0.00273	basic
+random	fb15k237	rankbased	bceaftersigmoid	complex	adam	no	owa	False	0.34151	0.00171	basic
+random	fb15k237	rankbased	crossentropy	complex	adadelta	no	lcwa	True	0.30372	0.0	
+random	fb15k237	rankbased	crossentropy	complex	adadelta	no	lcwa	False	0.19914	0.0	
+random	fb15k237	rankbased	crossentropy	complex	adam	no	lcwa	True	0.43057	0.0	
+random	fb15k237	rankbased	crossentropy	complex	adam	no	lcwa	False	0.38786	0.0	
+random	fb15k237	rankbased	marginranking	complex	adadelta	no	owa	True	0.31539	0.0	basic
+random	fb15k237	rankbased	marginranking	complex	adadelta	no	owa	False	0.2854	0.0	basic
+random	fb15k237	rankbased	marginranking	complex	adam	no	owa	True	0.32378	0.0	basic
+random	fb15k237	rankbased	marginranking	complex	adam	no	owa	False	0.29641	0.0	basic
+random	fb15k237	rankbased	nssa	complex	adadelta	no	owa	True	0.00083	0.00026	basic
+random	fb15k237	rankbased	nssa	complex	adadelta	no	owa	False	0.00063	0.00019	basic
+random	fb15k237	rankbased	nssa	complex	adam	no	owa	True	0.27533	0.00407	basic
+random	fb15k237	rankbased	nssa	complex	adam	no	owa	False	0.28602	0.00268	basic
+random	fb15k237	rankbased	softplus	complex	adadelta	no	lcwa	True	0.00076	0.0	
+random	fb15k237	rankbased	softplus	complex	adadelta	no	lcwa	False	0.00064	0.0	
+random	fb15k237	rankbased	softplus	complex	adadelta	no	owa	True	0.00309	0.00076	basic
+random	fb15k237	rankbased	softplus	complex	adadelta	no	owa	False	0.00075	0.00017	basic
+random	fb15k237	rankbased	softplus	complex	adam	no	lcwa	True	0.26771	0.0	
+random	fb15k237	rankbased	softplus	complex	adam	no	lcwa	False	0.21612	0.0	
+random	fb15k237	rankbased	softplus	complex	adam	no	owa	True	0.25667	0.004	basic
+random	fb15k237	rankbased	softplus	complex	adam	no	owa	False	0.31932	0.00295	basic
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adadelta	no	lcwa	False	0.07819	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adadelta	no	lcwa	True	0.09037	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adadelta	no	owa	False	0.10806	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adadelta	no	owa	True	0.09822	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adam	no	lcwa	False	0.25957	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adam	no	lcwa	True	0.42149	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adam	no	owa	False	0.35544	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	ermlp	adam	no	owa	True	0.33553	0.0	basic
+random	fb15k237	rankbased	crossentropy	ermlp	adadelta	no	lcwa	False	0.19823	0.0	
+random	fb15k237	rankbased	crossentropy	ermlp	adadelta	no	lcwa	True	0.2544	0.0	
+random	fb15k237	rankbased	crossentropy	ermlp	adam	no	lcwa	False	0.27314	0.0	
+random	fb15k237	rankbased	crossentropy	ermlp	adam	no	lcwa	True	0.39515	0.0	
+random	fb15k237	rankbased	marginranking	ermlp	adadelta	no	owa	False	0.23119	0.0	basic
+random	fb15k237	rankbased	marginranking	ermlp	adadelta	no	owa	True	0.24694	0.0	basic
+random	fb15k237	rankbased	marginranking	ermlp	adam	no	owa	False	0.35478	0.0	basic
+random	fb15k237	rankbased	marginranking	ermlp	adam	no	owa	True	0.35282	0.0	basic
+random	fb15k237	rankbased	nssa	ermlp	adadelta	no	owa	False	0.1026	0.0	basic
+random	fb15k237	rankbased	nssa	ermlp	adadelta	no	owa	True	0.08196	0.0	basic
+random	fb15k237	rankbased	nssa	ermlp	adam	no	owa	False	0.28949	0.0	basic
+random	fb15k237	rankbased	nssa	ermlp	adam	no	owa	True	0.30338	0.0	basic
+random	fb15k237	rankbased	softplus	ermlp	adadelta	no	lcwa	False	0.08844	0.0	
+random	fb15k237	rankbased	softplus	ermlp	adadelta	no	lcwa	True	0.07518	0.0	
+random	fb15k237	rankbased	softplus	ermlp	adadelta	no	owa	False	0.1151	0.0	basic
+random	fb15k237	rankbased	softplus	ermlp	adadelta	no	owa	True	0.09942	0.0	basic
+random	fb15k237	rankbased	softplus	ermlp	adam	no	lcwa	False	0.25066	0.0	
+random	fb15k237	rankbased	softplus	ermlp	adam	no	lcwa	True	0.37927	0.0	
+random	fb15k237	rankbased	softplus	ermlp	adam	no	owa	False	0.32819	0.0	basic
+random	fb15k237	rankbased	softplus	ermlp	adam	no	owa	True	0.35395	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adadelta	no	lcwa	True	0.00029	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adadelta	no	lcwa	False	0.00039	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adadelta	no	owa	True	0.00061	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adadelta	no	owa	False	0.00061	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adam	no	lcwa	True	0.00051	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adam	no	lcwa	False	0.00064	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adam	no	owa	True	0.00213	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	kg2e	adam	no	owa	False	0.0295	0.0	basic
+random	fb15k237	rankbased	crossentropy	kg2e	adadelta	no	lcwa	True	0.18568	0.0	
+random	fb15k237	rankbased	crossentropy	kg2e	adam	no	lcwa	True	0.36283	0.0	
+random	fb15k237	rankbased	crossentropy	kg2e	adam	no	lcwa	False	0.2182	0.0	
+random	fb15k237	rankbased	marginranking	kg2e	adadelta	no	owa	False	0.28344	0.0	basic
+random	fb15k237	rankbased	marginranking	kg2e	adadelta	no	owa	True	0.22206	0.0	basic
+random	fb15k237	rankbased	marginranking	kg2e	adam	no	owa	True	0.34891	0.0	basic
+random	fb15k237	rankbased	marginranking	kg2e	adam	no	owa	False	0.36537	0.0	basic
+random	fb15k237	rankbased	nssa	kg2e	adadelta	no	owa	False	0.28339	0.0	basic
+random	fb15k237	rankbased	nssa	kg2e	adadelta	no	owa	True	0.2019	0.0	basic
+random	fb15k237	rankbased	nssa	kg2e	adam	no	owa	True	0.32452	0.0	basic
+random	fb15k237	rankbased	nssa	kg2e	adam	no	owa	False	0.36332	0.0	basic
+random	fb15k237	rankbased	softplus	kg2e	adadelta	no	lcwa	False	0.06896	0.0	
+random	fb15k237	rankbased	softplus	kg2e	adadelta	no	lcwa	True	0.00421	0.0	
+random	fb15k237	rankbased	softplus	kg2e	adadelta	no	owa	False	0.11158	0.0	basic
+random	fb15k237	rankbased	softplus	kg2e	adadelta	no	owa	True	0.10321	0.0	basic
+random	fb15k237	rankbased	softplus	kg2e	adam	no	lcwa	False	0.40249	0.0	
+random	fb15k237	rankbased	softplus	kg2e	adam	no	lcwa	True	0.43546	0.0	
+random	fb15k237	rankbased	softplus	kg2e	adam	no	owa	False	0.40464	0.0	basic
+random	fb15k237	rankbased	softplus	kg2e	adam	no	owa	True	0.3836	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	proje	adadelta	no	lcwa	False	0.00061	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	proje	adadelta	no	lcwa	True	0.01468	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	proje	adadelta	no	owa	False	0.05468	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	proje	adadelta	no	owa	True	0.05544	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	proje	adam	no	lcwa	False	0.30416	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	proje	adam	no	lcwa	True	0.40185	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	proje	adam	no	owa	False	0.28447	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	proje	adam	no	owa	True	0.24802	0.0	basic
+random	fb15k237	rankbased	crossentropy	proje	adadelta	no	lcwa	False	0.22492	0.0	
+random	fb15k237	rankbased	crossentropy	proje	adadelta	no	lcwa	True	0.29675	0.0	
+random	fb15k237	rankbased	crossentropy	proje	adam	no	lcwa	False	0.28386	0.0	
+random	fb15k237	rankbased	crossentropy	proje	adam	no	lcwa	True	0.40422	0.0	
+random	fb15k237	rankbased	marginranking	proje	adadelta	no	owa	False	0.22216	0.0	basic
+random	fb15k237	rankbased	marginranking	proje	adadelta	no	owa	True	0.22691	0.0	basic
+random	fb15k237	rankbased	marginranking	proje	adam	no	owa	False	0.31346	0.0	basic
+random	fb15k237	rankbased	marginranking	proje	adam	no	owa	True	0.33768	0.0	basic
+random	fb15k237	rankbased	nssa	proje	adadelta	no	owa	False	0.05306	0.0	basic
+random	fb15k237	rankbased	nssa	proje	adadelta	no	owa	True	0.06067	0.0	basic
+random	fb15k237	rankbased	nssa	proje	adam	no	owa	False	0.26037	0.0	basic
+random	fb15k237	rankbased	nssa	proje	adam	no	owa	True	0.22666	0.0	basic
+random	fb15k237	rankbased	softplus	proje	adadelta	no	lcwa	False	0.00051	0.0	
+random	fb15k237	rankbased	softplus	proje	adadelta	no	lcwa	True	0.00022	0.0	
+random	fb15k237	rankbased	softplus	proje	adadelta	no	owa	False	0.058	0.0	basic
+random	fb15k237	rankbased	softplus	proje	adadelta	no	owa	True	0.06723	0.0	basic
+random	fb15k237	rankbased	softplus	proje	adam	no	lcwa	False	0.23097	0.0	
+random	fb15k237	rankbased	softplus	proje	adam	no	lcwa	True	0.32102	0.0	
+random	fb15k237	rankbased	softplus	proje	adam	no	owa	False	0.28136	0.0	basic
+random	fb15k237	rankbased	softplus	proje	adam	no	owa	True	0.23158	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adadelta	no	owa	True	0.06432	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adadelta	no	owa	False	0.06488	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adam	no	lcwa	True	0.42291	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adam	no	lcwa	False	0.4566	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adam	no	owa	True	0.35361	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	rotate	adam	no	owa	False	0.35796	0.0	basic
+random	fb15k237	rankbased	crossentropy	rotate	adadelta	no	lcwa	True	0.0697	0.0	
+random	fb15k237	rankbased	crossentropy	rotate	adadelta	no	lcwa	False	0.06916	0.0	
+random	fb15k237	rankbased	crossentropy	rotate	adam	no	lcwa	True	0.45623	0.0	
+random	fb15k237	rankbased	crossentropy	rotate	adam	no	lcwa	False	0.4166	0.0	
+random	fb15k237	rankbased	marginranking	rotate	adadelta	no	owa	True	0.065	0.0	basic
+random	fb15k237	rankbased	marginranking	rotate	adadelta	no	owa	False	0.18397	0.0	basic
+random	fb15k237	rankbased	marginranking	rotate	adam	no	owa	True	0.28684	0.0	basic
+random	fb15k237	rankbased	marginranking	rotate	adam	no	owa	False	0.39612	0.0	basic
+random	fb15k237	rankbased	nssa	rotate	adadelta	no	owa	True	0.06405	0.0	basic
+random	fb15k237	rankbased	nssa	rotate	adadelta	no	owa	False	0.06434	0.0	basic
+random	fb15k237	rankbased	nssa	rotate	adam	no	owa	True	0.4771	0.0	basic
+random	fb15k237	rankbased	nssa	rotate	adam	no	owa	False	0.48177	0.0	basic
+random	fb15k237	rankbased	softplus	rotate	adadelta	no	owa	True	0.06224	0.0	basic
+random	fb15k237	rankbased	softplus	rotate	adadelta	no	owa	False	0.0638	0.0	basic
+random	fb15k237	rankbased	softplus	rotate	adam	no	lcwa	True	0.443	0.0	
+random	fb15k237	rankbased	softplus	rotate	adam	no	lcwa	False	0.43661	0.0	
+random	fb15k237	rankbased	softplus	rotate	adam	no	owa	True	0.3586	0.0	basic
+random	fb15k237	rankbased	softplus	rotate	adam	no	owa	False	0.36506	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	simple	adadelta	no	lcwa	True	0.00061	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	simple	adadelta	no	lcwa	False	0.00054	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	simple	adadelta	no	owa	True	0.00061	0.00011	basic
+random	fb15k237	rankbased	bceaftersigmoid	simple	adadelta	no	owa	False	0.00064	5e-05	basic
+random	fb15k237	rankbased	bceaftersigmoid	simple	adam	no	lcwa	True	0.39581	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	simple	adam	no	lcwa	False	0.22081	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	simple	adam	no	owa	True	0.27733	0.00755	basic
+random	fb15k237	rankbased	bceaftersigmoid	simple	adam	no	owa	False	0.26906	0.00518	basic
+random	fb15k237	rankbased	crossentropy	simple	adadelta	no	lcwa	True	0.09507	0.0	
+random	fb15k237	rankbased	crossentropy	simple	adadelta	no	lcwa	False	0.09326	0.0	
+random	fb15k237	rankbased	crossentropy	simple	adam	no	lcwa	True	0.36743	0.0	
+random	fb15k237	rankbased	crossentropy	simple	adam	no	lcwa	False	0.30656	0.0	
+random	fb15k237	rankbased	marginranking	simple	adadelta	no	owa	True	0.00609	0.0	basic
+random	fb15k237	rankbased	marginranking	simple	adadelta	no	owa	False	0.00504	0.0	basic
+random	fb15k237	rankbased	marginranking	simple	adam	no	owa	True	0.30321	0.0	basic
+random	fb15k237	rankbased	marginranking	simple	adam	no	owa	False	0.21034	0.0	basic
+random	fb15k237	rankbased	nssa	simple	adadelta	no	owa	True	0.00062	0.00011	basic
+random	fb15k237	rankbased	nssa	simple	adadelta	no	owa	False	0.00065	6e-05	basic
+random	fb15k237	rankbased	nssa	simple	adam	no	owa	True	0.27594	0.00393	basic
+random	fb15k237	rankbased	nssa	simple	adam	no	owa	False	0.29728	0.00362	basic
+random	fb15k237	rankbased	softplus	simple	adadelta	no	lcwa	True	0.00068	0.0	
+random	fb15k237	rankbased	softplus	simple	adadelta	no	lcwa	False	0.00064	0.0	
+random	fb15k237	rankbased	softplus	simple	adadelta	no	owa	True	0.00047	8e-05	basic
+random	fb15k237	rankbased	softplus	simple	adadelta	no	owa	False	0.00068	0.00015	basic
+random	fb15k237	rankbased	softplus	simple	adam	no	lcwa	True	0.31295	0.0	
+random	fb15k237	rankbased	softplus	simple	adam	no	lcwa	False	0.20119	0.0	
+random	fb15k237	rankbased	softplus	simple	adam	no	owa	True	0.29034	0.00196	basic
+random	fb15k237	rankbased	softplus	simple	adam	no	owa	False	0.22568	0.01028	basic
+random	fb15k237	rankbased	bceaftersigmoid	transd	adadelta	no	lcwa	False	0.00524	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	transd	adadelta	no	lcwa	True	0.00514	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	transd	adadelta	no	owa	False	0.25311	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	transd	adadelta	no	owa	True	0.25886	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	transd	adam	no	lcwa	False	0.04032	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	transd	adam	no	lcwa	True	0.02938	0.0	
+random	fb15k237	rankbased	bceaftersigmoid	transd	adam	no	owa	False	0.27807	0.00525	basic
+random	fb15k237	rankbased	bceaftersigmoid	transd	adam	no	owa	True	0.24315	0.00233	basic
+random	fb15k237	rankbased	crossentropy	transd	adadelta	no	lcwa	True	0.13766	0.0	
+random	fb15k237	rankbased	crossentropy	transd	adam	no	lcwa	False	0.22309	0.0	
+random	fb15k237	rankbased	crossentropy	transd	adam	no	lcwa	True	0.3391	0.0	
+random	fb15k237	rankbased	marginranking	transd	adadelta	no	owa	False	0.30429	0.0	basic
+random	fb15k237	rankbased	marginranking	transd	adadelta	no	owa	True	0.33029	0.0	basic
+random	fb15k237	rankbased	marginranking	transd	adam	no	owa	False	0.32951	0.0	basic
+random	fb15k237	rankbased	marginranking	transd	adam	no	owa	True	0.3974	0.0	basic
+random	fb15k237	rankbased	nssa	transd	adadelta	no	owa	False	0.11314	0.00871	basic
+random	fb15k237	rankbased	nssa	transd	adadelta	no	owa	True	0.28283	0.00662	basic
+random	fb15k237	rankbased	nssa	transd	adam	no	owa	False	0.24808	0.00181	basic
+random	fb15k237	rankbased	nssa	transd	adam	no	owa	True	0.24333	0.00368	basic
+random	fb15k237	rankbased	softplus	transd	adadelta	no	lcwa	False	0.00494	0.0	
+random	fb15k237	rankbased	softplus	transd	adadelta	no	lcwa	True	0.00497	0.0	
+random	fb15k237	rankbased	softplus	transd	adadelta	no	owa	False	0.29702	0.0	basic
+random	fb15k237	rankbased	softplus	transd	adadelta	no	owa	True	0.07462	0.0	basic
+random	fb15k237	rankbased	softplus	transd	adam	no	lcwa	False	0.01027	0.0	
+random	fb15k237	rankbased	softplus	transd	adam	no	lcwa	True	0.0297	0.0	
+random	fb15k237	rankbased	softplus	transd	adam	no	owa	False	0.28556	0.00527	basic
+random	fb15k237	rankbased	softplus	transd	adam	no	owa	True	0.28152	0.00229	basic
+random	fb15k237	rankbased	bceaftersigmoid	transe	adadelta	no	lcwa	False	0.00509	0.00038	
+random	fb15k237	rankbased	bceaftersigmoid	transe	adadelta	no	lcwa	True	0.0069	0.00116	
+random	fb15k237	rankbased	bceaftersigmoid	transe	adadelta	no	owa	False	0.24682	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	transe	adadelta	no	owa	True	0.27642	0.0	basic
+random	fb15k237	rankbased	bceaftersigmoid	transe	adam	no	lcwa	False	0.43127	0.00041	
+random	fb15k237	rankbased	bceaftersigmoid	transe	adam	no	lcwa	True	0.38052	0.00476	
+random	fb15k237	rankbased	bceaftersigmoid	transe	adam	no	owa	False	0.29416	0.00111	basic
+random	fb15k237	rankbased	bceaftersigmoid	transe	adam	no	owa	True	0.28586	0.00138	basic
+random	fb15k237	rankbased	crossentropy	transe	adadelta	no	lcwa	False	0.22399	0.0	
+random	fb15k237	rankbased	crossentropy	transe	adadelta	no	lcwa	True	0.42034	0.0	
+random	fb15k237	rankbased	crossentropy	transe	adam	no	lcwa	False	0.33188	0.0	
+random	fb15k237	rankbased	crossentropy	transe	adam	no	lcwa	True	0.444	0.0	
+random	fb15k237	rankbased	marginranking	transe	adadelta	no	owa	False	0.40447	0.00041	basic
+random	fb15k237	rankbased	marginranking	transe	adadelta	no	owa	True	0.421	0.00063	basic
+random	fb15k237	rankbased	marginranking	transe	adam	no	owa	False	0.43927	0.00138	basic
+random	fb15k237	rankbased	marginranking	transe	adam	no	owa	True	0.41387	0.00142	basic
+random	fb15k237	rankbased	nssa	transe	adadelta	no	owa	False	0.42613	0.00051	basic
+random	fb15k237	rankbased	nssa	transe	adadelta	no	owa	True	0.3042	0.00129	basic
+random	fb15k237	rankbased	nssa	transe	adam	no	owa	False	0.40473	0.00419	basic
+random	fb15k237	rankbased	nssa	transe	adam	no	owa	True	0.38505	0.00353	basic
+random	fb15k237	rankbased	softplus	transe	adadelta	no	lcwa	False	0.00513	9e-05	
+random	fb15k237	rankbased	softplus	transe	adadelta	no	lcwa	True	0.0052	0.00016	
+random	fb15k237	rankbased	softplus	transe	adadelta	no	owa	False	0.25727	0.0	basic
+random	fb15k237	rankbased	softplus	transe	adadelta	no	owa	True	0.2422	0.0	basic
+random	fb15k237	rankbased	softplus	transe	adam	no	lcwa	False	0.43776	0.00102	
+random	fb15k237	rankbased	softplus	transe	adam	no	lcwa	True	0.41225	0.00057	
+random	fb15k237	rankbased	softplus	transe	adam	no	owa	False	0.33827	0.00125	basic
+random	fb15k237	rankbased	softplus	transe	adam	no	owa	True	0.33371	0.00157	basic
+random	kinships	rankbased	bceaftersigmoid	complex	adadelta	no	lcwa	False	0.10615	0.01046	
+random	kinships	rankbased	bceaftersigmoid	complex	adadelta	no	lcwa	True	0.10137	0.00647	
+random	kinships	rankbased	bceaftersigmoid	complex	adadelta	no	owa	False	0.10324	0.00913	basic
+random	kinships	rankbased	bceaftersigmoid	complex	adadelta	no	owa	True	0.1094	0.00504	basic
+random	kinships	rankbased	bceaftersigmoid	complex	adam	no	lcwa	False	0.93273	0.00199	
+random	kinships	rankbased	bceaftersigmoid	complex	adam	no	lcwa	True	0.96555	0.003	
+random	kinships	rankbased	bceaftersigmoid	complex	adam	no	owa	False	0.97591	0.00175	basic
+random	kinships	rankbased	bceaftersigmoid	complex	adam	no	owa	True	0.97765	0.00233	basic
+random	kinships	rankbased	crossentropy	complex	adadelta	no	lcwa	False	0.09893	0.00584	
+random	kinships	rankbased	crossentropy	complex	adadelta	no	lcwa	True	0.92807	0.01066	
+random	kinships	rankbased	crossentropy	complex	adam	no	lcwa	False	0.96706	0.00519	
+random	kinships	rankbased	crossentropy	complex	adam	no	lcwa	True	0.97847	0.00222	
+random	kinships	rankbased	marginranking	complex	adadelta	no	owa	False	0.9531	0.00772	basic
+random	kinships	rankbased	marginranking	complex	adadelta	no	owa	True	0.96241	0.00293	basic
+random	kinships	rankbased	marginranking	complex	adam	no	owa	False	0.95822	0.00229	basic
+random	kinships	rankbased	marginranking	complex	adam	no	owa	True	0.95007	0.00469	basic
+random	kinships	rankbased	nssa	complex	adadelta	no	owa	False	0.10812	0.00684	basic
+random	kinships	rankbased	nssa	complex	adadelta	no	owa	True	0.10684	0.00728	basic
+random	kinships	rankbased	nssa	complex	adam	no	owa	False	0.96846	0.00408	basic
+random	kinships	rankbased	nssa	complex	adam	no	owa	True	0.97416	0.00337	basic
+random	kinships	rankbased	softplus	complex	adadelta	no	lcwa	False	0.1044	0.01679	
+random	kinships	rankbased	softplus	complex	adadelta	no	lcwa	True	0.09916	0.00364	
+random	kinships	rankbased	softplus	complex	adadelta	no	owa	False	0.09893	0.01104	basic
+random	kinships	rankbased	softplus	complex	adadelta	no	owa	True	0.10428	0.0042	basic
+random	kinships	rankbased	softplus	complex	adam	no	lcwa	False	0.92749	0.00507	
+random	kinships	rankbased	softplus	complex	adam	no	lcwa	True	0.94821	0.00641	
+random	kinships	rankbased	softplus	complex	adam	no	owa	False	0.97323	0.00352	basic
+random	kinships	rankbased	softplus	complex	adam	no	owa	True	0.97556	0.00333	basic
+random	kinships	rankbased	bceaftersigmoid	conve	adam	no	lcwa	False	0.95635	0.00264	
+random	kinships	rankbased	bceaftersigmoid	conve	adam	no	lcwa	True	0.9808	0.00187	
+random	kinships	rankbased	softplus	conve	adam	no	lcwa	False	0.95065	0.00324	
+random	kinships	rankbased	softplus	conve	adam	no	lcwa	True	0.97986	0.00089	
+random	kinships	rankbased	bceaftersigmoid	distmult	adadelta	no	lcwa	False	0.1129	0.00276	
+random	kinships	rankbased	bceaftersigmoid	distmult	adadelta	no	lcwa	True	0.10044	0.00383	
+random	kinships	rankbased	bceaftersigmoid	distmult	adadelta	no	owa	False	0.1037	0.00384	basic
+random	kinships	rankbased	bceaftersigmoid	distmult	adadelta	no	owa	True	0.10207	0.01185	basic
+random	kinships	rankbased	bceaftersigmoid	distmult	adam	no	lcwa	False	0.85114	0.00763	
+random	kinships	rankbased	bceaftersigmoid	distmult	adam	no	lcwa	True	0.85393	0.00163	
+random	kinships	rankbased	bceaftersigmoid	distmult	adam	no	owa	False	0.85684	0.00313	basic
+random	kinships	rankbased	bceaftersigmoid	distmult	adam	no	owa	True	0.86092	0.00349	basic
+random	kinships	rankbased	crossentropy	distmult	adadelta	no	lcwa	False	0.39269	0.08948	
+random	kinships	rankbased	crossentropy	distmult	adadelta	no	lcwa	True	0.59369	0.01939	
+random	kinships	rankbased	crossentropy	distmult	adam	no	lcwa	False	0.88373	0.00268	
+random	kinships	rankbased	crossentropy	distmult	adam	no	lcwa	True	0.92179	0.00221	
+random	kinships	rankbased	marginranking	distmult	adadelta	no	owa	False	0.60894	0.04057	basic
+random	kinships	rankbased	marginranking	distmult	adadelta	no	owa	True	0.54981	0.00524	basic
+random	kinships	rankbased	marginranking	distmult	adam	no	owa	False	0.8558	0.00504	basic
+random	kinships	rankbased	marginranking	distmult	adam	no	owa	True	0.84963	0.00368	basic
+random	kinships	rankbased	nssa	distmult	adadelta	no	owa	False	0.09835	0.00813	basic
+random	kinships	rankbased	nssa	distmult	adadelta	no	owa	True	0.10638	0.00758	basic
+random	kinships	rankbased	nssa	distmult	adam	no	owa	False	0.85673	0.0051	basic
+random	kinships	rankbased	nssa	distmult	adam	no	owa	True	0.8459	0.00396	basic
+random	kinships	rankbased	softplus	distmult	adadelta	no	lcwa	False	0.09811	0.00666	
+random	kinships	rankbased	softplus	distmult	adadelta	no	lcwa	True	0.10056	0.00448	
+random	kinships	rankbased	softplus	distmult	adadelta	no	owa	False	0.09928	0.00709	basic
+random	kinships	rankbased	softplus	distmult	adadelta	no	owa	True	0.10556	0.00631	basic
+random	kinships	rankbased	softplus	distmult	adam	no	lcwa	False	0.84672	0.00431	
+random	kinships	rankbased	softplus	distmult	adam	no	lcwa	True	0.84451	0.00427	
+random	kinships	rankbased	softplus	distmult	adam	no	owa	False	0.85952	0.00384	basic
+random	kinships	rankbased	softplus	distmult	adam	no	owa	True	0.86266	0.00255	basic
+random	kinships	rankbased	bceaftersigmoid	ermlp	adadelta	no	lcwa	False	0.44844	0.02018	
+random	kinships	rankbased	bceaftersigmoid	ermlp	adadelta	no	lcwa	True	0.79225	0.00201	
+random	kinships	rankbased	bceaftersigmoid	ermlp	adadelta	no	owa	False	0.62221	0.01124	basic
+random	kinships	rankbased	bceaftersigmoid	ermlp	adadelta	no	owa	True	0.77851	0.02887	basic
+random	kinships	rankbased	bceaftersigmoid	ermlp	adam	no	lcwa	False	0.90293	0.00757	
+random	kinships	rankbased	bceaftersigmoid	ermlp	adam	no	lcwa	True	0.94704	0.00325	
+random	kinships	rankbased	bceaftersigmoid	ermlp	adam	no	owa	False	0.91888	0.0059	basic
+random	kinships	rankbased	bceaftersigmoid	ermlp	adam	no	owa	True	0.96799	0.00089	basic
+random	kinships	rankbased	crossentropy	ermlp	adadelta	no	lcwa	False	0.44355	0.01562	
+random	kinships	rankbased	crossentropy	ermlp	adadelta	no	lcwa	True	0.81878	0.00891	
+random	kinships	rankbased	crossentropy	ermlp	adam	no	lcwa	False	0.70216	0.02257	
+random	kinships	rankbased	crossentropy	ermlp	adam	no	lcwa	True	0.946	0.00337	
+random	kinships	rankbased	marginranking	ermlp	adadelta	no	owa	False	0.84998	0.03761	basic
+random	kinships	rankbased	marginranking	ermlp	adadelta	no	owa	True	0.92121	0.00412	basic
+random	kinships	rankbased	marginranking	ermlp	adam	no	owa	False	0.93063	0.00936	basic
+random	kinships	rankbased	marginranking	ermlp	adam	no	owa	True	0.95647	0.00683	basic
+random	kinships	rankbased	nssa	ermlp	adadelta	no	owa	False	0.7273	0.05581	basic
+random	kinships	rankbased	nssa	ermlp	adadelta	no	owa	True	0.92761	0.00919	basic
+random	kinships	rankbased	nssa	ermlp	adam	no	owa	False	0.94425	0.00238	basic
+random	kinships	rankbased	nssa	ermlp	adam	no	owa	True	0.96892	0.00346	basic
+random	kinships	rankbased	softplus	ermlp	adadelta	no	lcwa	False	0.46357	0.01485	
+random	kinships	rankbased	softplus	ermlp	adadelta	no	lcwa	True	0.79411	0.01479	
+random	kinships	rankbased	softplus	ermlp	adadelta	no	owa	False	0.6939	0.00209	basic
+random	kinships	rankbased	softplus	ermlp	adadelta	no	owa	True	0.84742	0.00106	basic
+random	kinships	rankbased	softplus	ermlp	adam	no	lcwa	False	0.89269	0.01232	
+random	kinships	rankbased	softplus	ermlp	adam	no	lcwa	True	0.94902	0.00417	
+random	kinships	rankbased	softplus	ermlp	adam	no	owa	False	0.94658	0.00495	basic
+random	kinships	rankbased	softplus	ermlp	adam	no	owa	True	0.96881	0.00347	basic
+random	kinships	rankbased	bceaftersigmoid	hole	adadelta	no	lcwa	False	0.10417	0.0103	
+random	kinships	rankbased	bceaftersigmoid	hole	adadelta	no	lcwa	True	0.10393	0.00557	
+random	kinships	rankbased	bceaftersigmoid	hole	adadelta	no	owa	False	0.82193	0.01235	basic
+random	kinships	rankbased	bceaftersigmoid	hole	adadelta	no	owa	True	0.70577	0.01195	basic
+random	kinships	rankbased	bceaftersigmoid	hole	adam	no	lcwa	False	0.86813	0.00282	
+random	kinships	rankbased	bceaftersigmoid	hole	adam	no	lcwa	True	0.87453	0.00516	
+random	kinships	rankbased	bceaftersigmoid	hole	adam	no	owa	False	0.85929	0.00412	basic
+random	kinships	rankbased	bceaftersigmoid	hole	adam	no	owa	True	0.86162	0.00214	basic
+random	kinships	rankbased	crossentropy	hole	adadelta	no	lcwa	True	0.91189	0.00699	
+random	kinships	rankbased	crossentropy	hole	adadelta	no	lcwa	False	0.84835	0.00978	
+random	kinships	rankbased	crossentropy	hole	adam	no	lcwa	False	0.85649	0.00454	
+random	kinships	rankbased	crossentropy	hole	adam	no	lcwa	True	0.92493	0.00559	
+random	kinships	rankbased	marginranking	hole	adadelta	no	owa	True	0.85289	0.00923	basic
+random	kinships	rankbased	marginranking	hole	adadelta	no	owa	False	0.86208	0.00718	basic
+random	kinships	rankbased	marginranking	hole	adam	no	owa	False	0.8558	0.00258	basic
+random	kinships	rankbased	marginranking	hole	adam	no	owa	True	0.85824	0.00442	basic
+random	kinships	rankbased	nssa	hole	adadelta	no	owa	True	0.70088	0.0194	basic
+random	kinships	rankbased	nssa	hole	adadelta	no	owa	False	0.85673	0.00457	basic
+random	kinships	rankbased	nssa	hole	adam	no	owa	False	0.85847	0.0058	basic
+random	kinships	rankbased	nssa	hole	adam	no	owa	True	0.86499	0.00528	basic
+random	kinships	rankbased	softplus	hole	adadelta	no	lcwa	True	0.10207	0.00653	
+random	kinships	rankbased	softplus	hole	adadelta	no	lcwa	False	0.10801	0.00672	
+random	kinships	rankbased	softplus	hole	adadelta	no	owa	True	0.42295	0.08005	basic
+random	kinships	rankbased	softplus	hole	adadelta	no	owa	False	0.10102	0.00661	basic
+random	kinships	rankbased	softplus	hole	adam	no	lcwa	True	0.87488	0.00815	
+random	kinships	rankbased	softplus	hole	adam	no	lcwa	False	0.87395	0.00548	
+random	kinships	rankbased	softplus	hole	adam	no	owa	True	0.85882	0.00461	basic
+random	kinships	rankbased	softplus	hole	adam	no	owa	False	0.85661	0.00269	basic
+random	kinships	rankbased	bceaftersigmoid	kg2e	adadelta	no	lcwa	True	0.10777	0.00524	
+random	kinships	rankbased	bceaftersigmoid	kg2e	adadelta	no	lcwa	False	0.10533	0.00432	
+random	kinships	rankbased	bceaftersigmoid	kg2e	adadelta	no	owa	True	0.1122	0.00881	basic
+random	kinships	rankbased	bceaftersigmoid	kg2e	adadelta	no	owa	False	0.103	0.00617	basic
+random	kinships	rankbased	bceaftersigmoid	kg2e	adam	no	lcwa	True	0.10766	0.00989	
+random	kinships	rankbased	bceaftersigmoid	kg2e	adam	no	lcwa	False	0.10673	0.00458	
+random	kinships	rankbased	bceaftersigmoid	kg2e	adam	no	owa	True	0.1115	0.00516	basic
+random	kinships	rankbased	bceaftersigmoid	kg2e	adam	no	owa	False	0.10731	0.00149	basic
+random	kinships	rankbased	crossentropy	kg2e	adadelta	no	lcwa	False	0.50675	0.01247	
+random	kinships	rankbased	crossentropy	kg2e	adadelta	no	lcwa	True	0.71392	0.01038	
+random	kinships	rankbased	crossentropy	kg2e	adam	no	lcwa	True	0.19367	0.00412	
+random	kinships	rankbased	crossentropy	kg2e	adam	no	lcwa	False	0.16736	0.00607	
+random	kinships	rankbased	marginranking	kg2e	adadelta	no	owa	False	0.83776	0.00434	basic
+random	kinships	rankbased	marginranking	kg2e	adadelta	no	owa	True	0.86569	0.0033	basic
+random	kinships	rankbased	marginranking	kg2e	adam	no	owa	True	0.89409	0.00193	basic
+random	kinships	rankbased	marginranking	kg2e	adam	no	owa	False	0.88338	0.00343	basic
+random	kinships	rankbased	nssa	kg2e	adadelta	no	owa	False	0.79236	0.00722	basic
+random	kinships	rankbased	nssa	kg2e	adadelta	no	owa	True	0.85754	0.01035	basic
+random	kinships	rankbased	nssa	kg2e	adam	no	owa	True	0.69262	0.01872	basic
+random	kinships	rankbased	nssa	kg2e	adam	no	owa	False	0.16818	0.00902	basic
+random	kinships	rankbased	softplus	kg2e	adadelta	no	lcwa	False	0.10556	0.01039	
+random	kinships	rankbased	softplus	kg2e	adadelta	no	lcwa	True	0.10312	0.00739	
+random	kinships	rankbased	softplus	kg2e	adadelta	no	owa	False	0.18959	0.00639	basic
+random	kinships	rankbased	softplus	kg2e	adadelta	no	owa	True	0.21299	0.00804	basic
+random	kinships	rankbased	softplus	kg2e	adam	no	lcwa	False	0.14502	0.01334	
+random	kinships	rankbased	softplus	kg2e	adam	no	lcwa	True	0.14665	0.00649	
+random	kinships	rankbased	softplus	kg2e	adam	no	owa	False	0.13827	0.00961	basic
+random	kinships	rankbased	softplus	kg2e	adam	no	owa	True	0.52142	0.04252	basic
+random	kinships	rankbased	bceaftersigmoid	proje	adadelta	no	lcwa	False	0.1044	0.0073	
+random	kinships	rankbased	bceaftersigmoid	proje	adadelta	no	lcwa	True	0.10801	0.00353	
+random	kinships	rankbased	bceaftersigmoid	proje	adadelta	no	owa	False	0.10824	0.00463	basic
+random	kinships	rankbased	bceaftersigmoid	proje	adadelta	no	owa	True	0.10324	0.00916	basic
+random	kinships	rankbased	bceaftersigmoid	proje	adam	no	lcwa	False	0.91585	0.00594	
+random	kinships	rankbased	bceaftersigmoid	proje	adam	no	lcwa	True	0.94914	0.00443	
+random	kinships	rankbased	bceaftersigmoid	proje	adam	no	owa	False	0.93901	0.00497	basic
+random	kinships	rankbased	bceaftersigmoid	proje	adam	no	owa	True	0.95635	0.0034	basic
+random	kinships	rankbased	crossentropy	proje	adadelta	no	lcwa	False	0.1733	0.0051	
+random	kinships	rankbased	crossentropy	proje	adadelta	no	lcwa	True	0.22765	0.00249	
+random	kinships	rankbased	crossentropy	proje	adam	no	lcwa	False	0.9247	0.00391	
+random	kinships	rankbased	crossentropy	proje	adam	no	lcwa	True	0.94227	0.00483	
+random	kinships	rankbased	marginranking	proje	adadelta	no	owa	False	0.80319	0.04177	basic
+random	kinships	rankbased	marginranking	proje	adadelta	no	owa	True	0.82996	0.03228	basic
+random	kinships	rankbased	marginranking	proje	adam	no	owa	False	0.91271	0.00657	basic
+random	kinships	rankbased	marginranking	proje	adam	no	owa	True	0.93203	0.00495	basic
+random	kinships	rankbased	nssa	proje	adadelta	no	owa	False	0.10987	0.00418	basic
+random	kinships	rankbased	nssa	proje	adadelta	no	owa	True	0.10649	0.00301	basic
+random	kinships	rankbased	nssa	proje	adam	no	owa	False	0.92109	0.006	basic
+random	kinships	rankbased	nssa	proje	adam	no	owa	True	0.95077	0.004	basic
+random	kinships	rankbased	softplus	proje	adadelta	no	lcwa	False	0.10696	0.00809	
+random	kinships	rankbased	softplus	proje	adadelta	no	lcwa	True	0.11185	0.0037	
+random	kinships	rankbased	softplus	proje	adadelta	no	owa	False	0.10929	0.00815	basic
+random	kinships	rankbased	softplus	proje	adadelta	no	owa	True	0.09416	0.01112	basic
+random	kinships	rankbased	softplus	proje	adam	no	lcwa	False	0.86557	0.00137	
+random	kinships	rankbased	softplus	proje	adam	no	lcwa	True	0.90899	0.00313	
+random	kinships	rankbased	softplus	proje	adam	no	owa	False	0.94635	0.00546	basic
+random	kinships	rankbased	softplus	proje	adam	no	owa	True	0.9531	0.0053	basic
+random	kinships	rankbased	bceaftersigmoid	rescal	adadelta	no	lcwa	True	0.09963	0.00411	
+random	kinships	rankbased	bceaftersigmoid	rescal	adadelta	no	lcwa	False	0.10265	0.00699	
+random	kinships	rankbased	bceaftersigmoid	rescal	adadelta	no	owa	True	0.10114	0.00416	basic
+random	kinships	rankbased	bceaftersigmoid	rescal	adadelta	no	owa	False	0.11138	0.00936	basic
+random	kinships	rankbased	bceaftersigmoid	rescal	adam	no	lcwa	True	0.83741	0.00978	
+random	kinships	rankbased	bceaftersigmoid	rescal	adam	no	lcwa	False	0.54993	0.03184	
+random	kinships	rankbased	bceaftersigmoid	rescal	adam	no	owa	True	0.88361	0.00457	basic
+random	kinships	rankbased	bceaftersigmoid	rescal	adam	no	owa	False	0.93436	0.00705	basic
+random	kinships	rankbased	crossentropy	rescal	adadelta	no	lcwa	True	0.70764	0.00971	
+random	kinships	rankbased	crossentropy	rescal	adadelta	no	lcwa	False	0.26897	0.01985	
+random	kinships	rankbased	crossentropy	rescal	adam	no	lcwa	True	0.96508	0.003	
+random	kinships	rankbased	crossentropy	rescal	adam	no	lcwa	False	0.95042	0.00338	
+random	kinships	rankbased	marginranking	rescal	adadelta	no	owa	True	0.9148	0.00387	basic
+random	kinships	rankbased	marginranking	rescal	adadelta	no	owa	False	0.80005	0.00713	basic
+random	kinships	rankbased	marginranking	rescal	adam	no	owa	True	0.90189	0.0033	basic
+random	kinships	rankbased	marginranking	rescal	adam	no	owa	False	0.9091	0.00626	basic
+random	kinships	rankbased	nssa	rescal	adadelta	no	owa	True	0.94018	0.00587	basic
+random	kinships	rankbased	nssa	rescal	adadelta	no	owa	False	0.59602	0.00975	basic
+random	kinships	rankbased	nssa	rescal	adam	no	owa	True	0.95298	0.00317	basic
+random	kinships	rankbased	nssa	rescal	adam	no	owa	False	0.95345	0.00253	basic
+random	kinships	rankbased	softplus	rescal	adadelta	no	lcwa	True	0.10452	0.0062	
+random	kinships	rankbased	softplus	rescal	adadelta	no	lcwa	False	0.10847	0.00463	
+random	kinships	rankbased	softplus	rescal	adadelta	no	owa	True	0.81425	0.00604	basic
+random	kinships	rankbased	softplus	rescal	adadelta	no	owa	False	0.4453	0.02011	basic
+random	kinships	rankbased	softplus	rescal	adam	no	lcwa	True	0.89013	0.0052	
+random	kinships	rankbased	softplus	rescal	adam	no	lcwa	False	0.8338	0.00679	
+random	kinships	rankbased	softplus	rescal	adam	no	owa	True	0.97335	0.00156	basic
+random	kinships	rankbased	softplus	rescal	adam	no	owa	False	0.973	0.00253	basic
+random	kinships	rankbased	bceaftersigmoid	simple	adadelta	no	lcwa	False	0.09416	0.00742	
+random	kinships	rankbased	bceaftersigmoid	simple	adadelta	no	lcwa	True	0.10521	0.00269	
+random	kinships	rankbased	bceaftersigmoid	simple	adadelta	no	owa	False	0.10149	0.01249	basic
+random	kinships	rankbased	bceaftersigmoid	simple	adadelta	no	owa	True	0.10626	0.00815	basic
+random	kinships	rankbased	bceaftersigmoid	simple	adam	no	lcwa	False	0.93389	0.00324	
+random	kinships	rankbased	bceaftersigmoid	simple	adam	no	lcwa	True	0.96951	0.00149	
+random	kinships	rankbased	bceaftersigmoid	simple	adam	no	owa	False	0.96764	0.00323	basic
+random	kinships	rankbased	bceaftersigmoid	simple	adam	no	owa	True	0.97812	0.00114	basic
+random	kinships	rankbased	crossentropy	simple	adadelta	no	lcwa	False	0.11068	0.00879	
+random	kinships	rankbased	crossentropy	simple	adadelta	no	lcwa	True	0.1044	0.00284	
+random	kinships	rankbased	crossentropy	simple	adam	no	lcwa	False	0.94879	0.00151	
+random	kinships	rankbased	crossentropy	simple	adam	no	lcwa	True	0.97789	0.00188	
+random	kinships	rankbased	marginranking	simple	adadelta	no	owa	False	0.72183	0.01005	basic
+random	kinships	rankbased	marginranking	simple	adadelta	no	owa	True	0.81925	0.01542	basic
+random	kinships	rankbased	marginranking	simple	adam	no	owa	False	0.93273	0.00478	basic
+random	kinships	rankbased	marginranking	simple	adam	no	owa	True	0.95961	0.00089	basic
+random	kinships	rankbased	nssa	simple	adadelta	no	owa	False	0.10079	0.00521	basic
+random	kinships	rankbased	nssa	simple	adadelta	no	owa	True	0.10079	0.0087	basic
+random	kinships	rankbased	nssa	simple	adam	no	owa	False	0.95694	0.00317	basic
+random	kinships	rankbased	nssa	simple	adam	no	owa	True	0.96148	0.00286	basic
+random	kinships	rankbased	softplus	simple	adadelta	no	lcwa	False	0.10638	0.01245	
+random	kinships	rankbased	softplus	simple	adadelta	no	lcwa	True	0.10184	0.00278	
+random	kinships	rankbased	softplus	simple	adadelta	no	owa	False	0.09986	0.01026	basic
+random	kinships	rankbased	softplus	simple	adadelta	no	owa	True	0.10056	0.002	basic
+random	kinships	rankbased	softplus	simple	adam	no	lcwa	False	0.87477	0.01141	
+random	kinships	rankbased	softplus	simple	adam	no	lcwa	True	0.94879	0.00539	
+random	kinships	rankbased	softplus	simple	adam	no	owa	False	0.96997	0.00317	basic
+random	kinships	rankbased	softplus	simple	adam	no	owa	True	0.97463	0.00317	basic
+random	kinships	rankbased	bceaftersigmoid	structuredembedding	adadelta	no	lcwa	False	0.89001	0.00566	
+random	kinships	rankbased	bceaftersigmoid	structuredembedding	adadelta	no	lcwa	True	0.94157	0.00224	
+random	kinships	rankbased	bceaftersigmoid	structuredembedding	adam	no	lcwa	False	0.93645	0.00387	
+random	kinships	rankbased	bceaftersigmoid	structuredembedding	adam	no	lcwa	True	0.96089	0.00249	
+random	kinships	rankbased	crossentropy	structuredembedding	adadelta	no	lcwa	True	0.97114	0.00221	
+random	kinships	rankbased	crossentropy	structuredembedding	adadelta	no	lcwa	False	0.9382	0.00262	
+random	kinships	rankbased	crossentropy	structuredembedding	adam	no	lcwa	False	0.9389	0.00654	
+random	kinships	rankbased	crossentropy	structuredembedding	adam	no	lcwa	True	0.96357	0.00321	
+random	kinships	rankbased	softplus	structuredembedding	adadelta	no	lcwa	True	0.91411	0.00802	
+random	kinships	rankbased	softplus	structuredembedding	adadelta	no	lcwa	False	0.81413	0.00765	
+random	kinships	rankbased	softplus	structuredembedding	adam	no	lcwa	True	0.95717	0.00114	
+random	kinships	rankbased	softplus	structuredembedding	adam	no	lcwa	False	0.93738	0.00202	
+random	kinships	rankbased	bceaftersigmoid	transd	adadelta	no	lcwa	True	0.1477	0.00701	
+random	kinships	rankbased	bceaftersigmoid	transd	adadelta	no	lcwa	False	0.13047	0.0122	
+random	kinships	rankbased	bceaftersigmoid	transd	adadelta	no	owa	True	0.19309	0.00648	basic
+random	kinships	rankbased	bceaftersigmoid	transd	adadelta	no	owa	False	0.19029	0.00486	basic
+random	kinships	rankbased	bceaftersigmoid	transd	adam	no	lcwa	True	0.36103	0.06402	
+random	kinships	rankbased	bceaftersigmoid	transd	adam	no	lcwa	False	0.30459	0.00495	
+random	kinships	rankbased	bceaftersigmoid	transd	adam	no	owa	True	0.34067	0.01389	basic
+random	kinships	rankbased	bceaftersigmoid	transd	adam	no	owa	False	0.36802	0.00543	basic
+random	kinships	rankbased	crossentropy	transd	adadelta	no	lcwa	True	0.27805	0.00231	
+random	kinships	rankbased	crossentropy	transd	adadelta	no	lcwa	False	0.23615	0.00612	
+random	kinships	rankbased	crossentropy	transd	adam	no	lcwa	True	0.46124	0.00835	
+random	kinships	rankbased	crossentropy	transd	adam	no	lcwa	False	0.37663	0.02481	
+random	kinships	rankbased	marginranking	transd	adadelta	no	owa	True	0.27002	0.00908	basic
+random	kinships	rankbased	marginranking	transd	adadelta	no	owa	False	0.28049	0.01492	basic
+random	kinships	rankbased	marginranking	transd	adam	no	owa	True	0.41783	0.01416	basic
+random	kinships	rankbased	marginranking	transd	adam	no	owa	False	0.42446	0.0115	basic
+random	kinships	rankbased	nssa	transd	adadelta	no	owa	True	0.27351	0.03261	basic
+random	kinships	rankbased	nssa	transd	adadelta	no	owa	False	0.21345	0.04077	basic
+random	kinships	rankbased	nssa	transd	adam	no	owa	True	0.34218	0.02434	basic
+random	kinships	rankbased	nssa	transd	adam	no	owa	False	0.33799	0.0328	basic
+random	kinships	rankbased	softplus	transd	adadelta	no	lcwa	True	0.09509	0.00513	
+random	kinships	rankbased	softplus	transd	adadelta	no	lcwa	False	0.12337	0.0061	
+random	kinships	rankbased	softplus	transd	adadelta	no	owa	True	0.14304	0.02048	basic
+random	kinships	rankbased	softplus	transd	adadelta	no	owa	False	0.26397	0.01475	basic
+random	kinships	rankbased	softplus	transd	adam	no	lcwa	True	0.3814	0.0246	
+random	kinships	rankbased	softplus	transd	adam	no	lcwa	False	0.26466	0.04038	
+random	kinships	rankbased	softplus	transd	adam	no	owa	True	0.31518	0.00924	basic
+random	kinships	rankbased	softplus	transd	adam	no	owa	False	0.35649	0.02019	basic
+random	kinships	rankbased	bceaftersigmoid	transe	adadelta	no	lcwa	True	0.09649	0.00609	
+random	kinships	rankbased	bceaftersigmoid	transe	adadelta	no	lcwa	False	0.09998	0.00278	
+random	kinships	rankbased	bceaftersigmoid	transe	adadelta	no	owa	True	0.62872	0.00993	basic
+random	kinships	rankbased	bceaftersigmoid	transe	adadelta	no	owa	False	0.13105	0.01107	basic
+random	kinships	rankbased	bceaftersigmoid	transe	adam	no	lcwa	True	0.67598	0.0059	
+random	kinships	rankbased	bceaftersigmoid	transe	adam	no	lcwa	False	0.63769	0.0062	
+random	kinships	rankbased	bceaftersigmoid	transe	adam	no	owa	True	0.66352	0.00363	basic
+random	kinships	rankbased	bceaftersigmoid	transe	adam	no	owa	False	0.67935	0.00668	basic
+random	kinships	rankbased	crossentropy	transe	adadelta	no	lcwa	True	0.78678	0.01309	
+random	kinships	rankbased	crossentropy	transe	adadelta	no	lcwa	False	0.69204	0.00138	
+random	kinships	rankbased	crossentropy	transe	adam	no	lcwa	True	0.86348	0.00711	
+random	kinships	rankbased	crossentropy	transe	adam	no	lcwa	False	0.7905	0.00648	
+random	kinships	rankbased	marginranking	transe	adadelta	no	owa	True	0.79062	0.00414	basic
+random	kinships	rankbased	marginranking	transe	adadelta	no	owa	False	0.84602	0.00832	basic
+random	kinships	rankbased	marginranking	transe	adam	no	owa	True	0.85172	0.00333	basic
+random	kinships	rankbased	marginranking	transe	adam	no	owa	False	0.7834	0.00572	basic
+random	kinships	rankbased	nssa	transe	adadelta	no	owa	True	0.80959	0.01101	basic
+random	kinships	rankbased	nssa	transe	adadelta	no	owa	False	0.77607	0.00378	basic
+random	kinships	rankbased	nssa	transe	adam	no	owa	True	0.80959	0.00843	basic
+random	kinships	rankbased	nssa	transe	adam	no	owa	False	0.87756	0.00316	basic
+random	kinships	rankbased	softplus	transe	adadelta	no	lcwa	True	0.09858	0.00601	
+random	kinships	rankbased	softplus	transe	adadelta	no	lcwa	False	0.09835	0.00374	
+random	kinships	rankbased	softplus	transe	adadelta	no	owa	True	0.59602	0.01475	basic
+random	kinships	rankbased	softplus	transe	adadelta	no	owa	False	0.1591	0.00777	basic
+random	kinships	rankbased	softplus	transe	adam	no	lcwa	True	0.63792	0.00673	
+random	kinships	rankbased	softplus	transe	adam	no	lcwa	False	0.6541	0.00529	
+random	kinships	rankbased	softplus	transe	adam	no	owa	True	0.66376	0.01016	basic
+random	kinships	rankbased	softplus	transe	adam	no	owa	False	0.67249	0.00732	basic
+random	kinships	rankbased	bceaftersigmoid	transh	adadelta	transh	lcwa	False	0.09974	0.00586	
+random	kinships	rankbased	bceaftersigmoid	transh	adadelta	transh	lcwa	True	0.15398	0.01041	
+random	kinships	rankbased	bceaftersigmoid	transh	adadelta	transh	owa	False	0.179	0.00284	basic
+random	kinships	rankbased	bceaftersigmoid	transh	adadelta	transh	owa	True	0.37907	0.01556	basic
+random	kinships	rankbased	bceaftersigmoid	transh	adam	transh	lcwa	False	0.26723	0.00494	
+random	kinships	rankbased	bceaftersigmoid	transh	adam	transh	lcwa	True	0.35533	0.00331	
+random	kinships	rankbased	bceaftersigmoid	transh	adam	transh	owa	False	0.46485	0.03018	basic
+random	kinships	rankbased	bceaftersigmoid	transh	adam	transh	owa	True	0.34171	0.00328	basic
+random	kinships	rankbased	crossentropy	transh	adadelta	transh	lcwa	False	0.17051	0.00508	
+random	kinships	rankbased	crossentropy	transh	adadelta	transh	lcwa	True	0.24069	0.00694	
+random	kinships	rankbased	crossentropy	transh	adam	transh	lcwa	False	0.4581	0.00457	
+random	kinships	rankbased	crossentropy	transh	adam	transh	lcwa	True	0.51152	0.0061	
+random	kinships	rankbased	marginranking	transh	adadelta	transh	owa	False	0.21613	0.00495	basic
+random	kinships	rankbased	marginranking	transh	adadelta	transh	owa	True	0.21206	0.00762	basic
+random	kinships	rankbased	marginranking	transh	adam	transh	owa	False	0.47463	0.00023	basic
+random	kinships	rankbased	marginranking	transh	adam	transh	owa	True	0.47137	0.00447	basic
+random	kinships	rankbased	nssa	transh	adadelta	transh	owa	False	0.20391	0.00513	basic
+random	kinships	rankbased	nssa	transh	adadelta	transh	owa	True	0.20635	0.00184	basic
+random	kinships	rankbased	nssa	transh	adam	transh	owa	False	0.46392	0.01711	basic
+random	kinships	rankbased	nssa	transh	adam	transh	owa	True	0.32577	0.01711	basic
+random	kinships	rankbased	softplus	transh	adadelta	transh	lcwa	False	0.13547	0.00365	
+random	kinships	rankbased	softplus	transh	adadelta	transh	lcwa	True	0.14828	0.00435	
+random	kinships	rankbased	softplus	transh	adadelta	transh	owa	False	0.18599	0.00613	basic
+random	kinships	rankbased	softplus	transh	adadelta	transh	owa	True	0.22742	0.005	basic
+random	kinships	rankbased	softplus	transh	adam	transh	lcwa	False	0.26688	0.00413	
+random	kinships	rankbased	softplus	transh	adam	transh	lcwa	True	0.3551	0.00141	
+random	kinships	rankbased	softplus	transh	adam	transh	owa	False	0.36464	0.07151	basic
+random	kinships	rankbased	softplus	transh	adam	transh	owa	True	0.3253	0.01506	basic
+random	kinships	rankbased	bceaftersigmoid	transr	adadelta	no	lcwa	False	0.17318	0.01269	
+random	kinships	rankbased	bceaftersigmoid	transr	adadelta	no	lcwa	True	0.27875	0.00461	
+random	kinships	rankbased	bceaftersigmoid	transr	adadelta	no	owa	False	0.39676	0.00749	basic
+random	kinships	rankbased	bceaftersigmoid	transr	adadelta	no	owa	True	0.26606	0.00295	basic
+random	kinships	rankbased	bceaftersigmoid	transr	adam	no	lcwa	False	0.6236	0.00478	
+random	kinships	rankbased	bceaftersigmoid	transr	adam	no	lcwa	True	0.6946	0.00293	
+random	kinships	rankbased	crossentropy	transr	adadelta	no	lcwa	False	0.5298	0.00171	
+random	kinships	rankbased	crossentropy	transr	adadelta	no	lcwa	True	0.48219	0.00405	
+random	kinships	rankbased	crossentropy	transr	adam	no	lcwa	False	0.64735	0.00317	
+random	kinships	rankbased	crossentropy	transr	adam	no	lcwa	True	0.71206	0.00256	
+random	kinships	rankbased	softplus	transr	adadelta	no	lcwa	False	0.11348	0.0103	
+random	kinships	rankbased	softplus	transr	adadelta	no	lcwa	True	0.20554	0.00393	
+random	kinships	rankbased	softplus	transr	adadelta	no	owa	False	0.3047	0.0045	basic
+random	kinships	rankbased	softplus	transr	adadelta	no	owa	True	0.42481	0.00792	basic
+random	kinships	rankbased	softplus	transr	adam	no	lcwa	False	0.62128	0.00375	
+random	kinships	rankbased	softplus	transr	adam	no	lcwa	True	0.69856	0.00332	
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adadelta	no	lcwa	False	0.09148	0.00706	
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adadelta	no	lcwa	True	0.09439	0.0061	
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adadelta	no	owa	False	0.09544	0.00964	basic
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adadelta	no	owa	True	0.08962	0.00346	basic
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adam	no	lcwa	False	0.10021	0.00676	
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adam	no	lcwa	True	0.09346	0.00658	
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adam	no	owa	False	0.09404	0.00183	basic
+random	kinships	rankbased	bceaftersigmoid	unstructuredmodel	adam	no	owa	True	0.09695	0.00958	basic
+random	kinships	rankbased	crossentropy	unstructuredmodel	adadelta	no	lcwa	False	0.08845	0.00513	
+random	kinships	rankbased	crossentropy	unstructuredmodel	adadelta	no	lcwa	True	0.09288	0.00403	
+random	kinships	rankbased	crossentropy	unstructuredmodel	adam	no	lcwa	False	0.09323	0.00533	
+random	kinships	rankbased	crossentropy	unstructuredmodel	adam	no	lcwa	True	0.10428	0.00507	
+random	kinships	rankbased	marginranking	unstructuredmodel	adadelta	no	owa	False	0.09171	0.00395	basic
+random	kinships	rankbased	marginranking	unstructuredmodel	adadelta	no	owa	True	0.09334	0.00349	basic
+random	kinships	rankbased	marginranking	unstructuredmodel	adam	no	owa	False	0.07065	0.00767	basic
+random	kinships	rankbased	marginranking	unstructuredmodel	adam	no	owa	True	0.06716	0.00462	basic
+random	kinships	rankbased	nssa	unstructuredmodel	adadelta	no	owa	False	0.098	0.00735	basic
+random	kinships	rankbased	nssa	unstructuredmodel	adadelta	no	owa	True	0.08915	0.00847	basic
+random	kinships	rankbased	nssa	unstructuredmodel	adam	no	owa	False	0.08217	0.00689	basic
+random	kinships	rankbased	nssa	unstructuredmodel	adam	no	owa	True	0.09136	0.00335	basic
+random	kinships	rankbased	softplus	unstructuredmodel	adadelta	no	lcwa	False	0.09253	0.01094	
+random	kinships	rankbased	softplus	unstructuredmodel	adadelta	no	lcwa	True	0.09777	0.00835	
+random	kinships	rankbased	softplus	unstructuredmodel	adadelta	no	owa	False	0.09683	0.00206	basic
+random	kinships	rankbased	softplus	unstructuredmodel	adadelta	no	owa	True	0.0923	0.00563	basic
+random	kinships	rankbased	softplus	unstructuredmodel	adam	no	lcwa	False	0.11068	0.00938	
+random	kinships	rankbased	softplus	unstructuredmodel	adam	no	lcwa	True	0.11115	0.00425	
+random	kinships	rankbased	softplus	unstructuredmodel	adam	no	owa	False	0.08368	0.00508	basic
+random	kinships	rankbased	softplus	unstructuredmodel	adam	no	owa	True	0.08659	0.00761	basic
