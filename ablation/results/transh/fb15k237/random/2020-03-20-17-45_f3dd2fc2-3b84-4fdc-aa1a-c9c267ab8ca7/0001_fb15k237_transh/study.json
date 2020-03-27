@@ -1,0 +1,12 @@
+{
+  "dataset": "fb15k237",
+  "evaluator": "rankbased",
+  "loss": "softplus",
+  "metric": "hits@10",
+  "model": "transh",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "b19287d2",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "transh",
+  "training_loop": "lcwa"
+}
