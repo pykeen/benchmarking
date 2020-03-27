@@ -148,6 +148,7 @@ def specify_batch_normalization(config: Dict, model: str):
     """."""
     config['ablation']['model_kwargs'][model]['apply_batch_normalization'] = False
 
+
 if __name__ == '__main__':
 
     # iterator = iterate_config_paths(root_directory='reduced_search_space')
@@ -185,7 +186,25 @@ if __name__ == '__main__':
 
     iterator = iterate_config_paths(root_directory='reduced_search_space')
 
-
+    # for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
+    #     model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
+    #     with open(os.path.join(path, config_name), 'r') as file:
+    #         try:
+    #             config = json.load(file)
+    #         except:
+    #             raise Exception(f"{config_name} could not be loaded.")
+    #
+    #     if 'nssal' in config_name:
+    #         if 'NegativeSamplingSelfAdversarialLoss' in config['ablation']['loss_kwargs'][model_name]:
+    #             del config['ablation']['loss_kwargs'][model_name]['NegativeSamplingSelfAdversarialLoss']
+    #             del config['ablation']['loss_kwargs_ranges'][model_name]['NegativeSamplingSelfAdversarialLoss']
+    #     else:
+    #         continue
+    #
+    #     with open(os.path.join(path, config_name), 'w') as file:
+    #         json.dump(config, file, indent=2)
+    #
+    # exit(0)
 
     # for model_name_normalized, dataset, hpo_approach, training_assumption, config_name, path in iterator:
     #     model_name = MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]
