@@ -19,7 +19,7 @@ def to_dot(d: Mapping, prefix: Optional[str] = None, sep: str = '.') -> Mapping[
 
 
 if __name__ == '__main__':
-    root = pathlib.Path(__file__).parent / 'results' / 'reproducibility_study'
+    root = pathlib.Path(__file__).parent / 'results'
     data = []
     for run_label in root.iterdir():
         exp_name = run_label.name.split('_', maxsplit=1)[1]
