@@ -1,24 +1,25 @@
 {
   "metadata": {
-    "title": "Learn WN18 Data Set with SimplE as described by Kazemi et al., 2018",
+    "title": "Learn FB15k Data Set with SimplE as described by Kazemi et al., 2018",
     "comments": "They make use of inverse relations. Normalization argument of regularizer is set to false."
   },
   "pipeline": {
-    "dataset": "wn18",
+    "dataset": "fb15k",
     "model": "SimplE",
     "model_kwargs": {
-      "embedding_dim": 200
+      "embedding_dim": 200,
+      "clamp_score": 20.0
     },
     "regularizer": "PowerSum",
     "regularizer_kwargs": {
       "apply_only_once": false,
-      "weight": 0.03,
+      "weight": 0.1,
       "p": 2.0,
       "normalize": false
     },
     "optimizer": "Adagrad",
     "optimizer_kwargs": {
-      "lr": 0.1
+      "lr": 0.05
     },
     "loss": "SoftplusLoss",
     "loss_kwargs": {
@@ -27,7 +28,7 @@
     "training_loop": "OWA",
     "negative_sampler": "basic",
     "negative_sampler_kwargs": {
-      "num_negs_per_pos": 1
+      "num_negs_per_pos": 10
     },
     "training_kwargs": {
       "num_epochs": 1000,
