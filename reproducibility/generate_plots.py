@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from utils import get_df
+from reproducibility.utils import get_df
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
