@@ -6,7 +6,7 @@ from collections import defaultdict
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
-from reproducibility.utils import get_df, SKIP
+from utils import get_df, SKIP
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 SUMMARIES = os.path.join(HERE, 'summaries')
@@ -16,6 +16,8 @@ os.makedirs(SUMMARIES, exist_ok=True)
 def main():
     all_tables = []
     for dataset, dataset_df in get_df().groupby('dataset'):
+        if len(dataset_df['model'].unique()) < 2:
+            continue
         rows = []
         for model, model_df in dataset_df.groupby('model'):
             for column in model_df.columns:

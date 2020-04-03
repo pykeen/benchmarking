@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from reproducibility.utils import get_df
+from utils import get_df
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -13,6 +13,8 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 def make_plots():
     df = get_df()
     for dataset, dataset_df in df.groupby('dataset'):
+        if len(dataset_df['model'].unique()) < 2:
+            continue
         for column in dataset_df.columns:
             if column in {'model', 'replicate', 'dataset'}:
                 continue
