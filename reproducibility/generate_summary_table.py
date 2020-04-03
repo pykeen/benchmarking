@@ -6,7 +6,7 @@ from collections import defaultdict
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
-from utils import SKIP, get_df
+from reproducibility.utils import get_df, SKIP
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 SUMMARIES = os.path.join(HERE, 'summaries')
