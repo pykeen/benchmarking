@@ -1,0 +1,286 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+
+\title{Table Test}
+\author{PyKEEN Core Team}
+\date{March 2020}
+
+\begin{document}
+
+\section{fb15k Evaluation}
+    \subsection{Average}
+    \subsubsection{Average Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &        hits@3 &        hits@5 &       hits@10 \\
+\midrule
+\textbf{complex } &  10.06 $\pm$ 0.42 &  20.82 $\pm$ 0.67 &  27.59 $\pm$ 0.94 &  38.03 $\pm$ 1.02 \\
+\textbf{conve   } &  48.28 $\pm$ 0.12 &  66.99 $\pm$ 0.04 &  73.27 $\pm$ 0.03 &  79.76 $\pm$ 0.07 \\
+\textbf{distmult} &  16.45 $\pm$ 0.16 &  29.10 $\pm$ 0.17 &  35.54 $\pm$ 0.21 &  45.00 $\pm$ 0.25 \\
+\textbf{hole    } &  21.79 $\pm$ 0.19 &  39.69 $\pm$ 0.24 &  48.06 $\pm$ 0.30 &  58.84 $\pm$ 0.28 \\
+\textbf{kg2e    } &   0.11 $\pm$ 0.04 &   0.36 $\pm$ 0.08 &   0.56 $\pm$ 0.10 &   1.01 $\pm$ 0.14 \\
+\textbf{rotate  } &  41.53 $\pm$ 0.06 &  64.14 $\pm$ 0.07 &  71.23 $\pm$ 0.05 &  78.67 $\pm$ 0.08 \\
+\textbf{simple  } &   0.01 $\pm$ 0.00 &   0.03 $\pm$ 0.00 &   0.04 $\pm$ 0.00 &   0.06 $\pm$ 0.01 \\
+\textbf{transd  } &  21.22 $\pm$ 0.03 &  40.48 $\pm$ 0.10 &  48.57 $\pm$ 0.09 &  58.71 $\pm$ 0.14 \\
+\textbf{transe  } &  15.23 $\pm$ 0.16 &  29.85 $\pm$ 0.24 &  37.18 $\pm$ 0.24 &  47.34 $\pm$ 0.18 \\
+\textbf{transh  } &   1.69 $\pm$ 0.25 &   2.95 $\pm$ 0.20 &   3.29 $\pm$ 0.22 &   3.74 $\pm$ 0.18 \\
+\textbf{transr  } &   0.37 $\pm$ 0.00 &   0.63 $\pm$ 0.04 &   0.78 $\pm$ 0.06 &   1.03 $\pm$ 0.07 \\
+\textbf{tucker  } &   0.01 $\pm$ 0.00 &   0.02 $\pm$ 0.00 &   0.03 $\pm$ 0.01 &   0.15 $\pm$ 0.17 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Average Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrrr}
+\toprule
+{} &               MR &           MRR &            AMR \\
+\midrule
+\textbf{complex } &   171.16 $\pm$ 16.05 &  19.13 $\pm$ 0.45 &    2.46 $\pm$ 0.28 \\
+\textbf{conve   } &     50.76 $\pm$ 0.40 &  59.56 $\pm$ 0.06 &    0.73 $\pm$ 0.01 \\
+\textbf{distmult} &    134.02 $\pm$ 1.98 &  26.06 $\pm$ 0.17 &    1.86 $\pm$ 0.03 \\
+\textbf{hole    } &    193.03 $\pm$ 7.61 &  34.15 $\pm$ 0.22 &    2.71 $\pm$ 0.12 \\
+\textbf{kg2e    } &  5779.07 $\pm$ 51.02 &   0.58 $\pm$ 0.07 &   78.40 $\pm$ 0.68 \\
+\textbf{rotate  } &     42.28 $\pm$ 0.13 &  55.00 $\pm$ 0.06 &    0.63 $\pm$ 0.00 \\
+\textbf{simple  } &   7395.75 $\pm$ 2.02 &   0.04 $\pm$ 0.00 &  100.02 $\pm$ 0.03 \\
+\textbf{transd  } &    153.37 $\pm$ 5.35 &  33.99 $\pm$ 0.03 &    2.29 $\pm$ 0.09 \\
+\textbf{transe  } &    127.92 $\pm$ 0.86 &  26.01 $\pm$ 0.17 &    1.78 $\pm$ 0.01 \\
+\textbf{transh  } &  6320.02 $\pm$ 30.37 &   2.54 $\pm$ 0.20 &   85.63 $\pm$ 0.40 \\
+\textbf{transr  } &  6795.95 $\pm$ 16.65 &   0.65 $\pm$ 0.02 &   91.99 $\pm$ 0.22 \\
+\textbf{tucker  } &  7327.77 $\pm$ 29.22 &   0.07 $\pm$ 0.02 &   99.11 $\pm$ 0.39 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsection{Best}
+    \subsubsection{Best Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &         hits@3 &         hits@5 &        hits@10 \\
+\midrule
+\textbf{complex } &  10.06 $\pm$ 0.42 &   20.82 $\pm$ 0.67 &   27.59 $\pm$ 0.94 &   38.03 $\pm$ 1.02 \\
+\textbf{conve   } &  48.28 $\pm$ 0.12 &   66.99 $\pm$ 0.04 &   73.27 $\pm$ 0.03 &   79.76 $\pm$ 0.07 \\
+\textbf{distmult} &  16.45 $\pm$ 0.16 &   29.10 $\pm$ 0.17 &   35.54 $\pm$ 0.21 &   45.00 $\pm$ 0.25 \\
+\textbf{hole    } &  21.79 $\pm$ 0.19 &   39.69 $\pm$ 0.24 &   48.06 $\pm$ 0.30 &   58.84 $\pm$ 0.28 \\
+\textbf{kg2e    } &   0.11 $\pm$ 0.04 &    0.36 $\pm$ 0.08 &    0.56 $\pm$ 0.10 &    1.01 $\pm$ 0.14 \\
+\textbf{rotate  } &  41.53 $\pm$ 0.06 &   64.14 $\pm$ 0.07 &   71.23 $\pm$ 0.05 &   78.67 $\pm$ 0.08 \\
+\textbf{simple  } &  11.58 $\pm$ 6.42 &  24.16 $\pm$ 10.95 &  34.73 $\pm$ 13.40 &  54.28 $\pm$ 15.80 \\
+\textbf{transd  } &  21.22 $\pm$ 0.03 &   40.48 $\pm$ 0.10 &   48.57 $\pm$ 0.09 &   58.71 $\pm$ 0.14 \\
+\textbf{transe  } &  15.23 $\pm$ 0.16 &   29.85 $\pm$ 0.24 &   37.18 $\pm$ 0.24 &   47.34 $\pm$ 0.18 \\
+\textbf{transh  } &   1.69 $\pm$ 0.25 &    2.95 $\pm$ 0.20 &    3.29 $\pm$ 0.22 &    3.74 $\pm$ 0.18 \\
+\textbf{transr  } &   0.37 $\pm$ 0.00 &    0.63 $\pm$ 0.04 &    0.78 $\pm$ 0.06 &    1.03 $\pm$ 0.07 \\
+\textbf{tucker  } &   0.01 $\pm$ 0.00 &    0.02 $\pm$ 0.00 &    0.03 $\pm$ 0.01 &    0.15 $\pm$ 0.17 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Best Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrr}
+\toprule
+{} &               MR &           MRR \\
+\midrule
+\textbf{complex } &   171.16 $\pm$ 16.05 &  19.13 $\pm$ 0.45 \\
+\textbf{conve   } &     50.76 $\pm$ 0.40 &  59.56 $\pm$ 0.06 \\
+\textbf{distmult} &    134.02 $\pm$ 1.98 &  26.06 $\pm$ 0.17 \\
+\textbf{hole    } &    193.03 $\pm$ 7.61 &  34.15 $\pm$ 0.22 \\
+\textbf{kg2e    } &  5779.07 $\pm$ 51.02 &   0.58 $\pm$ 0.07 \\
+\textbf{rotate  } &     42.28 $\pm$ 0.13 &  55.00 $\pm$ 0.06 \\
+\textbf{simple  } &   139.34 $\pm$ 49.45 &  23.90 $\pm$ 8.79 \\
+\textbf{transd  } &    153.37 $\pm$ 5.35 &  33.99 $\pm$ 0.03 \\
+\textbf{transe  } &    127.92 $\pm$ 0.86 &  26.01 $\pm$ 0.17 \\
+\textbf{transh  } &  6320.00 $\pm$ 30.37 &   2.54 $\pm$ 0.20 \\
+\textbf{transr  } &  6795.94 $\pm$ 16.65 &   0.65 $\pm$ 0.02 \\
+\textbf{tucker  } &  7327.77 $\pm$ 29.22 &   0.07 $\pm$ 0.02 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsection{Worst}
+    \subsubsection{Worst Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &        hits@3 &        hits@5 &       hits@10 \\
+\midrule
+\textbf{complex } &  10.06 $\pm$ 0.42 &  20.82 $\pm$ 0.67 &  27.59 $\pm$ 0.94 &  38.03 $\pm$ 1.02 \\
+\textbf{conve   } &  48.28 $\pm$ 0.12 &  66.99 $\pm$ 0.04 &  73.27 $\pm$ 0.03 &  79.76 $\pm$ 0.07 \\
+\textbf{distmult} &  16.45 $\pm$ 0.16 &  29.10 $\pm$ 0.17 &  35.54 $\pm$ 0.21 &  45.00 $\pm$ 0.25 \\
+\textbf{hole    } &  21.79 $\pm$ 0.19 &  39.69 $\pm$ 0.24 &  48.06 $\pm$ 0.30 &  58.84 $\pm$ 0.28 \\
+\textbf{kg2e    } &   0.11 $\pm$ 0.04 &   0.36 $\pm$ 0.08 &   0.56 $\pm$ 0.10 &   1.01 $\pm$ 0.14 \\
+\textbf{rotate  } &  41.53 $\pm$ 0.06 &  64.14 $\pm$ 0.07 &  71.23 $\pm$ 0.05 &  78.67 $\pm$ 0.08 \\
+\textbf{simple  } &   0.01 $\pm$ 0.00 &   0.03 $\pm$ 0.00 &   0.04 $\pm$ 0.00 &   0.06 $\pm$ 0.01 \\
+\textbf{transd  } &  21.22 $\pm$ 0.03 &  40.48 $\pm$ 0.10 &  48.57 $\pm$ 0.09 &  58.71 $\pm$ 0.14 \\
+\textbf{transe  } &  15.23 $\pm$ 0.16 &  29.85 $\pm$ 0.24 &  37.18 $\pm$ 0.24 &  47.34 $\pm$ 0.18 \\
+\textbf{transh  } &   1.69 $\pm$ 0.25 &   2.95 $\pm$ 0.20 &   3.29 $\pm$ 0.22 &   3.74 $\pm$ 0.18 \\
+\textbf{transr  } &   0.37 $\pm$ 0.00 &   0.63 $\pm$ 0.04 &   0.78 $\pm$ 0.06 &   1.03 $\pm$ 0.07 \\
+\textbf{tucker  } &   0.01 $\pm$ 0.00 &   0.02 $\pm$ 0.00 &   0.03 $\pm$ 0.01 &   0.15 $\pm$ 0.17 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Worst Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrr}
+\toprule
+{} &                MR &           MRR \\
+\midrule
+\textbf{complex } &    171.16 $\pm$ 16.05 &  19.13 $\pm$ 0.45 \\
+\textbf{conve   } &      50.76 $\pm$ 0.40 &  59.56 $\pm$ 0.06 \\
+\textbf{distmult} &     134.02 $\pm$ 1.98 &  26.06 $\pm$ 0.17 \\
+\textbf{hole    } &     193.03 $\pm$ 7.61 &  34.15 $\pm$ 0.22 \\
+\textbf{kg2e    } &   5779.07 $\pm$ 51.02 &   0.58 $\pm$ 0.07 \\
+\textbf{rotate  } &      42.28 $\pm$ 0.13 &  55.00 $\pm$ 0.06 \\
+\textbf{simple  } &  14652.16 $\pm$ 45.71 &   0.03 $\pm$ 0.00 \\
+\textbf{transd  } &     153.37 $\pm$ 5.35 &  33.99 $\pm$ 0.03 \\
+\textbf{transe  } &     127.92 $\pm$ 0.86 &  26.01 $\pm$ 0.17 \\
+\textbf{transh  } &   6320.05 $\pm$ 30.37 &   2.54 $\pm$ 0.20 \\
+\textbf{transr  } &   6795.95 $\pm$ 16.65 &   0.65 $\pm$ 0.02 \\
+\textbf{tucker  } &   7327.77 $\pm$ 29.22 &   0.07 $\pm$ 0.02 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+
+\section{wn18 Evaluation}
+    \subsection{Average}
+    \subsubsection{Average Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &        hits@3 &        hits@5 &       hits@10 \\
+\midrule
+\textbf{complex } &  12.36 $\pm$ 1.96 &  20.66 $\pm$ 2.75 &  25.24 $\pm$ 3.33 &  32.92 $\pm$ 4.40 \\
+\textbf{conve   } &  85.14 $\pm$ 0.10 &  91.76 $\pm$ 0.11 &  93.29 $\pm$ 0.04 &  94.85 $\pm$ 0.06 \\
+\textbf{distmult} &  67.45 $\pm$ 0.34 &  85.94 $\pm$ 0.21 &  89.52 $\pm$ 0.25 &  92.72 $\pm$ 0.18 \\
+\textbf{hole    } &  58.66 $\pm$ 0.81 &  79.09 $\pm$ 0.41 &  83.68 $\pm$ 0.25 &  88.53 $\pm$ 0.36 \\
+\textbf{kg2e    } &   1.35 $\pm$ 0.22 &   3.21 $\pm$ 0.31 &   4.57 $\pm$ 0.34 &   7.02 $\pm$ 0.43 \\
+\textbf{rotate  } &  82.17 $\pm$ 0.20 &  91.53 $\pm$ 0.12 &  93.44 $\pm$ 0.07 &  95.28 $\pm$ 0.08 \\
+\textbf{simple  } &   0.01 $\pm$ 0.01 &   0.03 $\pm$ 0.00 &   0.04 $\pm$ 0.01 &   0.07 $\pm$ 0.03 \\
+\textbf{transd  } &   3.94 $\pm$ 0.27 &  65.63 $\pm$ 0.55 &  79.64 $\pm$ 0.43 &  87.27 $\pm$ 0.41 \\
+\textbf{transe  } &   9.70 $\pm$ 2.93 &  59.83 $\pm$ 0.95 &  71.41 $\pm$ 0.71 &  81.22 $\pm$ 0.47 \\
+\textbf{transh  } &   0.04 $\pm$ 0.02 &   0.19 $\pm$ 0.10 &   0.29 $\pm$ 0.14 &   0.39 $\pm$ 0.11 \\
+\textbf{transr  } &   0.00 $\pm$ 0.00 &   0.04 $\pm$ 0.02 &   0.05 $\pm$ 0.03 &   0.11 $\pm$ 0.06 \\
+\textbf{tucker  } &   0.00 $\pm$ 0.00 &   0.02 $\pm$ 0.01 &   0.03 $\pm$ 0.03 &   0.04 $\pm$ 0.03 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Average Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrrr}
+\toprule
+{} &                 MR &           MRR &            AMR \\
+\midrule
+\textbf{complex } &     452.67 $\pm$ 63.05 &  19.49 $\pm$ 2.55 &    2.21 $\pm$ 0.31 \\
+\textbf{conve   } &     444.40 $\pm$ 14.82 &  88.81 $\pm$ 0.09 &    2.17 $\pm$ 0.07 \\
+\textbf{distmult} &     458.64 $\pm$ 23.96 &  77.44 $\pm$ 0.22 &    2.24 $\pm$ 0.12 \\
+\textbf{hole    } &     814.59 $\pm$ 80.68 &  69.98 $\pm$ 0.53 &    3.98 $\pm$ 0.39 \\
+\textbf{kg2e    } &    2708.89 $\pm$ 44.57 &   3.61 $\pm$ 0.26 &   13.25 $\pm$ 0.22 \\
+\textbf{rotate  } &      123.68 $\pm$ 1.71 &  87.29 $\pm$ 0.12 &    0.61 $\pm$ 0.01 \\
+\textbf{simple  } &   20376.43 $\pm$ 42.30 &   0.04 $\pm$ 0.01 &   99.57 $\pm$ 0.21 \\
+\textbf{transd  } &     444.39 $\pm$ 25.61 &  36.22 $\pm$ 0.12 &    2.17 $\pm$ 0.13 \\
+\textbf{transe  } &     502.96 $\pm$ 27.45 &  37.07 $\pm$ 1.84 &    2.46 $\pm$ 0.13 \\
+\textbf{transh  } &   19678.04 $\pm$ 18.92 &   0.18 $\pm$ 0.04 &   96.16 $\pm$ 0.09 \\
+\textbf{transr  } &  19686.49 $\pm$ 100.97 &   0.06 $\pm$ 0.02 &   96.20 $\pm$ 0.49 \\
+\textbf{tucker  } &  20622.46 $\pm$ 153.52 &   0.03 $\pm$ 0.01 &  100.78 $\pm$ 0.75 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsection{Best}
+    \subsubsection{Best Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &        hits@3 &        hits@5 &       hits@10 \\
+\midrule
+\textbf{complex } &  12.36 $\pm$ 1.96 &  20.66 $\pm$ 2.75 &  25.24 $\pm$ 3.33 &  32.92 $\pm$ 4.40 \\
+\textbf{conve   } &  85.14 $\pm$ 0.10 &  91.76 $\pm$ 0.11 &  93.29 $\pm$ 0.04 &  94.85 $\pm$ 0.06 \\
+\textbf{distmult} &  67.45 $\pm$ 0.34 &  85.94 $\pm$ 0.21 &  89.52 $\pm$ 0.25 &  92.72 $\pm$ 0.18 \\
+\textbf{hole    } &  58.66 $\pm$ 0.81 &  79.09 $\pm$ 0.41 &  83.68 $\pm$ 0.25 &  88.53 $\pm$ 0.36 \\
+\textbf{kg2e    } &   1.35 $\pm$ 0.22 &   3.21 $\pm$ 0.31 &   4.57 $\pm$ 0.34 &   7.02 $\pm$ 0.43 \\
+\textbf{rotate  } &  82.17 $\pm$ 0.20 &  91.53 $\pm$ 0.12 &  93.44 $\pm$ 0.07 &  95.28 $\pm$ 0.08 \\
+\textbf{simple  } &  33.93 $\pm$ 4.32 &  39.59 $\pm$ 4.67 &  42.76 $\pm$ 3.73 &  47.01 $\pm$ 2.66 \\
+\textbf{transd  } &   3.94 $\pm$ 0.27 &  65.63 $\pm$ 0.55 &  79.64 $\pm$ 0.43 &  87.27 $\pm$ 0.41 \\
+\textbf{transe  } &   9.70 $\pm$ 2.93 &  59.83 $\pm$ 0.95 &  71.41 $\pm$ 0.71 &  81.22 $\pm$ 0.47 \\
+\textbf{transh  } &   0.04 $\pm$ 0.02 &   0.19 $\pm$ 0.10 &   0.29 $\pm$ 0.14 &   0.39 $\pm$ 0.11 \\
+\textbf{transr  } &   0.00 $\pm$ 0.00 &   0.04 $\pm$ 0.02 &   0.05 $\pm$ 0.03 &   0.11 $\pm$ 0.06 \\
+\textbf{tucker  } &   0.00 $\pm$ 0.00 &   0.02 $\pm$ 0.01 &   0.03 $\pm$ 0.03 &   0.04 $\pm$ 0.03 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Best Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrr}
+\toprule
+{} &                 MR &           MRR \\
+\midrule
+\textbf{complex } &     452.67 $\pm$ 63.05 &  19.49 $\pm$ 2.55 \\
+\textbf{conve   } &     444.40 $\pm$ 14.82 &  88.81 $\pm$ 0.09 \\
+\textbf{distmult} &     458.64 $\pm$ 23.96 &  77.44 $\pm$ 0.22 \\
+\textbf{hole    } &     814.59 $\pm$ 80.68 &  69.98 $\pm$ 0.53 \\
+\textbf{kg2e    } &    2708.88 $\pm$ 44.57 &   3.61 $\pm$ 0.26 \\
+\textbf{rotate  } &      123.68 $\pm$ 1.71 &  87.29 $\pm$ 0.12 \\
+\textbf{simple  } &     384.53 $\pm$ 66.45 &  38.48 $\pm$ 4.00 \\
+\textbf{transd  } &     444.39 $\pm$ 25.61 &  36.22 $\pm$ 0.12 \\
+\textbf{transe  } &     502.95 $\pm$ 27.45 &  37.07 $\pm$ 1.84 \\
+\textbf{transh  } &   19678.02 $\pm$ 18.92 &   0.18 $\pm$ 0.04 \\
+\textbf{transr  } &  19686.49 $\pm$ 100.97 &   0.06 $\pm$ 0.02 \\
+\textbf{tucker  } &  20622.46 $\pm$ 153.52 &   0.03 $\pm$ 0.01 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsection{Worst}
+    \subsubsection{Worst Hits@K}
+    \begin{center}
+    \begin{tabular}{lrrrr}
+\toprule
+{} &        hits@1 &        hits@3 &        hits@5 &       hits@10 \\
+\midrule
+\textbf{complex } &  12.36 $\pm$ 1.96 &  20.66 $\pm$ 2.75 &  25.24 $\pm$ 3.33 &  32.92 $\pm$ 4.40 \\
+\textbf{conve   } &  85.14 $\pm$ 0.10 &  91.76 $\pm$ 0.11 &  93.29 $\pm$ 0.04 &  94.85 $\pm$ 0.06 \\
+\textbf{distmult} &  67.45 $\pm$ 0.34 &  85.94 $\pm$ 0.21 &  89.52 $\pm$ 0.25 &  92.72 $\pm$ 0.18 \\
+\textbf{hole    } &  58.66 $\pm$ 0.81 &  79.09 $\pm$ 0.41 &  83.68 $\pm$ 0.25 &  88.53 $\pm$ 0.36 \\
+\textbf{kg2e    } &   1.35 $\pm$ 0.22 &   3.21 $\pm$ 0.31 &   4.57 $\pm$ 0.34 &   7.02 $\pm$ 0.43 \\
+\textbf{rotate  } &  82.17 $\pm$ 0.20 &  91.53 $\pm$ 0.12 &  93.44 $\pm$ 0.07 &  95.28 $\pm$ 0.08 \\
+\textbf{simple  } &   0.01 $\pm$ 0.01 &   0.03 $\pm$ 0.00 &   0.04 $\pm$ 0.01 &   0.07 $\pm$ 0.03 \\
+\textbf{transd  } &   3.94 $\pm$ 0.27 &  65.63 $\pm$ 0.55 &  79.64 $\pm$ 0.43 &  87.27 $\pm$ 0.41 \\
+\textbf{transe  } &   9.70 $\pm$ 2.93 &  59.83 $\pm$ 0.95 &  71.41 $\pm$ 0.71 &  81.22 $\pm$ 0.47 \\
+\textbf{transh  } &   0.04 $\pm$ 0.02 &   0.19 $\pm$ 0.10 &   0.29 $\pm$ 0.14 &   0.39 $\pm$ 0.11 \\
+\textbf{transr  } &   0.00 $\pm$ 0.00 &   0.04 $\pm$ 0.02 &   0.05 $\pm$ 0.03 &   0.11 $\pm$ 0.06 \\
+\textbf{tucker  } &   0.00 $\pm$ 0.00 &   0.02 $\pm$ 0.01 &   0.03 $\pm$ 0.03 &   0.04 $\pm$ 0.03 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+    \subsubsection{Worst Mean Ranks}
+    \begin{center}
+    \begin{tabular}{lrr}
+\toprule
+{} &                 MR &           MRR \\
+\midrule
+\textbf{complex } &     452.67 $\pm$ 63.05 &  19.49 $\pm$ 2.55 \\
+\textbf{conve   } &     444.40 $\pm$ 14.82 &  88.81 $\pm$ 0.09 \\
+\textbf{distmult} &     458.64 $\pm$ 23.96 &  77.44 $\pm$ 0.22 \\
+\textbf{hole    } &     814.59 $\pm$ 80.68 &  69.98 $\pm$ 0.53 \\
+\textbf{kg2e    } &    2708.89 $\pm$ 44.57 &   3.61 $\pm$ 0.26 \\
+\textbf{rotate  } &      123.68 $\pm$ 1.71 &  87.29 $\pm$ 0.12 \\
+\textbf{simple  } &  40368.33 $\pm$ 114.95 &   0.03 $\pm$ 0.01 \\
+\textbf{transd  } &     444.39 $\pm$ 25.61 &  36.22 $\pm$ 0.12 \\
+\textbf{transe  } &     502.96 $\pm$ 27.45 &  37.07 $\pm$ 1.84 \\
+\textbf{transh  } &   19678.06 $\pm$ 18.92 &   0.18 $\pm$ 0.04 \\
+\textbf{transr  } &  19686.50 $\pm$ 100.97 &   0.06 $\pm$ 0.02 \\
+\textbf{tucker  } &  20622.46 $\pm$ 153.52 &   0.03 $\pm$ 0.01 \\
+\bottomrule
+\end{tabular}
+
+    \end{center}
+
+\end{document}
