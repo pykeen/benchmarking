@@ -1,0 +1,13 @@
+{
+  "dataset": "wn18rr",
+  "evaluator": "rankbased",
+  "loss": "bceaftersigmoid",
+  "metric": "hits@10",
+  "model": "transe",
+  "negative_sampler": "basic",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "422c21fc",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}
