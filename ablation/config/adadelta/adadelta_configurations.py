@@ -109,7 +109,10 @@ def adapt_adadelta_configuration(config):
     ADADELTA = 'adadelta'
 
     config['ablation']['optimizer_kwargs'][
-        MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]][ADADELTA] = dict()
+        MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]][ADADELTA] = dict(
+        lr=1.0,
+        weight_decay=0.0
+    )
     config['ablation']['optimizer_kwargs_ranges'][
         MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]][ADADELTA] = dict()
 

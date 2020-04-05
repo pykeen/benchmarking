@@ -35,7 +35,10 @@
     "optimizers": [],
     "optimizer_kwargs": {
       "UnstructuredModel": {
-        "adadelta": {}
+        "adadelta": {
+          "lr": 1.0,
+          "weight_decay": 0.0
+        }
       }
     },
     "optimizer_kwargs_ranges": {
