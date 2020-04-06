@@ -1,12 +1,14 @@
 # Ablation Results
 
-Output at Sat Mar 21 21:27:33 2020
+Output at Mon Apr  6 21:17:18 2020
 
 ## Dataset
 
 <img src="dataset_fb15k237.png" alt="fb15k237"/>
 
 <img src="dataset_kinships.png" alt="kinships"/>
+
+<img src="dataset_wn18rr.png" alt="wn18rr"/>
 
 
 ## Model
@@ -23,6 +25,8 @@ Output at Sat Mar 21 21:27:33 2020
 
 <img src="model_proje.png" alt="proje"/>
 
+<img src="model_rescal.png" alt="rescal"/>
+
 <img src="model_rotate.png" alt="rotate"/>
 
 <img src="model_simple.png" alt="simple"/>
@@ -32,6 +36,8 @@ Output at Sat Mar 21 21:27:33 2020
 <img src="model_transe.png" alt="transe"/>
 
 <img src="model_transh.png" alt="transh"/>
+
+<img src="model_transr.png" alt="transr"/>
 
 <img src="model_um.png" alt="um"/>
 

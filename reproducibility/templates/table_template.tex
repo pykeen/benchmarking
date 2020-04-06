@@ -10,30 +10,30 @@
 \begin{document}
 {% for dataset, tabled in table_results %}
 {{ "\section{" }}{{ dataset }} Evaluation{{ "}" }}
-    \subsection{Average}
-    \subsubsection{Average Hits@K}
+{{ "\subsection{" }}{{ dataset }} Average}
+{{ "\subsubsection{" }}{{ dataset }} Average Hits@K{{ "}" }}
     \begin{center}
     {{ tabled['avg', 'hits'] }}
     \end{center}
-    \subsubsection{Average Mean Ranks}
+{{ "\subsubsection{" }}{{ dataset }} Average Mean Ranks{{ "}" }}
     \begin{center}
     {{ tabled['avg', 'rank'] }}
     \end{center}
-    \subsection{Best}
-    \subsubsection{Best Hits@K}
+{{ "\subsection{" }}{{ dataset }} Best}
+{{ "\subsubsection{" }}{{ dataset }} Best Hits@K{{ "}" }}
     \begin{center}
     {{ tabled['best', 'hits'] }}
     \end{center}
-    \subsubsection{Best Mean Ranks}
+{{ "\subsubsection{" }}{{ dataset }} Best Mean Ranks{{ "}" }}
     \begin{center}
     {{ tabled['best', 'rank'] }}
     \end{center}
-    \subsection{Worst}
-    \subsubsection{Worst Hits@K}
+{{ "\subsection{" }}{{ dataset }} Worst}
+{{ "\subsubsection{" }}{{ dataset }} Worst Hits@K{{ "}" }}
     \begin{center}
     {{ tabled['worst', 'hits'] }}
     \end{center}
-    \subsubsection{Worst Mean Ranks}
+{{ "\subsubsection{" }}{{ dataset }} Worst Mean Ranks{{ "}" }}
     \begin{center}
     {{ tabled['worst', 'rank'] }}
     \end{center}
