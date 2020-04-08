@@ -25,7 +25,7 @@
       "num_negs_per_pos": 1
     },
     "training_kwargs": {
-      "num_epochs": 4000,
+      "num_epochs": 5000,
       "batch_size": 32
     },
     "evaluator_kwargs": {
