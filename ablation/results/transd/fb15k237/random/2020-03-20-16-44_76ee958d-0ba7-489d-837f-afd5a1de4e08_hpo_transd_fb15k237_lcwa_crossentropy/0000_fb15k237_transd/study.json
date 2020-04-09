@@ -5,9 +5,8 @@
   "metric": "hits@10",
   "model": "transd",
   "optimizer": "adam",
-  "pykeen_git_hash": "ec6b0751",
+  "pykeen_git_hash": "b19287d2",
   "pykeen_version": "0.1.2-dev",
   "regularizer": "no",
-  "training_loop": "lcwa",
-  "create_inverse_triples": true
+  "training_loop": "lcwa"
 }

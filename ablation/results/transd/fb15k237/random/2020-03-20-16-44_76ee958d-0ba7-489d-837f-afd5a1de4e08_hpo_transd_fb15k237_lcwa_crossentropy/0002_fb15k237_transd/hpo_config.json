@@ -79,6 +79,6 @@
     "direction": "maximize",
     "sampler": "random",
     "pruner": "nop",
-    "storage": "sqlite:///../results/fb15k237/transd/2020-03-10-10-02_f841e0b9-42f3-4cdd-8296-579a75151289/0002_fb15k237_transd/optuna_results.db"
+    "storage": "sqlite:////home/sda-srv06/alim/benchmarking_paper/ablation_studies/transd/fb15k237/2020-03-20-16-44_76ee958d-0ba7-489d-837f-afd5a1de4e08/0002_fb15k237_transd/optuna_results.db"
   }
 }
