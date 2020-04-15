@@ -22,7 +22,7 @@ MODEL_DIRECTORIES_TO_MODEL_NAME = {
     'rgcn': 'RGCN',
     'rotate': 'RotatE',
     'simple': 'SimplE',
-    'structuredembedding': 'StructuredEmbedding',
+    'structured_embedding': 'StructuredEmbedding',
     'transd': 'TransD',
     'transe': 'TransE',
     'transh': 'TransH',

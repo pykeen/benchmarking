@@ -109,7 +109,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": null
+      "batch_size": 16
     },
     "training_kwargs": {
       "TuckER": {

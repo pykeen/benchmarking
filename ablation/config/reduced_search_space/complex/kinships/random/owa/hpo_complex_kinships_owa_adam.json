@@ -51,7 +51,7 @@
     },
     "loss_functions": [
       "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "hpo_conve_kinships_owa_adam.json"
     ],
     "loss_kwargs": {
       "ComplEx": {
