@@ -50,19 +50,16 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "RotatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "RotatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
@@ -87,7 +84,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 32
+      "batch_size": null
     },
     "training_kwargs": {
       "RotatE": {
