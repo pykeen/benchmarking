@@ -36,7 +36,7 @@
       }
     },
     "training_loops": [
-      "owa"
+      "lcwa"
     ],
     "optimizers": [
       "adam"
@@ -61,19 +61,16 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "TransR": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "TransR": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
@@ -89,24 +86,6 @@
         "NoRegularizer": {}
       }
     },
-    "negative_sampler": "BasicNegativeSampler",
-    "negative_sampler_kwargs": {
-      "TransR": {
-        "BasicNegativeSampler": {}
-      }
-    },
-    "negative_sampler_kwargs_ranges": {
-      "TransR": {
-        "BasicNegativeSampler": {
-          "num_negs_per_pos": {
-            "type": "int",
-            "low": 1,
-            "high": 100,
-            "q": 1
-          }
-        }
-      }
-    },
     "create_inverse_triples": [
       true,
       false
@@ -116,19 +95,24 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "TransR": {
-        "owa": {
-          "num_epochs": 1000,
-          "label_smoothing": 0.0
+        "lcwa": {
+          "num_epochs": 1000
         }
       }
     },
     "training_kwargs_ranges": {
       "TransR": {
-        "owa": {
+        "lcwa": {
+          "label_smoothing": {
+            "type": "float",
+            "low": 0.001,
+            "high": 1.0,
+            "scale": "log"
+          },
           "batch_size": {
             "type": "int",
             "low": 7,
