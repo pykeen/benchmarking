@@ -1,0 +1,12 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "crossentropy",
+  "metric": "hits@10",
+  "model": "simple",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "c414b0a6",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}
