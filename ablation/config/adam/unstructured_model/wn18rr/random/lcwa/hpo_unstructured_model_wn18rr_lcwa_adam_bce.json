@@ -55,19 +55,16 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "UnstructuredModel": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "UnstructuredModel": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
