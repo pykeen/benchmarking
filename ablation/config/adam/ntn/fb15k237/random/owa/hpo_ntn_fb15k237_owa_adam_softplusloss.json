@@ -51,18 +51,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
       "NTN": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "NTN": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
