@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "HPO Over Kinships for HolE"
+    "title": "HPO Over FB15K-237 for HolE"
   },
   "ablation": {
     "datasets": [
-      "kinships"
+      "fb15k237"
     ],
     "models": [
       "HolE"
@@ -49,21 +49,17 @@
         }
       }
     },
-    al
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "HolE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "HolE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
