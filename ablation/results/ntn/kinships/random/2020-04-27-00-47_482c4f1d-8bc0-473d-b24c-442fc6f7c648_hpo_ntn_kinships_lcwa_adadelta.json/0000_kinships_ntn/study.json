@@ -1,0 +1,13 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "loss": "bceaftersigmoid",
+  "metric": "hits@10",
+  "model": "ntn",
+  "negative_sampler": "basic",
+  "optimizer": "adadelta",
+  "pykeen_git_hash": "eeff8ddb",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}
