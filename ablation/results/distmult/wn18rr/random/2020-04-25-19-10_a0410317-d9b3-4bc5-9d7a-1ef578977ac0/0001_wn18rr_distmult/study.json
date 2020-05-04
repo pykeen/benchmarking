@@ -1,0 +1,12 @@
+{
+  "dataset": "wn18rr",
+  "evaluator": "rankbased",
+  "loss": "softplus",
+  "metric": "hits@10",
+  "model": "distmult",
+  "optimizer": "adam",
+  "pykeen_git_hash": "eeff8ddb",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}

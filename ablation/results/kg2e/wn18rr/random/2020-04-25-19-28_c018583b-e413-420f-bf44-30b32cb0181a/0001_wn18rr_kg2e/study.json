@@ -1,0 +1,12 @@
+{
+  "dataset": "wn18rr",
+  "evaluator": "rankbased",
+  "loss": "crossentropy",
+  "metric": "hits@10",
+  "model": "kg2e",
+  "optimizer": "adam",
+  "pykeen_git_hash": "eeff8ddb",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}
