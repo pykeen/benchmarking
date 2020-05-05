@@ -137,8 +137,8 @@
         "owa": {
           "batch_size": {
             "type": "int",
-            "low": 7,
-            "high": 9,
+            "low": 8,
+            "high": 10,
             "scale": "power_two"
           }
         }
@@ -146,7 +146,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 15,
+      "frequency": 10,
       "patience": 2,
       "delta": 0.002
     }
