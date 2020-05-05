@@ -25,7 +25,7 @@
         "num_filters": {
           "type": "int",
           "low": 4,
-          "high": 9,
+          "high": 10,
           "scale": "power_two"
         },
         "hidden_dropout_rate": {
@@ -96,7 +96,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 16
+      "batch_size": null
     },
     "training_kwargs": {
       "ConvKB": {
@@ -131,7 +131,6 @@
     }
   },
   "optuna": {
-    "n_trials": 100,
     "timeout": 86400,
     "metric": "hits@10",
     "direction": "maximize",
