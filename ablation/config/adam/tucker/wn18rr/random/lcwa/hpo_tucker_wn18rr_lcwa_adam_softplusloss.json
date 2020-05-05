@@ -75,18 +75,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
       "TuckER": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "TuckER": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
