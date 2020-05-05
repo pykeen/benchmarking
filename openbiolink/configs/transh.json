@@ -1,26 +1,31 @@
 {
   "metadata": {
-    "title": "HPO Over OpenBioLink for SimplE"
+    "title": "HPO Over OpenBioLink for TransH"
   },
   "ablation": {
     "datasets": [
       "openbiolink"
     ],
     "models": [
-      "SimplE"
+      "TransH"
     ],
     "model_kwargs": {
-      "SimplE": {
+      "TransH": {
         "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "SimplE": {
+      "TransH": {
         "embedding_dim": {
           "type": "int",
           "low": 5,
           "high": 8,
           "scale": "power_two"
+        },
+        "scoring_fct_norm": {
+          "type": "int",
+          "low": 1,
+          "high": 2
         }
       }
     },
@@ -28,61 +33,77 @@
       "owa"
     ],
     "optimizers": [
-      "adam"
+      "sgd"
     ],
     "optimizer_kwargs": {
-      "SimplE": {
-        "adam": {
+      "TransH": {
+        "sgd": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
-      "SimplE": {
-        "adam": {
+      "TransH": {
+        "sgd": {
           "lr": {
             "type": "float",
-            "low": 0.001,
-            "high": 0.1,
+            "low": 0.0001,
+            "high": 1.0,
             "scale": "log"
           }
         }
       }
     },
     "loss_functions": [
-      "SoftplusLoss"
+      "MarginRankingLoss"
     ],
     "loss_kwargs": {
-      "SimplE": {
-        "SoftplusLoss": {}
+      "TransH": {
+        "MarginRankingLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "SimplE": {
-        "SoftplusLoss": {}
+      "TransH": {
+        "MarginRankingLoss": {
+          "margin": {
+            "type": "float",
+            "low": 0.5,
+            "high": 10,
+            "q": 1.0
+          }
+        }
       }
     },
     "regularizers": [
-      "NoRegularizer"
+      "TransH"
     ],
     "regularizer_kwargs": {
-      "SimplE": {
-        "NoRegularizer": {}
+      "TransH": {
+        "TransH": {
+          "epsilon": 1e-05
+        }
       }
     },
     "regularizer_kwargs_ranges": {
-      "SimplE": {
-        "NoRegularizer": {}
+      "TransH": {
+        "TransH": {
+          "weight": {
+            "type": "float",
+            "low": 0.01,
+            "high": 0.3,
+            "scale": "log"
+          }
+        }
       }
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "SimplE": {
+      "TransH": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "SimplE": {
+      "TransH": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -104,7 +125,7 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "SimplE": {
+      "TransH": {
         "owa": {
           "num_epochs": 500,
           "label_smoothing": 0.0
@@ -112,7 +133,7 @@
       }
     },
     "training_kwargs_ranges": {
-      "SimplE": {
+      "TransH": {
         "owa": {
           "batch_size": {
             "type": "int",
