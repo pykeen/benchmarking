@@ -55,18 +55,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
       "StructuredEmbedding": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "StructuredEmbedding": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
