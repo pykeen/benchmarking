@@ -18,15 +18,15 @@
       "ConvKB": {
         "embedding_dim": {
           "type": "int",
-          "low": 6,
+          "low": 4,
           "high": 8,
           "scale": "power_two"
         },
         "num_filters": {
           "type": "int",
-          "low": 50,
-          "high": 500,
-          "q": 50
+          "low": 4,
+          "high": 9,
+          "scale": "power_two"
         },
         "hidden_dropout_rate": {
           "type": "float",
