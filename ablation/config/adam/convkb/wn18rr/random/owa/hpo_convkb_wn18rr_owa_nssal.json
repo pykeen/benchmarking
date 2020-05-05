@@ -19,13 +19,13 @@
         "embedding_dim": {
           "type": "int",
           "low": 4,
-          "high": 8,
+          "high": 7,
           "scale": "power_two"
         },
         "num_filters": {
           "type": "int",
           "low": 4,
-          "high": 10,
+          "high": 9,
           "scale": "power_two"
         },
         "hidden_dropout_rate": {
@@ -112,7 +112,7 @@
           "num_negs_per_pos": {
             "type": "int",
             "low": 1,
-            "high": 100,
+            "high": 50,
             "q": 1
           }
         }
