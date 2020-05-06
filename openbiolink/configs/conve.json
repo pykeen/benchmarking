@@ -65,7 +65,7 @@
         "adam": {
           "lr": {
             "type": "float",
-            "low": 0.0001,
+            "low": 0.001,
             "high": 1.0,
             "scale": "log"
           }
@@ -126,8 +126,8 @@
           },
           "batch_size": {
             "type": "int",
-            "low": 8,
-            "high": 10,
+            "low": 10,
+            "high": 12,
             "scale": "power_two"
           }
         }

@@ -123,8 +123,8 @@
         "owa": {
           "batch_size": {
             "type": "int",
-            "low": 8,
-            "high": 10,
+            "low": 10,
+            "high": 12,
             "scale": "power_two"
           }
         }
