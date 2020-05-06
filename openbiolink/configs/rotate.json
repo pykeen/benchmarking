@@ -42,7 +42,7 @@
         "adam": {
           "lr": {
             "type": "float",
-            "low": 0.0001,
+            "low": 0.001,
             "high": 1.0,
             "scale": "log"
           }
@@ -129,8 +129,8 @@
         "owa": {
           "batch_size": {
             "type": "int",
-            "low": 8,
-            "high": 10,
+            "low": 9,
+            "high": 11,
             "scale": "power_two"
           }
         }
@@ -138,7 +138,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 10,
+      "frequency": 25,
       "patience": 2,
       "delta": 0.002
     }
