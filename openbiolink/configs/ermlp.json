@@ -1,21 +1,21 @@
 {
   "metadata": {
-    "title": "HPO Over OpenBioLink for DistMult"
+    "title": "HPO Over OpenBioLink for ERMLP"
   },
   "ablation": {
     "datasets": [
       "openbiolink"
     ],
     "models": [
-      "DistMult"
+      "ERMLP"
     ],
     "model_kwargs": {
-      "DistMult": {
+      "ERMLP": {
         "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "DistMult": {
+      "ERMLP": {
         "embedding_dim": {
           "type": "int",
           "low": 5,
@@ -28,18 +28,18 @@
       "owa"
     ],
     "optimizers": [
-      "adagrad"
+      "adam"
     ],
     "optimizer_kwargs": {
-      "DistMult": {
-        "adagrad": {
+      "ERMLP": {
+        "adam": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
-      "DistMult": {
-        "adagrad": {
+      "ERMLP": {
+        "adam": {
           "lr": {
             "type": "categorical",
             "choices": [
@@ -56,12 +56,12 @@
       "MarginRankingLoss"
     ],
     "loss_kwargs": {
-      "DistMult": {
+      "ERMLP": {
         "MarginRankingLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "DistMult": {
+      "ERMLP": {
         "MarginRankingLoss": {
           "margin": {
             "type": "float",
@@ -76,23 +76,23 @@
       "NoRegularizer"
     ],
     "regularizer_kwargs": {
-      "DistMult": {
+      "ERMLP": {
         "NoRegularizer": {}
       }
     },
     "regularizer_kwargs_ranges": {
-      "DistMult": {
+      "ERMLP": {
         "NoRegularizer": {}
       }
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "DistMult": {
+      "ERMLP": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "DistMult": {
+      "ERMLP": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -114,7 +114,7 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "DistMult": {
+      "ERMLP": {
         "owa": {
           "num_epochs": 500,
           "label_smoothing": 0.0
@@ -122,7 +122,7 @@
       }
     },
     "training_kwargs_ranges": {
-      "DistMult": {
+      "ERMLP": {
         "owa": {
           "batch_size": {
             "type": "int",
@@ -135,7 +135,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 25,
+      "frequency": 50,
       "patience": 2,
       "delta": 0.002
     }

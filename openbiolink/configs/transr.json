@@ -52,10 +52,13 @@
       "TransR": {
         "sgd": {
           "lr": {
-            "type": "float",
-            "low": 0.001,
-            "high": 1.0,
-            "scale": "log"
+            "type": "categorical",
+            "choices": [
+              0.001,
+              0.01,
+              0.1,
+              1.0
+            ]
           }
         }
       }
@@ -143,7 +146,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 10,
+      "frequency": 25,
       "patience": 2,
       "delta": 0.002
     }

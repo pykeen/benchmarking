@@ -1,45 +1,70 @@
 {
   "metadata": {
-    "title": "HPO Over OpenBioLink for DistMult"
+    "title": "HPO Over OpenBioLink for TuckER"
   },
   "ablation": {
     "datasets": [
       "openbiolink"
     ],
     "models": [
-      "DistMult"
+      "TuckER"
     ],
     "model_kwargs": {
-      "DistMult": {
-        "automatic_memory_optimization": true
+      "TuckER": {
+        "automatic_memory_optimization": true,
+        "apply_batch_normalization": false
       }
     },
     "model_kwargs_ranges": {
-      "DistMult": {
+      "TuckER": {
         "embedding_dim": {
           "type": "int",
           "low": 5,
           "high": 8,
           "scale": "power_two"
+        },
+        "relation_dim": {
+          "type": "int",
+          "low": 5,
+          "high": 8,
+          "scale": "power_two"
+        },
+        "dropout_0": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
+        },
+        "dropout_1": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
+        },
+        "dropout_2": {
+          "type": "float",
+          "low": 0.1,
+          "high": 0.5,
+          "q": "0.1"
         }
       }
     },
     "training_loops": [
-      "owa"
+      "lcwa"
     ],
     "optimizers": [
-      "adagrad"
+      "adam"
     ],
     "optimizer_kwargs": {
-      "DistMult": {
-        "adagrad": {
+      "TuckER": {
+        "adam": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
-      "DistMult": {
-        "adagrad": {
+      "TuckER": {
+        "adam": {
           "lr": {
             "type": "categorical",
             "choices": [
@@ -53,46 +78,39 @@
       }
     },
     "loss_functions": [
-      "MarginRankingLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "DistMult": {
-        "MarginRankingLoss": {}
+      "TuckER": {
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "DistMult": {
-        "MarginRankingLoss": {
-          "margin": {
-            "type": "float",
-            "low": 0.5,
-            "high": 10,
-            "q": 1.0
-          }
-        }
+      "TuckER": {
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
       "NoRegularizer"
     ],
     "regularizer_kwargs": {
-      "DistMult": {
+      "TuckER": {
         "NoRegularizer": {}
       }
     },
     "regularizer_kwargs_ranges": {
-      "DistMult": {
+      "TuckER": {
         "NoRegularizer": {}
       }
     },
     "negative_sampler": "BasicNegativeSampler",
     "negative_sampler_kwargs": {
-      "DistMult": {
+      "TuckER": {
         "BasicNegativeSampler": {}
       }
     },
     "negative_sampler_kwargs_ranges": {
-      "DistMult": {
+      "TuckER": {
         "BasicNegativeSampler": {
           "num_negs_per_pos": {
             "type": "int",
@@ -104,7 +122,7 @@
       }
     },
     "create_inverse_triples": [
-      false
+      true
     ],
     "evaluator": "RankBasedEvaluator",
     "evaluator_kwargs": {
@@ -114,16 +132,21 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "DistMult": {
-        "owa": {
-          "num_epochs": 500,
-          "label_smoothing": 0.0
+      "TuckER": {
+        "lcwa": {
+          "num_epochs": 500
         }
       }
     },
     "training_kwargs_ranges": {
-      "DistMult": {
-        "owa": {
+      "TuckER": {
+        "lcwa": {
+          "label_smoothing": {
+            "type": "float",
+            "low": 0.001,
+            "high": 1.0,
+            "scale": "log"
+          },
           "batch_size": {
             "type": "int",
             "low": 10,
