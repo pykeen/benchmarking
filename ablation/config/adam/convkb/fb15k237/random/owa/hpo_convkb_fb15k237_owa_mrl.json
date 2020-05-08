@@ -121,7 +121,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": 32
+      "batch_size": null
     },
     "training_kwargs": {
       "ConvKB": {
