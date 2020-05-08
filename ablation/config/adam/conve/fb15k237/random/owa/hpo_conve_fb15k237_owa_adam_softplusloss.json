@@ -73,18 +73,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
       "ConvE": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "ConvE": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },

@@ -1,69 +1,67 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for TuckER"
+    "title": "HPO Over FB15K-237 for ConvE"
   },
   "ablation": {
     "datasets": [
       "fb15k237"
     ],
     "models": [
-      "TuckER"
+      "ConvE"
     ],
     "model_kwargs": {
-      "TuckER": {
-        "automatic_memory_optimization": true,
-        "apply_batch_normalization": false
+      "ConvE": {
+        "input_channels": null,
+        "embedding_height": null,
+        "embedding_width": null,
+        "kernel_height": 3,
+        "kernel_width": 3,
+        "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "TuckER": {
+      "ConvE": {
         "embedding_dim": {
           "type": "int",
           "low": 6,
           "high": 8,
           "scale": "power_two"
         },
-        "relation_dim": {
-          "type": "int",
-          "low": 6,
-          "high": 8,
-          "scale": "power_two"
-        },
-        "dropout_0": {
+        "input_dropout": {
           "type": "float",
-          "low": 0.1,
+          "low": 0.0,
           "high": 0.5,
-          "q": "0.1"
+          "q": 0.1
         },
-        "dropout_1": {
+        "feature_map_dropout": {
           "type": "float",
-          "low": 0.1,
+          "low": 0.0,
           "high": 0.5,
-          "q": "0.1"
+          "q": 0.1
         },
-        "dropout_2": {
+        "output_dropout": {
           "type": "float",
-          "low": 0.1,
+          "low": 0.0,
           "high": 0.5,
-          "q": "0.1"
+          "q": 0.1
         }
       }
     },
     "training_loops": [
-      "owa"
+      "lcwa"
     ],
     "optimizers": [
       "adam"
     ],
     "optimizer_kwargs": {
-      "TuckER": {
+      "ConvE": {
         "adam": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
-      "TuckER": {
+      "ConvE": {
         "adam": {
           "lr": {
             "type": "float",
@@ -75,18 +73,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
-      "TuckER": {
-        "BCEAfterSigmoidLoss": {},
+      "ConvE": {
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "TuckER": {
-        "BCEAfterSigmoidLoss": {},
+      "ConvE": {
         "SoftplusLoss": {}
       }
     },
@@ -94,31 +89,13 @@
       "NoRegularizer"
     ],
     "regularizer_kwargs": {
-      "TuckER": {
+      "ConvE": {
         "NoRegularizer": {}
       }
     },
     "regularizer_kwargs_ranges": {
-      "TuckER": {
+      "ConvE": {
         "NoRegularizer": {}
-      }
-    },
-    "negative_sampler": "BasicNegativeSampler",
-    "negative_sampler_kwargs": {
-      "TuckER": {
-        "BasicNegativeSampler": {}
-      }
-    },
-    "negative_sampler_kwargs_ranges": {
-      "TuckER": {
-        "BasicNegativeSampler": {
-          "num_negs_per_pos": {
-            "type": "int",
-            "low": 1,
-            "high": 100,
-            "q": 1
-          }
-        }
       }
     },
     "create_inverse_triples": [
@@ -133,16 +110,21 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "TuckER": {
-        "owa": {
-          "num_epochs": 1000,
-          "label_smoothing": 0.0
+      "ConvE": {
+        "lcwa": {
+          "num_epochs": 1000
         }
       }
     },
     "training_kwargs_ranges": {
-      "TuckER": {
-        "owa": {
+      "ConvE": {
+        "lcwa": {
+          "label_smoothing": {
+            "type": "float",
+            "low": 0.001,
+            "high": 1.0,
+            "scale": "log"
+          },
           "batch_size": {
             "type": "int",
             "low": 7,

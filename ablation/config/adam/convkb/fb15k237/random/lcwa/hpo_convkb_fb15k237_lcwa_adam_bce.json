@@ -1,47 +1,36 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for ConvE"
+    "title": "HPO Over FB15K-237 for ConvKB"
   },
   "ablation": {
     "datasets": [
       "fb15k237"
     ],
     "models": [
-      "ConvE"
+      "ConvKB"
     ],
     "model_kwargs": {
-      "ConvE": {
-        "input_channels": null,
-        "embedding_height": null,
-        "embedding_width": null,
-        "kernel_height": 3,
-        "kernel_width": 3,
+      "ConvKB": {
         "automatic_memory_optimization": true
       }
     },
     "model_kwargs_ranges": {
-      "ConvE": {
+      "ConvKB": {
         "embedding_dim": {
           "type": "int",
           "low": 6,
           "high": 8,
           "scale": "power_two"
         },
-        "input_dropout": {
-          "type": "float",
-          "low": 0.0,
-          "high": 0.5,
-          "q": 0.1
+        "num_filters": {
+          "type": "int",
+          "low": 50,
+          "high": 500,
+          "q": 50
         },
-        "feature_map_dropout": {
+        "hidden_dropout_rate": {
           "type": "float",
-          "low": 0.0,
-          "high": 0.5,
-          "q": 0.1
-        },
-        "output_dropout": {
-          "type": "float",
-          "low": 0.0,
+          "low": 0.1,
           "high": 0.5,
           "q": 0.1
         }
@@ -54,14 +43,14 @@
       "adam"
     ],
     "optimizer_kwargs": {
-      "ConvE": {
+      "ConvKB": {
         "adam": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
-      "ConvE": {
+      "ConvKB": {
         "adam": {
           "lr": {
             "type": "float",
@@ -73,31 +62,28 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
-      "ConvE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+      "ConvKB": {
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
-      "ConvE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+      "ConvKB": {
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
       "NoRegularizer"
     ],
     "regularizer_kwargs": {
-      "ConvE": {
+      "ConvKB": {
         "NoRegularizer": {}
       }
     },
     "regularizer_kwargs_ranges": {
-      "ConvE": {
+      "ConvKB": {
         "NoRegularizer": {}
       }
     },
@@ -113,14 +99,14 @@
       "batch_size": null
     },
     "training_kwargs": {
-      "ConvE": {
+      "ConvKB": {
         "lcwa": {
           "num_epochs": 1000
         }
       }
     },
     "training_kwargs_ranges": {
-      "ConvE": {
+      "ConvKB": {
         "lcwa": {
           "label_smoothing": {
             "type": "float",

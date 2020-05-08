@@ -37,7 +37,7 @@
       }
     },
     "training_loops": [
-      "owa"
+      "lcwa"
     ],
     "optimizers": [
       "adam"
@@ -62,18 +62,15 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
       "SoftplusLoss"
     ],
     "loss_kwargs": {
       "ConvKB": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "ConvKB": {
-        "BCEAfterSigmoidLoss": {},
         "SoftplusLoss": {}
       }
     },
@@ -90,24 +87,6 @@
         "NoRegularizer": {}
       }
     },
-    "negative_sampler": "BasicNegativeSampler",
-    "negative_sampler_kwargs": {
-      "ConvKB": {
-        "BasicNegativeSampler": {}
-      }
-    },
-    "negative_sampler_kwargs_ranges": {
-      "ConvKB": {
-        "BasicNegativeSampler": {
-          "num_negs_per_pos": {
-            "type": "int",
-            "low": 1,
-            "high": 100,
-            "q": 1
-          }
-        }
-      }
-    },
     "create_inverse_triples": [
       true,
       false
@@ -121,15 +100,20 @@
     },
     "training_kwargs": {
       "ConvKB": {
-        "owa": {
-          "num_epochs": 1000,
-          "label_smoothing": 0.0
+        "lcwa": {
+          "num_epochs": 1000
         }
       }
     },
     "training_kwargs_ranges": {
       "ConvKB": {
-        "owa": {
+        "lcwa": {
+          "label_smoothing": {
+            "type": "float",
+            "low": 0.001,
+            "high": 1.0,
+            "scale": "log"
+          },
           "batch_size": {
             "type": "int",
             "low": 7,
