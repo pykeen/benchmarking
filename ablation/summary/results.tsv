@@ -123,7 +123,6 @@ random	fb15k237	False	transd	bceaftersigmoid	no	adam	owa	basic	0	0.2750758391232
 random	fb15k237	False	transd	bceaftersigmoid	no	adam	owa	basic	1	0.27984636461493295
 random	fb15k237	False	transd	bceaftersigmoid	no	adam	owa	basic	2	0.28564438790488306
 random	fb15k237	False	transd	bceaftersigmoid	no	adam	owa	basic	3	0.27169977492905373
-random	fb15k237	False	transd	crossentropy	no	adam	lcwa		0	0.22308934337997846
 random	fb15k237	False	transd	marginranking	no	adadelta	owa	basic	0	0.3042861336725707
 random	fb15k237	False	transd	marginranking	no	adam	owa	basic	0	0.32950875819551817
 random	fb15k237	False	transd	nssa	no	adadelta	owa	basic	0	0.10534298855073881
@@ -310,8 +309,6 @@ random	fb15k237	True	transd	bceaftersigmoid	no	adam	owa	basic	0	0.24043448478324
 random	fb15k237	True	transd	bceaftersigmoid	no	adam	owa	basic	1	0.24603679420686955
 random	fb15k237	True	transd	bceaftersigmoid	no	adam	owa	basic	2	0.24133966141501126
 random	fb15k237	True	transd	bceaftersigmoid	no	adam	owa	basic	3	0.2447891183090322
-random	fb15k237	True	transd	crossentropy	no	adadelta	lcwa		0	0.13766024072805558
-random	fb15k237	True	transd	crossentropy	no	adam	lcwa		0	0.3390987376455622
 random	fb15k237	True	transd	marginranking	no	adadelta	owa	basic	0	0.3302916136608279
 random	fb15k237	True	transd	marginranking	no	adam	owa	basic	0	0.3973970055778452
 random	fb15k237	True	transd	nssa	no	adadelta	owa	basic	0	0.2785252960172228
@@ -417,6 +414,14 @@ random	fb15k237		rescal	softplus	no	adam	lcwa		0	0.20266170858205304
 random	fb15k237		rescal	softplus	no	adam	lcwa		0	0.2962618651531461
 random	fb15k237		rescal	softplus	no	adam	owa	basic	0	0.31404736275565126
 random	fb15k237		rescal	softplus	no	adam	owa	basic	0	0.33589392308445054
+random	fb15k237		transd	crossentropy	no	adam	lcwa		0	0.2578530188863881
+random	fb15k237		transd	crossentropy	no	adam	lcwa		0	0.2856199236715921
+random	fb15k237		transd	crossentropy	no	adam	lcwa		1	0.25917408748409826
+random	fb15k237		transd	crossentropy	no	adam	lcwa		1	0.28625599373715627
+random	fb15k237		transd	crossentropy	no	adam	lcwa		2	0.26120461884724533
+random	fb15k237		transd	crossentropy	no	adam	lcwa		2	0.2814365397788433
+random	fb15k237		transd	crossentropy	no	adam	lcwa		3	0.2610089049809179
+random	fb15k237		transd	crossentropy	no	adam	lcwa		3	0.275736373422057
 random	fb15k237		transh	bceaftersigmoid	transh	adadelta	lcwa		0	0.00046482043252764457
 random	fb15k237		transh	bceaftersigmoid	transh	adadelta	lcwa		0	0.0005871415989822879
 random	fb15k237		transh	bceaftersigmoid	transh	adadelta	lcwa		0	0.0007583912320187885
@@ -553,6 +558,14 @@ random	kinships	False	complex	softplus	no	adam	owa	basic	0	0.9720670391061452
 random	kinships	False	complex	softplus	no	adam	owa	basic	1	0.9688081936685289
 random	kinships	False	complex	softplus	no	adam	owa	basic	2	0.978584729981378
 random	kinships	False	complex	softplus	no	adam	owa	basic	3	0.973463687150838
+random	kinships	False	conve	bceaftersigmoid	no	adam	lcwa		0	0.9585661080074488
+random	kinships	False	conve	bceaftersigmoid	no	adam	lcwa		1	0.9590316573556797
+random	kinships	False	conve	bceaftersigmoid	no	adam	lcwa		2	0.9553072625698324
+random	kinships	False	conve	bceaftersigmoid	no	adam	lcwa		3	0.952513966480447
+random	kinships	False	conve	softplus	no	adam	lcwa		0	0.9557728119180633
+random	kinships	False	conve	softplus	no	adam	lcwa		1	0.9478584729981379
+random	kinships	False	conve	softplus	no	adam	lcwa		2	0.9478584729981379
+random	kinships	False	conve	softplus	no	adam	lcwa		3	0.9511173184357542
 random	kinships	False	distmult	bceaftersigmoid	no	adadelta	lcwa		0	0.11499068901303539
 random	kinships	False	distmult	bceaftersigmoid	no	adadelta	lcwa		1	0.1154562383612663
 random	kinships	False	distmult	bceaftersigmoid	no	adadelta	lcwa		2	0.11266294227188083
@@ -889,6 +902,30 @@ random	kinships	False	rescal	softplus	no	adam	owa	basic	0	0.9739292364990689
 random	kinships	False	rescal	softplus	no	adam	owa	basic	1	0.9692737430167597
 random	kinships	False	rescal	softplus	no	adam	owa	basic	2	0.9762569832402235
 random	kinships	False	rescal	softplus	no	adam	owa	basic	3	0.9725325884543762
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		0	0.8952513966480447
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		1	0.8878026070763501
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		2	0.8817504655493482
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		3	0.8952513966480447
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adam	lcwa		0	0.9352886405959032
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adam	lcwa		1	0.9418063314711359
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adam	lcwa		2	0.931098696461825
+random	kinships	False	structuredembedding	bceaftersigmoid	no	adam	lcwa		3	0.9376163873370578
+random	kinships	False	structuredembedding	crossentropy	no	adadelta	lcwa		0	0.9385474860335196
+random	kinships	False	structuredembedding	crossentropy	no	adadelta	lcwa		1	0.9408752327746741
+random	kinships	False	structuredembedding	crossentropy	no	adadelta	lcwa		2	0.9394785847299814
+random	kinships	False	structuredembedding	crossentropy	no	adadelta	lcwa		3	0.9338919925512105
+random	kinships	False	structuredembedding	crossentropy	no	adam	lcwa		0	0.9390130353817505
+random	kinships	False	structuredembedding	crossentropy	no	adam	lcwa		1	0.9283054003724395
+random	kinships	False	structuredembedding	crossentropy	no	adam	lcwa		2	0.9427374301675978
+random	kinships	False	structuredembedding	crossentropy	no	adam	lcwa		3	0.9455307262569832
+random	kinships	False	structuredembedding	softplus	no	adadelta	lcwa		0	0.8202979515828678
+random	kinships	False	structuredembedding	softplus	no	adadelta	lcwa		1	0.8072625698324022
+random	kinships	False	structuredembedding	softplus	no	adadelta	lcwa		2	0.8230912476722533
+random	kinships	False	structuredembedding	softplus	no	adadelta	lcwa		3	0.8058659217877095
+random	kinships	False	structuredembedding	softplus	no	adam	lcwa		0	0.9366852886405959
+random	kinships	False	structuredembedding	softplus	no	adam	lcwa		1	0.9348230912476723
+random	kinships	False	structuredembedding	softplus	no	adam	lcwa		2	0.9376163873370578
+random	kinships	False	structuredembedding	softplus	no	adam	lcwa		3	0.9404096834264432
 random	kinships	False	transd	bceaftersigmoid	no	adadelta	lcwa		0	0.14804469273743018
 random	kinships	False	transd	bceaftersigmoid	no	adadelta	lcwa		1	0.12942271880819367
 random	kinships	False	transd	bceaftersigmoid	no	adadelta	lcwa		2	0.1308193668528864
@@ -1057,6 +1094,38 @@ random	kinships	False	transh	softplus	transh	adam	owa	basic	0	0.3896648044692737
 random	kinships	False	transh	softplus	transh	adam	owa	basic	1	0.43947858472998136
 random	kinships	False	transh	softplus	transh	adam	owa	basic	2	0.38268156424581007
 random	kinships	False	transh	softplus	transh	adam	owa	basic	3	0.2467411545623836
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	lcwa		0	0.1527001862197393
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	lcwa		1	0.18528864059590316
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	lcwa		2	0.18202979515828677
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	lcwa		3	0.17271880819366853
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	owa	basic	0	0.3924581005586592
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	owa	basic	1	0.3915270018621974
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	owa	basic	2	0.409683426443203
+random	kinships	False	transr	bceaftersigmoid	no	adadelta	owa	basic	3	0.39338919925512106
+random	kinships	False	transr	bceaftersigmoid	no	adam	lcwa		0	0.6261638733705773
+random	kinships	False	transr	bceaftersigmoid	no	adam	lcwa		1	0.6252327746741154
+random	kinships	False	transr	bceaftersigmoid	no	adam	lcwa		2	0.6154562383612663
+random	kinships	False	transr	bceaftersigmoid	no	adam	lcwa		3	0.62756052141527
+random	kinships	False	transr	crossentropy	no	adadelta	lcwa		0	0.5321229050279329
+random	kinships	False	transr	crossentropy	no	adadelta	lcwa		1	0.5283985102420856
+random	kinships	False	transr	crossentropy	no	adadelta	lcwa		2	0.5279329608938548
+random	kinships	False	transr	crossentropy	no	adadelta	lcwa		3	0.5307262569832403
+random	kinships	False	transr	crossentropy	no	adam	lcwa		0	0.6503724394785847
+random	kinships	False	transr	crossentropy	no	adam	lcwa		1	0.6499068901303539
+random	kinships	False	transr	crossentropy	no	adam	lcwa		2	0.6466480446927374
+random	kinships	False	transr	crossentropy	no	adam	lcwa		3	0.6424581005586593
+random	kinships	False	transr	softplus	no	adadelta	lcwa		0	0.10242085661080075
+random	kinships	False	transr	softplus	no	adadelta	lcwa		1	0.11080074487895716
+random	kinships	False	transr	softplus	no	adadelta	lcwa		2	0.11033519553072625
+random	kinships	False	transr	softplus	no	adadelta	lcwa		3	0.1303538175046555
+random	kinships	False	transr	softplus	no	adadelta	owa	basic	0	0.29748603351955305
+random	kinships	False	transr	softplus	no	adadelta	owa	basic	1	0.30772811918063314
+random	kinships	False	transr	softplus	no	adadelta	owa	basic	2	0.30446927374301674
+random	kinships	False	transr	softplus	no	adadelta	owa	basic	3	0.3091247672253259
+random	kinships	False	transr	softplus	no	adam	lcwa		0	0.6256983240223464
+random	kinships	False	transr	softplus	no	adam	lcwa		1	0.6229050279329609
+random	kinships	False	transr	softplus	no	adam	lcwa		2	0.6154562383612663
+random	kinships	False	transr	softplus	no	adam	lcwa		3	0.6210428305400373
 random	kinships	False	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		0	0.09636871508379888
 random	kinships	False	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		1	0.09823091247672253
 random	kinships	False	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		2	0.09124767225325885
@@ -1169,6 +1238,14 @@ random	kinships	True	complex	softplus	no	adam	owa	basic	0	0.9781191806331471
 random	kinships	True	complex	softplus	no	adam	owa	basic	1	0.978584729981378
 random	kinships	True	complex	softplus	no	adam	owa	basic	2	0.9702048417132216
 random	kinships	True	complex	softplus	no	adam	owa	basic	3	0.9753258845437617
+random	kinships	True	conve	bceaftersigmoid	no	adam	lcwa		0	0.9799813780260708
+random	kinships	True	conve	bceaftersigmoid	no	adam	lcwa		1	0.9781191806331471
+random	kinships	True	conve	bceaftersigmoid	no	adam	lcwa		2	0.9823091247672253
+random	kinships	True	conve	bceaftersigmoid	no	adam	lcwa		3	0.9827746741154563
+random	kinships	True	conve	softplus	no	adam	lcwa		0	0.9804469273743017
+random	kinships	True	conve	softplus	no	adam	lcwa		1	0.978584729981378
+random	kinships	True	conve	softplus	no	adam	lcwa		2	0.9809124767225326
+random	kinships	True	conve	softplus	no	adam	lcwa		3	0.9795158286778398
 random	kinships	True	distmult	bceaftersigmoid	no	adadelta	lcwa		0	0.09450651769087523
 random	kinships	True	distmult	bceaftersigmoid	no	adadelta	lcwa		1	0.10102420856610801
 random	kinships	True	distmult	bceaftersigmoid	no	adadelta	lcwa		2	0.10102420856610801
@@ -1505,6 +1582,30 @@ random	kinships	True	rescal	softplus	no	adam	owa	basic	0	0.9743947858472998
 random	kinships	True	rescal	softplus	no	adam	owa	basic	1	0.9743947858472998
 random	kinships	True	rescal	softplus	no	adam	owa	basic	2	0.9706703910614525
 random	kinships	True	rescal	softplus	no	adam	owa	basic	3	0.9739292364990689
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		0	0.9427374301675978
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		1	0.9380819366852886
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		2	0.9441340782122905
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adadelta	lcwa		3	0.9413407821229051
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adam	lcwa		0	0.9641527001862198
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adam	lcwa		1	0.9608938547486033
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adam	lcwa		2	0.957169459962756
+random	kinships	True	structuredembedding	bceaftersigmoid	no	adam	lcwa		3	0.9613594040968343
+random	kinships	True	structuredembedding	crossentropy	no	adadelta	lcwa		0	0.9739292364990689
+random	kinships	True	structuredembedding	crossentropy	no	adadelta	lcwa		1	0.9683426443202979
+random	kinships	True	structuredembedding	crossentropy	no	adadelta	lcwa		2	0.9725325884543762
+random	kinships	True	structuredembedding	crossentropy	no	adadelta	lcwa		3	0.9697392923649907
+random	kinships	True	structuredembedding	crossentropy	no	adam	lcwa		0	0.9613594040968343
+random	kinships	True	structuredembedding	crossentropy	no	adam	lcwa		1	0.9669459962756052
+random	kinships	True	structuredembedding	crossentropy	no	adam	lcwa		2	0.9664804469273743
+random	kinships	True	structuredembedding	crossentropy	no	adam	lcwa		3	0.9594972067039106
+random	kinships	True	structuredembedding	softplus	no	adadelta	lcwa		0	0.9134078212290503
+random	kinships	True	structuredembedding	softplus	no	adadelta	lcwa		1	0.9068901303538175
+random	kinships	True	structuredembedding	softplus	no	adadelta	lcwa		2	0.9087523277467412
+random	kinships	True	structuredembedding	softplus	no	adadelta	lcwa		3	0.9273743016759777
+random	kinships	True	structuredembedding	softplus	no	adam	lcwa		0	0.957169459962756
+random	kinships	True	structuredembedding	softplus	no	adam	lcwa		1	0.9553072625698324
+random	kinships	True	structuredembedding	softplus	no	adam	lcwa		2	0.9581005586592178
+random	kinships	True	structuredembedding	softplus	no	adam	lcwa		3	0.9581005586592178
 random	kinships	True	transd	bceaftersigmoid	no	adadelta	lcwa		0	0.1387337057728119
 random	kinships	True	transd	bceaftersigmoid	no	adadelta	lcwa		1	0.14804469273743018
 random	kinships	True	transd	bceaftersigmoid	no	adadelta	lcwa		2	0.15828677839851024
@@ -1673,6 +1774,38 @@ random	kinships	True	transh	softplus	transh	adam	owa	basic	0	0.31191806331471134
 random	kinships	True	transh	softplus	transh	adam	owa	basic	1	0.3407821229050279
 random	kinships	True	transh	softplus	transh	adam	owa	basic	2	0.308659217877095
 random	kinships	True	transh	softplus	transh	adam	owa	basic	3	0.3398510242085661
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	lcwa		0	0.2839851024208566
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	lcwa		1	0.27886405959031657
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	lcwa		2	0.2807262569832402
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	lcwa		3	0.271415270018622
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	owa	basic	0	0.2648975791433892
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	owa	basic	1	0.26303538175046554
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	owa	basic	2	0.26536312849162014
+random	kinships	True	transr	bceaftersigmoid	no	adadelta	owa	basic	3	0.2709497206703911
+random	kinships	True	transr	bceaftersigmoid	no	adam	lcwa		0	0.6983240223463687
+random	kinships	True	transr	bceaftersigmoid	no	adam	lcwa		1	0.6904096834264432
+random	kinships	True	transr	bceaftersigmoid	no	adam	lcwa		2	0.6959962756052142
+random	kinships	True	transr	bceaftersigmoid	no	adam	lcwa		3	0.6936685288640596
+random	kinships	True	transr	crossentropy	no	adadelta	lcwa		0	0.48463687150837986
+random	kinships	True	transr	crossentropy	no	adadelta	lcwa		1	0.48324022346368717
+random	kinships	True	transr	crossentropy	no	adadelta	lcwa		2	0.4855679702048417
+random	kinships	True	transr	crossentropy	no	adadelta	lcwa		3	0.4753258845437616
+random	kinships	True	transr	crossentropy	no	adam	lcwa		0	0.7132216014897579
+random	kinships	True	transr	crossentropy	no	adam	lcwa		1	0.7136871508379888
+random	kinships	True	transr	crossentropy	no	adam	lcwa		2	0.707635009310987
+random	kinships	True	transr	crossentropy	no	adam	lcwa		3	0.7136871508379888
+random	kinships	True	transr	softplus	no	adadelta	lcwa		0	0.20297951582867785
+random	kinships	True	transr	softplus	no	adadelta	lcwa		1	0.20577281191806332
+random	kinships	True	transr	softplus	no	adadelta	lcwa		2	0.2015828677839851
+random	kinships	True	transr	softplus	no	adadelta	lcwa		3	0.2118249534450652
+random	kinships	True	transr	softplus	no	adadelta	owa	basic	0	0.4236499068901304
+random	kinships	True	transr	softplus	no	adadelta	owa	basic	1	0.41899441340782123
+random	kinships	True	transr	softplus	no	adadelta	owa	basic	2	0.41852886405959033
+random	kinships	True	transr	softplus	no	adadelta	owa	basic	3	0.43808193668528866
+random	kinships	True	transr	softplus	no	adam	lcwa		0	0.6941340782122905
+random	kinships	True	transr	softplus	no	adam	lcwa		1	0.7034450651769087
+random	kinships	True	transr	softplus	no	adam	lcwa		2	0.6978584729981379
+random	kinships	True	transr	softplus	no	adam	lcwa		3	0.6987895716945997
 random	kinships	True	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		0	0.08798882681564246
 random	kinships	True	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		1	0.1042830540037244
 random	kinships	True	unstructuredmodel	bceaftersigmoid	no	adadelta	lcwa		2	0.09404096834264432
@@ -1729,6 +1862,54 @@ random	kinships	True	unstructuredmodel	softplus	no	adam	owa	basic	0	0.0968342644
 random	kinships	True	unstructuredmodel	softplus	no	adam	owa	basic	1	0.08612662942271881
 random	kinships	True	unstructuredmodel	softplus	no	adam	owa	basic	2	0.07541899441340782
 random	kinships	True	unstructuredmodel	softplus	no	adam	owa	basic	3	0.08798882681564246
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		0	0.10940409683426443
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		0	0.11592178770949721
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		1	0.0893854748603352
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		1	0.10707635009310987
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		2	0.09404096834264432
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		2	0.10893854748603352
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		3	0.09636871508379888
+random	kinships		ntn	bceaftersigmoid	no	adadelta	lcwa		3	0.10474860335195531
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	0	0.09264432029795158
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	0	0.11359404096834265
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	1	0.10474860335195531
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	1	0.11405959031657356
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	2	0.10288640595903166
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	2	0.10754189944134078
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	3	0.10661080074487896
+random	kinships		ntn	bceaftersigmoid	no	adadelta	owa	basic	3	0.11080074487895716
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		0	0.10242085661080075
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		0	0.1196461824953445
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		1	0.1042830540037244
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		1	0.10754189944134078
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		2	0.09636871508379888
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		2	0.09636871508379888
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		3	0.07541899441340782
+random	kinships		ntn	crossentropy	no	adadelta	lcwa		3	0.10335195530726257
+random	kinships		ntn	nssa	no	adadelta	owa	basic	0	0.09916201117318436
+random	kinships		ntn	nssa	no	adadelta	owa	basic	0	0.09962756052141528
+random	kinships		ntn	nssa	no	adadelta	owa	basic	1	0.09823091247672253
+random	kinships		ntn	nssa	no	adadelta	owa	basic	1	0.12476722532588454
+random	kinships		ntn	nssa	no	adadelta	owa	basic	2	0.09543761638733705
+random	kinships		ntn	nssa	no	adadelta	owa	basic	2	0.10195530726256984
+random	kinships		ntn	nssa	no	adadelta	owa	basic	3	0.10102420856610801
+random	kinships		ntn	nssa	no	adadelta	owa	basic	3	0.10567970204841713
+random	kinships		ntn	softplus	no	adadelta	lcwa		0	0.09823091247672253
+random	kinships		ntn	softplus	no	adadelta	lcwa		0	0.10940409683426443
+random	kinships		ntn	softplus	no	adadelta	lcwa		1	0.10009310986964619
+random	kinships		ntn	softplus	no	adadelta	lcwa		1	0.10567970204841713
+random	kinships		ntn	softplus	no	adadelta	lcwa		2	0.0824022346368715
+random	kinships		ntn	softplus	no	adadelta	lcwa		2	0.1005586592178771
+random	kinships		ntn	softplus	no	adadelta	lcwa		3	0.09683426443202979
+random	kinships		ntn	softplus	no	adadelta	lcwa		3	0.10474860335195531
+random	kinships		ntn	softplus	no	adadelta	owa	basic	0	0.10567970204841713
+random	kinships		ntn	softplus	no	adadelta	owa	basic	0	0.1154562383612663
+random	kinships		ntn	softplus	no	adadelta	owa	basic	1	0.0931098696461825
+random	kinships		ntn	softplus	no	adadelta	owa	basic	1	0.10800744878957169
+random	kinships		ntn	softplus	no	adadelta	owa	basic	2	0.1042830540037244
+random	kinships		ntn	softplus	no	adadelta	owa	basic	2	0.11312849162011174
+random	kinships		ntn	softplus	no	adadelta	owa	basic	3	0.09450651769087523
+random	kinships		ntn	softplus	no	adadelta	owa	basic	3	0.09962756052141528
 random	kinships		rotate	bceaftersigmoid	no	adadelta	lcwa		0	0.09962756052141528
 random	kinships		rotate	bceaftersigmoid	no	adadelta	lcwa		0	0.10940409683426443
 random	kinships		rotate	bceaftersigmoid	no	adadelta	owa	basic	0	0.10893854748603352
@@ -1837,10 +2018,176 @@ random	kinships		transr	softplus	no	adam	owa	basic	2	0.7011173184357542
 random	kinships		transr	softplus	no	adam	owa	basic	2	0.707635009310987
 random	kinships		transr	softplus	no	adam	owa	basic	3	0.6866852886405959
 random	kinships		transr	softplus	no	adam	owa	basic	3	0.7122905027932961
+random	wn18rr		complex	bceaftersigmoid	no	adam	lcwa		0	0.43519151846785226
+random	wn18rr		complex	bceaftersigmoid	no	adam	lcwa		0	0.4563953488372093
+random	wn18rr		complex	bceaftersigmoid	no	adam	owa	basic	0	0.40817373461012313
+random	wn18rr		complex	bceaftersigmoid	no	adam	owa	basic	0	0.43365253077975374
+random	wn18rr		complex	crossentropy	no	adam	lcwa		0	0.11542407660738714
+random	wn18rr		complex	crossentropy	no	adam	lcwa		0	0.5314637482900136
+random	wn18rr		complex	marginranking	no	adam	owa	basic	0	0.41398768809849523
+random	wn18rr		complex	marginranking	no	adam	owa	basic	0	0.42356361149110805
+random	wn18rr		complex	nssa	no	adam	owa	basic	0	0.414671682626539
+random	wn18rr		complex	nssa	no	adam	owa	basic	0	0.417578659370725
+random	wn18rr		complex	softplus	no	adam	lcwa		0	0.36679206566347466
+random	wn18rr		complex	softplus	no	adam	lcwa		0	0.4103967168262654
+random	wn18rr		complex	softplus	no	adam	owa	basic	0	0.41911764705882354
+random	wn18rr		complex	softplus	no	adam	owa	basic	0	0.43023255813953487
+random	wn18rr		distmult	bceaftersigmoid	no	adam	lcwa		0	0.43040355677154585
+random	wn18rr		distmult	bceaftersigmoid	no	adam	lcwa		0	0.46084131326949385
+random	wn18rr		distmult	bceaftersigmoid	no	adam	owa	basic	0	0.48768809849521205
+random	wn18rr		distmult	bceaftersigmoid	no	adam	owa	basic	0	0.49264705882352944
+random	wn18rr		distmult	crossentropy	no	adam	lcwa		0	0.48614911080711354
+random	wn18rr		distmult	crossentropy	no	adam	lcwa		0	0.5270177838577291
+random	wn18rr		distmult	marginranking	no	adam	owa	basic	0	0.45536935704514364
+random	wn18rr		distmult	marginranking	no	adam	owa	basic	0	0.47486320109439123
+random	wn18rr		distmult	nssa	no	adam	owa	basic	0	0.48546511627906974
+random	wn18rr		distmult	nssa	no	adam	owa	basic	0	0.4933310533515732
+random	wn18rr		distmult	softplus	no	adam	lcwa		0	0.43826949384404923
+random	wn18rr		distmult	softplus	no	adam	lcwa		0	0.4551983584131327
+random	wn18rr		distmult	softplus	no	adam	owa	basic	0	0.44066347469220246
+random	wn18rr		distmult	softplus	no	adam	owa	basic	0	0.4509233926128591
+random	wn18rr		ermlp	bceaftersigmoid	no	adadelta	owa	basic	0	0.007181942544459644
+random	wn18rr		ermlp	bceaftersigmoid	no	adadelta	owa	basic	0	0.011627906976744186
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	lcwa		0	0.11234610123119015
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	lcwa		0	0.3544801641586867
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	lcwa		0	0.426812585499316
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	lcwa		0	0.42903556771545825
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	owa	basic	0	0.27325581395348836
+random	wn18rr		ermlp	bceaftersigmoid	no	adam	owa	basic	0	0.4784541723666211
+random	wn18rr		ermlp	crossentropy	no	adam	lcwa		0	0.32045143638850887
+random	wn18rr		ermlp	crossentropy	no	adam	lcwa		0	0.463406292749658
+random	wn18rr		ermlp	marginranking	no	adadelta	owa	basic	0	0.023768809849521205
+random	wn18rr		ermlp	marginranking	no	adadelta	owa	basic	0	0.027017783857729138
+random	wn18rr		ermlp	marginranking	no	adam	owa	basic	0	0.2542749658002736
+random	wn18rr		ermlp	marginranking	no	adam	owa	basic	0	0.4198016415868673
+random	wn18rr		ermlp	nssa	no	adadelta	owa	basic	0	0.005300957592339261
+random	wn18rr		ermlp	nssa	no	adadelta	owa	basic	0	0.00786593707250342
+random	wn18rr		ermlp	nssa	no	adam	owa	basic	0	0.16603967168262654
+random	wn18rr		ermlp	nssa	no	adam	owa	basic	0	0.46562927496580025
+random	wn18rr		ermlp	softplus	no	adadelta	owa	basic	0	0.01179890560875513
+random	wn18rr		ermlp	softplus	no	adadelta	owa	basic	0	0.014192886456908345
+random	wn18rr		ermlp	softplus	no	adam	lcwa		0	0.1265389876880985
+random	wn18rr		ermlp	softplus	no	adam	lcwa		0	0.2982216142270862
+random	wn18rr		ermlp	softplus	no	adam	lcwa		0	0.411593707250342
+random	wn18rr		ermlp	softplus	no	adam	lcwa		0	0.41484268125854995
+random	wn18rr		ermlp	softplus	no	adam	owa	basic	0	0.2725718194254446
+random	wn18rr		ermlp	softplus	no	adam	owa	basic	0	0.47571819425444595
+random	wn18rr		hole	bceaftersigmoid	no	adam	owa	basic	0	0.4575923392612859
+random	wn18rr		hole	bceaftersigmoid	no	adam	owa	basic	0	0.4687072503419973
+random	wn18rr		hole	crossentropy	no	adam	lcwa		0	0.3072845417236662
+random	wn18rr		hole	crossentropy	no	adam	lcwa		0	0.5010259917920656
+random	wn18rr		hole	marginranking	no	adam	owa	basic	0	0.39295485636114913
+random	wn18rr		hole	marginranking	no	adam	owa	basic	0	0.4122777017783858
+random	wn18rr		hole	nssa	no	adam	owa	basic	0	0.42971956224350205
+random	wn18rr		hole	nssa	no	adam	owa	basic	0	0.4384404924760602
+random	wn18rr		hole	softplus	no	adam	owa	basic	0	0.45229138166894667
+random	wn18rr		hole	softplus	no	adam	owa	basic	0	0.45998632010943913
+random	wn18rr		kg2e	bceaftersigmoid	no	adam	owa	basic	0	0.0003419972640218878
+random	wn18rr		kg2e	bceaftersigmoid	no	adam	owa	basic	0	0.34182626538987687
+random	wn18rr		kg2e	crossentropy	no	adam	lcwa		0	0.4280095759233926
+random	wn18rr		kg2e	crossentropy	no	adam	lcwa		0	0.48187414500683995
+random	wn18rr		kg2e	marginranking	no	adam	owa	basic	0	0.426812585499316
+random	wn18rr		kg2e	marginranking	no	adam	owa	basic	0	0.44989740082079344
+random	wn18rr		kg2e	nssa	no	adam	owa	basic	0	0.4379274965800274
+random	wn18rr		kg2e	nssa	no	adam	owa	basic	0	0.463406292749658
+random	wn18rr		kg2e	softplus	no	adam	owa	basic	0	0.4575923392612859
+random	wn18rr		kg2e	softplus	no	adam	owa	basic	0	0.4646032831737346
+random	wn18rr		proje	bceaftersigmoid	no	adadelta	lcwa		0	0.0001709986320109439
+random	wn18rr		proje	bceaftersigmoid	no	adadelta	lcwa		0	0.0005129958960328317
+random	wn18rr		proje	bceaftersigmoid	no	adadelta	owa	basic	0	0.009575923392612859
+random	wn18rr		proje	bceaftersigmoid	no	adadelta	owa	basic	0	0.010601915184678522
+random	wn18rr		proje	bceaftersigmoid	no	adam	lcwa		0	0.44134746922024626
+random	wn18rr		proje	bceaftersigmoid	no	adam	lcwa		0	0.4524623803009576
+random	wn18rr		proje	bceaftersigmoid	no	adam	owa	basic	0	0.4201436388508892
+random	wn18rr		proje	bceaftersigmoid	no	adam	owa	basic	0	0.4278385772913817
+random	wn18rr		proje	crossentropy	no	adadelta	lcwa		0	0.030779753761969904
+random	wn18rr		proje	crossentropy	no	adadelta	lcwa		0	0.39928180574555405
+random	wn18rr		proje	crossentropy	no	adam	lcwa		0	0.4837551299589603
+random	wn18rr		proje	crossentropy	no	adam	lcwa		0	0.5145348837209303
+random	wn18rr		proje	marginranking	no	adadelta	owa	basic	0	0.023255813953488372
+random	wn18rr		proje	marginranking	no	adadelta	owa	basic	0	0.3874829001367989
+random	wn18rr		proje	marginranking	no	adam	owa	basic	0	0.405437756497948
+random	wn18rr		proje	marginranking	no	adam	owa	basic	0	0.42270861833105333
+random	wn18rr		proje	nssa	no	adadelta	owa	basic	0	0.011627906976744186
+random	wn18rr		proje	nssa	no	adadelta	owa	basic	0	0.01265389876880985
+random	wn18rr		proje	nssa	no	adam	owa	basic	0	0.41364569083447333
+random	wn18rr		proje	nssa	no	adam	owa	basic	0	0.43399452804377564
+random	wn18rr		proje	softplus	no	adadelta	lcwa		0	0.0
+random	wn18rr		proje	softplus	no	adadelta	lcwa		0	0.0
+random	wn18rr		proje	softplus	no	adadelta	owa	basic	0	0.007181942544459644
+random	wn18rr		proje	softplus	no	adadelta	owa	basic	0	0.011969904240766074
+random	wn18rr		proje	softplus	no	adam	lcwa		0	0.3748290013679891
+random	wn18rr		proje	softplus	no	adam	lcwa		0	0.42493160054719564
+random	wn18rr		proje	softplus	no	adam	owa	basic	0	0.4155266757865937
+random	wn18rr		proje	softplus	no	adam	owa	basic	0	0.4170656634746922
+random	wn18rr		rescal	bceaftersigmoid	no	adam	lcwa		0	0.35653214774281805
+random	wn18rr		rescal	bceaftersigmoid	no	adam	lcwa		0	0.41056771545827636
+random	wn18rr		rescal	bceaftersigmoid	no	adam	owa	basic	0	0.38782489740082077
+random	wn18rr		rescal	bceaftersigmoid	no	adam	owa	basic	0	0.3965458276333789
+random	wn18rr		rescal	crossentropy	no	adam	lcwa		0	0.5287277701778386
+random	wn18rr		rescal	crossentropy	no	adam	lcwa		0	0.5364227086183311
+random	wn18rr		rescal	marginranking	no	adam	owa	basic	0	0.36200410396716826
+random	wn18rr		rescal	marginranking	no	adam	owa	basic	0	0.37670998632010944
+random	wn18rr		rescal	nssa	no	adam	owa	basic	0	0.4158686730506156
+random	wn18rr		rescal	nssa	no	adam	owa	basic	0	0.4278385772913817
+random	wn18rr		rescal	softplus	no	adam	lcwa		0	0.38919288645690836
+random	wn18rr		rescal	softplus	no	adam	lcwa		0	0.4049247606019152
+random	wn18rr		rescal	softplus	no	adam	owa	basic	0	0.4049247606019152
+random	wn18rr		rescal	softplus	no	adam	owa	basic	0	0.4228796169630643
+random	wn18rr		rotate	bceaftersigmoid	no	adam	lcwa		0	0.5872093023255814
+random	wn18rr		rotate	bceaftersigmoid	no	adam	lcwa		0	0.5928522571819426
+random	wn18rr		rotate	bceaftersigmoid	no	adam	owa	basic	0	0.48649110807113544
+random	wn18rr		rotate	bceaftersigmoid	no	adam	owa	basic	0	0.5042749658002736
+random	wn18rr		rotate	crossentropy	no	adam	lcwa		0	0.5277017783857729
+random	wn18rr		rotate	crossentropy	no	adam	lcwa		0	0.5459986320109439
+random	wn18rr		rotate	marginranking	no	adam	owa	basic	0	0.4746922024623803
+random	wn18rr		rotate	marginranking	no	adam	owa	basic	0	0.5076949384404925
+random	wn18rr		rotate	nssa	no	adam	owa	basic	0	0.5779753761969905
+random	wn18rr		rotate	nssa	no	adam	owa	basic	0	0.5796853625170999
+random	wn18rr		rotate	softplus	no	adam	lcwa		0	0.5812243502051984
+random	wn18rr		rotate	softplus	no	adam	lcwa		0	0.6017441860465116
+random	wn18rr		rotate	softplus	no	adam	owa	basic	0	0.49093707250341995
+random	wn18rr		rotate	softplus	no	adam	owa	basic	0	0.5073529411764706
+random	wn18rr		simple	bceaftersigmoid	no	adam	lcwa		0	0.45229138166894667
+random	wn18rr		simple	bceaftersigmoid	no	adam	lcwa		0	0.45571135430916554
+random	wn18rr		simple	bceaftersigmoid	no	adam	owa	basic	0	0.41928864569083446
+random	wn18rr		simple	bceaftersigmoid	no	adam	owa	basic	0	0.426812585499316
+random	wn18rr		simple	crossentropy	no	adam	lcwa		0	0.493844049247606
+random	wn18rr		simple	crossentropy	no	adam	lcwa		0	0.5078659370725034
+random	wn18rr		simple	marginranking	no	adam	owa	basic	0	0.3838919288645691
+random	wn18rr		simple	marginranking	no	adam	owa	basic	0	0.3856019151846785
+random	wn18rr		simple	nssa	no	adam	owa	basic	0	0.38491792065663477
+random	wn18rr		simple	nssa	no	adam	owa	basic	0	0.40167578659370723
+random	wn18rr		simple	softplus	no	adam	lcwa		0	0.3801299589603283
+random	wn18rr		simple	softplus	no	adam	lcwa		0	0.3999658002735978
+random	wn18rr		simple	softplus	no	adam	owa	basic	0	0.42305061559507523
+random	wn18rr		simple	softplus	no	adam	owa	basic	0	0.42476060191518467
+random	wn18rr		transd	bceaftersigmoid	no	adam	lcwa		0	0.0010259917920656635
+random	wn18rr		transd	bceaftersigmoid	no	adam	lcwa		0	0.0010259917920656635
+random	wn18rr		transd	bceaftersigmoid	no	adam	owa	basic	0	0.44528043775649795
+random	wn18rr		transd	bceaftersigmoid	no	adam	owa	basic	0	0.454343365253078
+random	wn18rr		transd	crossentropy	no	adam	lcwa		0	0.15800273597811218
+random	wn18rr		transd	crossentropy	no	adam	lcwa		0	0.2920656634746922
+random	wn18rr		transd	marginranking	no	adam	owa	basic	0	0.3944938440492476
+random	wn18rr		transd	marginranking	no	adam	owa	basic	0	0.4471614227086183
+random	wn18rr		transd	nssa	no	adam	owa	basic	0	0.304890560875513
+random	wn18rr		transd	nssa	no	adam	owa	basic	0	0.36696306429548564
+random	wn18rr		transd	softplus	no	adam	lcwa		0	0.0003419972640218878
+random	wn18rr		transd	softplus	no	adam	lcwa		0	0.0010259917920656635
+random	wn18rr		transd	softplus	no	adam	owa	basic	0	0.41398768809849523
+random	wn18rr		transd	softplus	no	adam	owa	basic	0	0.4476744186046512
 random	wn18rr		transe	bceaftersigmoid	no	adadelta	owa	basic	0	0.2799247606019152
 random	wn18rr		transe	bceaftersigmoid	no	adadelta	owa	basic	0	0.44049247606019154
 random	wn18rr		transe	bceaftersigmoid	no	adam	owa	basic	0	0.43399452804377564
 random	wn18rr		transe	bceaftersigmoid	no	adam	owa	basic	0	0.4435704514363885
+random	wn18rr		transe	crossentropy	no	adam	lcwa		0	0.3385772913816689
+random	wn18rr		transe	crossentropy	no	adam	lcwa		0	0.45930232558139533
+random	wn18rr		transe	crossentropy	no	adam	lcwa		1	0.3399452804377565
+random	wn18rr		transe	crossentropy	no	adam	lcwa		1	0.4652872777017784
+random	wn18rr		transe	crossentropy	no	adam	lcwa		2	0.3435362517099863
+random	wn18rr		transe	crossentropy	no	adam	lcwa		2	0.46785225718194257
+random	wn18rr		transe	crossentropy	no	adam	lcwa		3	0.34131326949384405
+random	wn18rr		transe	crossentropy	no	adam	lcwa		3	0.46101231190150477
 random	wn18rr		transe	marginranking	no	adadelta	owa	basic	0	0.4700752393980848
 random	wn18rr		transe	marginranking	no	adadelta	owa	basic	0	0.50906292749658
 random	wn18rr		transe	marginranking	no	adam	owa	basic	0	0.4840971272229822
@@ -1853,10 +2200,42 @@ random	wn18rr		transe	softplus	no	adadelta	owa	basic	0	0.15766073871409028
 random	wn18rr		transe	softplus	no	adadelta	owa	basic	0	0.43399452804377564
 random	wn18rr		transe	softplus	no	adam	owa	basic	0	0.420827633378933
 random	wn18rr		transe	softplus	no	adam	owa	basic	0	0.42510259917920656
+random	wn18rr		transh	bceaftersigmoid	transh	adam	lcwa		0	0.018980848153214776
+random	wn18rr		transh	bceaftersigmoid	transh	adam	lcwa		0	0.019493844049247606
+random	wn18rr		transh	bceaftersigmoid	transh	adam	owa	basic	0	0.2445280437756498
+random	wn18rr		transh	bceaftersigmoid	transh	adam	owa	basic	0	0.33977428180574554
+random	wn18rr		transh	crossentropy	transh	adam	lcwa		0	0.13850889192886456
+random	wn18rr		transh	crossentropy	transh	adam	lcwa		0	0.14945280437756497
+random	wn18rr		transh	marginranking	transh	adam	owa	basic	0	0.35636114911080713
+random	wn18rr		transh	marginranking	transh	adam	owa	basic	0	0.4793091655266758
+random	wn18rr		transh	nssa	transh	adam	owa	basic	0	0.03488372093023256
+random	wn18rr		transh	nssa	transh	adam	owa	basic	0	0.03864569083447333
+random	wn18rr		transh	softplus	transh	adam	lcwa		0	0.007694938440492476
+random	wn18rr		transh	softplus	transh	adam	lcwa		0	0.015389876880984952
+random	wn18rr		transh	softplus	transh	adam	owa	basic	0	0.03967168262653899
+random	wn18rr		transh	softplus	transh	adam	owa	basic	0	0.36320109439124487
+random	wn18rr		transr	bceaftersigmoid	no	adam	lcwa		0	0.0011969904240766074
+random	wn18rr		transr	bceaftersigmoid	no	adam	lcwa		0	0.012995896032831737
+random	wn18rr		transr	bceaftersigmoid	no	adam	owa	basic	0	0.3243844049247606
+random	wn18rr		transr	bceaftersigmoid	no	adam	owa	basic	0	0.34986320109439123
+random	wn18rr		transr	crossentropy	no	adam	lcwa		0	0.15167578659370726
+random	wn18rr		transr	crossentropy	no	adam	lcwa		0	0.3796169630642955
+random	wn18rr		transr	marginranking	no	adam	owa	basic	0	0.07883036935704514
+random	wn18rr		transr	marginranking	no	adam	owa	basic	0	0.42390560875512995
+random	wn18rr		transr	nssa	no	adam	owa	basic	0	0.2761627906976744
+random	wn18rr		transr	nssa	no	adam	owa	basic	0	0.332421340629275
+random	wn18rr		transr	softplus	no	adam	lcwa		0	0.0013679890560875513
+random	wn18rr		transr	softplus	no	adam	lcwa		0	0.004616963064295486
+random	wn18rr		transr	softplus	no	adam	owa	basic	0	0.341484268125855
+random	wn18rr		transr	softplus	no	adam	owa	basic	0	0.35191518467852256
 random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adadelta	owa	basic	0	0.018125854993160054
 random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adadelta	owa	basic	0	0.019151846785225718
+random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adam	lcwa		0	0.4374145006839945
+random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adam	lcwa		0	0.44134746922024626
 random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adam	owa	basic	0	0.3956908344733242
 random	wn18rr		unstructuredmodel	bceaftersigmoid	no	adam	owa	basic	0	0.4027017783857729
+random	wn18rr		unstructuredmodel	crossentropy	no	adam	lcwa		0	0.40937072503419975
+random	wn18rr		unstructuredmodel	crossentropy	no	adam	lcwa		0	0.4266415868673051
 random	wn18rr		unstructuredmodel	marginranking	no	adadelta	owa	basic	0	0.015560875512995896
 random	wn18rr		unstructuredmodel	marginranking	no	adadelta	owa	basic	0	0.016244870041039673
 random	wn18rr		unstructuredmodel	marginranking	no	adam	owa	basic	0	0.39380984952120385
@@ -1867,5 +2246,7 @@ random	wn18rr		unstructuredmodel	nssa	no	adam	owa	basic	0	0.4131326949384405
 random	wn18rr		unstructuredmodel	nssa	no	adam	owa	basic	0	0.41450068399452805
 random	wn18rr		unstructuredmodel	softplus	no	adadelta	owa	basic	0	0.4003077975376197
 random	wn18rr		unstructuredmodel	softplus	no	adadelta	owa	basic	0	0.4261285909712722
+random	wn18rr		unstructuredmodel	softplus	no	adam	lcwa		0	0.45006839945280436
+random	wn18rr		unstructuredmodel	softplus	no	adam	lcwa		0	0.45041039671682626
 random	wn18rr		unstructuredmodel	softplus	no	adam	owa	basic	0	0.3968878248974008
 random	wn18rr		unstructuredmodel	softplus	no	adam	owa	basic	0	0.39928180574555405

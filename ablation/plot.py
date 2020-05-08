@@ -1,3 +1,4 @@
+import click
 import logging
 import os
 
@@ -104,15 +105,19 @@ def _write_2d_sliced_summaries(
             hue = val
         else:
             hue = slice_3
-        sns.violinplot(
-            data=sdf,
-            x=slice_2,
-            y=target_header,
-            split=True,
-            ax=ax,
-            cut=0,
-            hue=hue,
-        )
+        try:
+            sns.violinplot(
+                data=sdf,
+                x=slice_2,
+                y=target_header,
+                split=True,
+                ax=ax,
+                cut=0,
+                hue=hue,
+            )
+        except ValueError:
+            logger.exception('could not make violin plot')
+            continue
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
         ax.set_title(f'{slice_1} - {slice_1_value}')
@@ -135,8 +140,10 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
         for v in df[k].unique():
             sub_df = df[df[k] == v]
 
-            fig, axes = plt.subplots(2, 2, figsize=(14, 10))
             ablation_headers = [h for h in ABLATION_HEADERS if h != k]
+            ncols = 2
+            nrows = 1 + len(ablation_headers) // ncols
+            fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 10))
             for ablation_header, ax in zip(ablation_headers, axes.ravel()):
                 # Aggregate the dataset by maximum for this header
                 idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
@@ -145,10 +152,13 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
 
                 del sub_df_agg[ablation_header]
-
-                sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
-                sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, linewidth=1.0,
-                              order=sub_df_agg.index)
+                try:
+                    sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
+                    sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index,
+                              linewidth=1.0)
+                except ValueError:
+                    logger.exception('could not make swarm plot')
+                    continue
 
                 ax.set_title(ablation_header.replace('_', ' ').title())
                 ax.set_xlabel('')
@@ -176,11 +186,13 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
             print(f'<img src="summary/1D-slices/dataset_{v}.png" alt="{v}"/>\n', file=file)
 
 
+@click.command()
 def main():
     key = 'hits@10'
     if not os.path.exists(COLLATION_PATH):
         collate(key)
     make_plots(target_header=key)
+    click.echo('done!')
 
 
 if __name__ == '__main__':

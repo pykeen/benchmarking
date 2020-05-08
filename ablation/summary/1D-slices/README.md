@@ -1,6 +1,6 @@
 # Ablation Results
 
-Output at Mon Apr  6 21:17:18 2020
+Output at Fri May  8 15:17:58 2020
 
 ## Dataset
 
@@ -15,6 +15,8 @@ Output at Mon Apr  6 21:17:18 2020
 
 <img src="model_complex.png" alt="complex"/>
 
+<img src="model_conve.png" alt="conve"/>
+
 <img src="model_distmult.png" alt="distmult"/>
 
 <img src="model_ermlp.png" alt="ermlp"/>
@@ -23,11 +25,15 @@ Output at Mon Apr  6 21:17:18 2020
 
 <img src="model_kg2e.png" alt="kg2e"/>
 
+<img src="model_ntn.png" alt="ntn"/>
+
 <img src="model_proje.png" alt="proje"/>
 
 <img src="model_rescal.png" alt="rescal"/>
 
 <img src="model_rotate.png" alt="rotate"/>
+
+<img src="model_se.png" alt="se"/>
 
 <img src="model_simple.png" alt="simple"/>
 
@@ -67,4 +73,13 @@ Output at Mon Apr  6 21:17:18 2020
 <img src="training_loop_lcwa.png" alt="lcwa"/>
 
 <img src="training_loop_owa.png" alt="owa"/>
+
+
+## Create Inverse Triples
+
+<img src="create_inverse_triples_False.png" alt="False"/>
+
+<img src="create_inverse_triples_True.png" alt="True"/>
+
+<img src="create_inverse_triples_nan.png" alt="nan"/>
 

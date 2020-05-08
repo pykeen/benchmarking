@@ -148,7 +148,8 @@ def _iter_model_dirs():
         if not os.path.isdir(model_d) or model.startswith('_') or model.endswith('.py'):
             continue
         if model not in models:
-            raise KeyError(f'invalid model name: {model}')
+            logger.warning(f'invalid model name in {model_d}: {model}')
+            continue
         # example: ('complex', <path>)
         yield model, model_d
 
