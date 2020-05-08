@@ -3,6 +3,7 @@
 import os
 from collections import defaultdict
 
+import numpy as np
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
@@ -26,15 +27,16 @@ def main():
                 mean = model_df[column].mean()
                 std = model_df[column].std()
                 if '.mean_rank.' in column or column.startswith('times'):
-                    fmt = '5.2f'
-                    std_fmt = '.2f'
+                    fmt = '5.2'
                     factor = 1.0
                 else:
-                    std_fmt = fmt = '.2f'
+                    fmt = '.2'
                     factor = 100.0
 
                 _, column = column.split('.', 1)
-                t = f'{(factor * mean):{fmt}} ± {(factor * std):{std_fmt}}'
+
+                std_str = f'{(factor * std):.2f}'.rjust(5, '0')
+                t = f'{(factor * mean):{fmt}f} ± {std_str}'
                 rows.append((model, column, t))
 
         x = pd.DataFrame(rows, columns=['model', 'columns', 'values'])
@@ -148,10 +150,11 @@ def get_reordered_df(df: pd.DataFrame):
     for x, y in df.columns:
         r[x].append(y)
 
-    reordered = []
-    for x in ['', 'avg', 'best', 'worst']:
-        for y in r[x]:
-            reordered.append((x, y))
+    reordered = [
+        (x, y)
+        for x in ['', 'avg', 'best', 'worst']
+        for y in r[x]
+    ]
     return df[reordered]
 
 
