@@ -1,7 +1,0 @@
-{
-  "best_trial_number": 15,
-  "best_trial_evaluation": 0.9171348314606742,
-  "git_hash": "422c21fc",
-  "version": "0.1.2-dev",
-  "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}"
-}
