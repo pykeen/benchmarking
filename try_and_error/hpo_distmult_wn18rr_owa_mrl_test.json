@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "title": "HPO Over WN18RR for DistMult"
+  },
+  "ablation": {
+    "datasets": [
+      "wn18rr"
+    ],
+    "models": [
+      "DistMult"
+    ],
+    "model_kwargs": {
+      "DistMult": {
+        "automatic_memory_optimization": true
+      }
+    },
+    "model_kwargs_ranges": {
+      "DistMult": {
+        "embedding_dim": {
+          "type": "int",
+          "low": 4,
+          "high": 5,
+          "scale": "power_two"
+        }
+      }
+    },
+    "training_loops": [
+      "owa"
+    ],
+    "optimizers": [
+      "adam"
+    ],
+    "optimizer_kwargs": {
+      "DistMult": {
+        "adam": {
+          "weight_decay": 0.0
+        }
+      }
+    },
+    "optimizer_kwargs_ranges": {
+      "DistMult": {
+        "adam": {
+          "lr": {
+            "type": "float",
+            "low": 0.001,
+            "high": 0.1,
+            "scale": "log"
+          }
+        }
+      }
+    },
+    "loss_functions": [
+      "MarginRankingLoss"
+    ],
+    "loss_kwargs": {
+      "DistMult": {
+        "MarginRankingLoss": {}
+      }
+    },
+    "loss_kwargs_ranges": {
+      "DistMult": {
+        "MarginRankingLoss": {
+          "margin": {
+            "type": "float",
+            "low": 0.5,
+            "high": 10,
+            "q": 1.0
+          }
+        }
+      }
+    },
+    "regularizers": [
+      "NoRegularizer"
+    ],
+    "regularizer_kwargs": {
+      "DistMult": {
+        "NoRegularizer": {}
+      }
+    },
+    "regularizer_kwargs_ranges": {
+      "DistMult": {
+        "NoRegularizer": {}
+      }
+    },
+    "negative_sampler": "BasicNegativeSampler",
+    "negative_sampler_kwargs": {
+      "DistMult": {
+        "BasicNegativeSampler": {
+          "num_negs_per_pos": 5
+        }
+      }
+    },
+    "negative_sampler_kwargs_ranges": {
+      "DistMult": {
+        "BasicNegativeSampler": {}
+      }
+    },
+    "create_inverse_triples": [
+      true
+    ],
+    "evaluator": "RankBasedEvaluator",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "training_kwargs": {
+      "DistMult": {
+        "owa": {
+          "num_epochs": 1,
+          "label_smoothing": 0.0
+        }
+      }
+    },
+    "training_kwargs_ranges": {
+      "DistMult": {
+        "owa": {
+          "batch_size": {
+            "type": "int",
+            "low": 7,
+            "high": 9,
+            "scale": "power_two"
+          }
+        }
+      }
+    },
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 10,
+      "patience": 2,
+      "delta": 0.002
+    }
+  },
+  "optuna": {
+    "n_trials": 100,
+    "timeout": 86400,
+    "metric": "hits@10",
+    "direction": "maximize",
+    "sampler": "random",
+    "pruner": "nop"
+  }
+}
