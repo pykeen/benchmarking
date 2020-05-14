@@ -121,13 +121,13 @@ def iterate_config_paths(root_directory: str) -> Iterable[str]:
                 configs = os.listdir(configs_directory)
 
                 # Check, whether correct number of configurations are defined
-                if training_assumption == 'lcwa':
-                    assert len(
-                        configs) == NUM_LCWA_CONFIGS, f"More than one LCWA config provided ({configs_directory})."
-                else:
-                    assert training_assumption == 'owa' and len(
-                        configs) == NUM_OWA_CONFIGS, f'For owa exactly {NUM_OWA_CONFIGS} configurations' \
-                        f' are required, but {len(configs)} were provided'
+                # if training_assumption == 'lcwa':
+                #     assert len(
+                #         configs) == NUM_LCWA_CONFIGS, f"More than one LCWA config provided ({configs_directory})."
+                # else:
+                #     assert training_assumption == 'owa' and len(
+                #         configs) == NUM_OWA_CONFIGS, f'For owa exactly {NUM_OWA_CONFIGS} configurations' \
+                #         f' are required, but {len(configs)} were provided'
 
                 for config in configs:
                     yield model, dataset, hpo_approach, training_assumption, config, configs_directory
@@ -180,7 +180,7 @@ def check_mrl_configs(configuration, model_name_normalized):
 
     assert len(optimizers) == 2
 
-    assert 'adam' in optimizers and 'adadelta' in optimizers
+    assert 'adadelta' in optimizers and 'adadelta' in optimizers
 
     optimizer_kwargs = configuration['ablation']['optimizer_kwargs'][
         MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]]
@@ -210,7 +210,7 @@ def check_nssal_configs(configuration, model_name_normalized):
 
     assert len(optimizers) == 2
 
-    assert 'adam' in optimizers and 'adadelta' in optimizers
+    assert 'adadelta' in optimizers and 'adadelta' in optimizers
 
     optimizer_kwargs = configuration['ablation']['optimizer_kwargs'][
         MODEL_DIRECTORIES_TO_MODEL_NAME[model_name_normalized]]
@@ -370,7 +370,7 @@ if __name__ == '__main__':
                 assert expected_setting == provided_setting, f'Stopper_kwargs not defined correctly in {config_name}.'
 
                 # Check correctness of loss functions and optimizers
-                if 'adam' in config_name or 'adadelta' in config_name:
+                if 'adadelta' in config_name or 'adadelta' in config_name:
                     check_adam_adadelta_configs(configuration, config_name, model_name_normalized)
                 elif 'mrl' in config_name:
                     check_mrl_configs(configuration, model_name_normalized)

@@ -49,7 +49,6 @@
         }
       }
     },
-    al
     "loss_functions": [
       "BCEAfterSigmoidLoss",
       "SoftplusLoss"

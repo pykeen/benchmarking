@@ -136,7 +136,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 50,
+      "frequency": 10,
       "patience": 2,
       "delta": 0.002
     }

@@ -104,7 +104,7 @@ def split_lcwa_configs(config: Dict, path: str, config_name: str):
     config_crossentropy = deepcopy(config)
     config_adadelta = deepcopy(config)
 
-    set_optimizer(config=config_adam, optimizer='adam', model=model)
+    set_optimizer(config=config_adam, optimizer='adadelta', model=model)
 
     set_optimizer(config=config_adadelta, optimizer='adadelta', model=model)
 
@@ -215,9 +215,9 @@ if __name__ == '__main__':
     #             raise Exception(f"{config_name} could not be loaded.")
     #
     #     if dataset == 'yago310':
-    #         if 'adadelta' in config_name or 'adam' in config_name:
+    #         if 'adadelta' in config_name or 'adadelta' in config_name:
     #             continue
-    #         set_optimizer(config=config, optimizer='adam',model=model_name)
+    #         set_optimizer(config=config, optimizer='adadelta',model=model_name)
     #         with open(os.path.join(path, config_name), 'w') as file:
     #             json.dump(config, file, indent=2)
     #

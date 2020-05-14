@@ -1,24 +1,24 @@
-	fb15k237	wn18rr	kinships
-convkb	False	False	False
-transh	True	True	True
-transr	False	True	True
-simple	True	True	True
-distmult	False	True	True
-structuredembedding	False	False	True
-tucker	False	False	False
-ntn	False	False	True
-hole	True	True	True
-proje	True	True	True
-transd	True	True	True
-rescal	True	True	True
-unstructuredmodel	True	True	True
-distmultliteral	False	False	False
-rotate	True	True	True
-kg2e	True	True	True
-ermlpe	False	False	False
-ermlp	True	True	True
-transe	True	True	True
-rgcn	False	False	False
-conve	False	False	True
-complexliteral	False	False	False
-complex	True	True	True
+	fb15k237	wn18rr	kinships	yago310
+transe	True	True	True	False
+convkb	False	False	False	False
+rgcn	False	False	False	False
+distmult	False	True	True	False
+ntn	False	False	True	False
+hole	True	True	True	False
+proje	True	True	True	False
+transh	True	True	True	True
+transr	True	True	True	True
+complex	True	True	True	False
+kg2e	True	True	True	False
+simple	True	True	True	False
+structuredembedding	False	False	True	False
+ermlpe	False	False	False	False
+tucker	True	True	True	True
+ermlp	True	True	True	False
+transd	True	True	True	False
+rescal	True	True	True	False
+unstructuredmodel	True	True	True	False
+complexliteral	False	False	False	False
+conve	False	False	True	False
+rotate	True	True	True	False
+distmultliteral	False	False	False	False

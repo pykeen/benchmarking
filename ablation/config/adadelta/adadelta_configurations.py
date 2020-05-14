@@ -93,7 +93,7 @@ def iterate_config_paths() -> Iterable[str]:
 
 def remove_adam_configurations(root, config, config_name, model_name_normalized):
     """."""
-    ADAM = 'adam'
+    ADAM = 'adadelta'
 
     optimizers = config['ablation']['optimizers']
     if ADAM in optimizers:
@@ -128,7 +128,7 @@ if __name__ == '__main__':
             except:
                 raise Exception(f"{config_name} could not be loaded.")
 
-        if 'adam' in config_name.lower():
+        if 'adadelta' in config_name.lower():
             os.remove(os.path.join(path, config_name))
             continue
 
