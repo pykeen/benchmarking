@@ -110,7 +110,7 @@
           "num_negs_per_pos": {
             "type": "int",
             "low": 1,
-            "high": 100,
+            "high": 50,
             "q": 1
           }
         }
@@ -140,8 +140,8 @@
         "owa": {
           "batch_size": {
             "type": "int",
-            "low": 7,
-            "high": 9,
+            "low": 10,
+            "high": 13,
             "scale": "power_two"
           }
         }

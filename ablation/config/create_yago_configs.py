@@ -66,6 +66,16 @@ def change_early_stopping_setting(config: Dict, training_assumption):
     if training_assumption == 'lcwa':
         c['patience'] = 2
 
+
+def change_batch_size(config: Dict, model: str, training_assumption:str):
+    config['ablation']['training_kwargs_ranges'][model][training_assumption]['batch_size']['low'] = 10
+    config['ablation']['training_kwargs_ranges'][model][training_assumption]['batch_size']['high'] = 13
+
+
+def change_neg_samples(config: Dict, model: str):
+    config['ablation']['negative_sampler_kwargs_ranges'][model]['BasicNegativeSampler']['num_negs_per_pos']['high'] = 50
+
+
 if __name__ == '__main__':
     iterator = iterate_config_paths(root_directory='adam')
 
@@ -78,9 +88,8 @@ if __name__ == '__main__':
             except:
                 raise Exception(f"{config_name} could not be loaded.")
         if dataset == 'yago310':
-            change_early_stopping_setting(config=config, training_assumption=training_assumption)
-
+            change_batch_size(config=config, model=model_name, training_assumption=training_assumption)
+            if training_assumption == 'owa':
+                change_neg_samples(config=config, model=model_name)
             with open(os.path.join(path, config_name), 'w') as file:
                 json.dump(config, file, indent=2)
-    # if 'adam' in config_name:
-    #     split_configs(config=config, config_name=config_name, path=path)

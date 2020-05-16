@@ -105,8 +105,8 @@
           },
           "batch_size": {
             "type": "int",
-            "low": 7,
-            "high": 9,
+            "low": 10,
+            "high": 13,
             "scale": "power_two"
           }
         }
