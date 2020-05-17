@@ -55,16 +55,23 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss"
+      "MarginRankingLoss"
     ],
     "loss_kwargs": {
       "StructuredEmbedding": {
-        "BCEAfterSigmoidLoss": {}
+        "MarginRankingLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "StructuredEmbedding": {
-        "BCEAfterSigmoidLoss": {}
+        "MarginRankingLoss": {
+          "margin": {
+            "type": "float",
+            "low": 0.5,
+            "high": 10,
+            "q": 1.0
+          }
+        }
       }
     },
     "regularizers": [
@@ -132,7 +139,7 @@
     "stopper": "early",
     "stopper_kwargs": {
       "frequency": 10,
-      "patience": 5,
+      "patience": 4,
       "delta": 0.002
     }
   },

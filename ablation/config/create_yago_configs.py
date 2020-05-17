@@ -62,7 +62,7 @@ def change_early_stopping_setting(config: Dict, training_assumption):
     c = config['ablation']['stopper_kwargs']
     c['frequency'] = 10
     if training_assumption == 'owa':
-        c['patience'] = 4
+        c['patience'] = 5
     if training_assumption == 'lcwa':
         c['patience'] = 2
 
@@ -88,8 +88,7 @@ if __name__ == '__main__':
             except:
                 raise Exception(f"{config_name} could not be loaded.")
         if dataset == 'yago310':
-            change_batch_size(config=config, model=model_name, training_assumption=training_assumption)
-            if training_assumption == 'owa':
-                change_neg_samples(config=config, model=model_name)
+            change_early_stopping_setting(config=config, training_assumption=training_assumption)
+
             with open(os.path.join(path, config_name), 'w') as file:
                 json.dump(config, file, indent=2)
