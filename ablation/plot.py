@@ -19,6 +19,8 @@ LOSS = {
     'crossentropy': 'CE',
     'bceaftersigmoid': 'BCE',
     'softplus': 'SoftPlus',
+    'nssa': 'NSSA',
+    'transh': 'TransH Loss',
 }
 
 _create_inverse_triples_map = {
@@ -54,9 +56,12 @@ def make_plots(*, target_header: str):
         if k in df.columns:
             del df[k]
 
-    _write_model_summaries(
+    _write_model_summaries_trellised(
         df=df, target_header=target_header,
     )
+    # _write_model_summaries(
+    #     df=df, target_header=target_header,
+    # )
     # _write_1d_sliced_summaries(
     #     df=df, target_header=target_header,
     # )
@@ -132,6 +137,52 @@ def _write_model_summaries(df, target_header):
         sns.despine()
         plt.tight_layout()
         plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.png'))
+        plt.close(fig)
+
+
+def _write_model_summaries_trellised(df, target_header):
+    """Write model summaries, but trellis it on model."""
+    model_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_summary')
+    os.makedirs(model_dir, exist_ok=True)
+
+    it = tqdm(
+        df.groupby(['dataset', 'optimizer']),
+        desc='writing dataset/model/optimizer summaries',
+    )
+    for (dataset, optimizer), dataset_model_df in it:
+        data = pd.DataFrame([
+            {
+                'model': row['model'],
+                'configuration': make_config_index(row),
+                'replicate': row['replicate'],
+                target_header: row[target_header],
+            }
+            for _, row in dataset_model_df.iterrows()
+        ])
+
+        means = data.groupby('configuration')[target_header].mean().sort_values()
+
+        # data.to_csv(os.path.join(SUMMARY_DIRECTORY, f'{dataset}_{model}.tsv'), sep='\t', index=False)
+        fig, ax = plt.subplots(1, figsize=(14, 7))
+        g = sns.catplot(
+            data=data,
+            kind='bar',
+            x=target_header,
+            y='configuration',
+            col='model',
+            col_wrap=4,
+            ax=ax,
+            ci=None,
+            # capsize=.2, # restore if you want CIs
+            order=means.index,
+            palette="GnBu_d",
+        )
+        g.set(ylim=(0.0, 1.0))
+
+        sns.despine()
+        # plt.suptitle(f'{dataset} - {optimizer}', )
+        plt.tight_layout()
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'))
         plt.close(fig)
 
 
