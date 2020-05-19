@@ -100,13 +100,18 @@ def _write_model_summaries(df, target_header):
             for _, row in dataset_model_df.iterrows()
         ])
 
-        config_order = data.groupby('configuration')[target_header].mean().sort_values()
+        means = data.groupby('configuration')[target_header].mean().sort_values()
 
         # data.to_csv(os.path.join(SUMMARY_DIRECTORY, f'{dataset}_{model}.tsv'), sep='\t', index=False)
         fig, ax = plt.subplots(1, figsize=(14, 7))
         sns.barplot(
-            data=data, x=target_header, y='configuration', ax=ax, capsize=.2,
-            order=config_order.index,
+            data=data,
+            x=target_header,
+            y='configuration',
+            ax=ax,
+            ci=None,
+            # capsize=.2, # restore if you want CIs
+            order=means.index,
             palette="GnBu_d",
         )
         ax.set_title(f'{dataset} - {model} - {optimizer}')
@@ -115,7 +120,7 @@ def _write_model_summaries(df, target_header):
 
         # set individual bar lables using above list
         fontsize = 20
-        for y, (label, patch) in enumerate(zip(config_order.index, ax.patches)):
+        for y, (label, patch) in enumerate(zip(means.index, ax.patches)):
             # get_x pulls left or right; get_height pushes up or down
             ax.text(
                 0.005,
