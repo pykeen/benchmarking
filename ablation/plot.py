@@ -8,16 +8,11 @@ import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
-from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, SUMMARY_DIRECTORY, collate
+from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, MODEL, SUMMARY_DIRECTORY, collate
 
 logger = logging.getLogger(__name__)
 
 sns.set_style("darkgrid")
-
-MODEL = {
-    'unstructuredmodel': 'um',
-    'structuredembedding': 'se',
-}
 
 LOSS = {
     'marginranking': 'MR',

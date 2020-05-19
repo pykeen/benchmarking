@@ -25,6 +25,11 @@ logging.getLogger('pykeen.triples.triples_factory').setLevel(logging.ERROR)
 
 COLLATION_PATH = os.path.join(SUMMARY_DIRECTORY, 'results.tsv')
 
+MODEL = {
+    'unstructuredmodel': 'um',
+    'structuredembedding': 'se',
+}
+
 GETTERS = {
     'hits@10': lambda metrics: metrics['hits_at_k']['avg']['10']
 }
