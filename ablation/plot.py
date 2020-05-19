@@ -1,15 +1,18 @@
-import click
 import logging
 import os
+import time
 
+import click
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import time
+from tqdm import tqdm
 
 from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, SUMMARY_DIRECTORY, collate
 
 logger = logging.getLogger(__name__)
+
+sns.set_style("darkgrid")
 
 MODEL = {
     'unstructuredmodel': 'um',
@@ -17,11 +20,33 @@ MODEL = {
 }
 
 LOSS = {
-    'marginranking': 'mr',
-    'crossentropy': 'ce',
+    'marginranking': 'MR',
+    'crossentropy': 'CE',
+    'bceaftersigmoid': 'BCE',
+    'softplus': 'SoftPlus',
 }
 
-GB = ['create_inverse_triples', 'loss', 'regularizer', 'optimizer', 'training_loop', 'negative_sampler']
+_create_inverse_triples_map = {
+    None: '?',
+    True: '+',
+    False: '-',
+}
+
+
+def make_config_index(row) -> str:
+    create_inverse_triples = _create_inverse_triples_map.get(row.get('create_inverse_triples'))
+    if create_inverse_triples is None:
+        raise ValueError(f'Invalid create_inverse_triples value: {create_inverse_triples}')
+
+    negative_sampler = row.get('negative_sampler')
+    if pd.isna(negative_sampler):
+        negative_sampler = 'No Samp.'
+
+    regularizer = row["regularizer"]
+    if regularizer == 'no':
+        regularizer = 'No Reg.'
+
+    return f'Inv. {create_inverse_triples} / {row["loss"]} / {regularizer} / {row["training_loop"].upper()} / {negative_sampler}'
 
 
 def make_plots(*, target_header: str):
@@ -34,17 +59,18 @@ def make_plots(*, target_header: str):
         if k in df.columns:
             del df[k]
 
-    ################
-    # 1D Summaries #
-    ################
+    _write_model_summaries(
+        df=df, target_header=target_header,
+    )
+    # _write_1d_sliced_summaries(
+    #     df=df, target_header=target_header,
+    # )
+    # _write_2d_summaries(
+    #     df=df, target_header=target_header,
+    # )
 
-    _write_model_summaries(df=df, target_header=target_header)
-    _write_1d_sliced_summaries(df=df, target_header=target_header)
 
-    ################
-    # 2D Summaries #
-    ################
-
+def _write_2d_summaries(*, df: pd.DataFrame, target_header):
     for k in ['create_inverse_triples', 'loss', 'optimizer', 'training_loop']:
         values = df[k].unique()
 
@@ -60,27 +86,53 @@ def _write_model_summaries(df, target_header):
     model_dir = os.path.join(SUMMARY_DIRECTORY, 'modelsummary')
     os.makedirs(model_dir, exist_ok=True)
 
-    for dataset, dataset_df in df.groupby('dataset'):
-        for model, dataset_model_df in dataset_df.groupby('model'):
-            data = pd.DataFrame([
-                {
-                    'index': ' / '.join(str(row[x]) for x in GB),
-                    'replicate': row['replicate'],
-                    target_header: row[target_header],
-                }
-                for _, row in dataset_model_df.iterrows()
-            ])
-            # data.to_csv(os.path.join(SUMMARY_DIRECTORY, f'{dataset}_{model}.tsv'), sep='\t', index=False)
-            fig, ax = plt.subplots(1, figsize=(20, 13))
-            sns.boxplot(data=data, x=target_header, y='index', ax=ax)
-            sns.swarmplot(data=data, x=target_header, y='index', ax=ax, size=2, color=".3", linewidth=0)
-            ax.set_title(f'{dataset} - {model}')
-            ax.set_ylabel('')
-            ax.xaxis.grid(True)
-            sns.despine(trim=True, left=True)
-            plt.tight_layout()
-            plt.savefig(os.path.join(model_dir, f'{dataset}_{model}.png'))
-            plt.close(fig)
+    it = tqdm(
+        df.groupby(['dataset', 'model', 'optimizer']),
+        desc='writing dataset/model/optimizer summaries',
+    )
+    for (dataset, model, optimizer), dataset_model_df in it:
+        data = pd.DataFrame([
+            {
+                'configuration': make_config_index(row),
+                'replicate': row['replicate'],
+                target_header: row[target_header],
+            }
+            for _, row in dataset_model_df.iterrows()
+        ])
+
+        config_order = data.groupby('configuration')[target_header].mean().sort_values()
+
+        # data.to_csv(os.path.join(SUMMARY_DIRECTORY, f'{dataset}_{model}.tsv'), sep='\t', index=False)
+        fig, ax = plt.subplots(1, figsize=(14, 7))
+        sns.barplot(
+            data=data, x=target_header, y='configuration', ax=ax, capsize=.2,
+            order=config_order.index,
+            palette="GnBu_d",
+        )
+        ax.set_title(f'{dataset} - {model} - {optimizer}')
+        ax.set_ylabel('')
+        ax.set_yticks([])
+
+        # set individual bar lables using above list
+        fontsize = 20
+        for y, (label, patch) in enumerate(zip(config_order.index, ax.patches)):
+            # get_x pulls left or right; get_height pushes up or down
+            ax.text(
+                0.005,
+                y + 0.03,
+                label,
+                fontsize=fontsize,
+                color='white',
+                ha='left',
+                va='center',
+            )
+
+        # ax.xaxis.grid(True)
+        # sns.despine(trim=True, left=True)
+        sns.despine()
+        plt.tight_layout()
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.png'))
+        plt.close(fig)
 
 
 def _write_2d_sliced_summaries(
@@ -155,7 +207,7 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 try:
                     sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
                     sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index,
-                              linewidth=1.0)
+                                  linewidth=1.0)
                 except ValueError:
                     logger.exception('could not make swarm plot')
                     continue
