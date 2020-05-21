@@ -1,59 +1,59 @@
 # Ablation Results
 
-Output at Thu May 21 15:14:55 2020
+Output at Thu May 21 15:35:34 2020
 
 ## Dataset
 
-<img src="dataset_fb15k237.png" alt="fb15k237"/>
+<img src="dataset_FB15k237.png" alt="FB15k237"/>
 
-<img src="dataset_kinships.png" alt="kinships"/>
+<img src="dataset_Kinships.png" alt="Kinships"/>
+
+<img src="dataset_WN18RR.png" alt="WN18RR"/>
+
+<img src="dataset_YAGO310.png" alt="YAGO310"/>
 
 <img src="dataset_wn18RR.png" alt="wn18RR"/>
-
-<img src="dataset_wn18rr.png" alt="wn18rr"/>
-
-<img src="dataset_yago310.png" alt="yago310"/>
 
 
 ## Model
 
-<img src="model_complex.png" alt="complex"/>
+<img src="model_ComplEx.png" alt="ComplEx"/>
 
-<img src="model_conve.png" alt="conve"/>
+<img src="model_ConvE.png" alt="ConvE"/>
 
-<img src="model_convkb.png" alt="convkb"/>
+<img src="model_ConvKB.png" alt="ConvKB"/>
 
-<img src="model_distmult.png" alt="distmult"/>
+<img src="model_DistMult.png" alt="DistMult"/>
 
-<img src="model_ermlp.png" alt="ermlp"/>
+<img src="model_ERMLP.png" alt="ERMLP"/>
 
-<img src="model_hole.png" alt="hole"/>
+<img src="model_HolE.png" alt="HolE"/>
 
-<img src="model_kg2e.png" alt="kg2e"/>
+<img src="model_KG2E.png" alt="KG2E"/>
 
-<img src="model_ntn.png" alt="ntn"/>
+<img src="model_NTN.png" alt="NTN"/>
 
-<img src="model_proje.png" alt="proje"/>
+<img src="model_ProjE.png" alt="ProjE"/>
 
-<img src="model_rescal.png" alt="rescal"/>
+<img src="model_RESCAL.png" alt="RESCAL"/>
 
-<img src="model_rotate.png" alt="rotate"/>
+<img src="model_RotatE.png" alt="RotatE"/>
 
-<img src="model_se.png" alt="se"/>
+<img src="model_SE.png" alt="SE"/>
 
-<img src="model_simple.png" alt="simple"/>
+<img src="model_SimplE.png" alt="SimplE"/>
 
-<img src="model_transd.png" alt="transd"/>
+<img src="model_TransD.png" alt="TransD"/>
 
-<img src="model_transe.png" alt="transe"/>
+<img src="model_TransE.png" alt="TransE"/>
 
-<img src="model_transh.png" alt="transh"/>
+<img src="model_TransH.png" alt="TransH"/>
 
-<img src="model_transr.png" alt="transr"/>
+<img src="model_TransR.png" alt="TransR"/>
 
-<img src="model_tucker.png" alt="tucker"/>
+<img src="model_TuckER.png" alt="TuckER"/>
 
-<img src="model_um.png" alt="um"/>
+<img src="model_UM.png" alt="UM"/>
 
 
 ## Loss

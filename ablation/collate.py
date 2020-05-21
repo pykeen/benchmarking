@@ -7,7 +7,7 @@ from typing import Any, Iterable, Mapping, Optional, Type, Union
 import pandas as pd
 from tqdm import tqdm
 
-from pykeen.datasets import DataSet, get_dataset
+from pykeen.datasets import DataSet, datasets, get_dataset
 from pykeen.losses import Loss, get_loss_cls
 from pykeen.models import get_model_cls, models
 from pykeen.models.base import Model
@@ -26,8 +26,16 @@ logging.getLogger('pykeen.triples.triples_factory').setLevel(logging.ERROR)
 COLLATION_PATH = os.path.join(SUMMARY_DIRECTORY, 'results.tsv')
 
 MODEL = {
-    'unstructuredmodel': 'um',
-    'structuredembedding': 'se',
+    'unstructuredmodel': 'UM',
+    'structuredembedding': 'SE',
+}
+for model_key, model_cls in models.items():
+    if model_key not in MODEL:
+        MODEL[model_key] = model_cls.__name__
+
+DATASETS = {
+    dataset_key: dataset_cls.__name__
+    for dataset_key, dataset_cls in datasets.items()
 }
 
 LOSS = {
@@ -59,6 +67,15 @@ ABLATION_HEADERS = [
 MODEL_BYTES = 'model_bytes'
 
 logger = logging.getLogger(__name__)
+
+
+def read_collation() -> pd.DataFrame:
+    df = pd.read_csv(COLLATION_PATH, sep='\t')
+    df['model'] = df['model'].map(lambda l: MODEL.get(l, l))
+    df['loss'] = df['loss'].map(lambda l: LOSS.get(l, l))
+    df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l, l))
+    df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l, l))
+    return df
 
 
 def collate(key: str = 'hits@10') -> pd.DataFrame:

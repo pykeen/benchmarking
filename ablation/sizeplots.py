@@ -11,7 +11,7 @@ import seaborn as sns
 from scipy.spatial import ConvexHull
 from tqdm import tqdm
 
-from collate import COLLATION_PATH, MODEL, SUMMARY_DIRECTORY
+from collate import MODEL, SUMMARY_DIRECTORY, read_collation
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ os.makedirs(SIZEPLOTS_DIRECTORY, exist_ok=True)
 
 def main():
     """Collate all HPO results in a single table."""
-    df = pd.read_csv(COLLATION_PATH, sep='\t')
+    df = read_collation()
     make_ratio_distplots(df)
     make_sizeplots(df)
     make_skylines(df)

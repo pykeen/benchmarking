@@ -9,7 +9,7 @@ import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
-from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, LOSS, MODEL, REGULARIZER, SUMMARY_DIRECTORY, collate
+from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, REGULARIZER, SUMMARY_DIRECTORY, collate, read_collation
 
 logger = logging.getLogger(__name__)
 
@@ -46,10 +46,7 @@ def make_config_index(row: Mapping[str, Any]) -> str:
 
 def make_plots(*, target_header: str):
     """Collate all HPO results in a single table."""
-    df = pd.read_csv(COLLATION_PATH, sep='\t')
-    df['model'] = df['model'].map(lambda l: MODEL.get(l, l))
-    df['loss'] = df['loss'].map(lambda l: LOSS.get(l, l))
-    df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l, l))
+    df = read_collation()
 
     for k in ['searcher', 'evaluator']:
         if k in df.columns:
