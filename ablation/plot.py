@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+from typing import Any, Mapping
 
 import click
 import matplotlib.pyplot as plt
@@ -8,20 +9,9 @@ import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
-from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, MODEL, SUMMARY_DIRECTORY, collate
+from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, LOSS, MODEL, REGULARIZER, SUMMARY_DIRECTORY, collate
 
 logger = logging.getLogger(__name__)
-
-sns.set_style("darkgrid")
-
-LOSS = {
-    'marginranking': 'MR',
-    'crossentropy': 'CE',
-    'bceaftersigmoid': 'BCE',
-    'softplus': 'SoftPlus',
-    'nssa': 'NSSA',
-    'transh': 'TransH Loss',
-}
 
 _create_inverse_triples_map = {
     None: '?',
@@ -30,7 +20,7 @@ _create_inverse_triples_map = {
 }
 
 
-def make_config_index(row) -> str:
+def make_config_index(row: Mapping[str, Any]) -> str:
     create_inverse_triples = _create_inverse_triples_map.get(row.get('create_inverse_triples'))
     if create_inverse_triples is None:
         raise ValueError(f'Invalid create_inverse_triples value: {create_inverse_triples}')
@@ -40,10 +30,18 @@ def make_config_index(row) -> str:
         negative_sampler = 'No Samp.'
 
     regularizer = row["regularizer"]
-    if regularizer == 'no':
+    if pd.isna(regularizer):
         regularizer = 'No Reg.'
+    else:
+        regularizer = REGULARIZER.get(regularizer, regularizer)
 
-    return f'Inv. {create_inverse_triples} / {row["loss"]} / {regularizer} / {row["training_loop"].upper()} / {negative_sampler}'
+    return ' / '.join([
+        f'Inv. {create_inverse_triples}',
+        row["loss"],
+        regularizer,
+        row["training_loop"].upper(),
+        negative_sampler,
+    ])
 
 
 def make_plots(*, target_header: str):
@@ -51,23 +49,26 @@ def make_plots(*, target_header: str):
     df = pd.read_csv(COLLATION_PATH, sep='\t')
     df['model'] = df['model'].map(lambda l: MODEL.get(l, l))
     df['loss'] = df['loss'].map(lambda l: LOSS.get(l, l))
+    df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l, l))
 
     for k in ['searcher', 'evaluator']:
         if k in df.columns:
             del df[k]
 
-    _write_model_summaries_trellised(
+    sns.set_style("darkgrid")
+    _write_dataset_optimizer_summaries(
         df=df, target_header=target_header,
     )
-    # _write_model_summaries(
-    #     df=df, target_header=target_header,
-    # )
-    # _write_1d_sliced_summaries(
-    #     df=df, target_header=target_header,
-    # )
-    # _write_2d_summaries(
-    #     df=df, target_header=target_header,
-    # )
+    _write_dataset_optimizer_model_summaries(
+        df=df, target_header=target_header,
+    )
+    sns.set_style("white")
+    _write_1d_sliced_summaries(
+        df=df, target_header=target_header,
+    )
+    _write_2d_summaries(
+        df=df, target_header=target_header,
+    )
 
 
 def _write_2d_summaries(*, df: pd.DataFrame, target_header):
@@ -82,7 +83,7 @@ def _write_2d_summaries(*, df: pd.DataFrame, target_header):
                 _write_2d_sliced_summaries(df, target_header, 'model', 'dataset', k, value)
 
 
-def _write_model_summaries(df, target_header):
+def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: str) -> None:
     model_dir = os.path.join(SUMMARY_DIRECTORY, 'modelsummary')
     os.makedirs(model_dir, exist_ok=True)
 
@@ -140,16 +141,17 @@ def _write_model_summaries(df, target_header):
         plt.close(fig)
 
 
-def _write_model_summaries_trellised(df, target_header):
+def _write_dataset_optimizer_summaries(df, target_header):
     """Write model summaries, but trellis it on model."""
     model_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_summary')
     os.makedirs(model_dir, exist_ok=True)
 
     it = tqdm(
         df.groupby(['dataset', 'optimizer']),
-        desc='writing dataset/model/optimizer summaries',
+        desc='writing dataset/optimizer summaries',
     )
     for (dataset, optimizer), dataset_model_df in it:
+        logger.info('%d rows for %s/%s', len(dataset_model_df.index), dataset, optimizer)
         data = pd.DataFrame([
             {
                 'model': row['model'],
@@ -159,12 +161,13 @@ def _write_model_summaries_trellised(df, target_header):
             }
             for _, row in dataset_model_df.iterrows()
         ])
+        logger.info('%d replicates mapped for %s/%s', len(data.index), dataset, optimizer)
 
         means = data.groupby('configuration')[target_header].mean().sort_values()
+        logger.info('%d means mapped for %s/%s', len(means.index), dataset, optimizer)
 
-        # data.to_csv(os.path.join(SUMMARY_DIRECTORY, f'{dataset}_{model}.tsv'), sep='\t', index=False)
-        fig, ax = plt.subplots(1, figsize=(14, 7))
-        g = sns.catplot(
+        fig, ax = plt.subplots(figsize=(14, 7))
+        sns.catplot(
             data=data,
             kind='bar',
             x=target_header,
@@ -177,10 +180,8 @@ def _write_model_summaries_trellised(df, target_header):
             order=means.index,
             palette="GnBu_d",
         )
-        g.set(ylim=(0.0, 1.0))
 
         sns.despine()
-        # plt.suptitle(f'{dataset} - {optimizer}', )
         plt.tight_layout()
         plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'))
         plt.close(fig)
@@ -299,4 +300,5 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     main()

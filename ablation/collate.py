@@ -30,8 +30,21 @@ MODEL = {
     'structuredembedding': 'se',
 }
 
+LOSS = {
+    'marginranking': 'MR',
+    'crossentropy': 'CE',
+    'bceaftersigmoid': 'BCE',
+    'softplus': 'SoftPlus',
+    'nssa': 'NSSA',
+}
+
+REGULARIZER = {
+    'no': 'No Reg.',
+    'transh': 'No Reg.',
+}
+
 GETTERS = {
-    'hits@10': lambda metrics: metrics['hits_at_k']['avg']['10']
+    'hits@10': lambda metrics: metrics['hits_at_k']['avg']['10'],
 }
 
 ABLATION_HEADERS = [

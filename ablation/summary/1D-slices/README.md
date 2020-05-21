@@ -1,6 +1,6 @@
 # Ablation Results
 
-Output at Mon May 18 22:59:53 2020
+Output at Thu May 21 15:14:55 2020
 
 ## Dataset
 
@@ -8,7 +8,11 @@ Output at Mon May 18 22:59:53 2020
 
 <img src="dataset_kinships.png" alt="kinships"/>
 
+<img src="dataset_wn18RR.png" alt="wn18RR"/>
+
 <img src="dataset_wn18rr.png" alt="wn18rr"/>
+
+<img src="dataset_yago310.png" alt="yago310"/>
 
 
 ## Model
@@ -16,6 +20,8 @@ Output at Mon May 18 22:59:53 2020
 <img src="model_complex.png" alt="complex"/>
 
 <img src="model_conve.png" alt="conve"/>
+
+<img src="model_convkb.png" alt="convkb"/>
 
 <img src="model_distmult.png" alt="distmult"/>
 
@@ -45,20 +51,22 @@ Output at Mon May 18 22:59:53 2020
 
 <img src="model_transr.png" alt="transr"/>
 
+<img src="model_tucker.png" alt="tucker"/>
+
 <img src="model_um.png" alt="um"/>
 
 
 ## Loss
 
-<img src="loss_bceaftersigmoid.png" alt="bceaftersigmoid"/>
+<img src="loss_BCE.png" alt="BCE"/>
 
-<img src="loss_ce.png" alt="ce"/>
+<img src="loss_CE.png" alt="CE"/>
 
-<img src="loss_mr.png" alt="mr"/>
+<img src="loss_MR.png" alt="MR"/>
 
-<img src="loss_nssa.png" alt="nssa"/>
+<img src="loss_NSSA.png" alt="NSSA"/>
 
-<img src="loss_softplus.png" alt="softplus"/>
+<img src="loss_SoftPlus.png" alt="SoftPlus"/>
 
 
 ## Optimizer
@@ -80,6 +88,4 @@ Output at Mon May 18 22:59:53 2020
 <img src="create_inverse_triples_False.png" alt="False"/>
 
 <img src="create_inverse_triples_True.png" alt="True"/>
-
-<img src="create_inverse_triples_nan.png" alt="nan"/>
 
