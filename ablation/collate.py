@@ -4,6 +4,7 @@ import os
 from copy import deepcopy
 from typing import Any, Iterable, Mapping, Optional, Type, Union
 
+import click
 import pandas as pd
 from tqdm import tqdm
 
@@ -92,6 +93,8 @@ def collate(key: str = 'hits@10') -> pd.DataFrame:
         'negative_sampler',
         MODEL_BYTES,
         'replicate',
+        'training_time',
+        'evaluation_time',
         key,
     ]
 
@@ -134,6 +137,10 @@ def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Map
 
     with open(os.path.join(directory, 'best_pipeline', 'pipeline_config.json')) as file:
         ppc = json.load(file)
+
+    if 'create_inverse_triples' not in study:
+        study['create_inverse_triples'] = ppc['pipeline']['dataset_kwargs']['create_inverse_triples']
+
     try:
         study[MODEL_BYTES] = _get_bytes_helper(**ppc['pipeline'])
     except TypeError as e:
@@ -163,7 +170,8 @@ def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Map
         with open(replicate_results_path) as file:
             replicate_results = json.load(file)
         yv[key] = GETTERS[key](replicate_results['metrics'])
-
+        yv['training_time'] = replicate_results['times']['training']
+        yv['evaluation_time'] = replicate_results['times']['evaluation']
         yield yv
 
 
@@ -216,6 +224,7 @@ def _get_bytes_helper(  # noqa: C901
     return model_instance.num_parameter_bytes
 
 
+@click.command()
 def main():
     """Collate the hits@10 metrics and output."""
     df = collate()

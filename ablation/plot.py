@@ -38,7 +38,7 @@ def make_config_index(row: Mapping[str, Any]) -> str:
     return ' / '.join([
         f'Inv. {create_inverse_triples}',
         row["loss"],
-        regularizer,
+        # regularizer,  # mehdi says we don't need this for now
         row["training_loop"].upper(),
         negative_sampler,
     ])
