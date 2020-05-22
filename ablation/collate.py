@@ -72,10 +72,12 @@ logger = logging.getLogger(__name__)
 
 def read_collation() -> pd.DataFrame:
     df = pd.read_csv(COLLATION_PATH, sep='\t')
-    df['model'] = df['model'].map(lambda l: MODEL.get(l, l))
-    df['loss'] = df['loss'].map(lambda l: LOSS.get(l, l))
-    df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l, l))
-    df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l, l))
+    df['model'] = df['model'].map(lambda l: MODEL.get(l.lower(), l))
+    df['loss'] = df['loss'].map(lambda l: LOSS.get(l.lower(), l))
+    df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l.lower(), l))
+    df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l.lower(), l))
+    df['optimizer'] = df['optimizer'].map(str.capitalize)
+    df['training_loop'] = df['training_loop'].map(str.upper)
     return df
 
 

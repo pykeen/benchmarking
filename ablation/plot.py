@@ -134,7 +134,7 @@ def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: st
         # sns.despine(trim=True, left=True)
         sns.despine()
         plt.tight_layout()
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.png'))
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.pdf'))
         plt.close(fig)
 
 
@@ -180,7 +180,7 @@ def _write_dataset_optimizer_summaries(df, target_header):
 
         sns.despine()
         plt.tight_layout()
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'))
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.pdf'))
         plt.close(fig)
 
 
@@ -202,7 +202,7 @@ def _write_2d_sliced_summaries(
 
     for (slice_1_value, sdf), ax in zip(df.groupby(slice_1), axes.ravel()):
         if val is not None:
-            sdf[val] = [val if x else 'other' for x in (sdf[slice_3] == val)]
+            sdf[val] = [val if x else f'Not {val}' for x in (sdf[slice_3] == val)]
             hue = val
         else:
             hue = slice_3
@@ -219,6 +219,7 @@ def _write_2d_sliced_summaries(
         except ValueError:
             logger.exception('could not make violin plot')
             continue
+        ax.set_ylim([0.0, 1.0])
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
         ax.set_title(f'{slice_1} - {slice_1_value}')
@@ -226,9 +227,9 @@ def _write_2d_sliced_summaries(
     plt.tight_layout()
 
     if val is not None:
-        fig_name = f'{slice_1}-{slice_2}-{slice_3}-{val}.png'
+        fig_name = f'{slice_1}-{slice_2}-{slice_3}-{val}.pdf'
     else:
-        fig_name = f'{slice_1}-{slice_2}-{slice_3}.png'
+        fig_name = f'{slice_1}-{slice_2}-{slice_3}.pdf'
 
     plt.savefig(os.path.join(slice_dir, fig_name))
     plt.close(fig)
@@ -237,54 +238,67 @@ def _write_2d_sliced_summaries(
 def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
     slice_dir = os.path.join(SUMMARY_DIRECTORY, '1D-slices')
     os.makedirs(slice_dir, exist_ok=True)
-    for k in ABLATION_HEADERS:
-        for v in df[k].unique():
-            sub_df = df[df[k] == v]
+    for k in tqdm(ABLATION_HEADERS, desc='ablation headers'):
+        ablation_headers = [
+            ablation_header
+            for ablation_header in ABLATION_HEADERS
+            if ablation_header != k
+        ]
+        ncols = 2
+        nrows = 1 + len(ablation_headers) // ncols
 
-            ablation_headers = [h for h in ABLATION_HEADERS if h != k]
-            ncols = 2
-            nrows = 1 + len(ablation_headers) // ncols
+        for v, sub_df in tqdm(df.groupby(k), desc=f'values for {k}'):
             fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 10))
+            axes = axes.ravel()
+            if len(axes) != ablation_headers:
+                axes[-1].set_axis_off()
+
             for ablation_header, ax in zip(ablation_headers, axes.ravel()):
                 # Aggregate the dataset by maximum for this header
-                idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
-                sub_df_agg = sub_df[idx]
-                sub_df_agg.index = sub_df_agg[ablation_header]
-                sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
+                # idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
+                # sub_df_agg = sub_df[idx]
+                # sub_df_agg.index = sub_df_agg[ablation_header]
+                # sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
 
-                del sub_df_agg[ablation_header]
                 try:
-                    sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index)
-                    sns.swarmplot(data=sub_df, x=ablation_header, y=target_header, ax=ax, order=sub_df_agg.index,
-                                  linewidth=1.0)
+                    sns.boxplot(
+                        data=sub_df, x=ablation_header, y=target_header, ax=ax,
+                        # order=sub_df_agg.index,
+                    )
+                    sns.swarmplot(
+                        data=sub_df, x=ablation_header, y=target_header, ax=ax,
+                        # order=sub_df_agg.index,
+                        linewidth=1.0,
+                    )
                 except ValueError:
                     logger.exception('could not make swarm plot')
                     continue
 
                 ax.set_title(ablation_header.replace('_', ' ').title())
                 ax.set_xlabel('')
+                ax.set_ylim([0.0, 1.0])
 
                 for tick in ax.get_xticklabels():
                     tick.set_rotation(45)
 
             plt.suptitle(f"{k.replace('_', ' '.title())}: {v}", fontsize=20)
             plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.png'))
+            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
             plt.close(fig)
 
     with open(os.path.join(slice_dir, 'README.md'), 'w') as file:
         print(f'# Ablation Results\n', file=file)
         print(f'Output at {time.asctime()}', file=file)
-        for k in ABLATION_HEADERS:
-            print(f'\n## {k.replace("_", " ").title()}\n', file=file)
-            for v in sorted(df[k].unique()):
-                print(f'<img src="{k}_{v}.png" alt="{v}"/>\n', file=file)
+        for ablation_header in ABLATION_HEADERS:
+            print(f'\n## {ablation_header.replace("_", " ").title()}\n', file=file)
+            for v in sorted(df[ablation_header].unique()):
+                print(f'<img src="{ablation_header}_{v}.pdf" alt="{v}"/>\n', file=file)
 
     with open(os.path.join(HERE, 'README.md'), 'w') as file:
         print(f'# Ablation Results\n', file=file)
         print(f'Output at {time.asctime()}\n', file=file)
         for v in sorted(df['dataset'].unique()):
-            print(f'<img src="summary/1D-slices/dataset_{v}.png" alt="{v}"/>\n', file=file)
+            print(f'<img src="summary/1D-slices/dataset_{v}.pdf" alt="{v}"/>\n', file=file)
 
 
 @click.command()
