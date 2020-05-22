@@ -18,7 +18,7 @@
       "ERMLP": {
         "embedding_dim": {
           "type": "int",
-          "low": 5,
+          "low": 6,
           "high": 8,
           "scale": "power_two"
         }
@@ -127,7 +127,7 @@
           "batch_size": {
             "type": "int",
             "low": 10,
-            "high": 12,
+            "high": 13,
             "scale": "power_two"
           }
         }
@@ -135,7 +135,7 @@
     },
     "stopper": "early",
     "stopper_kwargs": {
-      "frequency": 50,
+      "frequency": 25,
       "patience": 2,
       "delta": 0.002
     }

@@ -133,7 +133,7 @@
           "batch_size": {
             "type": "int",
             "low": 10,
-            "high": 12,
+            "high": 13,
             "scale": "power_two"
           }
         }

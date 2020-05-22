@@ -18,13 +18,13 @@
       "TransR": {
         "embedding_dim": {
           "type": "int",
-          "low": 5,
+          "low": 6,
           "high": 8,
           "scale": "power_two"
         },
         "relation_dim": {
           "type": "int",
-          "low": 5,
+          "low": 6,
           "high": 8,
           "scale": "power_two"
         },
@@ -138,7 +138,7 @@
           "batch_size": {
             "type": "int",
             "low": 10,
-            "high":12,
+            "high":13,
             "scale": "power_two"
           }
         }
