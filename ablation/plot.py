@@ -313,6 +313,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
         desc='writing dataset/optimizer summaries',
     )
     for (dataset, optimizer), dataset_model_df in it:
+        # 3D slices
         for binary_ablation_header in BINARY_ABLATION_HEADERS:
             other_ablation_headers = [
                 ablation_header
@@ -331,10 +332,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     x=target_header,
                     kind='bar',
                     y=ah1,
+                    height=6,
                     hue=binary_ablation_header,
                     col=ah2,
                     col_wrap=3,
                     legend_out=True,
+                    ci=None,
                 )
                 plt.subplots_adjust(top=0.9)
                 g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}')
@@ -354,6 +357,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 if ablation_header not in {k, 'dataset', 'optimizer'}
             ]
 
+            # 2D slices
             for ah1, ah2 in itt.product(ablation_headers, repeat=2):
                 if ah1 == ah2:
                     continue
@@ -365,6 +369,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                         kind='box',
                         y=ah1,
                         hue=ah2,
+                        ci=None,
                     )
                 else:
                     sns.catplot(
@@ -374,10 +379,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                         y=ah1,
                         col=ah2,
                         col_wrap=4,
+                        ci=None,
                     )
                 plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{k}_{ah1}_{ah2}.pdf'))
                 plt.close()
-            # Make split-plots
+
+            # 1D slices
             for v, sub_df in dataset_model_df.groupby(k):
                 fig, axes = plt.subplots(ncols=3, figsize=(14, 4))
                 for ablation_header, ax in zip(ablation_headers, axes.ravel()):
@@ -386,13 +393,8 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                             data=sub_df, y=ablation_header, x=target_header, ax=ax,
                             # order=sub_df_agg.index,
                         )
-                        sns.swarmplot(
-                            data=sub_df, y=ablation_header, x=target_header, ax=ax,
-                            # order=sub_df_agg.index,
-                            linewidth=1.0,
-                        )
                     except ValueError:
-                        logger.exception('could not make swarm plot')
+                        logger.exception('could not make box plot')
                         continue
 
                     ax.set_title(ablation_header.replace('_', ' ').title())

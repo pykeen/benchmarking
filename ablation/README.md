@@ -1,6 +1,6 @@
 # Ablation Results
 
-Output at Sun May 24 20:41:53 2020
+Output at Sun May 24 23:13:49 2020
 
 <img src="summary/1D-slices/dataset_FB15k237.pdf" alt="FB15k237"/>
 
