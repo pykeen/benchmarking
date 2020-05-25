@@ -65,6 +65,11 @@ ABLATION_HEADERS = [
     'create_inverse_triples',
 ]
 
+BINARY_ABLATION_HEADERS = {
+    'create_inverse_triples',
+    'training_loop',
+}
+
 MODEL_BYTES = 'model_bytes'
 
 logger = logging.getLogger(__name__)
@@ -78,6 +83,7 @@ def read_collation() -> pd.DataFrame:
     df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l.lower(), l))
     df['optimizer'] = df['optimizer'].map(str.capitalize)
     df['training_loop'] = df['training_loop'].map(str.upper)
+    df['create_inverse_triples'] = df['create_inverse_triples'].map(lambda s: 'True' if s else 'False')
     return df
 
 

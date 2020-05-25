@@ -1,3 +1,4 @@
+import itertools as itt
 import logging
 import os
 import time
@@ -9,21 +10,16 @@ import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
-from collate import ABLATION_HEADERS, COLLATION_PATH, HERE, REGULARIZER, SUMMARY_DIRECTORY, collate, read_collation
+from collate import (
+    ABLATION_HEADERS, BINARY_ABLATION_HEADERS, COLLATION_PATH, HERE, REGULARIZER, SUMMARY_DIRECTORY,
+    collate, read_collation,
+)
 
 logger = logging.getLogger(__name__)
 
-_create_inverse_triples_map = {
-    None: '?',
-    True: '+',
-    False: '-',
-}
-
 
 def make_config_index(row: Mapping[str, Any]) -> str:
-    create_inverse_triples = _create_inverse_triples_map.get(row.get('create_inverse_triples'))
-    if create_inverse_triples is None:
-        raise ValueError(f'Invalid create_inverse_triples value: {create_inverse_triples}')
+    create_inverse_triples = row['create_inverse_triples']
 
     negative_sampler = row.get('negative_sampler')
     if pd.isna(negative_sampler):
@@ -57,6 +53,9 @@ def make_plots(*, target_header: str):
         df=df, target_header=target_header,
     )
     _write_dataset_optimizer_model_summaries(
+        df=df, target_header=target_header,
+    )
+    _write_1d_sliced_summaries_stratified(
         df=df, target_header=target_header,
     )
     sns.set_style("white")
@@ -299,6 +298,116 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
         print(f'Output at {time.asctime()}\n', file=file)
         for v in sorted(df['dataset'].unique()):
             print(f'<img src="summary/1D-slices/dataset_{v}.pdf" alt="{v}"/>\n', file=file)
+
+
+def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: str):
+    slice_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_1d_slices')
+    os.makedirs(slice_dir, exist_ok=True)
+    slice2d_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_2d_slices')
+    os.makedirs(slice2d_dir, exist_ok=True)
+    slice3d_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_3d_slices')
+    os.makedirs(slice3d_dir, exist_ok=True)
+
+    it = tqdm(
+        df.groupby(['dataset', 'optimizer']),
+        desc='writing dataset/optimizer summaries',
+    )
+    for (dataset, optimizer), dataset_model_df in it:
+        # 3D slices
+        for binary_ablation_header in BINARY_ABLATION_HEADERS:
+            other_ablation_headers = [
+                ablation_header
+                for ablation_header in ABLATION_HEADERS
+                if (
+                    ablation_header not in BINARY_ABLATION_HEADERS
+                    and ablation_header not in {'dataset', 'optimizer'}
+                )
+            ]
+            for ah1, ah2 in itt.product(other_ablation_headers, repeat=2):
+                if ah1 == ah2:
+                    continue
+                it.write(f'3d plot for {binary_ablation_header}-{ah1}-{ah2}')
+                g = sns.catplot(
+                    data=dataset_model_df,
+                    x=target_header,
+                    kind='bar',
+                    y=ah1,
+                    height=6,
+                    hue=binary_ablation_header,
+                    col=ah2,
+                    col_wrap=3,
+                    legend_out=True,
+                    ci=None,
+                )
+                plt.subplots_adjust(top=0.9)
+                g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}')
+                # plt.tight_layout()
+                plt.savefig(os.path.join(
+                    slice3d_dir,
+                    f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}.pdf',
+                ))
+                plt.close()
+
+        for k in tqdm(ABLATION_HEADERS, desc='ablation headers'):
+            if k in {'dataset', 'optimizer'}:
+                continue
+            ablation_headers = [
+                ablation_header
+                for ablation_header in ABLATION_HEADERS
+                if ablation_header not in {k, 'dataset', 'optimizer'}
+            ]
+
+            # 2D slices
+            for ah1, ah2 in itt.product(ablation_headers, repeat=2):
+                if ah1 == ah2:
+                    continue
+
+                if 2 == len(dataset_model_df[ah2].unique()):
+                    sns.catplot(
+                        data=dataset_model_df,
+                        x=target_header,
+                        kind='box',
+                        y=ah1,
+                        hue=ah2,
+                        ci=None,
+                    )
+                else:
+                    sns.catplot(
+                        data=dataset_model_df,
+                        x=target_header,
+                        kind='box',
+                        y=ah1,
+                        col=ah2,
+                        col_wrap=4,
+                        ci=None,
+                    )
+                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{k}_{ah1}_{ah2}.pdf'))
+                plt.close()
+
+            # 1D slices
+            for v, sub_df in dataset_model_df.groupby(k):
+                fig, axes = plt.subplots(ncols=3, figsize=(14, 4))
+                for ablation_header, ax in zip(ablation_headers, axes.ravel()):
+                    try:
+                        sns.boxplot(
+                            data=sub_df, y=ablation_header, x=target_header, ax=ax,
+                            # order=sub_df_agg.index,
+                        )
+                    except ValueError:
+                        logger.exception('could not make box plot')
+                        continue
+
+                    ax.set_title(ablation_header.replace('_', ' ').title())
+                    ax.set_ylabel('')
+                    ax.set_xlim([0.0, 1.0])
+
+                    # for tick in ax.get_yticklabels():
+                    #    tick.set_rotation(45)
+
+                plt.suptitle(f"{dataset}-{optimizer}-{k.replace('_', ' '.title())}: {v}", fontsize=20)
+                plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+                plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.pdf'))
+                plt.close(fig)
 
 
 @click.command()
