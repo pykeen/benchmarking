@@ -3,7 +3,8 @@ import logging
 import os
 import time
 from typing import Any, Mapping
-
+import random
+import numpy as np
 import click
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -348,6 +349,37 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 ))
                 plt.close()
 
+        # 2D slices
+        for ah1, ah2 in itt.product([
+            ablation_header
+            for ablation_header in ABLATION_HEADERS
+            if ablation_header not in {'dataset', 'optimizer'}
+        ], repeat=2):
+            if ah1 == ah2:
+                continue
+
+            if 2 == len(dataset_model_df[ah2].unique()):
+                sns.catplot(
+                    data=dataset_model_df,
+                    x=target_header,
+                    kind='box',
+                    y=ah1,
+                    hue=ah2,
+                    ci=None,
+                )
+            else:
+                sns.catplot(
+                    data=dataset_model_df,
+                    x=target_header,
+                    kind='box',
+                    y=ah1,
+                    col=ah2,
+                    col_wrap=4,
+                    ci=None,
+                )
+            plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
+            plt.close()
+
         for k in tqdm(ABLATION_HEADERS, desc='ablation headers'):
             if k in {'dataset', 'optimizer'}:
                 continue
@@ -356,33 +388,6 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 for ablation_header in ABLATION_HEADERS
                 if ablation_header not in {k, 'dataset', 'optimizer'}
             ]
-
-            # 2D slices
-            for ah1, ah2 in itt.product(ablation_headers, repeat=2):
-                if ah1 == ah2:
-                    continue
-
-                if 2 == len(dataset_model_df[ah2].unique()):
-                    sns.catplot(
-                        data=dataset_model_df,
-                        x=target_header,
-                        kind='box',
-                        y=ah1,
-                        hue=ah2,
-                        ci=None,
-                    )
-                else:
-                    sns.catplot(
-                        data=dataset_model_df,
-                        x=target_header,
-                        kind='box',
-                        y=ah1,
-                        col=ah2,
-                        col_wrap=4,
-                        ci=None,
-                    )
-                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{k}_{ah1}_{ah2}.pdf'))
-                plt.close()
 
             # 1D slices
             for v, sub_df in dataset_model_df.groupby(k):
