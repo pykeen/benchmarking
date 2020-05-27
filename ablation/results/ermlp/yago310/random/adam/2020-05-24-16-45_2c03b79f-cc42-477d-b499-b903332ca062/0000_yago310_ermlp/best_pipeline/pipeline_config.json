@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "_stopper_comment": "While the original config had 1000, early stopping will now switch it to 270",
+    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 10, 'patience': 5, 'delta': 0.002}",
+    "best_trial_evaluation": 0.5028123744475693,
+    "best_trial_number": 12,
+    "git_hash": "UNHASHED",
+    "version": "0.1.2-dev"
+  },
+  "pipeline": {
+    "dataset": "yago310",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "evaluator": "rankbased",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "loss": "nssa",
+    "loss_kwargs": {
+      "adversarial_temperature": 0.6027256638407257,
+      "margin": 23.557165170363835
+    },
+    "model": "ermlp",
+    "model_kwargs": {
+      "automatic_memory_optimization": true,
+      "embedding_dim": 128
+    },
+    "negative_sampler": "basic",
+    "negative_sampler_kwargs": {
+      "num_negs_per_pos": 26
+    },
+    "optimizer": "adam",
+    "optimizer_kwargs": {
+      "lr": 0.005157193673299173,
+      "weight_decay": 0.0
+    },
+    "regularizer": "no",
+    "training_kwargs": {
+      "batch_size": 2048,
+      "label_smoothing": 0.0,
+      "num_epochs": 270
+    },
+    "training_loop": "owa"
+  }
+}
