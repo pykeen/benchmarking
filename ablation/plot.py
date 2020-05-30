@@ -265,11 +265,11 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                         data=sub_df, x=ablation_header, y=target_header, ax=ax,
                         # order=sub_df_agg.index,
                     )
-                    sns.swarmplot(
-                        data=sub_df, x=ablation_header, y=target_header, ax=ax,
-                        # order=sub_df_agg.index,
-                        linewidth=1.0,
-                    )
+                    # sns.swarmplot(
+                    #     data=sub_df, x=ablation_header, y=target_header, ax=ax,
+                    #     # order=sub_df_agg.index,
+                    #     linewidth=1.0,
+                    # )
                 except ValueError:
                     logger.exception('could not make swarm plot')
                     continue
