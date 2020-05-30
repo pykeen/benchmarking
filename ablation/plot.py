@@ -3,8 +3,8 @@ import logging
 import os
 import time
 from typing import Any, Mapping
-import random
 import numpy as np
+import random
 import click
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -148,7 +148,7 @@ def _write_dataset_optimizer_summaries(df, target_header):
         desc='writing dataset/optimizer summaries',
     )
     for (dataset, optimizer), dataset_model_df in it:
-        logger.info('%d rows for %s/%s', len(dataset_model_df.index), dataset, optimizer)
+        it.write(f'{len(dataset_model_df.index)} rows for {dataset}/{optimizer}')
         data = pd.DataFrame([
             {
                 'model': row['model'],
@@ -158,10 +158,10 @@ def _write_dataset_optimizer_summaries(df, target_header):
             }
             for _, row in dataset_model_df.iterrows()
         ])
-        logger.info('%d replicates mapped for %s/%s', len(data.index), dataset, optimizer)
+        logger.debug('%d replicates mapped for %s/%s', len(data.index), dataset, optimizer)
 
         means = data.groupby('configuration')[target_header].mean().sort_values()
-        logger.info('%d means mapped for %s/%s', len(means.index), dataset, optimizer)
+        logger.debug('%d means mapped for %s/%s', len(means.index), dataset, optimizer)
 
         fig, ax = plt.subplots(figsize=(14, 7))
         sns.catplot(
@@ -238,41 +238,76 @@ def _write_2d_sliced_summaries(
 def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
     slice_dir = os.path.join(SUMMARY_DIRECTORY, '1D-slices')
     os.makedirs(slice_dir, exist_ok=True)
-    for k in tqdm(ABLATION_HEADERS, desc='ablation headers'):
-        ablation_headers = [
-            ablation_header
-            for ablation_header in ABLATION_HEADERS
-            if ablation_header != k
-        ]
+
+    outer_it = tqdm(ABLATION_HEADERS, desc='Making 1D slice plots')
+    for k in outer_it:
         ncols = 2
-        nrows = 1 + len(ablation_headers) // ncols
 
-        for v, sub_df in tqdm(df.groupby(k), desc=f'values for {k}'):
+        inner_it = tqdm(df.groupby(k), desc=f'Making 1D slice plots for {k}', leave=False)
+        for v, sub_df in inner_it:
+            ablation_headers = [
+                ablation_header
+                for ablation_header in ABLATION_HEADERS
+                if ablation_header != k
+            ]
+
+            # Identify any headers for which there is only one value
+            skip_headers = {}
+            for ablation_header in ablation_headers:
+                unique = list(sub_df[ablation_header].unique())
+                if len(unique) == 1:
+                    skip_headers[ablation_header] = unique[0]
+
+            skip_text = None
+            if skip_headers:
+                skip_text = ', '.join(
+                    f'{skip_key.replace("_", " ").title()}={skip_value}'
+                    for skip_key, skip_value in sorted(skip_headers.items())
+                )
+                inner_it.write(f'Skipping: {skip_text} for {k}={v}')
+
+            # Remove headers for which there is only one value. These will be reported
+            # in the title of the chart.
+            ablation_headers = [
+                ablation_header
+                for ablation_header in ablation_headers
+                if ablation_header not in skip_headers
+            ]
+
+            # Calculate the number of rows based on the preset number of columns
+            # and a little extra logic for when there should be an empty space
+            extra_rows = len(ablation_headers) % ncols
+            if not extra_rows:
+                nrows = len(ablation_headers) // ncols
+            else:
+                nrows = 1 + len(ablation_headers) // ncols
+
             fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 10))
-            axes = axes.ravel()
-            if len(axes) != ablation_headers:
-                axes[-1].set_axis_off()
 
-            for ablation_header, ax in zip(ablation_headers, axes.ravel()):
+            # Axes starts as a grid - ravel makes it possible to iterate as a list
+            axes = axes.ravel()
+
+            # Remove the spines on axes that won't be filled
+            if extra_rows:
+                for i in range(extra_rows):
+                    axes[-i - 1].set_axis_off()
+
+            # Make several plots in the grid. Each axis knows where it's supposed to plot
+            for ablation_header, ax in zip(ablation_headers, axes):
                 # Aggregate the dataset by maximum for this header
                 # idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
                 # sub_df_agg = sub_df[idx]
                 # sub_df_agg.index = sub_df_agg[ablation_header]
                 # sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
-
-                try:
-                    sns.boxplot(
-                        data=sub_df, x=ablation_header, y=target_header, ax=ax,
-                        # order=sub_df_agg.index,
-                    )
-                    # sns.swarmplot(
-                    #     data=sub_df, x=ablation_header, y=target_header, ax=ax,
-                    #     # order=sub_df_agg.index,
-                    #     linewidth=1.0,
-                    # )
-                except ValueError:
-                    logger.exception('could not make swarm plot')
-                    continue
+                sns.boxplot(
+                    data=sub_df, x=ablation_header, y=target_header, ax=ax,
+                    # order=sub_df_agg.index,
+                )
+                # sns.swarmplot(
+                #     data=sub_df, x=ablation_header, y=target_header, ax=ax,
+                #     # order=sub_df_agg.index,
+                #     linewidth=1.0,
+                # )
 
                 ax.set_title(ablation_header.replace('_', ' ').title())
                 ax.set_xlabel('')
@@ -281,8 +316,13 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 for tick in ax.get_xticklabels():
                     tick.set_rotation(45)
 
-            plt.suptitle(f"{k.replace('_', ' '.title())}: {v}", fontsize=20)
-            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+            title_text = k.replace('_', ' ').title()
+            if skip_text is not None:  # skip_text was calculated earlier
+                plt.suptitle(f"1D Sliced Summary with\n{title_text}={v} (constants: {skip_text})", fontsize=20)
+            else:
+                plt.suptitle(f"1D Sliced Summary with\n{title_text}={v}", fontsize=20)
+
+            plt.tight_layout(rect=[0, 0.03, 1, 0.90])
             plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
             plt.close(fig)
 
@@ -315,7 +355,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
     )
     for (dataset, optimizer), dataset_model_df in it:
         # 3D slices
-        for binary_ablation_header in BINARY_ABLATION_HEADERS:
+        it_3d_slices = tqdm(
+            BINARY_ABLATION_HEADERS,
+            desc=f'Make 3D slice plots stratified by {dataset}/{optimizer}',
+            leave=False,
+        )
+        for binary_ablation_header in it_3d_slices:
             other_ablation_headers = [
                 ablation_header
                 for ablation_header in ABLATION_HEADERS
@@ -324,10 +369,14 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     and ablation_header not in {'dataset', 'optimizer'}
                 )
             ]
-            for ah1, ah2 in itt.product(other_ablation_headers, repeat=2):
+            it_3d_slices_inner = tqdm(
+                itt.product(other_ablation_headers, repeat=2),
+                desc=f'Make 3D slice plots stratified by {dataset}/{optimizer} for {binary_ablation_header}',
+                leave=False,
+            )
+            for ah1, ah2 in it_3d_slices_inner:
                 if ah1 == ah2:
                     continue
-                it.write(f'3d plot for {binary_ablation_header}-{ah1}-{ah2}')
                 g = sns.catplot(
                     data=dataset_model_df,
                     x=target_header,
@@ -350,11 +399,20 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 plt.close()
 
         # 2D slices
-        for ah1, ah2 in itt.product([
-            ablation_header
-            for ablation_header in ABLATION_HEADERS
-            if ablation_header not in {'dataset', 'optimizer'}
-        ], repeat=2):
+        it_2d_slices = itt.product(
+            [
+                ablation_header
+                for ablation_header in ABLATION_HEADERS
+                if ablation_header not in {'dataset', 'optimizer'}
+            ],
+            repeat=2,
+        )
+        it_2d_slices = tqdm(
+            it_2d_slices,
+            desc=f'Make 2d slice plots stratified by {dataset}/{optimizer}',
+            leave=False,
+        )
+        for ah1, ah2 in it_2d_slices:
             if ah1 == ah2:
                 continue
 
@@ -380,7 +438,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
             plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
             plt.close()
 
-        for k in tqdm(ABLATION_HEADERS, desc='ablation headers'):
+        outer_it = tqdm(
+            ABLATION_HEADERS,
+            desc=f'Making 1D slice plots stratified by {dataset}/{optimizer}',
+            leave=False,
+        )
+        for k in outer_it:
             if k in {'dataset', 'optimizer'}:
                 continue
             ablation_headers = [
@@ -390,7 +453,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
             ]
 
             # 1D slices
-            for v, sub_df in dataset_model_df.groupby(k):
+            inner_it = tqdm(
+                dataset_model_df.groupby(k),
+                desc=f'Making 1D slice plots stratified by {dataset}/{optimizer} for {k}',
+                leave=False,
+            )
+            for v, sub_df in inner_it:
                 fig, axes = plt.subplots(ncols=3, figsize=(14, 4))
                 for ablation_header, ax in zip(ablation_headers, axes.ravel()):
                     try:
@@ -420,6 +488,9 @@ def main():
     key = 'hits@10'
     if not os.path.exists(COLLATION_PATH):
         collate(key)
+    # Plotting should be deterministic
+    np.random.seed(5)
+    random.seed(seed=5)
     make_plots(target_header=key)
     click.echo('done!')
 
