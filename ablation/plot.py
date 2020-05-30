@@ -87,7 +87,7 @@ def _write_2d_summaries(*, df: pd.DataFrame, target_header):
 
 
 def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: str) -> None:
-    model_dir = os.path.join(SUMMARY_DIRECTORY, 'modelsummary')
+    model_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_model_summary')
     os.makedirs(model_dir, exist_ok=True)
 
     it = tqdm(
@@ -117,6 +117,7 @@ def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: st
             # capsize=.2, # restore if you want CIs
             order=means.index,
             palette="GnBu_d",
+            estimator=np.median,
         )
         ax.set_title(f'{dataset} - {model} - {optimizer}')
         ax.set_ylabel('')
@@ -140,7 +141,7 @@ def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: st
         # sns.despine(trim=True, left=True)
         sns.despine()
         plt.tight_layout()
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.pdf'))
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{model}_{optimizer}.pdf'), dpi=300)
         plt.close(fig)
 
 
@@ -171,8 +172,9 @@ def _write_dataset_optimizer_summaries(df, target_header):
 
         fig, ax = plt.subplots(figsize=(14, 7))
         sns.catplot(
-            data=data,
             kind='bar',
+            estimator=np.median,
+            data=data,
             x=target_header,
             y='configuration',
             col='model',
@@ -185,7 +187,7 @@ def _write_dataset_optimizer_summaries(df, target_header):
 
         sns.despine()
         plt.tight_layout()
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.pdf'))
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'), dpi=300)
         plt.close(fig)
 
 
@@ -226,7 +228,7 @@ def _write_2d_sliced_summaries(
                 hue=hue,
             )
         except ValueError:
-            logger.exception('could not make violin plot')
+            slice_1_it.write(f'could not make violin plot for {slice_1}-{slice_1_value}, {slice_2}, {hue}')
             continue
         ax.set_ylim([0.0, 1.0])
         for tick in ax.get_xticklabels():
@@ -236,11 +238,11 @@ def _write_2d_sliced_summaries(
     plt.tight_layout()
 
     if val is not None:
-        fig_name = f'{slice_1}-{slice_2}-{slice_3}-{val}.pdf'
+        fig_name = f'{slice_1}-{slice_2}-{slice_3}-{val}.png'
     else:
-        fig_name = f'{slice_1}-{slice_2}-{slice_3}.pdf'
+        fig_name = f'{slice_1}-{slice_2}-{slice_3}.png'
 
-    plt.savefig(os.path.join(slice_dir, fig_name))
+    plt.savefig(os.path.join(slice_dir, fig_name), dpi=300)
     plt.close(fig)
 
 
@@ -332,7 +334,7 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 plt.suptitle(f"1D Sliced Summary with\n{title_text}={v}", fontsize=20)
 
             plt.tight_layout(rect=[0, 0.03, 1, 0.90])
-            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
+            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.png'), dpi=300)
             plt.close(fig)
 
     with open(os.path.join(slice_dir, 'README.md'), 'w') as file:
@@ -341,13 +343,13 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
         for ablation_header in ABLATION_HEADERS:
             print(f'\n## {ablation_header.replace("_", " ").title()}\n', file=file)
             for v in sorted(df[ablation_header].unique()):
-                print(f'<img src="{ablation_header}_{v}.pdf" alt="{v}"/>\n', file=file)
+                print(f'<img src="{ablation_header}_{v}.png" alt="{v}"/>\n', file=file)
 
     with open(os.path.join(HERE, 'README.md'), 'w') as file:
         print(f'# Ablation Results\n', file=file)
         print(f'Output at {time.asctime()}\n', file=file)
         for v in sorted(df['dataset'].unique()):
-            print(f'<img src="summary/1D-slices/dataset_{v}.pdf" alt="{v}"/>\n', file=file)
+            print(f'<img src="summary/1D-slices/dataset_{v}.png" alt="{v}"/>\n', file=file)
 
 
 def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: str):
@@ -387,9 +389,10 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 if ah1 == ah2:
                     continue
                 g = sns.catplot(
+                    kind='bar',
+                    estimator=np.median,
                     data=dataset_model_df,
                     x=target_header,
-                    kind='bar',
                     y=ah1,
                     height=6,
                     hue=binary_ablation_header,
@@ -401,10 +404,12 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 plt.subplots_adjust(top=0.9)
                 g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}')
                 # plt.tight_layout()
-                plt.savefig(os.path.join(
-                    slice3d_dir,
-                    f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}.pdf',
-                ))
+                plt.savefig(
+                    os.path.join(
+                        slice3d_dir,
+                        f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}.png',
+                    ),
+                    dpi=300)
                 plt.close()
 
         # 2D slices
@@ -442,7 +447,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     col_wrap=4,
                     ci=None,
                 )
-            plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
+            plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.png'), dpi=300)
             plt.close()
 
         outer_it = tqdm(
@@ -486,7 +491,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
 
                 plt.suptitle(f"{dataset}-{optimizer}-{k.replace('_', ' '.title())}: {v}", fontsize=20)
                 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-                plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.pdf'))
+                plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.png'), dpi=300)
                 plt.close(fig)
 
 
