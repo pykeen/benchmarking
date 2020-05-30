@@ -1,0 +1,13 @@
+{
+  "dataset": "yago310",
+  "evaluator": "rankbased",
+  "loss": "marginranking",
+  "metric": "hits@10",
+  "model": "convkb",
+  "negative_sampler": "basic",
+  "optimizer": "adam",
+  "pykeen_git_hash": "UNHASHED",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}
