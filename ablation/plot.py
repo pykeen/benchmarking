@@ -20,33 +20,6 @@ from collate import (
 logger = logging.getLogger(__name__)
 
 
-def make_config_index(row: Mapping[str, Any]) -> str:
-    create_inverse_triples = row['create_inverse_triples']
-
-    negative_sampler = row.get('negative_sampler')
-    if pd.isna(negative_sampler):
-        negative_sampler = 'No Samp.'
-
-    regularizer = row["regularizer"]
-    if pd.isna(regularizer):
-        regularizer = 'No Reg.'
-    else:
-        regularizer = REGULARIZER.get(regularizer, regularizer)
-
-    if create_inverse_triples:
-        inv_text = 'Inv.'
-    else:
-        inv_text = 'No Inv.'
-
-    return ' / '.join([
-        inv_text,
-        row["loss"],
-        # regularizer,  # mehdi says we don't need this for now
-        row["training_loop"].upper(),
-        # negative_sampler,
-    ])
-
-
 def make_plots(*, target_header: str):
     """Collate all HPO results in a single table."""
     df = read_collation()
@@ -72,6 +45,33 @@ def make_plots(*, target_header: str):
     _write_2d_summaries(
         df=df, target_header=target_header,
     )
+
+
+def make_config_index(row: Mapping[str, Any]) -> str:
+    create_inverse_triples = row['create_inverse_triples']
+
+    negative_sampler = row.get('negative_sampler')
+    if pd.isna(negative_sampler):
+        negative_sampler = 'No Samp.'
+
+    regularizer = row["regularizer"]
+    if pd.isna(regularizer):
+        regularizer = 'No Reg.'
+    else:
+        regularizer = REGULARIZER.get(regularizer, regularizer)
+
+    if create_inverse_triples:
+        inv_text = 'Inv.'
+    else:
+        inv_text = 'No Inv.'
+
+    return ' / '.join([
+        inv_text,
+        row["loss"],
+        # regularizer,  # mehdi says we don't need this for now
+        row["training_loop"].upper(),
+        # negative_sampler,
+    ])
 
 
 def _write_2d_summaries(*, df: pd.DataFrame, target_header):
@@ -188,6 +188,7 @@ def _write_dataset_optimizer_summaries(df, target_header):
         sns.despine()
         plt.tight_layout()
         plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'), dpi=300)
+        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.pdf'))
         plt.close(fig)
 
 
@@ -239,10 +240,13 @@ def _write_2d_sliced_summaries(
 
     if val is not None:
         fig_name = f'{slice_1}-{slice_2}-{slice_3}-{val}.png'
+        fig_name_pdf = f'{slice_1}-{slice_2}-{slice_3}-{val}.pdf'
     else:
         fig_name = f'{slice_1}-{slice_2}-{slice_3}.png'
+        fig_name_pdf = f'{slice_1}-{slice_2}-{slice_3}.pdf'
 
     plt.savefig(os.path.join(slice_dir, fig_name), dpi=300)
+    plt.savefig(os.path.join(slice_dir, fig_name_pdf))
     plt.close(fig)
 
 
@@ -262,7 +266,11 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 if ablation_header != k
             ]
 
-            # Identify any headers for which there is only one value
+            # Mehdi rule - if we're doing dataset slices, don't show training loop
+            if k == 'dataset':
+                ablation_headers = [ah for ah in ablation_headers if ah != 'training_loop']
+
+            # Identify any headers for which there is only one value after groupby primary header
             skip_headers = {}
             for ablation_header in ablation_headers:
                 unique = list(sub_df[ablation_header].unique())
@@ -335,6 +343,7 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
 
             plt.tight_layout(rect=[0, 0.03, 1, 0.90])
             plt.savefig(os.path.join(slice_dir, f'{k}_{v}.png'), dpi=300)
+            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
             plt.close(fig)
 
     with open(os.path.join(slice_dir, 'README.md'), 'w') as file:
@@ -409,7 +418,14 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                         slice3d_dir,
                         f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}.png',
                     ),
-                    dpi=300)
+                    dpi=300,
+                )
+                plt.savefig(
+                    os.path.join(
+                        slice3d_dir,
+                        f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}.pdf',
+                    ),
+                )
                 plt.close()
 
         # 2D slices
@@ -448,6 +464,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     ci=None,
                 )
             plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.png'), dpi=300)
+            plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
             plt.close()
 
         outer_it = tqdm(
@@ -492,6 +509,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 plt.suptitle(f"{dataset}-{optimizer}-{k.replace('_', ' '.title())}: {v}", fontsize=20)
                 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
                 plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.png'), dpi=300)
+                plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.pdf'))
                 plt.close(fig)
 
 
