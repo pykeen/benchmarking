@@ -1,12 +1,13 @@
 import itertools as itt
 import logging
 import os
+import random
 import time
 from typing import Any, Mapping
-import numpy as np
-import random
+
 import click
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
@@ -32,12 +33,17 @@ def make_config_index(row: Mapping[str, Any]) -> str:
     else:
         regularizer = REGULARIZER.get(regularizer, regularizer)
 
+    if create_inverse_triples:
+        inv_text = 'Inv.'
+    else:
+        inv_text = 'No Inv.'
+
     return ' / '.join([
-        f'Inv. {create_inverse_triples}',
+        inv_text,
         row["loss"],
         # regularizer,  # mehdi says we don't need this for now
         row["training_loop"].upper(),
-        negative_sampler,
+        # negative_sampler,
     ])
 
 
@@ -171,7 +177,6 @@ def _write_dataset_optimizer_summaries(df, target_header):
             y='configuration',
             col='model',
             col_wrap=4,
-            ax=ax,
             ci=None,
             # capsize=.2, # restore if you want CIs
             order=means.index,
@@ -200,7 +205,11 @@ def _write_2d_sliced_summaries(
 
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(6 * n_cols, 4 * n_rows))
 
-    for (slice_1_value, sdf), ax in zip(df.groupby(slice_1), axes.ravel()):
+    slice_1_it = tqdm(
+        df.groupby(slice_1),
+        desc='Writing 2D slice summary',
+    )
+    for (slice_1_value, sdf), ax in zip(slice_1_it, axes.ravel()):
         if val is not None:
             sdf[val] = [val if x else f'Not {val}' for x in (sdf[slice_3] == val)]
             hue = val
@@ -351,7 +360,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
 
     it = tqdm(
         df.groupby(['dataset', 'optimizer']),
-        desc='writing dataset/optimizer summaries',
+        desc='Making summaries stratified by dataset/optimizer',
     )
     for (dataset, optimizer), dataset_model_df in it:
         # 3D slices
@@ -399,17 +408,15 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 plt.close()
 
         # 2D slices
-        it_2d_slices = itt.product(
-            [
-                ablation_header
-                for ablation_header in ABLATION_HEADERS
-                if ablation_header not in {'dataset', 'optimizer'}
-            ],
-            repeat=2,
-        )
+        _2d_slice_ablation_headers = [
+            ablation_header
+            for ablation_header in ABLATION_HEADERS
+            if ablation_header not in {'dataset', 'optimizer'}
+        ]
         it_2d_slices = tqdm(
-            it_2d_slices,
+            itt.product(_2d_slice_ablation_headers, repeat=2),
             desc=f'Make 2d slice plots stratified by {dataset}/{optimizer}',
+            total=len(_2d_slice_ablation_headers) ** 2,
             leave=False,
         )
         for ah1, ah2 in it_2d_slices:
@@ -490,7 +497,7 @@ def main():
         collate(key)
     # Plotting should be deterministic
     np.random.seed(5)
-    random.seed(seed=5)
+    random.seed(5)
     make_plots(target_header=key)
     click.echo('done!')
 
