@@ -1,12 +1,12 @@
 # Ablation Results
 
-Output at Wed May 27 17:17:01 2020
+Output at Sat May 30 17:21:58 2020
 
-<img src="summary/1D-slices/dataset_FB15k237.pdf" alt="FB15k237"/>
+<img src="summary/1D-slices/dataset_FB15k237.png" alt="FB15k237"/>
 
-<img src="summary/1D-slices/dataset_Kinships.pdf" alt="Kinships"/>
+<img src="summary/1D-slices/dataset_Kinships.png" alt="Kinships"/>
 
-<img src="summary/1D-slices/dataset_WN18RR.pdf" alt="WN18RR"/>
+<img src="summary/1D-slices/dataset_WN18RR.png" alt="WN18RR"/>
 
-<img src="summary/1D-slices/dataset_YAGO310.pdf" alt="YAGO310"/>
+<img src="summary/1D-slices/dataset_YAGO310.png" alt="YAGO310"/>
 
