@@ -1,0 +1,96 @@
+{
+  "type": "hpo",
+  "metadata": {
+    "title": "HPO Over Kinships for TuckER"
+  },
+  "pipeline": {
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 50,
+      "patience": 2,
+      "delta": 0.002
+    },
+    "dataset": "kinships",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "model": "TuckER",
+    "model_kwargs": {
+      "automatic_memory_optimization": true,
+      "apply_batch_normalization": false
+    },
+    "model_kwargs_ranges": {
+      "embedding_dim": {
+        "type": "int",
+        "low": 6,
+        "high": 8,
+        "scale": "power_two"
+      },
+      "relation_dim": {
+        "type": "int",
+        "low": 6,
+        "high": 8,
+        "scale": "power_two"
+      },
+      "dropout_0": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      },
+      "dropout_1": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      },
+      "dropout_2": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      }
+    },
+    "loss": "CrossEntropyLoss",
+    "regularizer": "NoRegularizer",
+    "optimizer": "adadelta",
+    "optimizer_kwargs": {
+      "lr": 1.0,
+      "weight_decay": 0.0
+    },
+    "training_loop": "lcwa",
+    "training_kwargs": {
+      "num_epochs": 1000
+    },
+    "training_kwargs_ranges": {
+      "label_smoothing": {
+        "type": "float",
+        "low": 0.001,
+        "high": 1.0,
+        "scale": "log"
+      },
+      "batch_size": {
+        "type": "int",
+        "low": 7,
+        "high": 9,
+        "scale": "power_two"
+      }
+    },
+    "evaluator": "RankBasedEvaluator",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    }
+  },
+  "optuna": {
+    "n_trials": 100,
+    "timeout": 86400,
+    "metric": "hits@10",
+    "direction": "maximize",
+    "sampler": "random",
+    "pruner": "nop",
+    "storage": "sqlite:////home/MehdiAli/mali/benchmarking/ablation/tucker/kinships/2020-05-18-10-27_eacbd4bd-4be1-4ce5-a9ea-7174557da600/0000_kinships_tucker/optuna_results.db"
+  }
+}
