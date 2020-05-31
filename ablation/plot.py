@@ -60,7 +60,7 @@ def make_config_index(row: Mapping[str, Any]) -> str:
     else:
         regularizer = REGULARIZER.get(regularizer, regularizer)
 
-    if create_inverse_triples:
+    if create_inverse_triples == 'True':
         inv_text = 'Inv.'
     else:
         inv_text = 'No Inv.'
@@ -119,7 +119,7 @@ def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: st
             palette="GnBu_d",
             estimator=np.median,
         )
-        ax.set_title(f'{dataset} - {model} - {optimizer}')
+        ax.set_title(f'Stratified Summary for\n{dataset} - {model} - {optimizer}', fontsize=20)
         ax.set_ylabel('')
         ax.set_yticks([])
 
@@ -341,7 +341,7 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
             else:
                 plt.suptitle(f"1D Sliced Summary with\n{title_text}={v}", fontsize=20)
 
-            plt.tight_layout(rect=[0, 0.03, 1, 0.90])
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
             plt.savefig(os.path.join(slice_dir, f'{k}_{v}.png'), dpi=300)
             plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
             plt.close(fig)
@@ -411,7 +411,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     ci=None,
                 )
                 plt.subplots_adjust(top=0.9)
-                g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}')
+                g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}', fontsize=20)
                 # plt.tight_layout()
                 plt.savefig(
                     os.path.join(
@@ -445,7 +445,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 continue
 
             if 2 == len(dataset_model_df[ah2].unique()):
-                sns.catplot(
+                g = sns.catplot(
                     data=dataset_model_df,
                     x=target_header,
                     kind='box',
@@ -454,7 +454,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     ci=None,
                 )
             else:
-                sns.catplot(
+                g = sns.catplot(
                     data=dataset_model_df,
                     x=target_header,
                     kind='box',
@@ -463,6 +463,8 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     col_wrap=4,
                     ci=None,
                 )
+            g.fig.suptitle(f'{dataset} - {optimizer} - {ah1} - {ah2}', fontsize=20)
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
             plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.png'), dpi=300)
             plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
             plt.close()
@@ -488,7 +490,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                 leave=False,
             )
             for v, sub_df in inner_it:
-                fig, axes = plt.subplots(ncols=3, figsize=(14, 4))
+                fig, axes = plt.subplots(ncols=3, figsize=(14, 5))
                 for ablation_header, ax in zip(ablation_headers, axes.ravel()):
                     try:
                         sns.boxplot(
@@ -506,8 +508,11 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     # for tick in ax.get_yticklabels():
                     #    tick.set_rotation(45)
 
-                plt.suptitle(f"{dataset}-{optimizer}-{k.replace('_', ' '.title())}: {v}", fontsize=20)
-                plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+                plt.suptitle(
+                    f"Stratified Summary for {dataset}-{optimizer}\n{k.replace('_', ' '.title())}: {v}",
+                    fontsize=20,
+                )
+                plt.tight_layout(rect=[0, 0.03, 1, 0.90])
                 plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.png'), dpi=300)
                 plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.pdf'))
                 plt.close(fig)
