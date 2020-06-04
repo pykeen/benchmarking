@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from matplotlib import gridspec
 from tqdm import tqdm
 
 from collate import (
@@ -28,6 +29,10 @@ def make_plots(*, target_header: str):
         if k in df.columns:
             del df[k]
 
+    sns.set_style("whitegrid")
+    _write_1d_sliced_summaries(
+        df=df, target_header=target_header,
+    )
     sns.set_style("darkgrid")
     _write_dataset_optimizer_summaries(
         df=df, target_header=target_header,
@@ -36,10 +41,6 @@ def make_plots(*, target_header: str):
         df=df, target_header=target_header,
     )
     _write_1d_sliced_summaries_stratified(
-        df=df, target_header=target_header,
-    )
-    sns.set_style("white")
-    _write_1d_sliced_summaries(
         df=df, target_header=target_header,
     )
     _write_2d_summaries(
@@ -293,58 +294,78 @@ def _write_1d_sliced_summaries(*, df: pd.DataFrame, target_header: str):
                 if ablation_header not in skip_headers
             ]
 
+            vert_fig = plt.figure(figsize=(7, 5.5 * len(ablation_headers)))
+            grid_spec = gridspec.GridSpec(
+                len(ablation_headers), 1,
+                figure=vert_fig,
+                height_ratios=[
+                    2 + sub_df[ablation_header].nunique()
+                    for ablation_header in ablation_headers
+                ],
+            )
+            vert_axes = [plt.subplot(x) for x in grid_spec]
+
             # Calculate the number of rows based on the preset number of columns
             # and a little extra logic for when there should be an empty space
             extra_rows = len(ablation_headers) % ncols
             if not extra_rows:
                 nrows = len(ablation_headers) // ncols
+                figsize = (7 * ncols, 5 * nrows)
+                fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
+
+                # Axes starts as a grid - ravel makes it possible to iterate as a list
+                axes = axes.ravel()
             else:
                 nrows = 1 + len(ablation_headers) // ncols
+                figsize = (7 * ncols, 5 * nrows)
+                fig = plt.figure(figsize=figsize)
 
-            fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 10))
+                width = 2
+                shape = (nrows, width * ncols)
+                axes = []
+                for i in range(nrows - 1):
+                    for j in range(ncols):
+                        axes.append(plt.subplot2grid(shape=shape, loc=(i, j * width), colspan=width))
 
-            # Axes starts as a grid - ravel makes it possible to iterate as a list
-            axes = axes.ravel()
-
-            # Remove the spines on axes that won't be filled
-            if extra_rows:
-                for i in range(extra_rows):
-                    axes[-i - 1].set_axis_off()
+                offset = width * (ncols - extra_rows) // 2
+                # last row
+                for j in range(extra_rows):
+                    axes.append(plt.subplot2grid(shape=shape, loc=(nrows - 1, offset + j * width), colspan=width))
 
             # Make several plots in the grid. Each axis knows where it's supposed to plot
-            for ablation_header, ax in zip(ablation_headers, axes):
-                # Aggregate the dataset by maximum for this header
-                # idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
-                # sub_df_agg = sub_df[idx]
-                # sub_df_agg.index = sub_df_agg[ablation_header]
-                # sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
-                sns.boxplot(
-                    data=sub_df, x=ablation_header, y=target_header, ax=ax,
-                    # order=sub_df_agg.index,
-                )
-                # sns.swarmplot(
-                #     data=sub_df, x=ablation_header, y=target_header, ax=ax,
-                #     # order=sub_df_agg.index,
-                #     linewidth=1.0,
-                # )
+            for ablation_header, g_ax, vert_ax in zip(ablation_headers, axes, vert_axes):
+                for ax in (g_ax, vert_ax):
+                    # Aggregate the dataset by maximum for this header
+                    # idx = sub_df.groupby([ablation_header])[target_header].transform(max) == sub_df[target_header]
+                    # sub_df_agg = sub_df[idx]
+                    # sub_df_agg.index = sub_df_agg[ablation_header]
+                    # sub_df_agg = sub_df_agg.sort_values(target_header, ascending=False)
+                    sns.boxplot(data=sub_df, x=ablation_header, y=target_header, ax=ax)
+                    ax.set_title(ablation_header.replace('_', ' ').title(), fontdict={'fontsize': 22}, pad=10)
+                    ax.set_xlabel('')
+                    ax.set_ylabel(target_header, fontdict={'fontsize': 16})
+                    for label in ax.get_xticklabels():
+                        label.set_ha("center")
+                        label.set_rotation(55)
+                        label.set_fontsize(15)
+                    ax.set_ylim([0.0, 1.0])
 
-                ax.set_title(ablation_header.replace('_', ' ').title())
-                ax.set_xlabel('')
-                ax.set_ylim([0.0, 1.0])
+            # title_text = k.replace('_', ' ').title()
+            # if skip_text is not None:  # skip_text was calculated earlier
+            #     plt.suptitle(f"1D Sliced Summary with\n{title_text}={v} (constants: {skip_text})", fontsize=20)
+            # else:
+            #     plt.suptitle(f"1D Sliced Summary with\n{title_text}={v}", fontsize=20)
+            # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
-                for tick in ax.get_xticklabels():
-                    tick.set_rotation(45)
-
-            title_text = k.replace('_', ' ').title()
-            if skip_text is not None:  # skip_text was calculated earlier
-                plt.suptitle(f"1D Sliced Summary with\n{title_text}={v} (constants: {skip_text})", fontsize=20)
-            else:
-                plt.suptitle(f"1D Sliced Summary with\n{title_text}={v}", fontsize=20)
-
-            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.png'), dpi=300)
-            plt.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
+            fig.tight_layout()
+            fig.savefig(os.path.join(slice_dir, f'{k}_{v}.png'), dpi=300)
+            fig.savefig(os.path.join(slice_dir, f'{k}_{v}.pdf'))
             plt.close(fig)
+
+            vert_fig.tight_layout()
+            vert_fig.savefig(os.path.join(slice_dir, f'VERT_{k}_{v}.png'), dpi=300)
+            vert_fig.savefig(os.path.join(slice_dir, f'VERT_{k}_{v}.pdf'))
+            plt.close(vert_fig)
 
     with open(os.path.join(slice_dir, 'README.md'), 'w') as file:
         print(f'# Ablation Results\n', file=file)
@@ -397,7 +418,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
             for ah1, ah2 in it_3d_slices_inner:
                 if ah1 == ah2:
                     continue
-                g = sns.catplot(
+                sns.catplot(
                     kind='bar',
                     estimator=np.median,
                     data=dataset_model_df,
@@ -406,13 +427,10 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     height=6,
                     hue=binary_ablation_header,
                     col=ah2,
-                    col_wrap=3,
+                    col_wrap=2,
                     legend_out=True,
                     ci=None,
                 )
-                plt.subplots_adjust(top=0.9)
-                g.fig.suptitle(f'{optimizer}-{dataset}-{binary_ablation_header}-{ah1}-{ah2}', fontsize=20)
-                # plt.tight_layout()
                 plt.savefig(
                     os.path.join(
                         slice3d_dir,

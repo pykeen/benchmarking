@@ -3,7 +3,6 @@ import os
 from typing import List, Tuple
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import scipy
 import scipy.spatial.qhull
@@ -22,42 +21,9 @@ os.makedirs(SIZEPLOTS_DIRECTORY, exist_ok=True)
 def main():
     """Collate all HPO results in a single table."""
     df = read_collation()
-    # ratio displots are a bit of a mess
-    # make_ratio_distplots(df, header=MODEL_BYTES, log=True)
-    # make_ratio_distplots(df, header='training_time', log=False)
-    # make_ratio_distplots(df, header='evaluation_time', log=False)
-    make_sizeplots(df, header=MODEL_BYTES)
-    make_sizeplots(df, header='training_time')
-    make_skylines(df, header=MODEL_BYTES)
-    make_skylines(df, header='training_time')
-
-
-def make_ratio_distplots(df: pd.DataFrame, header: str = MODEL_BYTES, log: bool = False):
-    it = tqdm(
-        df.groupby(['dataset', 'optimizer']),
-        desc=f'making ratio distplots for {header}',
-    )
-
-    min_bytes = df[header].min()
-    max_bytes = df[header].max()
-
-    if log:
-        min_bytes = np.log10(min_bytes)
-        max_bytes = np.log10(max_bytes)
-        df[f'adj_{header}'] = (np.log10(df[header]) - min_bytes) / (max_bytes - min_bytes)
-    else:
-        df[f'adj_{header}'] = (df[header] - min_bytes) / (max_bytes - min_bytes)
-
-    df['ratio'] = np.log10((0.0001 + df['hits@10']) / (0.0001 + df[f'adj_{header}']))
-
-    for (dataset, optimizer), sdf in it:
-        fig, ax = plt.subplots(figsize=(8, 5))
-        sns.distplot(sdf['ratio'], ax=ax)
-        ax.set_xlabel(f'$\log \\frac{{hits@10}}{{adj {header}}}$')
-        ax.set_title(f'{dataset} - {optimizer} - {header} ({len(sdf.index)} experiments)')
-        plt.tight_layout()
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'{header}_{dataset}_{optimizer}_rdist.pdf'.lower()), dpi=300)
-        plt.close(fig)
+    for header in (MODEL_BYTES, 'training_time'):
+        make_sizeplots(df, header=header)
+        # make_skylines(df, header=header)
 
 
 def make_skylines(df: pd.DataFrame, header: str = MODEL_BYTES):
@@ -91,34 +57,39 @@ def make_skylines(df: pd.DataFrame, header: str = MODEL_BYTES):
             ax=ax
         )
         ax.set_xlim([min_bytes, max_bytes])
-        ax.set_ylim([0.0, 1.0])
-        # g.set(xscale="log", yscale='log')
+        # ax.set_ylim([0.0, 1.0])
+        g.set(xscale="log", yscale='log')
         g.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
         ax.set_title(f'{dataset} - {optimizer} - {header} ({len(sdf.index)} experiments)')
         plt.tight_layout()
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'skyline_{header}_{dataset}_{optimizer}.pdf'.lower()), dpi=300)
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'skyline_{header}_{dataset}_{optimizer}.png'.lower()), dpi=300)
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'skyline_{header}_{dataset}_{optimizer}.pdf'.lower()))
         plt.close(fig)
 
 
 def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
     for optimizer, sdf in tqdm(df.groupby('optimizer'), desc=f'making super-optimizer plots for {header}'):
-        g = sns.FacetGrid(
+        scatterplot = sns.FacetGrid(
             data=sdf,
             hue='model',
             hue_order=sorted(df['model'].unique()),
             col='dataset',
             col_wrap=2,
-            legend_out=True
+            # legend_out=True,
+            sharex=False,
+            sharey=False,
         )
         (
-            g.map(sns.scatterplot, header, 'hits@10', alpha=0.5)
-                .set(xscale="log")
-                # .add_legend(loc='right', bbox_to_anchor=(2.25, 0.5), ncol=1)
+            scatterplot.map(sns.scatterplot, header, 'hits@10', alpha=0.5, x_jitter=100)
+                  .set(xscale="log", xlabel='')
+            # .add_legend(loc='right', bbox_to_anchor=(2.25, 0.5), ncol=1)
         )
-        # plt.title(f'{optimizer} - {header}  ({len(sdf.index)} experiments)')
-        # plt.tight_layout()
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.pdf'.lower()), dpi=300)
-        plt.close(plt.gcf())
+
+        plt.title(f'{optimizer} - {header} ({len(sdf.index)} experiments)')
+        plt.tight_layout()
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.png'.lower()), dpi=300)
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.pdf'.lower()))
+        plt.close(scatterplot.fig)
 
     it = tqdm(
         df.groupby(['dataset', 'optimizer']),
@@ -129,7 +100,7 @@ def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
 
     for (dataset, optimizer), sdf in it:
         fig, ax = plt.subplots(figsize=(8, 5))
-        g = sns.scatterplot(
+        scatterplot = sns.scatterplot(
             x=header,
             y='hits@10',
             data=sdf,
@@ -139,13 +110,14 @@ def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
             ax=ax,
         )
         ax.set_xlim([min_bytes, max_bytes])
-        ax.set_ylim([0.0, 1.0])
-        g.set(xscale="log")
-        g.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
+        # ax.set_ylim([0.0, 1.0])
+        scatterplot.set(xscale="log", yscale='log')
+        scatterplot.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
         ax.set_title(f'{dataset} - {optimizer} - {header}  ({len(sdf.index)} experiments)')
         plt.tight_layout()
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'scatter_{header}_{dataset}_{optimizer}.pdf'.lower()), dpi=300)
-        plt.close(plt.gcf())
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'scatter_{header}_{dataset}_{optimizer}.pdf'.lower()))
+        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'scatter_{header}_{dataset}_{optimizer}.png'.lower()), dpi=300)
+        plt.close(fig)
 
 
 def get_skyline_df(
