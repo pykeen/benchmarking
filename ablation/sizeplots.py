@@ -68,29 +68,55 @@ def make_skylines(df: pd.DataFrame, header: str = MODEL_BYTES):
 
 
 def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
+    hue_order = sorted(df['model'].unique())
     for optimizer, sdf in tqdm(df.groupby('optimizer'), desc=f'making super-optimizer plots for {header}'):
-        scatterplot = sns.FacetGrid(
+        g = sns.FacetGrid(
             data=sdf,
             hue='model',
-            hue_order=sorted(df['model'].unique()),
+            hue_order=hue_order,
             col='dataset',
             col_wrap=2,
-            # legend_out=True,
             sharex=False,
             sharey=False,
+            height=4,
         )
-        (
-            scatterplot.map(sns.scatterplot, header, 'hits@10', alpha=0.5, x_jitter=100)
-                  .set(xscale="log", xlabel='')
-            # .add_legend(loc='right', bbox_to_anchor=(2.25, 0.5), ncol=1)
+        g.map(
+            sns.scatterplot,
+            header,
+            'hits@10',
+            alpha=0.5,
+            x_jitter=100,
         )
 
-        plt.title(f'{optimizer} - {header} ({len(sdf.index)} experiments)')
-        plt.tight_layout()
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.png'.lower()), dpi=300)
-        plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.pdf'.lower()))
-        plt.close(scatterplot.fig)
+        for ax, dataset in zip(g.axes, g.col_names):
+            try:
+                skyline_df = get_skyline_df(
+                    sdf[sdf['dataset'] == dataset],
+                    columns=[header, 'hits@10'],
+                    smaller_is_better=(True, False),
+                )
+            except scipy.spatial.qhull.QhullError:
+                continue
+            sns.lineplot(
+                x=header,
+                y='hits@10',
+                data=skyline_df,
+                estimator=None,
+                markers=True,
+                legend=False,
+                ax=ax,
+            )
 
+        g.set(xlabel=header.replace('_', ' ').title(), xscale='log')
+        g.set_titles(template='{col_name}', fontsize=20)
+
+        g.fig.tight_layout()
+        g.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.png'.lower()), dpi=300)
+        g.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'trellis_scatter_{header}_{optimizer}.pdf'.lower()))
+        plt.close(g.fig)
+
+
+def draw_grouped_sizeplots(df, header):
     it = tqdm(
         df.groupby(['dataset', 'optimizer']),
         desc=f'making sizeplots for {header}'
@@ -100,7 +126,8 @@ def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
 
     for (dataset, optimizer), sdf in it:
         fig, ax = plt.subplots(figsize=(8, 5))
-        scatterplot = sns.scatterplot(
+
+        g = sns.scatterplot(
             x=header,
             y='hits@10',
             data=sdf,
@@ -111,9 +138,10 @@ def make_sizeplots(df: pd.DataFrame, header: str = MODEL_BYTES):
         )
         ax.set_xlim([min_bytes, max_bytes])
         # ax.set_ylim([0.0, 1.0])
-        scatterplot.set(xscale="log", yscale='log')
-        scatterplot.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
+        g.set(xscale="log", yscale='log')
+        # g.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
         ax.set_title(f'{dataset} - {optimizer} - {header}  ({len(sdf.index)} experiments)')
+
         plt.tight_layout()
         plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'scatter_{header}_{dataset}_{optimizer}.pdf'.lower()))
         plt.savefig(os.path.join(SIZEPLOTS_DIRECTORY, f'scatter_{header}_{dataset}_{optimizer}.png'.lower()), dpi=300)

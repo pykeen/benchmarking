@@ -146,52 +146,6 @@ def _write_dataset_optimizer_model_summaries(df: pd.DataFrame, target_header: st
         plt.close(fig)
 
 
-def _write_dataset_optimizer_summaries(df, target_header):
-    """Write model summaries, but trellis it on model."""
-    model_dir = os.path.join(SUMMARY_DIRECTORY, 'dataset_optimizer_summary')
-    os.makedirs(model_dir, exist_ok=True)
-
-    it = tqdm(
-        df.groupby(['dataset', 'optimizer']),
-        desc='writing dataset/optimizer summaries',
-    )
-    for (dataset, optimizer), dataset_model_df in it:
-        it.write(f'{len(dataset_model_df.index)} rows for {dataset}/{optimizer}')
-        data = pd.DataFrame([
-            {
-                'model': row['model'],
-                'configuration': make_config_index(row),
-                'replicate': row['replicate'],
-                target_header: row[target_header],
-            }
-            for _, row in dataset_model_df.iterrows()
-        ])
-        logger.debug('%d replicates mapped for %s/%s', len(data.index), dataset, optimizer)
-
-        means = data.groupby('configuration')[target_header].mean().sort_values()
-        logger.debug('%d means mapped for %s/%s', len(means.index), dataset, optimizer)
-
-        fig, ax = plt.subplots(figsize=(14, 7))
-        sns.catplot(
-            kind='bar',
-            estimator=np.median,
-            data=data,
-            x=target_header,
-            y='configuration',
-            col='model',
-            col_wrap=4,
-            ci=None,
-            # capsize=.2, # restore if you want CIs
-            order=means.index,
-            palette="GnBu_d",
-        )
-
-        sns.despine()
-        plt.tight_layout()
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.png'), dpi=300)
-        plt.savefig(os.path.join(model_dir, f'{dataset}_{optimizer}.pdf'))
-        plt.close(fig)
-
 
 def _write_2d_sliced_summaries(
     df, target_header, slice_1='model', slice_2='dataset', slice_3='loss', val=None,
@@ -418,7 +372,7 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
             for ah1, ah2 in it_3d_slices_inner:
                 if ah1 == ah2:
                     continue
-                sns.catplot(
+                g = sns.catplot(
                     kind='bar',
                     estimator=np.median,
                     data=dataset_model_df,
@@ -427,10 +381,15 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     height=6,
                     hue=binary_ablation_header,
                     col=ah2,
-                    col_wrap=2,
+                    col_wrap=4,
                     legend_out=True,
                     ci=None,
                 )
+                g.set_titles(template='{col_name}', size=20)
+                g.set_ylabels('')
+                g.set_yticklabels(fontdict={'fontsize': 15})
+                g.set(xlim=[0.0, 1.0])
+                plt.tight_layout()
                 plt.savefig(
                     os.path.join(
                         slice3d_dir,
@@ -445,6 +404,8 @@ def _write_1d_sliced_summaries_stratified(*, df: pd.DataFrame, target_header: st
                     ),
                 )
                 plt.close()
+
+        continue  #### FIXME!!!
 
         # 2D slices
         _2d_slice_ablation_headers = [
