@@ -2,19 +2,15 @@ import json
 import logging
 import os
 from copy import deepcopy
-from typing import Any, Iterable, Mapping, Optional, Type, Union
+from typing import Any, Iterable, Mapping
 
 import click
 import pandas as pd
 from tqdm import tqdm
 
-from pykeen.datasets import DataSet, datasets, get_dataset
-from pykeen.losses import Loss, get_loss_cls
-from pykeen.models import get_model_cls, models
-from pykeen.models.base import Model
-from pykeen.regularizers import Regularizer, get_regularizer_cls
-from pykeen.triples import TriplesFactory
-from pykeen.utils import resolve_device
+from pykeen.datasets import datasets
+from pykeen.models import models
+from src.utils import get_model_size
 
 HERE = os.path.dirname(__file__)
 RESULTS = os.path.join(HERE, 'results')
@@ -150,7 +146,7 @@ def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Map
         study['create_inverse_triples'] = ppc['pipeline']['dataset_kwargs']['create_inverse_triples']
 
     try:
-        study[MODEL_BYTES] = _get_bytes_helper(**ppc['pipeline'])
+        study[MODEL_BYTES] = get_model_size(**ppc['pipeline'])
     except TypeError as e:
         logger.warning('could not instantiate part of model: %s', e)
         logger.warning('study:\n%s\n', json.dumps(study, indent=2))
@@ -181,55 +177,6 @@ def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Map
         yv['training_time'] = replicate_results['times']['training']
         yv['evaluation_time'] = replicate_results['times']['evaluation']
         yield yv
-
-
-def _get_bytes_helper(  # noqa: C901
-    *,
-    dataset: Union[None, str, Type[DataSet]] = None,
-    dataset_kwargs: Optional[Mapping[str, Any]] = None,
-    training_triples_factory: Optional[TriplesFactory] = None,
-    testing_triples_factory: Optional[TriplesFactory] = None,
-    validation_triples_factory: Optional[TriplesFactory] = None,
-    model: Union[str, Type[Model]],
-    model_kwargs: Optional[Mapping[str, Any]] = None,
-    loss: Union[None, str, Type[Loss]] = None,
-    loss_kwargs: Optional[Mapping[str, Any]] = None,
-    regularizer: Union[None, str, Type[Regularizer]] = None,
-    regularizer_kwargs: Optional[Mapping[str, Any]] = None,
-    **_kwargs,
-) -> int:
-    """Make a model instance, similarly to how the pipelin is started, then return the model size."""
-    device = resolve_device('cpu')
-    training_triples_factory, testing_triples_factory, validation_triples_factory = get_dataset(
-        dataset=dataset,
-        dataset_kwargs=dataset_kwargs,
-        training_triples_factory=training_triples_factory,
-        testing_triples_factory=testing_triples_factory,
-        validation_triples_factory=validation_triples_factory,
-    )
-
-    if model_kwargs is None:
-        model_kwargs = {}
-
-    if regularizer is not None:
-        regularizer_cls = get_regularizer_cls(regularizer)
-        model_kwargs['regularizer'] = regularizer_cls(
-            device=device,
-            **(regularizer_kwargs or {}),
-        )
-
-    if loss is not None:
-        loss_cls = get_loss_cls(loss)
-        model_kwargs['loss'] = loss_cls(**(loss_kwargs or {}))
-
-    model = get_model_cls(model)
-    model_instance: Model = model(
-        random_seed=0,
-        preferred_device=device,
-        triples_factory=training_triples_factory,
-        **model_kwargs,
-    )
-    return model_instance.num_parameter_bytes
 
 
 @click.command()

@@ -7,6 +7,7 @@ import os
 from collections import defaultdict
 from typing import Iterable, List, Mapping, Tuple
 
+import humanize
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
@@ -24,7 +25,7 @@ os.makedirs(SUMMARIES, exist_ok=True)
 PHANTOM_PLACEHOLDER = '✠'
 
 
-def main():
+def generate_results_table():
     all_tables = []
     for dataset, dataset_df in get_df().groupby('dataset'):
         if len(dataset_df['model'].unique()) < 2:
@@ -49,7 +50,7 @@ def main():
         dataset = pykeen.datasets.datasets[dataset].__name__
         all_tables.append((dataset, wide_summary_df))
 
-    write_pdfs(all_tables)
+    return all_tables
 
 
 def get_tall_summary_df(df: pd.DataFrame):
@@ -100,7 +101,11 @@ def _process_tex(s: str) -> str:
     return s
 
 
-def write_pdfs(all_tables: Iterable[Tuple[str, pd.DataFrame]]) -> None:
+def write_pdfs(
+    *,
+    all_tables: Iterable[Tuple[str, pd.DataFrame]],
+    size_table: pd.DataFrame,
+) -> None:
     loader = FileSystemLoader(HERE)
     environment = Environment(
         autoescape=False,
@@ -111,7 +116,14 @@ def write_pdfs(all_tables: Iterable[Tuple[str, pd.DataFrame]]) -> None:
 
     table_results = _make_table_results(all_tables)
 
-    tex = template.render(table_results=table_results)
+    tex = template.render(
+        table_results=table_results,
+        size_table=size_table.to_latex(
+            multirow=True,
+            column_format='llr',
+            bold_rows=True,
+        ),
+    )
     with open(os.path.join(SUMMARIES, f'results.tex'), 'w') as file:
         print(tex, file=file)
 
@@ -200,6 +212,24 @@ def get_reordered_df(df: pd.DataFrame) -> pd.DataFrame:
         for second_level_label in r[first_level_label]
     ]
     return df[columns]
+
+
+def generate_size_table():
+    df = get_df()
+    rv = df[['dataset', 'model', 'model_bytes']].drop_duplicates()
+    rv['params'] = rv['model_bytes'].map(lambda s: humanize.naturalsize(int(s) / 4).rstrip('B'))
+    rv = rv.sort_values(['dataset', 'model']).set_index(['dataset', 'model'])
+    del rv['model_bytes']
+    rv.to_csv(os.path.join(SUMMARIES, 'sizes.tsv'), sep='\t')
+    with open(os.path.join(SUMMARIES, 'sizes.tex'), 'w') as file:
+        print(rv.to_latex(multirow=True), file=file)
+    return rv
+
+
+def main():
+    size_table = generate_size_table()
+    all_tables = generate_results_table()
+    write_pdfs(all_tables=all_tables, size_table=size_table)
 
 
 if __name__ == '__main__':

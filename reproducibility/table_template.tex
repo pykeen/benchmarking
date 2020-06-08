@@ -2,12 +2,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{adjustbox}
+\usepackage{multirow}
 
 \title{Table Test}
 \author{PyKEEN Core Team}
 \date{\today}
 
 \begin{document}
+{{ size_table }}
 {% for dataset, tabled in table_results %}
 {{ "\section{" }}{{ dataset }} Evaluation{{ "}" }}
 {{ "\subsection{" }}{{ dataset }} Average}
