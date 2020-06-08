@@ -6,6 +6,7 @@ import pathlib
 
 import pandas as pd
 
+import pykeen.models
 from pykeen.utils import flatten_dictionary
 
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -25,7 +26,7 @@ def get_df() -> pd.DataFrame:
                 result = flatten_dictionary(json.load(rf))
             result.update(dict(
                 # reference=reference,
-                model=model,
+                model=pykeen.models.get_model_cls(model).__name__,
                 dataset=dataset,
                 replicate=int(replicate.name.split('-')[1]),
             ))
