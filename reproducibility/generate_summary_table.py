@@ -103,11 +103,11 @@ def write_pdfs(all_tables) -> None:
             sub_df.index.name = None
             sub_df.columns = list(sub_df.columns.get_level_values(1))
 
-            hits_df = sub_df[['hits@1', 'hits@3', 'hits@5', 'hits@10']]
+            hits_df = sub_df[['Hits@1 (\\%)', 'Hits@3 (\\%)', 'Hits@5 (\\%)', 'Hits@10 (\\%)']]
             if measurement == 'avg':
-                ranked_df = sub_df[['MR', 'MRR', 'AMR']]
+                ranked_df = sub_df[['MR', 'MRR (\\%)', 'AMR (\\%)']]
             else:
-                ranked_df = sub_df[['MR', 'MRR']]
+                ranked_df = sub_df[['MR', 'MRR (\\%)']]
 
             tables[measurement, 'hits'] = get_latex(hits_df)
             tables[measurement, 'rank'] = get_latex(ranked_df)
@@ -142,16 +142,16 @@ def get_renamed_columns(df: pd.DataFrame):
 
         if column.startswith('hits at k'):
             column_split = list(column.split(' '))
-            column = f'hits@{column_split[-1]}'
+            column = f'Hits@{column_split[-1]} (\\%)'
             t = column_split[-2]
         elif column.startswith('mean reciprocal rank'):
             t = column.split(' ')[-1]
-            column = 'MRR'
+            column = 'MRR (\\%)'
         elif column.startswith('mean rank'):
             t = column.split(' ')[-1]
             column = 'MR'
         elif column.startswith('adjusted mean rank'):
-            column = 'AMR'
+            column = 'AMR (\\%)'
             t = 'avg'
         elif column == 'model':
             t = ''
