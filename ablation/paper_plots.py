@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import logging
 import os
 import random
@@ -141,31 +143,24 @@ def dataset_1d_summaries(*, df: pd.DataFrame, target_header: str):
         fig.savefig(os.path.join(slice_dir, f'{dataset}.pdf'.lower()))
         plt.close(fig)
 
-        # Loss / Create Inverse Triples
-        sns.set(style='whitegrid')
-        g = sns.boxplot(
-            x=target_header,
-            y='loss_assumption',
-            hue='create_inverse_triples',
-            data=sub_df,
-        )
-        g.set(xlim=[0, 1.0], ylabel='')
-        plt.tight_layout()
-        plt.savefig(os.path.join(slice_dir, f'{dataset}_loss_create_inverse_triples.pdf'.lower()))
-        plt.close(plt.gcf())
-
-        # Training Loop / Create Inverse Triples
-        sns.set(style='whitegrid')
-        g = sns.boxplot(
-            x=target_header,
-            y='training_loop',
-            hue='create_inverse_triples',
-            data=sub_df,
-        )
-        g.set(xlim=[0, 1.0], ylabel='')
-        plt.tight_layout()
-        plt.savefig(os.path.join(slice_dir, f'{dataset}_training_loop_inverse.pdf'.lower()))
-        plt.close(plt.gcf())
+        # 2-way plots
+        for y, hue in [
+            ('loss_assumption', 'create_inverse_triples'),
+            ('loss_assumption', 'training_loop'),
+            ('training_loop', 'create_inverse_triples'),
+        ]:
+            sns.set(style='whitegrid')
+            g = sns.boxplot(
+                x=target_header,
+                y=y,
+                hue=hue,
+                data=sub_df,
+            )
+            g.set(xlim=[0, 1.0], ylabel='')
+            plt.tight_layout()
+            plt.savefig(os.path.join(slice_dir, f'{dataset}_loss_{hue}.png'.lower()), dpi=300)
+            plt.savefig(os.path.join(slice_dir, f'{dataset}_loss_{hue}.pdf'.lower()))
+            plt.close(plt.gcf())
 
         # Loss / Model / Training Loop Chart
         sns.set(font_scale=1.5, style='whitegrid')
