@@ -120,7 +120,7 @@ def write_pdfs(
         table_results=table_results,
         size_table=size_table.to_latex(
             multirow=True,
-            column_format='llr',
+            column_format='llrr',
             bold_rows=True,
         ),
     )
@@ -217,9 +217,12 @@ def get_reordered_df(df: pd.DataFrame) -> pd.DataFrame:
 def generate_size_table():
     df = get_df()
     rv = df[['dataset', 'model', 'model_bytes']].drop_duplicates()
-    rv['params'] = rv['model_bytes'].map(lambda s: humanize.naturalsize(int(s) / 4).rstrip('B'))
-    rv = rv.sort_values(['dataset', 'model']).set_index(['dataset', 'model'])
+    rv['dataset'] = rv['dataset'].map(lambda s: pykeen.datasets.datasets[s].__name__)
+    rv['Bytes'] = rv['model_bytes'].map(humanize.naturalsize)
+    rv['Parameters'] = rv['model_bytes'].map(lambda s: humanize.naturalsize(int(s) / 4).rstrip('B'))
+    rv.rename(columns={'dataset': 'Dataset', 'model': 'Model'}, inplace=True)
     del rv['model_bytes']
+    rv = rv.sort_values(['Dataset', 'Model']).set_index(['Dataset', 'Model'])
     rv.to_csv(os.path.join(SUMMARIES, 'sizes.tsv'), sep='\t')
     with open(os.path.join(SUMMARIES, 'sizes.tex'), 'w') as file:
         print(rv.to_latex(multirow=True), file=file)

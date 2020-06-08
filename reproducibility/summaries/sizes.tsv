@@ -1,31 +1,31 @@
-dataset	model	params
-fb15k	ComplEx	6.5 M
-fb15k	ConvE	5.6 M
-fb15k	DistMult	1.6 M
-fb15k	HolE	2.4 M
-fb15k	KG2E	1.6 M
-fb15k	RotatE	32.6 M
-fb15k	SimplE	6.5 M
-fb15k	TransD	1.6 M
-fb15k	TransE	814.8 k
-fb15k	TransH	1.8 M
-fb15k	TransR	4.2 M
-fb15k	TuckER	11.5 M
-fb15k237	ConvE	5.1 M
-fb15k237	ConvKB	1.5 M
-fb15k237	RotatE	29.5 M
-wn18	ComplEx	12.3 M
-wn18	ConvE	10.3 M
-wn18	DistMult	4.1 M
-wn18	HolE	6.1 M
-wn18	KG2E	4.1 M
-wn18	RotatE	41.0 M
-wn18	SimplE	16.4 M
-wn18	TransD	4.1 M
-wn18	TransE	819.2 k
-wn18	TransH	2.0 M
-wn18	TransR	2.1 M
-wn18	TuckER	9.4 M
-wn18rr	ConvE	10.2 M
-wn18rr	ConvKB	2.1 M
-wn18rr	RotatE	40.6 M
+Dataset	Model	Bytes	Parameters
+FB15k	ComplEx	26.1 MB	6.5 M
+FB15k	ConvE	22.5 MB	5.6 M
+FB15k	DistMult	6.5 MB	1.6 M
+FB15k	HolE	9.8 MB	2.4 M
+FB15k	KG2E	6.5 MB	1.6 M
+FB15k	RotatE	130.4 MB	32.6 M
+FB15k	SimplE	26.1 MB	6.5 M
+FB15k	TransD	6.5 MB	1.6 M
+FB15k	TransE	3.3 MB	814.8 k
+FB15k	TransH	7.1 MB	1.8 M
+FB15k	TransR	16.7 MB	4.2 M
+FB15k	TuckER	46.1 MB	11.5 M
+FB15k237	ConvE	20.3 MB	5.1 M
+FB15k237	ConvKB	5.9 MB	1.5 M
+FB15k237	RotatE	117.9 MB	29.5 M
+WN18	ComplEx	49.2 MB	12.3 M
+WN18	ConvE	41.2 MB	10.3 M
+WN18	DistMult	16.4 MB	4.1 M
+WN18	HolE	24.6 MB	6.1 M
+WN18	KG2E	16.4 MB	4.1 M
+WN18	RotatE	163.8 MB	41.0 M
+WN18	SimplE	65.5 MB	16.4 M
+WN18	TransD	16.4 MB	4.1 M
+WN18	TransE	3.3 MB	819.2 k
+WN18	TransH	8.2 MB	2.0 M
+WN18	TransR	8.4 MB	2.1 M
+WN18	TuckER	37.6 MB	9.4 M
+WN18RR	ConvE	40.9 MB	10.2 M
+WN18RR	ConvKB	8.2 MB	2.1 M
+WN18RR	RotatE	162.3 MB	40.6 M
