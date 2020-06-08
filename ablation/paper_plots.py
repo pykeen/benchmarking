@@ -162,29 +162,30 @@ def dataset_1d_summaries(*, df: pd.DataFrame, target_header: str):
             plt.savefig(os.path.join(slice_dir, f'{dataset}_loss_{hue}.pdf'.lower()))
             plt.close(plt.gcf())
 
-        # Loss / Model / Training Loop Chart
-        sns.set(font_scale=1.5, style='whitegrid')
-        g = sns.catplot(
-            kind='bar',
-            estimator=np.median,
-            data=sub_df,
-            x=target_header,
-            y='model',
-            height=6,
-            hue='training_loop',
-            col='loss',
-            col_wrap=2,
-            legend=True,
-            legend_out=False,
-            ci=None,
-        )
-        g.set_titles(template='{col_name}')
-        g.set_ylabels('')
-        g.set(xlim=[0.0, 1.0])
-        plt.tight_layout()
-        g.savefig(os.path.join(slice_dir, f'{dataset}_model_loss_training_loop.png'.lower()), dpi=300)
-        g.savefig(os.path.join(slice_dir, f'{dataset}_model_loss_training_loop.pdf'.lower()))
-        plt.close(g.fig)
+        # Loss / Model / (Training Loop Chart | Inverse)
+        for hue in ('training_loop', 'create_inverse_triples'):
+            sns.set(font_scale=1.5, style='whitegrid')
+            g = sns.catplot(
+                kind='bar',
+                estimator=np.median,
+                data=sub_df,
+                x=target_header,
+                y='model',
+                height=6,
+                hue=hue,
+                col='loss',
+                col_wrap=2,
+                legend=True,
+                legend_out=False,
+                ci=None,
+            )
+            g.set_titles(template='{col_name}')
+            g.set_ylabels('')
+            g.set(xlim=[0.0, 1.0])
+            plt.tight_layout()
+            g.savefig(os.path.join(slice_dir, f'{dataset}_model_loss_{hue}.png'.lower()), dpi=300)
+            g.savefig(os.path.join(slice_dir, f'{dataset}_model_loss_{hue}.pdf'.lower()))
+            plt.close(g.fig)
 
 
 def _write_dataset_optimizer_summaries(*, dataset, optimizer, sub_df, target_header, model_dir):
