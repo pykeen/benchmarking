@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[journal]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{adjustbox}
@@ -11,31 +11,25 @@
 {% for dataset, tabled in table_results %}
 {{ "\section{" }}{{ dataset }} Evaluation{{ "}" }}
 {{ "\subsection{" }}{{ dataset }} Average}
-{{ "\subsubsection{" }}{{ dataset }} Average Hits@K{{ "}" }}
-    \begin{center}
-    {{ tabled['avg', 'hits'] }}
-    \end{center}
-{{ "\subsubsection{" }}{{ dataset }} Average Mean Ranks{{ "}" }}
-    \begin{center}
-    {{ tabled['avg', 'rank'] }}
-    \end{center}
+\begin{table*}
+    \caption{Reproduction Results on {{ dataset }} Based on an Average Ranking}
+    \label{tab:{{ dataset.lower() }}_full_results_average_ranking}
+    \centering
+    {{ tabled['avg'] }}
+\end{table*}
 {{ "\subsection{" }}{{ dataset }} Best}
-{{ "\subsubsection{" }}{{ dataset }} Best Hits@K{{ "}" }}
-    \begin{center}
-    {{ tabled['best', 'hits'] }}
-    \end{center}
-{{ "\subsubsection{" }}{{ dataset }} Best Mean Ranks{{ "}" }}
-    \begin{center}
-    {{ tabled['best', 'rank'] }}
-    \end{center}
+\begin{table*}
+    \caption{Reproduction Results on {{ dataset }} Based on an Optimistic Ranking}
+    \label{tab:{{ dataset.lower() }}_full_results_optimistic_ranking}
+    \centering
+    {{ tabled['best'] }}
+\end{table*}
 {{ "\subsection{" }}{{ dataset }} Worst}
-{{ "\subsubsection{" }}{{ dataset }} Worst Hits@K{{ "}" }}
-    \begin{center}
-    {{ tabled['worst', 'hits'] }}
-    \end{center}
-{{ "\subsubsection{" }}{{ dataset }} Worst Mean Ranks{{ "}" }}
-    \begin{center}
-    {{ tabled['worst', 'rank'] }}
-    \end{center}
+    \begin{table*}
+        \caption{Reproduction Results on {{ dataset }} Based on a Pessimistic Ranking}
+        \label{tab:{{ dataset.lower() }}_full_results_pessimistic_ranking}
+        \centering
+        {{ tabled['best'] }}
+    \end{table*}
 {% endfor %}
 \end{document}

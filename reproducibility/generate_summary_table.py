@@ -103,14 +103,12 @@ def write_pdfs(all_tables) -> None:
             sub_df.index.name = None
             sub_df.columns = list(sub_df.columns.get_level_values(1))
 
-            hits_df = sub_df[['Hits@1 (\\%)', 'Hits@3 (\\%)', 'Hits@5 (\\%)', 'Hits@10 (\\%)']]
             if measurement == 'avg':
-                ranked_df = sub_df[['MR', 'MRR (\\%)', 'AMR (\\%)']]
+                cols = ['MR', 'MRR (\\%)', 'AMR (\\%)']
             else:
-                ranked_df = sub_df[['MR', 'MRR (\\%)']]
-
-            tables[measurement, 'hits'] = get_latex(hits_df)
-            tables[measurement, 'rank'] = get_latex(ranked_df)
+                cols = ['MR', 'MRR (\\%)']
+            cols.extend(['Hits@1 (\\%)', 'Hits@3 (\\%)', 'Hits@5 (\\%)', 'Hits@10 (\\%)'])
+            tables[measurement] = get_latex(sub_df[cols])
 
         table_results.append((dataset, tables))
 
