@@ -5,38 +5,59 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from pykeen.datasets import datasets
 from utils import get_df
 
 HERE = os.path.abspath(os.path.dirname(__file__))
+PLOTS_DIRECTORY = os.path.join(HERE, 'plots')
+os.makedirs(PLOTS_DIRECTORY, exist_ok=True)
+
+sns.set_style('whitegrid')
 
 
-def make_dataset_plots():
+def make_dataset_plots(m: str = 'metrics.hits_at_k.avg.10'):
+    u = {
+        m: ('hits_at_10', 'Hits@10', {}),
+        'times.training': ('time', 'Time (s)', {'xscale': 'log'}),
+    }
+
     df = get_df()
-    for dataset, dataset_df in df.groupby('dataset'):
-        if len(dataset_df['model'].unique()) < 2:
-            continue
+    df['dataset'] = df['dataset'].map(lambda s: datasets[s].__name__)
 
-        columns = [column for column in dataset_df.columns if column not in {'model', 'replicate', 'dataset'}]
+    for x, (op, label, setters) in u.items():
+        g = sns.catplot(
+            x=x,
+            y='model',
+            data=df,
+            col='dataset',
+            col_wrap=2,
+            kind='bar',
+            order=sorted(df['model'].unique()),
+        )
+        g.set_titles(template='{col_name}', size=20)
+        g.set_ylabels('')
+        g.set_xlabels(label)
+        g.set(**setters)
+        g.fig.tight_layout()
+        g.savefig(os.path.join(PLOTS_DIRECTORY, f'overview_{op}.pdf'))
+        g.savefig(os.path.join(PLOTS_DIRECTORY, f'overview_{op}.png'), dpi=300)
+        plt.close(g.fig)
 
-        for column in columns:
-            metric_df = dataset_df[['model', column]]
-
-            fig, ax = plt.subplots(1, figsize=(7, 6))
-
-            sns.boxplot(data=metric_df, y='model', x=column, ax=ax)
-
-            # if metric_df[column].max() < 1.0:
-            #     ax.set_xlim([0, 1.0])
-            metric_type, metric_name = column.split('.', 1)
-            # ax.set_ylabel(metric_name)
-            # ax.set_xlabel('')
-            ax.set_title(f'{dataset} - {metric_type} - {metric_name}')
-            plt.tight_layout()
-            dataset_dir = os.path.join(HERE, 'plots', dataset)
-            os.makedirs(dataset_dir, exist_ok=True)
-            path = os.path.join(dataset_dir, f'{column}.png')
-            plt.savefig(path)
-            plt.close(fig)
+    g = sns.FacetGrid(
+        data=df,
+        col='dataset',
+        col_wrap=2,
+        hue='model',
+        hue_order=sorted(df['model'].unique()),
+        legend_out=True,
+    )
+    g.map(sns.scatterplot, 'times.training', m, alpha=0.5)
+    g.set_titles(template='{col_name}')
+    g.set(xscale='log', xlabel='Time (s)', ylabel='Hits@10')
+    g.fig.tight_layout()
+    g.savefig(os.path.join(PLOTS_DIRECTORY, f'overview_scatter.pdf'))
+    g.savefig(os.path.join(PLOTS_DIRECTORY, f'overview_scatter.png'), dpi=300)
+    plt.close(g.fig)
 
 
 if __name__ == '__main__':
