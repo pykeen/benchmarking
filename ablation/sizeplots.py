@@ -23,6 +23,7 @@ def main():
     df = read_collation()
     for header in (MODEL_BYTES, 'training_time'):
         make_sizeplots(df, header=header)
+        draw_grouped_sizeplots(df, header=header)
         # make_skylines(df, header=header)
 
 
@@ -136,10 +137,30 @@ def draw_grouped_sizeplots(df, header):
             hue_order=sorted(df['model'].unique()),
             ax=ax,
         )
+
+        try:
+            skyline_df = get_skyline_df(
+                sdf[sdf['dataset'] == dataset],
+                columns=[header, 'hits@10'],
+                smaller_is_better=(True, False),
+            )
+        except scipy.spatial.qhull.QhullError:
+            continue
+        sns.lineplot(
+            x=header,
+            y='hits@10',
+            data=skyline_df,
+            estimator=None,
+            markers=True,
+            legend=False,
+            ax=ax,
+        )
+
         ax.set_xlim([min_bytes, max_bytes])
-        # ax.set_ylim([0.0, 1.0])
-        g.set(xscale="log", yscale='log')
-        # g.legend(loc='center left', bbox_to_anchor=(1.25, 0.5), ncol=1)
+        ax.set_ylim([0.0, 1.0])
+        ax.set_xlabel(header.replace('_', ' ').title())
+        g.set(xscale='log')
+        g.legend(loc='center left', bbox_to_anchor=(1.05, 0.5), ncol=1)
         ax.set_title(f'{dataset} - {optimizer} - {header}  ({len(sdf.index)} experiments)')
 
         plt.tight_layout()
