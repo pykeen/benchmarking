@@ -34,9 +34,6 @@ def make_plots(*, target_header: str):
         df=df, target_header=target_header,
     )
     sns.set_style("darkgrid")
-    _write_dataset_optimizer_summaries(
-        df=df, target_header=target_header,
-    )
     _write_dataset_optimizer_model_summaries(
         df=df, target_header=target_header,
     )
