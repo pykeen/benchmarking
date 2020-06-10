@@ -4,3 +4,4 @@ pandas>=1.0.4
 seaborn>=0.10.1
 tqdm>=4.46.1
 scipy>=1.4.1
+click>=7.1.2
