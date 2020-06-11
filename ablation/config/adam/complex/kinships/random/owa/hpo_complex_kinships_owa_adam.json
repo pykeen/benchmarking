@@ -50,8 +50,7 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "hpo_conve_kinships_owa_adam.json"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "ComplEx": {
