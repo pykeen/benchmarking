@@ -13,7 +13,7 @@ from jinja2 import Environment, FileSystemLoader
 
 import pykeen.datasets
 import pykeen.models
-from utils import SKIP, get_df
+from utils import SKIP, read_experiment_collation
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ PHANTOM_PLACEHOLDER = '✠'
 
 def generate_results_table():
     all_tables = []
-    for dataset, dataset_df in get_df().groupby('dataset'):
+    for dataset, dataset_df in read_experiment_collation().groupby('dataset'):
         if len(dataset_df['model'].unique()) < 2:
             continue
 
@@ -215,7 +215,7 @@ def get_reordered_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def generate_size_table():
-    df = get_df()
+    df = read_experiment_collation()
     rv = df[['dataset', 'model', 'model_bytes']].drop_duplicates()
     rv['dataset'] = rv['dataset'].map(lambda s: pykeen.datasets.datasets[s].__name__)
     rv['Bytes'] = rv['model_bytes'].map(humanize.naturalsize)

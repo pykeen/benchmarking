@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from pykeen.datasets import datasets
-from utils import get_df
+from utils import read_experiment_collation
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PLOTS_DIRECTORY = os.path.join(HERE, 'plots')
@@ -21,7 +21,7 @@ def make_dataset_plots(m: str = 'metrics.hits_at_k.avg.10'):
         'times.training': ('time', 'Time (s)', {'xscale': 'log'}),
     }
 
-    df = get_df()
+    df = read_experiment_collation()
     df['dataset'] = df['dataset'].map(lambda s: datasets[s].__name__)
 
     for x, (op, label, setters) in u.items():

@@ -20,3 +20,18 @@ methodology, training strategy). There are two folders:
    on the configuration files
 
 A summary of the results can be found [here](/ablation/results/_results/README.md)
+
+## Regeneration of Charts
+
+```sh
+git clone https://github.com/mali-git/pykeen_experimental_results.git
+cd pykeen_experimental_results
+pip install -e .
+# ABLATION
+python ablation/collate.py
+python ablation/paper_plots.py
+python ablation/plot.py
+# REPRODUCTIONS
+python reproducibility/generate_summary_table.py
+python reproducibility/plot.py
+```

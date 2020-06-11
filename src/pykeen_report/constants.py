@@ -1,0 +1,52 @@
+from pykeen.datasets import datasets
+from pykeen.models import models
+
+MODEL = {
+    'unstructuredmodel': 'UM',
+    'structuredembedding': 'SE',
+}
+for model_key, model_cls in models.items():
+    if model_key not in MODEL:
+        MODEL[model_key] = model_cls.__name__
+
+DATASETS = {
+    dataset_key: dataset_cls.__name__
+    for dataset_key, dataset_cls in datasets.items()
+}
+
+LOSS = {
+    'marginranking': 'MR',
+    'crossentropy': 'CE',
+    'bceaftersigmoid': 'BCE',
+    'softplus': 'SoftPlus',
+    'nssa': 'NSSA',
+}
+
+REGULARIZER = {
+    'no': 'No Reg.',
+    'transh': 'No Reg.',
+}
+
+NEGATIVE_SAMPELR = {
+    'basic': 'Basic',
+}
+
+GETTERS = {
+    'hits@10': lambda metrics: metrics['hits_at_k']['avg']['10'],
+}
+
+ABLATION_HEADERS = [
+    'dataset',
+    'model',
+    'loss',
+    'optimizer',
+    'training_loop',
+    'create_inverse_triples',
+]
+
+BINARY_ABLATION_HEADERS = {
+    'create_inverse_triples',
+    'training_loop',
+}
+
+MODEL_BYTES = 'model_bytes'
