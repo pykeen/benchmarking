@@ -1,3 +1,10 @@
+# Investigation of Top Results
+
+This document gives insight into which models, loss functions, etc. are consistently
+appearing in the top 5 experiments rated by hits@10. The ones that appear in the top 5
+experiments for every dataset are shown in **bold** in the index of each table. Note that not all tables
+show that there are consistent best performers.
+
 ## Top 5 Results for `model`
 
 |            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |

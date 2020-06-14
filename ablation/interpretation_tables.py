@@ -29,37 +29,48 @@ def main():
     """Make interpretation at top 5, 10, and 15 best."""
     df = read_collation()
     for top in (5, 10, 50):
-        with open(os.path.join(SUMMARY_DIRECTORY, f'winners_at_top_{top}.md'), 'w') as file:
+        with open(os.path.join(SUMMARY_DIRECTORY, f'winners_at_top_{top:02}.md'), 'w') as file:
             configurations = [
                 'model', 'loss', 'training_loop', 'create_inverse_triples',
                 ('model', 'loss'), ('model', 'training_loop'), ('loss', 'training_loop'),
                 ('model', 'loss', 'training_loop'),
             ]
+            target = 'hits@10'
+            print('# Investigation of Top Results\n', file=file)
+            print(f'''This document gives insight into which models, loss functions, etc. are consistently
+appearing in the top {top} experiments rated by {target}. The ones that appear in the top {top}
+experiments for every dataset are shown in **bold** in the index of each table. Note that not all tables
+show that there are consistent best performers.
+''', file=file)
             for config in configurations:
-                print_winners(df=df, top=top, file=file, config=config)
+                print_winners(df=df, top=top, target=target, file=file, config=config)
 
 
 def get_winners_df(
+    *,
     df: pd.DataFrame,
     top: int,
+    target: str,
     config: Union[str, Iterable[str]],
 ) -> pd.DataFrame:
     if isinstance(config, str):
         config = [config]
     d = {}
     for dataset, sub_df in df.groupby('dataset'):
-        top_df = sub_df.sort_values('hits@10', ascending=False).head(top)
+        top_df = sub_df.sort_values(target, ascending=False).head(top)
         d[dataset] = Counter('_'.join(r) for r in zip(*(top_df[t] for t in config)))
     return pd.DataFrame.from_dict(d).fillna(0).astype(int)
 
 
 def print_winners(
+    *,
     df: pd.DataFrame,
     top: int,
+    target: str,
     config: Union[str, Iterable[str]],
     file: Optional[TextIO] = None,
 ) -> None:
-    r = get_winners_df(df=df, top=top, config=config)
+    r = get_winners_df(df=df, top=top, config=config, target=target)
 
     r_transpose = r.transpose()
     winners = {
