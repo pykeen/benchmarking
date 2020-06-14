@@ -1,11 +1,11 @@
-# Investigation of Top Results
+# Investigation of Top 10 Results
 
 This document gives insight into which models, loss functions, etc. are consistently
-appearing in the top 10 experiments rated by hits@10. The ones that appear in the top 10
+appearing in the top 10 experiments rated by hits@10 for **all** datasets. The ones that appear in the top 10
 experiments for every dataset are shown in **bold** in the index of each table. Note that not all tables
 show that there are consistent best performers.
 
-## Top 10 Results for `model`
+## Investigation of `model`
 
 |            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |------------|------------|------------|----------|-----------|
@@ -21,7 +21,7 @@ show that there are consistent best performers.
 | HolE       |          0 |          0 |        0 |         1 |
 
 
-## Top 10 Results for `loss`
+## Investigation of `loss`
 
 |              |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |--------------|------------|------------|----------|-----------|
@@ -32,7 +32,7 @@ show that there are consistent best performers.
 | MR           |          1 |          4 |        0 |         0 |
 
 
-## Top 10 Results for `training_loop`
+## Investigation of `training_loop`
 
 |         |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |---------|------------|------------|----------|-----------|
@@ -40,7 +40,7 @@ show that there are consistent best performers.
 | LCWA    |          7 |          4 |        8 |         0 |
 
 
-## Top 10 Results for `create_inverse_triples`
+## Investigation of `create_inverse_triples`
 
 |           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------|------------|------------|----------|-----------|
@@ -48,7 +48,7 @@ show that there are consistent best performers.
 | **True**  |          7 |          8 |        6 |         5 |
 
 
-## Top 10 Results for `model-loss`
+## Investigation of `model-loss`
 
 |                  |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |------------------|------------|------------|----------|-----------|
@@ -76,7 +76,7 @@ show that there are consistent best performers.
 | HolE_BCE         |          0 |          0 |        0 |         1 |
 
 
-## Top 10 Results for `model-training_loop`
+## Investigation of `model-training_loop`
 
 |                |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------|------------|------------|----------|-----------|
@@ -95,7 +95,7 @@ show that there are consistent best performers.
 | HolE_OWA       |          0 |          0 |        0 |         1 |
 
 
-## Top 10 Results for `loss-training_loop`
+## Investigation of `loss-training_loop`
 
 |               |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |---------------|------------|------------|----------|-----------|
@@ -108,7 +108,7 @@ show that there are consistent best performers.
 | BCE_OWA       |          0 |          0 |        0 |         3 |
 
 
-## Top 10 Results for `model-loss-training_loop`
+## Investigation of `model-loss-training_loop`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Make interpretaion tables
+"""Make interpretation tables
 
 1.) Which interaction model was always among the top 5/top 10-performing configurations for each dataset?
 2.) Which loss function was always among the top 5/top 10-performing configuration for each dataset?
@@ -36,9 +36,9 @@ def main():
                 ('model', 'loss', 'training_loop'),
             ]
             target = 'hits@10'
-            print('# Investigation of Top Results\n', file=file)
+            print(f'# Investigation of Top {top} Results\n', file=file)
             print(f'''This document gives insight into which models, loss functions, etc. are consistently
-appearing in the top {top} experiments rated by {target}. The ones that appear in the top {top}
+appearing in the top {top} experiments rated by {target} for **all** datasets. The ones that appear in the top {top}
 experiments for every dataset are shown in **bold** in the index of each table. Note that not all tables
 show that there are consistent best performers.
 ''', file=file)
@@ -80,7 +80,7 @@ def print_winners(
     }
 
     title = config if isinstance(config, str) else "-".join(config)
-    print(f'## Top {top} Results for `{title}`\n', file=file)
+    print(f'## Investigation of `{title}`\n', file=file)
 
     # Add bold to winners
     r.index = [
