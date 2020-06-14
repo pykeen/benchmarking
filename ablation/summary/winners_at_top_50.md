@@ -53,7 +53,7 @@ show that there are consistent best performers.
 | **True**  |         26 |         45 |       24 |        24 |
 
 
-## Investigation of ``model` and `loss``
+## Investigation of `model` and `loss`
 
 |                       |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------------------|------------|------------|----------|-----------|
@@ -114,7 +114,7 @@ show that there are consistent best performers.
 | ERMLP and MR          |          0 |          0 |        0 |         1 |
 
 
-## Investigation of ``model` and `training_loop``
+## Investigation of `model` and `training_loop`
 
 |                    |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |--------------------|------------|------------|----------|-----------|
@@ -146,7 +146,7 @@ show that there are consistent best performers.
 | RESCAL and OWA     |          0 |          0 |        0 |         5 |
 
 
-## Investigation of ``loss` and `training_loop``
+## Investigation of `loss` and `training_loop`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
@@ -159,7 +159,7 @@ show that there are consistent best performers.
 | BCE and OWA          |          0 |          7 |        4 |        12 |
 
 
-## Investigation of ``model`, `loss`, and `training_loop``
+## Investigation of `model`, `loss`, and `training_loop`
 
 |                             |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------------------------|------------|------------|----------|-----------|

@@ -42,7 +42,7 @@ show that there are consistent best performers.
 | **True**  |          3 |          4 |        3 |         3 |
 
 
-## Investigation of ``model` and `loss``
+## Investigation of `model` and `loss`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
@@ -61,7 +61,7 @@ show that there are consistent best performers.
 | ComplEx and NSSA     |          0 |          0 |        0 |         1 |
 
 
-## Investigation of ``model` and `training_loop``
+## Investigation of `model` and `training_loop`
 
 |                    |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |--------------------|------------|------------|----------|-----------|
@@ -73,7 +73,7 @@ show that there are consistent best performers.
 | ComplEx and OWA    |          0 |          0 |        0 |         4 |
 
 
-## Investigation of ``loss` and `training_loop``
+## Investigation of `loss` and `training_loop`
 
 |                   |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-------------------|------------|------------|----------|-----------|
@@ -86,7 +86,7 @@ show that there are consistent best performers.
 | SoftPlus and OWA  |          0 |          0 |        0 |         2 |
 
 
-## Investigation of ``model`, `loss`, and `training_loop``
+## Investigation of `model`, `loss`, and `training_loop`
 
 |                            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------------|------------|------------|----------|-----------|

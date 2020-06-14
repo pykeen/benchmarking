@@ -91,8 +91,8 @@ def print_winners(
         if r_transpose[column].all()
     }
 
-    title = config if isinstance(config, str) else make_index([f'`{c}`' for c in config])
-    print(f'## Investigation of `{title}`\n', file=file)
+    title = f'`{config}`' if isinstance(config, str) else make_index([f'`{c}`' for c in config])
+    print(f'## Investigation of {title}\n', file=file)
 
     # Add bold to winners
     r.index = [
