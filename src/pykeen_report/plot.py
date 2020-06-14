@@ -845,17 +845,31 @@ def get_skyline_df(
     :param smaller_is_better: Whether smaller or larger values are better. One value per column.
     :return: The skyline as sub-dataframe
     """
-    x = df[columns].values
+    skyline_idx = get_skyline_idx(df=df, columns=columns, smaller_is_better=smaller_is_better)
+    return df.iloc[skyline_idx]
 
+
+def get_skyline_idx(
+    df: pd.DataFrame,
+    columns: List[str],
+    smaller_is_better: Tuple[bool, ...],
+):
+    """Get the skyline which contains all entries which are not dominated by another entry.
+​
+    :param columns: name of columns to use for the skyline
+    :param df: A dataframe of skyline candidates.
+    :param smaller_is_better: Whether smaller or larger values are better. One value per column.
+    :return: The indices of the skyline.
+    """
+    x = df[columns].values
     # skyline candidates can only be found in the convex hull
     hull = ConvexHull(x)
     candidates = hull.vertices
     x = x[candidates].copy()
-
     # turn sign for values where smaller is better => larger is always better
     x[:, smaller_is_better] *= -1
-
     # x[i, :] is dominated by x[j, :] if stronger(x[i, k], x[j, k]).all()
     # the skyline consists of points which are **not** dominated
     selected_candidates, = (~(x[:, None, :] < x[None, :, :]).all(axis=-1).any(axis=1)).nonzero()
-    return df.iloc[candidates[selected_candidates]]
+    skyline_idx = candidates[selected_candidates]
+    return skyline_idx
