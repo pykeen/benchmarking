@@ -48,92 +48,92 @@ show that there are consistent best performers.
 | **True**  |          7 |          8 |        6 |         5 |
 
 
-## Investigation of `model-loss`
-
-|                  |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|------------------|------------|------------|----------|-----------|
-| **RotatE_NSSA**  |          2 |          1 |        2 |         2 |
-| DistMult_CE      |          1 |          0 |        0 |         0 |
-| RotatE_BCE       |          1 |          0 |        2 |         0 |
-| RotatE_CE        |          1 |          0 |        0 |         0 |
-| TuckER_SoftPlus  |          1 |          2 |        0 |         0 |
-| RESCAL_CE        |          1 |          0 |        0 |         0 |
-| TransE_CE        |          1 |          0 |        0 |         0 |
-| RotatE_SoftPlus  |          1 |          0 |        2 |         0 |
-| TransE_MR        |          1 |          0 |        0 |         0 |
-| TuckER_CE        |          0 |          1 |        1 |         0 |
-| TuckER_MR        |          0 |          3 |        0 |         0 |
-| TuckER_BCE       |          0 |          1 |        0 |         0 |
-| RotatE_MR        |          0 |          1 |        0 |         0 |
-| SimplE_BCE       |          0 |          1 |        0 |         0 |
-| TransE_SoftPlus  |          0 |          0 |        1 |         0 |
-| ConvE_CE         |          0 |          0 |        1 |         0 |
-| TransE_BCE       |          0 |          0 |        1 |         0 |
-| ComplEx_BCE      |          0 |          0 |        0 |         2 |
-| ComplEx_SoftPlus |          0 |          0 |        0 |         2 |
-| ComplEx_NSSA     |          0 |          0 |        0 |         2 |
-| ERMLP_SoftPlus   |          0 |          0 |        0 |         1 |
-| HolE_BCE         |          0 |          0 |        0 |         1 |
-
-
-## Investigation of `model-training_loop`
-
-|                |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|----------------|------------|------------|----------|-----------|
-| **RotatE_OWA** |          2 |          2 |        2 |         2 |
-| DistMult_LCWA  |          1 |          0 |        0 |         0 |
-| RotatE_LCWA    |          3 |          0 |        4 |         0 |
-| TuckER_LCWA    |          1 |          3 |        1 |         0 |
-| RESCAL_LCWA    |          1 |          0 |        0 |         0 |
-| TransE_LCWA    |          1 |          0 |        2 |         0 |
-| TransE_OWA     |          1 |          0 |        0 |         0 |
-| TuckER_OWA     |          0 |          4 |        0 |         0 |
-| SimplE_LCWA    |          0 |          1 |        0 |         0 |
-| ConvE_LCWA     |          0 |          0 |        1 |         0 |
-| ComplEx_OWA    |          0 |          0 |        0 |         6 |
-| ERMLP_OWA      |          0 |          0 |        0 |         1 |
-| HolE_OWA       |          0 |          0 |        0 |         1 |
-
-
-## Investigation of `loss-training_loop`
-
-|               |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|---------------|------------|------------|----------|-----------|
-| **NSSA_OWA**  |          2 |          1 |        2 |         4 |
-| CE_LCWA       |          4 |          1 |        2 |         0 |
-| BCE_LCWA      |          1 |          2 |        3 |         0 |
-| SoftPlus_LCWA |          2 |          1 |        3 |         0 |
-| MR_OWA        |          1 |          4 |        0 |         0 |
-| SoftPlus_OWA  |          0 |          1 |        0 |         3 |
-| BCE_OWA       |          0 |          0 |        0 |         3 |
-
-
-## Investigation of `model-loss-training_loop`
+## Investigation of ``model` and `loss``
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
-| **RotatE_NSSA_OWA**  |          2 |          1 |        2 |         2 |
-| DistMult_CE_LCWA     |          1 |          0 |        0 |         0 |
-| RotatE_BCE_LCWA      |          1 |          0 |        2 |         0 |
-| RotatE_CE_LCWA       |          1 |          0 |        0 |         0 |
-| TuckER_SoftPlus_LCWA |          1 |          1 |        0 |         0 |
-| RESCAL_CE_LCWA       |          1 |          0 |        0 |         0 |
-| TransE_CE_LCWA       |          1 |          0 |        0 |         0 |
-| RotatE_SoftPlus_LCWA |          1 |          0 |        2 |         0 |
-| TransE_MR_OWA        |          1 |          0 |        0 |         0 |
-| TuckER_CE_LCWA       |          0 |          1 |        1 |         0 |
-| TuckER_MR_OWA        |          0 |          3 |        0 |         0 |
-| TuckER_BCE_LCWA      |          0 |          1 |        0 |         0 |
-| RotatE_MR_OWA        |          0 |          1 |        0 |         0 |
-| SimplE_BCE_LCWA      |          0 |          1 |        0 |         0 |
-| TuckER_SoftPlus_OWA  |          0 |          1 |        0 |         0 |
-| TransE_SoftPlus_LCWA |          0 |          0 |        1 |         0 |
-| ConvE_CE_LCWA        |          0 |          0 |        1 |         0 |
-| TransE_BCE_LCWA      |          0 |          0 |        1 |         0 |
-| ComplEx_BCE_OWA      |          0 |          0 |        0 |         2 |
-| ComplEx_SoftPlus_OWA |          0 |          0 |        0 |         2 |
-| ComplEx_NSSA_OWA     |          0 |          0 |        0 |         2 |
-| ERMLP_SoftPlus_OWA   |          0 |          0 |        0 |         1 |
-| HolE_BCE_OWA         |          0 |          0 |        0 |         1 |
+| **RotatE and NSSA**  |          2 |          1 |        2 |         2 |
+| DistMult and CE      |          1 |          0 |        0 |         0 |
+| RotatE and BCE       |          1 |          0 |        2 |         0 |
+| RotatE and CE        |          1 |          0 |        0 |         0 |
+| TuckER and SoftPlus  |          1 |          2 |        0 |         0 |
+| RESCAL and CE        |          1 |          0 |        0 |         0 |
+| TransE and CE        |          1 |          0 |        0 |         0 |
+| RotatE and SoftPlus  |          1 |          0 |        2 |         0 |
+| TransE and MR        |          1 |          0 |        0 |         0 |
+| TuckER and CE        |          0 |          1 |        1 |         0 |
+| TuckER and MR        |          0 |          3 |        0 |         0 |
+| TuckER and BCE       |          0 |          1 |        0 |         0 |
+| RotatE and MR        |          0 |          1 |        0 |         0 |
+| SimplE and BCE       |          0 |          1 |        0 |         0 |
+| TransE and SoftPlus  |          0 |          0 |        1 |         0 |
+| ConvE and CE         |          0 |          0 |        1 |         0 |
+| TransE and BCE       |          0 |          0 |        1 |         0 |
+| ComplEx and BCE      |          0 |          0 |        0 |         2 |
+| ComplEx and SoftPlus |          0 |          0 |        0 |         2 |
+| ComplEx and NSSA     |          0 |          0 |        0 |         2 |
+| ERMLP and SoftPlus   |          0 |          0 |        0 |         1 |
+| HolE and BCE         |          0 |          0 |        0 |         1 |
+
+
+## Investigation of ``model` and `training_loop``
+
+|                    |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|--------------------|------------|------------|----------|-----------|
+| **RotatE and OWA** |          2 |          2 |        2 |         2 |
+| DistMult and LCWA  |          1 |          0 |        0 |         0 |
+| RotatE and LCWA    |          3 |          0 |        4 |         0 |
+| TuckER and LCWA    |          1 |          3 |        1 |         0 |
+| RESCAL and LCWA    |          1 |          0 |        0 |         0 |
+| TransE and LCWA    |          1 |          0 |        2 |         0 |
+| TransE and OWA     |          1 |          0 |        0 |         0 |
+| TuckER and OWA     |          0 |          4 |        0 |         0 |
+| SimplE and LCWA    |          0 |          1 |        0 |         0 |
+| ConvE and LCWA     |          0 |          0 |        1 |         0 |
+| ComplEx and OWA    |          0 |          0 |        0 |         6 |
+| ERMLP and OWA      |          0 |          0 |        0 |         1 |
+| HolE and OWA       |          0 |          0 |        0 |         1 |
+
+
+## Investigation of ``loss` and `training_loop``
+
+|                   |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|-------------------|------------|------------|----------|-----------|
+| **NSSA and OWA**  |          2 |          1 |        2 |         4 |
+| CE and LCWA       |          4 |          1 |        2 |         0 |
+| BCE and LCWA      |          1 |          2 |        3 |         0 |
+| SoftPlus and LCWA |          2 |          1 |        3 |         0 |
+| MR and OWA        |          1 |          4 |        0 |         0 |
+| SoftPlus and OWA  |          0 |          1 |        0 |         3 |
+| BCE and OWA       |          0 |          0 |        0 |         3 |
+
+
+## Investigation of ``model`, `loss`, and `training_loop``
+
+|                            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|----------------------------|------------|------------|----------|-----------|
+| **RotatE, NSSA, and OWA**  |          2 |          1 |        2 |         2 |
+| DistMult, CE, and LCWA     |          1 |          0 |        0 |         0 |
+| RotatE, BCE, and LCWA      |          1 |          0 |        2 |         0 |
+| RotatE, CE, and LCWA       |          1 |          0 |        0 |         0 |
+| TuckER, SoftPlus, and LCWA |          1 |          1 |        0 |         0 |
+| RESCAL, CE, and LCWA       |          1 |          0 |        0 |         0 |
+| TransE, CE, and LCWA       |          1 |          0 |        0 |         0 |
+| RotatE, SoftPlus, and LCWA |          1 |          0 |        2 |         0 |
+| TransE, MR, and OWA        |          1 |          0 |        0 |         0 |
+| TuckER, CE, and LCWA       |          0 |          1 |        1 |         0 |
+| TuckER, MR, and OWA        |          0 |          3 |        0 |         0 |
+| TuckER, BCE, and LCWA      |          0 |          1 |        0 |         0 |
+| RotatE, MR, and OWA        |          0 |          1 |        0 |         0 |
+| SimplE, BCE, and LCWA      |          0 |          1 |        0 |         0 |
+| TuckER, SoftPlus, and OWA  |          0 |          1 |        0 |         0 |
+| TransE, SoftPlus, and LCWA |          0 |          0 |        1 |         0 |
+| ConvE, CE, and LCWA        |          0 |          0 |        1 |         0 |
+| TransE, BCE, and LCWA      |          0 |          0 |        1 |         0 |
+| ComplEx, BCE, and OWA      |          0 |          0 |        0 |         2 |
+| ComplEx, SoftPlus, and OWA |          0 |          0 |        0 |         2 |
+| ComplEx, NSSA, and OWA     |          0 |          0 |        0 |         2 |
+| ERMLP, SoftPlus, and OWA   |          0 |          0 |        0 |         1 |
+| HolE, BCE, and OWA         |          0 |          0 |        0 |         1 |
 
 

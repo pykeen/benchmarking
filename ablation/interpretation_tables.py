@@ -58,8 +58,20 @@ def get_winners_df(
     d = {}
     for dataset, sub_df in df.groupby('dataset'):
         top_df = sub_df.sort_values(target, ascending=False).head(top)
-        d[dataset] = Counter('_'.join(r) for r in zip(*(top_df[t] for t in config)))
+
+        d[dataset] = Counter(make_index(r) for r in zip(*(top_df[t] for t in config)))
     return pd.DataFrame.from_dict(d).fillna(0).astype(int)
+
+
+def make_index(r):
+    if len(r) > 2:
+        return ', '.join(r[:-1]) + f', and {r[-1]}'
+    if len(r) == 1:
+        return r[0]
+    if len(r) == 2:
+        return ' and '.join(r)
+    else:
+        raise ValueError
 
 
 def print_winners(
@@ -79,7 +91,7 @@ def print_winners(
         if r_transpose[column].all()
     }
 
-    title = config if isinstance(config, str) else "-".join(config)
+    title = config if isinstance(config, str) else make_index([f'`{c}`' for c in config])
     print(f'## Investigation of `{title}`\n', file=file)
 
     # Add bold to winners
