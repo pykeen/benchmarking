@@ -135,12 +135,22 @@ def make_plots(
         )
 
 
-def make_sizeplots(output_directory: str, make_png: bool = True, make_pdf: bool = True) -> None:
+def make_sizeplots(
+    *,
+    output_directory: str,
+    target_y_header: str,
+    make_png: bool = True,
+    make_pdf: bool = True,
+) -> None:
     df = read_collation()
-    for header in (MODEL_BYTES, 'training_time'):
+    sns.set(style='whitegrid')
+    for target_x_header in (MODEL_BYTES, 'training_time'):
         pkp.make_sizeplots_trellised(
-            df=df, target_header=header, output_directory=output_directory,
-            make_png=make_png, make_pdf=make_pdf,
+            df=df, target_x_header=target_x_header, target_y_header=target_y_header,
+            output_directory=output_directory,
+            make_png=make_png,
+            make_pdf=make_pdf,
+            name=f'trellis_scatter_{target_x_header}',
         )
 
 
@@ -156,8 +166,8 @@ def main():
     output_directory = os.path.join(SUMMARY_DIRECTORY, 'paper')
     os.makedirs(output_directory, exist_ok=True)
 
-    make_plots(target_header=key, output_directory=output_directory)
-    make_sizeplots(output_directory=output_directory)
+    #make_plots(target_header=key, output_directory=output_directory)
+    make_sizeplots(output_directory=output_directory, target_y_header=key)
     click.echo('done!')
 
 

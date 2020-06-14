@@ -58,7 +58,10 @@ def make_plots(
     sizeplot_dir = os.path.join(SUMMARY_DIRECTORY, 'sizeplots')
     os.makedirs(sizeplot_dir, exist_ok=True)
     pkp.make_sizeplots_trellised(
-        df=df, target_header=target_header, output_directory=sizeplot_dir,
+        df=df,
+        target_x_header='model_bytes',
+        target_y_header=target_header,
+        output_directory=sizeplot_dir,
         make_pdf=make_pdf, make_png=make_png,
     )
 
