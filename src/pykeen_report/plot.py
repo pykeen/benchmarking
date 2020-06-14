@@ -717,81 +717,145 @@ def write_1d_sliced_summaries(
                 print(f'<img src="{ablation_header}_{v}.png" alt="{v}"/>\n', file=file)
 
 
+def _skyline_plot(
+    x: str,
+    y: str,
+    data: pd.DataFrame,
+    **kwargs,
+):
+    order = [False, True]
+    sizes = {
+        False: 40,
+        True: 100,
+    }
+    alpha = kwargs.pop('alpha', 1.0)
+    alpha_non_skyline = max(alpha / 2, 0.1)
+    # skyline
+    sns.scatterplot(
+        x=data.loc[data['skyline'], x],
+        y=data.loc[data['skyline'], y],
+        size=data['skyline'],
+        size_order=order,
+        sizes=sizes,
+        alpha=alpha,
+        marker='x',
+        **kwargs,
+    )
+    sns.scatterplot(
+        x=data.loc[~data['skyline'], x],
+        y=data.loc[~data['skyline'], y],
+        size=data['skyline'],
+        size_order=order,
+        sizes=sizes,
+        alpha=alpha_non_skyline,
+        marker='.',
+        **kwargs,
+    )
+
+
 def make_sizeplots_trellised(
-    *, df: pd.DataFrame, target_header: str = MODEL_BYTES, output_directory: str,
+    *,
+    df: pd.DataFrame,
+    target_x_header: str,
+    target_y_header: str,
+    output_directory: str,
     make_png: bool = True,
     make_pdf: bool = True,
+    name: Optional[str] = None,
 ) -> None:
     hue_order = sorted(df['model'].unique())
-    for optimizer, sdf in tqdm(df.groupby('optimizer'), desc=f'making super-optimizer plots for {target_header}'):
-        g = sns.FacetGrid(
-            data=sdf,
-            hue='model',
-            hue_order=hue_order,
-            col='dataset',
-            col_wrap=2,
-            sharex=False,
-            sharey=False,
-            height=4,
+    sdf = df.copy()
+    sdf['skyline'] = False
+    for dataset, sub_df in df.groupby(by='dataset'):
+        skyline_df = get_skyline_df(
+            df=sub_df,
+            columns=[target_x_header, target_y_header],
+            smaller_is_better=(True, False),
         )
-        g.map(
-            sns.scatterplot,
-            target_header,
-            'hits@10',
-            alpha=0.5,
-            x_jitter=100,
-        )
+        sdf.loc[skyline_df.index, 'skyline'] = True
 
-        for ax, dataset in zip(g.axes, g.col_names):
-            try:
-                skyline_df = get_skyline_df(
-                    sdf[sdf['dataset'] == dataset],
-                    columns=[target_header, 'hits@10'],
-                    smaller_is_better=(True, False),
-                )
-            except scipy.spatial.qhull.QhullError:
-                pass
-            else:
-                sns.lineplot(
-                    x=target_header,
-                    y='hits@10',
-                    data=skyline_df,
-                    estimator=None,
-                    markers=True,
-                    legend=False,
-                    ax=ax,
-                )
+    skyline_models = sorted(set(sdf.loc[sdf.skyline, 'model']))
 
-        g.set(xlabel=target_header.replace('_', ' ').title(), xscale='log')
-        g.set_titles(template='{col_name}', fontsize=20)
+    g = sns.FacetGrid(
+        data=sdf,
+        hue='model',
+        hue_order=hue_order,
+        col='dataset',
+        col_wrap=2,
+        sharex=False,
+        sharey=False,
+        height=4,
+        legend_out=True,
+    )
+    for ax, dataset in zip(g.axes, g.col_names):
+        try:
+            skyline_df = get_skyline_df(
+                sdf[sdf['dataset'] == dataset],
+                columns=[target_x_header, target_y_header],
+                smaller_is_better=(True, False),
+            )
+        except scipy.spatial.qhull.QhullError:
+            pass
+        else:
+            sns.lineplot(
+                x=target_x_header,
+                y=target_y_header,
+                data=skyline_df,
+                estimator=None,
+                markers=True,
+                legend=False,
+                ax=ax,
+                color='black',
+                alpha=.2,
+            )
+    g.map_dataframe(
+        _skyline_plot,
+        target_x_header,
+        target_y_header,
+        alpha=1.0,
+    )
 
-        g.fig.tight_layout()
-        if make_png:
-            g.savefig(os.path.join(output_directory, f'trellis_scatter_{target_header}_{optimizer}.png'.lower()),
-                      dpi=300)
-        if make_pdf:
-            g.savefig(os.path.join(output_directory, f'trellis_scatter_{target_header}_{optimizer}.pdf'.lower()))
-        plt.close(g.fig)
+    g.set(xlabel=target_x_header.replace('_', ' ').title(), xscale='log')
+    g.set_titles(template='{col_name}', fontsize=20)
+
+    with plt.rc_context({'axes.labelsize': 'large'}):
+        g.add_legend(label_order=skyline_models, title='Model', loc='center right')
+
+    # redundant
+    g.axes[0].set_xlabel('')
+    g.axes[1].set_xlabel('')
+
+    if name is None:
+        name = f'trellis_scatter_{target_x_header}'
+    if make_png:
+        g.savefig(os.path.join(output_directory, f'{name}.png'.lower()), dpi=300)
+    if make_pdf:
+        g.savefig(os.path.join(output_directory, f'{name}.pdf'.lower()))
+    plt.close(g.fig)
 
 
 def make_grouped_sizeplots(
-    *, df, target_header: str, output_directory: str,
+    *,
+    df: pd.DataFrame,
+    target_x_header: str,
+    target_y_header: str,
+    output_directory: str,
     make_png: bool = True,
     make_pdf: bool = True,
 ) -> None:
     it = tqdm(
         df.groupby(['dataset', 'optimizer']),
-        desc=f'making sizeplots for {target_header}'
+        desc=f'making sizeplots for {target_x_header}'
     )
-    min_bytes = df[target_header].min()
-    max_bytes = df[target_header].max()
+    min_bytes = df[target_x_header].min()
+    max_bytes = df[target_x_header].max()
 
     for (dataset, optimizer), sdf in it:
         fig, ax = plt.subplots(figsize=(8, 5))
 
         g = sns.scatterplot(
-            x=target_header,
-            y='hits@10',
+            x=target_x_header,
+            y=target_y_header,
             data=sdf,
             alpha=0.75,
             hue='model',
@@ -801,15 +865,15 @@ def make_grouped_sizeplots(
         try:
             skyline_df = get_skyline_df(
                 sdf[sdf['dataset'] == dataset],
-                columns=[target_header, 'hits@10'],
+                columns=[target_x_header, target_y_header],
                 smaller_is_better=(True, False),
             )
         except scipy.spatial.qhull.QhullError:
             it.write(f'Not enough data points to make make hull for {dataset}/{optimizer}')
         else:
             sns.lineplot(
-                x=target_header,
-                y='hits@10',
+                x=target_x_header,
+                y=target_y_header,
                 data=skyline_df,
                 estimator=None,
                 markers=True,
@@ -819,16 +883,16 @@ def make_grouped_sizeplots(
 
         ax.set_xlim([min_bytes, max_bytes])
         ax.set_ylim([0.0, 1.0])
-        ax.set_xlabel(target_header.replace('_', ' ').title())
+        ax.set_xlabel(target_x_header.replace('_', ' ').title())
         g.set(xscale='log')
         g.legend(loc='center left', bbox_to_anchor=(1.05, 0.5), ncol=1)
-        ax.set_title(f'{dataset} - {optimizer} - {target_header}  ({len(sdf.index)} experiments)')
+        ax.set_title(f'{dataset} - {optimizer} - {target_x_header}  ({len(sdf.index)} experiments)')
 
         plt.tight_layout()
         if make_pdf:
-            plt.savefig(os.path.join(output_directory, f'scatter_{target_header}_{dataset}_{optimizer}.pdf'.lower()))
+            plt.savefig(os.path.join(output_directory, f'scatter_{target_x_header}_{dataset}_{optimizer}.pdf'.lower()))
         if make_png:
-            plt.savefig(os.path.join(output_directory, f'scatter_{target_header}_{dataset}_{optimizer}.png'.lower()),
+            plt.savefig(os.path.join(output_directory, f'scatter_{target_x_header}_{dataset}_{optimizer}.png'.lower()),
                         dpi=300)
         plt.close(fig)
 
