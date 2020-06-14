@@ -166,7 +166,7 @@ def main():
     output_directory = os.path.join(SUMMARY_DIRECTORY, 'paper')
     os.makedirs(output_directory, exist_ok=True)
 
-    #make_plots(target_header=key, output_directory=output_directory)
+    make_plots(target_header=key, output_directory=output_directory)
     make_sizeplots(output_directory=output_directory, target_y_header=key)
     click.echo('done!')
 
