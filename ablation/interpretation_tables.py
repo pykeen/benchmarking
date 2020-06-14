@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Make interpretaion tables
+"""Make interpretation tables
 
 1.) Which interaction model was always among the top 5/top 10-performing configurations for each dataset?
 2.) Which loss function was always among the top 5/top 10-performing configuration for each dataset?
@@ -14,10 +14,12 @@
 
 import os
 from collections import Counter
+from typing import Iterable, Optional, Union
 
 import click
 import pandas as pd
 from tabulate import tabulate
+from typing.io import TextIO
 
 from collate import SUMMARY_DIRECTORY, read_collation
 
@@ -27,56 +29,84 @@ def main():
     """Make interpretation at top 5, 10, and 15 best."""
     df = read_collation()
     for top in (5, 10, 50):
-        with open(os.path.join(SUMMARY_DIRECTORY, f'winners_at_top_{top}.txt'), 'w') as file:
-            _1(df, top, file=file)
-            _2(df, top, file=file)
-            _3(df, top, file=file)
+        with open(os.path.join(SUMMARY_DIRECTORY, f'winners_at_top_{top:02}.md'), 'w') as file:
+            configurations = [
+                'model', 'loss', 'training_loop', 'create_inverse_triples',
+                ('model', 'loss'), ('model', 'training_loop'), ('loss', 'training_loop'),
+                ('model', 'loss', 'training_loop'),
+            ]
+            target = 'hits@10'
+            print(f'# Investigation of Top {top} Results\n', file=file)
+            print(f'''This document gives insight into which models, loss functions, etc. are consistently
+appearing in the top {top} experiments rated by {target} for **all** datasets. The ones that appear in the top {top}
+experiments for every dataset are shown in **bold** in the index of each table. Note that not all tables
+show that there are consistent best performers.
+''', file=file)
+            for config in configurations:
+                print_winners(df=df, top=top, target=target, file=file, config=config)
 
 
-def _1(df, top, file):
-    for key in ['model', 'loss', 'training_loop', 'create_inverse_triples']:
-        d = {}
-        for dataset, sub_df in df.groupby('dataset'):
-            top_df = sub_df.sort_values('hits@10', ascending=False).head(top)
-            d[dataset] = Counter(top_df[key])
-        r = pd.DataFrame.from_dict(d).fillna(0).astype(int)
-        print(f'TOP RESULTS FOR {key} (N={top})', file=file)
-        print(tabulate(r, headers=r.columns), file=file)
-        _print_winners(r, top, file=file)
-        print('', file=file)
+def get_winners_df(
+    *,
+    df: pd.DataFrame,
+    top: int,
+    target: str,
+    config: Union[str, Iterable[str]],
+) -> pd.DataFrame:
+    if isinstance(config, str):
+        config = [config]
+    d = {}
+    for dataset, sub_df in df.groupby('dataset'):
+        top_df = sub_df.sort_values(target, ascending=False).head(top)
+
+        d[dataset] = Counter(make_index(r) for r in zip(*(top_df[t] for t in config)))
+    return pd.DataFrame.from_dict(d).fillna(0).astype(int)
 
 
-def _2(df, top, file):
-    for a, b in [('model', 'loss'), ('model', 'training_loop'), ('loss', 'training_loop')]:
-        d = {}
-        for dataset, sub_df in df.groupby('dataset'):
-            top_df = sub_df.sort_values('hits@10', ascending=False).head(top)
-            d[dataset] = Counter(f'{x}_{y}' for x, y in zip(top_df[a], top_df[b]))
-        r = pd.DataFrame.from_dict(d).fillna(0).astype(int)
-        print(f'TOP RESULTS FOR {a}-{b} (N={top})', file=file)
-        print(tabulate(r, headers=r.columns), file=file)
-        _print_winners(r, top, file=file)
-        print('', file=file)
+def make_index(r):
+    if len(r) > 2:
+        return ', '.join(r[:-1]) + f', and {r[-1]}'
+    if len(r) == 1:
+        return r[0]
+    if len(r) == 2:
+        return ' and '.join(r)
+    else:
+        raise ValueError
 
 
-def _3(df, top, file):
-    for a, b, c in [('model', 'loss', 'training_loop')]:
-        d = {}
-        for dataset, sub_df in df.groupby('dataset'):
-            top_df = sub_df.sort_values('hits@10', ascending=False).head(top)
-            d[dataset] = Counter(f'{x}_{y}_{z}' for x, y, z in zip(top_df[a], top_df[b], top_df[c]))
-        r = pd.DataFrame.from_dict(d).fillna(0).astype(int)
-        print(f'TOP RESULTS FOR {a}-{b}-{c} (N={top})', file=file)
-        print(tabulate(r, headers=r.columns), file=file)
-        _print_winners(r, top, file=file)
-        print('', file=file)
+def print_winners(
+    *,
+    df: pd.DataFrame,
+    top: int,
+    target: str,
+    config: Union[str, Iterable[str]],
+    file: Optional[TextIO] = None,
+) -> None:
+    r = get_winners_df(df=df, top=top, config=config, target=target)
 
-
-def _print_winners(r, top, file):
     r_transpose = r.transpose()
-    for column in r_transpose.columns:
-        if r_transpose[column].all():
-            print(f'Winner at N={top}: {column}', file=file)
+    winners = {
+        column
+        for column in r_transpose.columns
+        if r_transpose[column].all()
+    }
+
+    title = f'`{config}`' if isinstance(config, str) else make_index([f'`{c}`' for c in config])
+    print(f'## Investigation of {title}\n', file=file)
+
+    # Add bold to winners
+    r.index = [
+        (
+            f'**{i}**'
+            if i in winners
+            else i
+        )
+        for i in r.index
+    ]
+
+    print(tabulate(r, headers=r.columns, tablefmt='github'), file=file)
+    print(file=file)
+    print('', file=file)
 
 
 if __name__ == '__main__':

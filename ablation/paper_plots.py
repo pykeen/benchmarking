@@ -91,7 +91,8 @@ def make_plots(
         # 2-way plots
         for y, hue in [
             ('loss_assumption', 'create_inverse_triples'),
-            ('loss_assumption', 'training_loop'),
+            ('loss', 'create_inverse_triples'),
+            ('loss', 'training_loop'),
             ('training_loop', 'create_inverse_triples'),
         ]:
             it.write(f'creating barplot: {y}/{hue} aggregated')
