@@ -1,13 +1,12 @@
 ## Top 5 Results for `model`
 
-|          |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|----------|------------|------------|----------|-----------|
-| RotatE   |          4 |          1 |        5 |         1 |
-| DistMult |          1 |          0 |        0 |         0 |
-| TuckER   |          0 |          4 |        0 |         0 |
-| ComplEx  |          0 |          0 |        0 |         4 |
+|            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|------------|------------|------------|----------|-----------|
+| **RotatE** |          4 |          1 |        5 |         1 |
+| DistMult   |          1 |          0 |        0 |         0 |
+| TuckER     |          0 |          4 |        0 |         0 |
+| ComplEx    |          0 |          0 |        0 |         4 |
 
-Winner at N=5: RotatE
 
 ## Top 5 Results for `loss`
 
@@ -15,30 +14,26 @@ Winner at N=5: RotatE
 |----------|------------|------------|----------|-----------|
 | NSSA     |          2 |          0 |        1 |         2 |
 | CE       |          2 |          1 |        0 |         0 |
-| BCE      |          1 |          1 |        2 |         1 |
+| **BCE**  |          1 |          1 |        2 |         1 |
 | SoftPlus |          0 |          1 |        2 |         2 |
 | MR       |          0 |          2 |        0 |         0 |
 
-Winner at N=5: BCE
 
 ## Top 5 Results for `training_loop`
 
-|      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|------|------------|------------|----------|-----------|
-| OWA  |          2 |          2 |        1 |         5 |
-| LCWA |          3 |          3 |        4 |         0 |
+|         |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|---------|------------|------------|----------|-----------|
+| **OWA** |          2 |          2 |        1 |         5 |
+| LCWA    |          3 |          3 |        4 |         0 |
 
-Winner at N=5: OWA
 
 ## Top 5 Results for `create_inverse_triples`
 
-|       |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|-------|------------|------------|----------|-----------|
-| False |          2 |          1 |        2 |         2 |
-| True  |          3 |          4 |        3 |         3 |
+|           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|-----------|------------|------------|----------|-----------|
+| **False** |          2 |          1 |        2 |         2 |
+| **True**  |          3 |          4 |        3 |         3 |
 
-Winner at N=5: False
-Winner at N=5: True
 
 ## Top 5 Results for `model-loss`
 
@@ -61,16 +56,15 @@ Winner at N=5: True
 
 ## Top 5 Results for `model-training_loop`
 
-|               |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|---------------|------------|------------|----------|-----------|
-| RotatE_OWA    |          2 |          1 |        1 |         1 |
-| DistMult_LCWA |          1 |          0 |        0 |         0 |
-| RotatE_LCWA   |          2 |          0 |        4 |         0 |
-| TuckER_LCWA   |          0 |          3 |        0 |         0 |
-| TuckER_OWA    |          0 |          1 |        0 |         0 |
-| ComplEx_OWA   |          0 |          0 |        0 |         4 |
+|                |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|----------------|------------|------------|----------|-----------|
+| **RotatE_OWA** |          2 |          1 |        1 |         1 |
+| DistMult_LCWA  |          1 |          0 |        0 |         0 |
+| RotatE_LCWA    |          2 |          0 |        4 |         0 |
+| TuckER_LCWA    |          0 |          3 |        0 |         0 |
+| TuckER_OWA     |          0 |          1 |        0 |         0 |
+| ComplEx_OWA    |          0 |          0 |        0 |         4 |
 
-Winner at N=5: RotatE_OWA
 
 ## Top 5 Results for `loss-training_loop`
 

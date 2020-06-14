@@ -60,19 +60,30 @@ def print_winners(
     file: Optional[TextIO] = None,
 ) -> None:
     r = get_winners_df(df=df, top=top, config=config)
+
+    r_transpose = r.transpose()
+    winners = {
+        column
+        for column in r_transpose.columns
+        if r_transpose[column].all()
+    }
+
     title = config if isinstance(config, str) else "-".join(config)
     print(f'## Top {top} Results for `{title}`\n', file=file)
+
+    # Add bold to winners
+    r.index = [
+        (
+            f'**{i}**'
+            if i in winners
+            else i
+        )
+        for i in r.index
+    ]
+
     print(tabulate(r, headers=r.columns, tablefmt='github'), file=file)
     print(file=file)
-    _print_winners_helper(r, top, file=file)
     print('', file=file)
-
-
-def _print_winners_helper(df: pd.DataFrame, top: int, file: Optional[TextIO] = None):
-    r_transpose = df.transpose()
-    for column in r_transpose.columns:
-        if r_transpose[column].all():
-            print(f'Winner at N={top}: {column}', file=file)
 
 
 if __name__ == '__main__':
