@@ -7,7 +7,7 @@ import logging
 import os
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Optional, Type, Union
+from typing import Any, Collection, Iterable, Mapping, Optional, Type, Union
 
 import pandas as pd
 from tqdm import tqdm
@@ -33,11 +33,14 @@ def collate_ablation(
     results_directory: str,
     output_path: str,
     key: str,
+    additional_metrics: Optional[Collection[str]] = None,
 ) -> pd.DataFrame:
     """Collate all results for a given metric.
 
     :param key: The metric which you care about. Should be the same one against which you
      optimized
+    :param additional_metrics:
+        Additional metrics to collect.
     """
     columns = [
         'searcher',
@@ -55,6 +58,9 @@ def collate_ablation(
         'evaluation_time',
         key,
     ]
+    if additional_metrics is None:
+        additional_metrics = []
+    columns += list(additional_metrics)
 
     directories = [
         (directory, filenames)
