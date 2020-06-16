@@ -5,7 +5,7 @@ This repository contains two main experiments:
 ## Reproducibility Study
 
 In this study, we use the KGEMs reimplemented in PyKEEN and the authors' best
-reported hyperparemeters to make reproductions of past experiments.
+reported hyperparameters to make reproductions of past experiments.
 
 ## Ablation Study
 
