@@ -3,11 +3,11 @@
 import pandas as pd
 from tabulate import tabulate
 
-from collate import HPO_RUNS_RESULTS_PATH, read_collation
+from collate import collate_hpo_experiments, read_collation
 
 
 def main():
-    hpo_df = pd.read_csv(HPO_RUNS_RESULTS_PATH, sep='\t')
+    hpo_df = collate_hpo_experiments()
     elapsed = pd.to_datetime(hpo_df['datetime_complete']) - pd.to_datetime(hpo_df['datetime_start'])
     total_elapsed = elapsed.sum()
     total_hours = round(total_elapsed / pd.Timedelta('1 hour'))

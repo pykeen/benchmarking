@@ -34,9 +34,9 @@ def collate(key: str) -> pd.DataFrame:
     )
 
 
-def collate_hpo_runs() -> pd.DataFrame:
+def collate_hpo_experiments() -> pd.DataFrame:
     """Collate all results from HPO pipelines."""
-    return pykeen_report.utils.collate_hpo_trials(
+    return pykeen_report.utils.collate_hpo_experiments(
         results_directory=RESULTS,
         output_path=HPO_RUNS_RESULTS_PATH,
     )
@@ -45,7 +45,7 @@ def collate_hpo_runs() -> pd.DataFrame:
 @click.command()
 def main():
     """Collate the hits@10 metrics and output."""
-    collate_hpo_runs()
+    collate_hpo_experiments()
     df = collate('hits@10')
     pykeen_report.utils.make_checklist_df(
         df=df,

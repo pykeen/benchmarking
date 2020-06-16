@@ -28,13 +28,13 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
-def collate_hpo_trials(
+def collate_hpo_experiments(
     *,
     results_directory: str,
     output_path: str,
 ) -> pd.DataFrame:
     """Collate all HPO trials into a single dataframe."""
-    df = pd.concat(list(_iter_hpo_trials_dataframes(results_directory)))
+    df = pd.concat(list(_iter_hpo_trials_dataframes(results_directory)), axis=0, ignore_index=True)
     df.to_csv(output_path, sep='\t', index=False)
     return df
 
