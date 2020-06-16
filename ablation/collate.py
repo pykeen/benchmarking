@@ -24,8 +24,8 @@ def read_collation() -> pd.DataFrame:
     return pykeen_report.utils.read_ablation_collation(COLLATION_PATH)
 
 
-def collate(key: str = 'hits@10') -> pd.DataFrame:
-    """Collate all results for a given metric."""
+def collate(key: str) -> pd.DataFrame:
+    """Collate all results from replicates of the best HPO pipelines (for a given metric)."""
     return pykeen_report.utils.collate_ablation(
         results_directory=RESULTS,
         output_path=COLLATION_PATH,
@@ -36,7 +36,7 @@ def collate(key: str = 'hits@10') -> pd.DataFrame:
 @click.command()
 def main():
     """Collate the hits@10 metrics and output."""
-    df = collate()
+    df = collate('hits@10')
     pykeen_report.utils.make_checklist_df(
         df=df,
         output_csv_path=CHECKLIST_TSV_PATH,
