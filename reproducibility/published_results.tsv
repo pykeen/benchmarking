@@ -1,0 +1,31 @@
+model	dataset	publication_key	mean_rank	mean_reciprocal_rank	hits_at_1	hits_at_3	hits_at_10
+ComplEx	fb15k			0.692	0.599	0.759	0.84
+ConvE	fb15k		51	0.657	0.558	0.723	0.831
+DistMult	fb15k			0.35			0.577
+HolE	fb15k			0.524	0.402	0.613	0.739
+KG2E_KL (bern)	fb15k		59				0.74
+RotatE	fb15k		40	0.797	0.746	0.83	0.884
+SimplE	fb15k			0.727	0.66	0.773	0.838
+TuckER	fb15k			0.795	0.741	0.833	0.892
+TransD (bern)	fb15k		91				0.773
+TransE	fb15k		125				0.471
+TransH (bern)	fb15k		87				0.644
+TransR (bern)	fb15k		77				0.687
+ComplEx	wn18			0.941	0.936	0.945	0.947
+ConvE	wn18		374	0.943	0.935	0.946	0.956
+DistMult	wn18			0.83			0.942
+HolE	wn18			0.938	0.93	0.945	0.949
+KG2E_KL (bern)	wn18		331				0.928
+RotatE	wn18		308	0.949	0.944	0.952	0.959
+SimplE	wn18			0.942	0.939	0.944	0.947
+TuckER	wn18			0.953	0.949	0.955	0.958
+TransD (bern)	wn18		212				0.922
+TransE	wn18		251				0.892
+TransH (bern)	wn18		388				0.823
+TransR (bern)	wn18		225				0.92
+ConvE	fb15k237		244	0.325	0.237	0.356	0.501
+ConvKB	fb15k237		257	0.396			0.517
+RotatE	fb15k237		177	0.338	0.241	0.375	0.533
+ConvE	wn18rr		4187	0.43	0.4	0.44	0.52
+ConvKB	wn18rr		2554	0.258			0.525
+RotatE	wn18rr		3340	0.476	0.428	0.492	0.571
