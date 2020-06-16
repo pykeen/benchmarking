@@ -21,7 +21,7 @@ def main():
 
     columns = [
         'searcher', 'dataset',
-        # 'create_inverse_triples',
+        'create_inverse_triples',
         'model', 'loss', 'regularizer', 'optimizer', 'training_loop',
         'negative_sampler',
     ]
@@ -32,11 +32,11 @@ def main():
     rows = [
         (k.replace('_', ' ').title() + 's', v)
         for k, v in sdf.values
-        if v > 1
+        if v > 1 and k != 'create_inverse_triples'
     ]
 
     rows.extend([
-        ('Replicates Compute Hours', replicates_hours),
+        ('Replicate Compute Hours', replicates_hours),
         ('HPO Compute Hours', total_hours),
         ('Configurations', configurations),
         ('Experiments', len(best_replicates_df.index)),
