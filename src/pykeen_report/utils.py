@@ -67,7 +67,7 @@ def collate_ablation(
         if 'hpo_config.json' not in filenames:
             logger.warning('missing hpo config in %s', directory)
             continue
-        for study in iterate_studies_from_hpo_directory(directory, key=key):
+        for study in iterate_studies_from_hpo_directory(directory, keys=[key]):
             rows.append(study)
 
     if not rows:
@@ -79,7 +79,7 @@ def collate_ablation(
     return df
 
 
-def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Mapping[str, Any]]:
+def iterate_studies_from_hpo_directory(directory: str, keys: List[str]) -> Iterable[Mapping[str, Any]]:
     study_path = os.path.join(directory, 'study.json')
     if not os.path.exists(study_path):
         logger.warning('missing study path: %s', directory)
@@ -127,7 +127,8 @@ def iterate_studies_from_hpo_directory(directory: str, key: str) -> Iterable[Map
         replicate_results_path = os.path.join(replicates_directory, replicate, 'results.json')
         with open(replicate_results_path) as file:
             replicate_results = json.load(file)
-        yv[key] = GETTERS[key](replicate_results['metrics'])
+        for key in keys:
+            yv[key] = GETTERS[key](replicate_results['metrics'])
         yv['training_time'] = replicate_results['times']['training']
         yv['evaluation_time'] = replicate_results['times']['evaluation']
         yield yv
