@@ -7,7 +7,7 @@ import logging
 import os
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Optional, Type, Union
+from typing import Any, Iterable, List, Mapping, Optional, Type, Union
 
 import pandas as pd
 from tqdm import tqdm
@@ -26,6 +26,35 @@ __all__ = [
 ]
 
 logger = logging.getLogger(__name__)
+
+
+def collate_hpo_trials(
+    *,
+    results_directory: str,
+    output_path: str,
+) -> pd.DataFrame:
+    """Collate all HPO trials into a single dataframe."""
+    df = pd.concat(list(_iter_hpo_trials_dataframes(results_directory)))
+    df.to_csv(output_path, sep='\t', index=False)
+    return df
+
+
+def _iter_hpo_trials_dataframes(results_directory) -> Iterable[pd.DataFrame]:
+    directories = [
+        directory
+        for directory, _, filenames in os.walk(results_directory)
+        if 'trials.tsv' in filenames
+    ]
+
+    for directory in tqdm(directories, desc='getting all HPO trials'):
+        head, experiment_number = os.path.split(directory)
+        experiment_number = int(experiment_number.split('_', 1)[0])
+        _, uuid = os.path.split(head)
+        uuid = uuid.split('_')[1]
+        df = pd.read_csv(os.path.join(directory, 'trials.tsv'), sep='\t')
+        df['uuid'] = uuid
+        df['experiment'] = experiment_number
+        yield df
 
 
 def collate_ablation(

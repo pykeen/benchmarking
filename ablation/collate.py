@@ -15,6 +15,7 @@ os.makedirs(SUMMARY_DIRECTORY, exist_ok=True)
 logging.getLogger('pykeen.triples.triples_factory').setLevel(logging.ERROR)
 
 COLLATION_PATH = os.path.join(SUMMARY_DIRECTORY, 'results.tsv')
+HPO_RUNS_RESULTS_PATH = os.path.join(SUMMARY_DIRECTORY, 'hpo_run_results.tsv')
 CHECKLIST_TSV_PATH = os.path.join(SUMMARY_DIRECTORY, 'checklist.tsv')
 CHECKLIST_LATEX_PATH = os.path.join(SUMMARY_DIRECTORY, 'checklist.tex')
 
@@ -33,9 +34,18 @@ def collate(key: str) -> pd.DataFrame:
     )
 
 
+def collate_hpo_runs() -> pd.DataFrame:
+    """Collate all results from HPO pipelines."""
+    return pykeen_report.utils.collate_hpo_trials(
+        results_directory=RESULTS,
+        output_path=HPO_RUNS_RESULTS_PATH,
+    )
+
+
 @click.command()
 def main():
     """Collate the hits@10 metrics and output."""
+    collate_hpo_runs()
     df = collate('hits@10')
     pykeen_report.utils.make_checklist_df(
         df=df,
