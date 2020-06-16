@@ -219,10 +219,8 @@ def generate_size_table():
     rv = df[['dataset', 'model', 'model_bytes']].drop_duplicates()
     rv['dataset'] = rv['dataset'].map(lambda s: pykeen.datasets.datasets[s].__name__)
     rv['Bytes'] = rv['model_bytes'].map(humanize.naturalsize)
-    rv['Parameters'] = rv['model_bytes'].map(lambda s: humanize.naturalsize(int(s) / 4).rstrip('B'))
-    rv.rename(columns={'dataset': 'Dataset', 'model': 'Model'}, inplace=True)
-    del rv['model_bytes']
-    rv = rv.sort_values(['Dataset', 'Model']).set_index(['Dataset', 'Model'])
+    rv = rv.pivot(index='model', columns='dataset', values='Bytes').fillna('-')
+    rv = rv[sorted(rv.columns)]
     rv.to_csv(os.path.join(SUMMARIES, 'sizes.tsv'), sep='\t')
     with open(os.path.join(SUMMARIES, 'sizes.tex'), 'w') as file:
         print(rv.to_latex(multirow=True), file=file)
