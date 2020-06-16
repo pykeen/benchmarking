@@ -4,9 +4,11 @@ import logging
 import os
 import random
 from collections import Counter
+from typing import Optional
 
 import click
 import numpy as np
+import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
@@ -19,12 +21,14 @@ sns.set(font_scale=2, style='whitegrid')
 
 def make_plots(
     *,
+    df: Optional[pd.DataFrame] = None,
     target_header: str,
     output_directory: str,
     make_pngs: bool = True,
     make_pdfs: bool = True,
 ):
-    df = read_collation()
+    if df is None:
+        df = read_collation()
     del df['training_time']
     del df['evaluation_time']
     del df['model_bytes']
