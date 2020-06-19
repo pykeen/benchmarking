@@ -36,10 +36,11 @@ def main():
     ]
 
     rows.extend([
-        ('Replicate Compute Hours', replicates_hours),
+        ('HPO Configurations', configurations),
+        ('HPO Experiments', len(hpo_df.index)),
         ('HPO Compute Hours', total_hours),
-        ('Configurations', configurations),
-        ('Experiments', len(best_replicates_df.index)),
+        ('Replicate Experiments', len(best_replicates_df.index)),
+        ('Replicate Compute Hours', replicates_hours),
     ])
     print(tabulate(rows, headers=['header', 'count'], tablefmt='github'))
 

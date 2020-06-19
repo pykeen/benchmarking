@@ -19,7 +19,7 @@ from pykeen.models.base import Model
 from pykeen.regularizers import Regularizer, get_regularizer_cls
 from pykeen.triples import TriplesFactory
 from pykeen.utils import flatten_dictionary, resolve_device
-from .constants import DATASETS, GETTERS, LOSS, MODEL, MODEL_BYTES, NEGATIVE_SAMPELR, REGULARIZER
+from .constants import DATASETS, GETTERS, LOSS, MODEL, MODEL_BYTES, NEGATIVE_SAMPELR, REGULARIZER, TRAINING_LOOP
 
 __all__ = [
     'get_model_size',
@@ -170,7 +170,7 @@ def read_ablation_collation(path: str) -> pd.DataFrame:
     df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l.lower(), l))
     df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l.lower(), l))
     df['optimizer'] = df['optimizer'].map(str.capitalize)
-    df['training_loop'] = df['training_loop'].map(str.upper)
+    df['training_loop'] = df['training_loop'].map(lambda l: TRAINING_LOOP[l.lower()])
     df['negative_sampler'] = df['negative_sampler'].map(
         lambda l: NEGATIVE_SAMPELR.get(l.lower(), l) if pd.notna(l) else 'None'
     )

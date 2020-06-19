@@ -18,7 +18,7 @@ from matplotlib import gridspec
 from scipy.spatial import ConvexHull
 from tqdm import tqdm
 
-from .constants import ABLATION_HEADERS, BINARY_ABLATION_HEADERS, MODEL_BYTES
+from .constants import ABLATION_HEADERS, BINARY_ABLATION_HEADERS
 
 logger = logging.getLogger(__name__)
 
@@ -387,7 +387,7 @@ def make_config_index(row: Mapping[str, Any]) -> str:
     return ' / '.join([
         'Inv.' if row['create_inverse_triples'] == 'True' else 'No Inv.',
         row["loss"],
-        row["training_loop"].upper(),
+        row["training_loop"],
     ])
 
 

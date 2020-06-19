@@ -15,11 +15,16 @@ DATASETS = {
 }
 
 LOSS = {
-    'marginranking': 'MR',
-    'crossentropy': 'CE',
-    'bceaftersigmoid': 'BCE',
-    'softplus': 'SoftPlus',
-    'nssa': 'NSSA',
+    'marginranking': 'MRL',
+    'crossentropy': 'CEL',
+    'bceaftersigmoid': 'BCEL',
+    'softplus': 'SPL',
+    'nssa': 'NSSAL',
+}
+
+TRAINING_LOOP = {
+    'owa': 'sLCWA',
+    'lcwa': 'LCWA',
 }
 
 REGULARIZER = {
