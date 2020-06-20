@@ -517,32 +517,47 @@ def make_loss_plot_barplot(
     ]
     if not dfs:
         logger.warning('Could not make model/loss barplot for %s', hue)
-        return
+        g = sns.catplot(
+            kind='bar',
+            estimator=np.median,
+            data=df,
+            x=target_header,
+            y='model',
+            height=6,
+            col='loss',
+            col_wrap=2,
+            legend=True,
+            legend_out=False,
+            ci=None,
+        )
+        if name is None:
+            name = f'{dataset}_model_loss'
 
-    plot_df = pd.concat(dfs)
+    else:
+        plot_df = pd.concat(dfs)
+        g = sns.catplot(
+            kind='bar',
+            estimator=np.median,
+            data=plot_df,
+            x=target_header,
+            y='model',
+            height=6,
+            hue=hue,
+            col='loss',
+            col_wrap=2,
+            legend=True,
+            legend_out=False,
+            ci=None,
+        )
+        _clean_legend_title(g._legend)
+        if name is None:
+            name = f'{dataset}_model_loss_{hue}'
 
-    g = sns.catplot(
-        kind='bar',
-        estimator=np.median,
-        data=plot_df,
-        x=target_header,
-        y='model',
-        height=6,
-        hue=hue,
-        col='loss',
-        col_wrap=2,
-        legend=True,
-        legend_out=False,
-        ci=None,
-    )
     g.set_titles(template='{col_name}')
     g.set_ylabels('')
     g.set(xlim=[0.0, 1.0])
-    _clean_legend_title(g._legend)
     plt.tight_layout()
 
-    if name is None:
-        name = f'{dataset}_model_loss_{hue}'
     if make_pngs:
         g.savefig(os.path.join(output_directory, f'{name}.png'.lower()), dpi=300)
     if make_pdfs:
