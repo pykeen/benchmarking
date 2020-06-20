@@ -47,6 +47,7 @@ def plot_3d_barplot(
     g.set_titles(template='{col_name}')
     g.set_ylabels('')
     g.set(xlim=[0.0, 1.0])
+    _clean_legend_title(g._legend)
     plt.tight_layout()
     if name is None:
         name = f'{dataset}_{optimizer}_{y}_{col}_{hue}'
@@ -117,6 +118,7 @@ def write_1d_sliced_summaries_stratified(
                 g.set_ylabels('')
                 g.set_yticklabels(fontdict={'fontsize': 15})
                 g.set(xlim=[0.0, 1.0])
+                _clean_legend_title(g._legend)
                 plt.tight_layout()
                 if make_png:
                     plt.savefig(
@@ -159,7 +161,9 @@ def write_1d_sliced_summaries_stratified(
                     y=ah1,
                     hue=ah2,
                     ci=None,
+                    legend=True
                 )
+                _clean_legend_title(g.legend)
             else:
                 g = sns.catplot(
                     data=dataset_model_df,
@@ -173,9 +177,9 @@ def write_1d_sliced_summaries_stratified(
             g.fig.suptitle(f'{dataset} - {optimizer} - {ah1} - {ah2}', fontsize=20)
             plt.tight_layout(rect=[0, 0.03, 1, 0.95])
             if make_png:
-                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.png'), dpi=300)
+                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}_2d.png'), dpi=300)
             if make_pdf:
-                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}.pdf'))
+                plt.savefig(os.path.join(slice2d_dir, f'{dataset}_{optimizer}_{ah1}_{ah2}_2d.pdf'))
             plt.close()
 
         outer_it = tqdm(
@@ -203,7 +207,10 @@ def write_1d_sliced_summaries_stratified(
                 for ablation_header, ax in zip(ablation_headers, axes.ravel()):
                     try:
                         sns.boxplot(
-                            data=sub_df, y=ablation_header, x=target_header, ax=ax,
+                            data=sub_df,
+                            y=ablation_header,
+                            x=target_header,
+                            ax=ax,
                             # order=sub_df_agg.index,
                         )
                     except ValueError:
@@ -223,9 +230,9 @@ def write_1d_sliced_summaries_stratified(
                 )
                 plt.tight_layout(rect=[0, 0.03, 1, 0.90])
                 if make_png:
-                    plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.png'), dpi=300)
+                    plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}_1d.png'), dpi=300)
                 if make_pdf:
-                    plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}.pdf'))
+                    plt.savefig(os.path.join(slice_dir, f'{dataset}_{optimizer}_{k}_{v}_1d.pdf'))
                 plt.close(fig)
 
 
@@ -264,8 +271,9 @@ def write_2d_sliced_summaries(
             hue = val
         else:
             hue = slice_3
+
         try:
-            sns.violinplot(
+            g = sns.violinplot(
                 data=sdf,
                 x=slice_2,
                 y=target_header,
@@ -277,6 +285,9 @@ def write_2d_sliced_summaries(
         except ValueError:
             slice_1_it.write(f'could not make violin plot for {slice_1}-{slice_1_value}, {slice_2}, {hue}')
             continue
+        else:
+            _clean_legend_title(g._legend)
+
         ax.set_ylim([0.0, 1.0])
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
@@ -304,7 +315,7 @@ def write_2d_summaries(
     make_png: bool = True,
     make_pdf: bool = True,
 ):
-    for k in ['create_inverse_triples', 'loss', 'optimizer', 'training_loop']:
+    for k in ['inverse_relations', 'loss', 'optimizer', 'training_approach']:
         values = df[k].unique()
         if len(values) == 2:
             write_2d_sliced_summaries(
@@ -385,9 +396,9 @@ def write_dataset_optimizer_barplots(
 
 def make_config_index(row: Mapping[str, Any]) -> str:
     return ' / '.join([
-        'Inv.' if row['create_inverse_triples'] == 'True' else 'No Inv.',
+        'Inv.' if row['inverse_relations'] == 'True' else 'No Inv.',
         row["loss"],
-        row["training_loop"],
+        row["training_approach"],
     ])
 
 
@@ -403,7 +414,7 @@ def make_summary_chart(
     make_pdfs: bool = True,
 ) -> None:
     if df['optimizer'].nunique() == 1:  # Don't bother with optimizer plot
-        ablation_headers = ['model', 'loss_assumption', 'create_inverse_triples']
+        ablation_headers = ['model', 'loss_training_approach', 'inverse_relations']
         figsize = (7 * ncols, 5 * nrows)
         fig = plt.figure(figsize=figsize)
 
@@ -420,14 +431,19 @@ def make_summary_chart(
         for j in range(extra_rows):
             axes.append(plt.subplot2grid(shape=shape, loc=(nrows - 1, offset + j * width), colspan=width))
     else:
-        ablation_headers = ['model', 'loss_assumption', 'optimizer', 'create_inverse_triples']
+        ablation_headers = ['model', 'loss_training_approach', 'optimizer', 'inverse_relations']
         figsize = (7 * ncols, 5 * nrows)
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
         axes = axes.ravel()
 
     for ablation_header, ax in zip(ablation_headers, axes):
         sns.boxplot(data=df, x=ablation_header, y=target_header, ax=ax)
-        ax.set_title(ablation_header.replace('_', ' ').title(), fontdict={'fontsize': 22}, pad=10)
+
+        if ablation_header == 'loss_training_approach':
+            title = 'Loss / Training Approach'
+        else:
+            title = ablation_header.replace('_', ' ').title()
+        ax.set_title(title, fontdict={'fontsize': 22}, pad=10)
         ax.set_xlabel('')
         ax.set_ylabel(
             target_header,
@@ -460,13 +476,16 @@ def make_2way_boxplot(
     make_pdfs: bool = True,
 ) -> None:
     sns.set(style='whitegrid')
-    g = sns.boxplot(
+    g = sns.catplot(
         x=target_header,
         y=y,
         hue=hue,
         data=df,
+        kind='box',
+        legend_out=False,
     )
     g.set(xlim=[0, 1.0], ylabel='')
+    _clean_legend_title(g._legend)
     plt.tight_layout()
 
     if name is None:
@@ -490,10 +509,22 @@ def make_loss_plot_barplot(
     make_pdfs: bool = True,
 ) -> None:
     sns.set(font_scale=1.5, style='whitegrid')
+
+    dfs = [
+        sdf
+        for _, sdf in df.groupby(['model', 'loss'])
+        if sdf[hue].nunique() == 2
+    ]
+    if not dfs:
+        logger.warning('Could not make model/loss barplot for %s', hue)
+        return
+
+    plot_df = pd.concat(dfs)
+
     g = sns.catplot(
         kind='bar',
         estimator=np.median,
-        data=df,
+        data=plot_df,
         x=target_header,
         y='model',
         height=6,
@@ -507,6 +538,7 @@ def make_loss_plot_barplot(
     g.set_titles(template='{col_name}')
     g.set_ylabels('')
     g.set(xlim=[0.0, 1.0])
+    _clean_legend_title(g._legend)
     plt.tight_layout()
 
     if name is None:
@@ -516,6 +548,11 @@ def make_loss_plot_barplot(
     if make_pdfs:
         g.savefig(os.path.join(output_directory, f'{name}.pdf'.lower()))
     plt.close(g.fig)
+
+
+def _clean_legend_title(legend):
+    title = legend.get_title()
+    title.set_text(title.get_text().replace('_', ' ').title())
 
 
 def write_dataset_optimizer_model_summaries(
@@ -606,7 +643,7 @@ def write_1d_sliced_summaries(
 
             # Mehdi rule - if we're doing dataset slices, don't show training loop
             if k == 'dataset':
-                ablation_headers = [ah for ah in ablation_headers if ah != 'training_loop']
+                ablation_headers = [ah for ah in ablation_headers if ah != 'training_approach']
 
             # Identify any headers for which there is only one value after groupby primary header
             skip_headers = {}
@@ -886,6 +923,8 @@ def make_grouped_sizeplots(
         ax.set_xlabel(target_x_header.replace('_', ' ').title())
         g.set(xscale='log')
         g.legend(loc='center left', bbox_to_anchor=(1.05, 0.5), ncol=1)
+        _clean_legend_title(g.legend)
+
         ax.set_title(f'{dataset} - {optimizer} - {target_x_header}  ({len(sdf.index)} experiments)')
 
         plt.tight_layout()

@@ -1,4 +1,4 @@
-searcher	dataset	create_inverse_triples	model	loss	regularizer	optimizer	training_loop	negative_sampler	model_bytes	replicate	training_time	evaluation_time	hits@10
+searcher	dataset	inverse_relations	model	loss	regularizer	optimizer	training_approach	negative_sampler	model_bytes	replicate	training_time	evaluation_time	hits@10
 random	fb15k237	False	complex	bceaftersigmoid	no	adam	lcwa		7547904	0	7188.183634519577	11.36982774734497	0.26949799393287016
 random	fb15k237	False	complex	bceaftersigmoid	no	adam	owa	basic	30191616	0	1767.3417921066284	25.002039194107056	0.3425726587728741
 random	fb15k237	False	complex	bceaftersigmoid	no	adam	owa	basic	30191616	1	1768.2450168132782	25.007310152053833	0.3433555142381838

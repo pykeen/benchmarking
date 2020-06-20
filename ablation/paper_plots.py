@@ -33,16 +33,16 @@ def make_plots(
     del df['evaluation_time']
     del df['model_bytes']
     del df['searcher']  # always same
-    loss_loops = set(map(tuple, df[['loss', 'training_loop']].values))
+    loss_loops = set(map(tuple, df[['loss', 'training_approach']].values))
     loss_loops_counter = Counter(loss for loss, _ in loss_loops)
     loss_mult = {loss for loss, count in loss_loops_counter.items() if count > 1}
-    df['loss_assumption'] = [
+    df['loss_training_approach'] = [
         (
-            f'{loss} ({training_loop})'
+            f'{loss} ({training_approach})'
             if loss in loss_mult
             else loss
         )
-        for loss, training_loop in df[['loss', 'training_loop']].values
+        for loss, training_approach in df[['loss', 'training_approach']].values
     ]
 
     it = tqdm(df.groupby(['dataset', 'optimizer']), desc='Making dataset/optimizer figures')
@@ -60,7 +60,7 @@ def make_plots(
         )
 
         # Loss / Model / (Training Loop Chart | Inverse)
-        for hue in ('training_loop', 'create_inverse_triples'):
+        for hue in ('training_approach', 'inverse_relations'):
             it.write(f'creating barplot: loss/model/{hue} barplot')
             pkp.make_loss_plot_barplot(
                 df=sub_df,
@@ -73,7 +73,7 @@ def make_plots(
                 make_pdfs=make_pdfs,
             )
 
-        y, col, hue = 'loss', 'model', 'training_loop',
+        y, col, hue = 'loss', 'model', 'training_approach',
         it.write(f'creating barplot: {y}/{col}/{hue}')
         pkp.plot_3d_barplot(
             df=sub_df,
@@ -94,10 +94,10 @@ def make_plots(
 
         # 2-way plots
         for y, hue in [
-            ('loss_assumption', 'create_inverse_triples'),
-            ('loss', 'create_inverse_triples'),
-            ('loss', 'training_loop'),
-            ('training_loop', 'create_inverse_triples'),
+            ('loss_training_approach', 'inverse_relations'),
+            ('loss', 'inverse_relations'),
+            ('loss', 'training_approach'),
+            ('training_approach', 'inverse_relations'),
         ]:
             it.write(f'creating barplot: {y}/{hue} aggregated')
             # Aggregated
@@ -143,7 +143,7 @@ def make_sizeplots(
     *,
     output_directory: str,
     target_y_header: str,
-    make_png: bool = True,
+    make_pngs: bool = True,
     make_pdf: bool = True,
 ) -> None:
     df = read_collation()
@@ -152,7 +152,7 @@ def make_sizeplots(
         pkp.make_sizeplots_trellised(
             df=df, target_x_header=target_x_header, target_y_header=target_y_header,
             output_directory=output_directory,
-            make_png=make_png,
+            make_png=make_pngs,
             make_pdf=make_pdf,
             name=f'trellis_scatter_{target_x_header}',
         )

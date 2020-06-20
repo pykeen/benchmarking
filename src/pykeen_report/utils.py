@@ -104,6 +104,10 @@ def collate_ablation(
 
     df = pd.DataFrame(rows)
     df = df[columns].sort_values(columns)
+    df.rename(columns={
+        'training_loop': 'training_approach',
+        'create_inverse_triples': 'inverse_relations',
+    })
     df.to_csv(output_path, sep='\t', index=False)
     return df
 
@@ -170,11 +174,11 @@ def read_ablation_collation(path: str) -> pd.DataFrame:
     df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l.lower(), l))
     df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l.lower(), l))
     df['optimizer'] = df['optimizer'].map(str.capitalize)
-    df['training_loop'] = df['training_loop'].map(lambda l: TRAINING_LOOP[l.lower()])
+    df['training_approach'] = df['training_approach'].map(lambda l: TRAINING_LOOP[l.lower()])
     df['negative_sampler'] = df['negative_sampler'].map(
         lambda l: NEGATIVE_SAMPELR.get(l.lower(), l) if pd.notna(l) else 'None'
     )
-    df['create_inverse_triples'] = df['create_inverse_triples'].map(lambda s: 'True' if s else 'False')
+    df['inverse_relations'] = df['inverse_relations'].map(lambda s: 'True' if s else 'False')
     return df
 
 
