@@ -229,15 +229,8 @@ def generate_size_table():
     return rv
 
 
-def get_published_results(
-
-):
-    return None
-
-
 def main():
     size_table = generate_size_table()
-    published_results = get_published_results()
     all_tables = generate_results_table()
     write_pdfs(all_tables=all_tables, size_table=size_table)
 
