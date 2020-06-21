@@ -1,23 +1,23 @@
 {
   "metadata": {
-    "title": "Learn WN18 Data Set with RotatE as described by Sun et al., 2019;",
-    "comments": "Could not find number of epochs since early stopping has been applied; https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/blob/master/best_config.sh. The evaluation uses the non-deterministic rank, cf. https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/blob/a0a3cf75e8e324ef113472489a16927c39c997b2/codes/model.py#L406 ."
+    "title": "Learn WN18RR Data Set with RotatE as described by Sun et al., 2019; https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/blob/master/best_config.sh",
+    "comments": "Could not find number of epochs since early stopping has been applied. The evaluation uses the non-deterministic rank, cf. https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/blob/a0a3cf75e8e324ef113472489a16927c39c997b2/codes/model.py#L406 ."
   },
   "pipeline": {
-    "dataset": "wn18",
+    "dataset": "wn18rr",
     "model": "RotatE",
     "model_kwargs": {
       "embedding_dim": 500
     },
     "optimizer": "Adam",
     "optimizer_kwargs": {
-      "lr": 0.0001
+      "lr": 0.00005
     },
     "loss": "nssa",
     "loss_kwargs": {
       "reduction": "mean",
       "adversarial_temperature": 0.5,
-      "margin": 12
+      "margin": 6
     },
     "training_loop": "OWA",
     "negative_sampler": "basic",
@@ -26,8 +26,7 @@
     },
     "training_kwargs": {
       "num_epochs": 1000,
-      "batch_size": 512,
-      "sub_batch_size": 256
+      "batch_size": 512
     },
     "evaluator_kwargs": {
       "filtered": true
@@ -35,17 +34,17 @@
   },
   "results": {
     "mean_rank": {
-      "nondeterministic": 309
+      "nondeterministic": 3340
     },
     "hits_at_k": {
       "nondeterministic": {
-        "1": 0.944,
-        "3": 0.952,
-        "10": 0.959
+        "1": 0.428,
+        "3": 0.492,
+        "10": 0.571
       }
     },
     "mean_reciprocal_rank": {
-      "nondeterministic": 0.949
+      "nondeterministic": 0.476
     }
   }
 }
