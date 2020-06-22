@@ -87,7 +87,7 @@ def generate_results_table(with_std: bool, midrule_between_models: bool = True):
             best='O',
             worst='P',
         )
-        wide_summary_df = wide_summary_df.reindex(wide_summary_df.index.set_levels([translation[k] for k in wide_summary_df.index.levels[1]], level=1))
+        wide_summary_df.index = wide_summary_df.index.set_levels([translation[k] for k in wide_summary_df.index.levels[1]], level=1)
 
         # Save as Latex table
         pd.set_option('max_colwidth', 999)
