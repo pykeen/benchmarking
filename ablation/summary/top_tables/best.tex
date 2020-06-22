@@ -1,0 +1,112 @@
+\begin{table}
+\centering
+\caption{Best configuration for each model in FB15k237}
+\label{best_models_fb15k237}
+\begin{tabular}{llllr}
+\toprule
+    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+\midrule
+  ComplEx &    CEL &              LCWA &              True &  0.430571 \\
+ DistMult &    CEL &              LCWA &              True &  0.459683 \\
+    ERMLP &   BCEL &              LCWA &              True &  0.421494 \\
+     HolE &    CEL &              LCWA &              True &  0.410021 \\
+     KG2E &    SPL &              LCWA &              True &  0.435463 \\
+      NTN &    SPL &             sLCWA &             False &  0.194784 \\
+    ProjE &    CEL &              LCWA &              True &  0.404223 \\
+   RESCAL &    CEL &              LCWA &              True &  0.447206 \\
+   RotatE &  NSSAL &             sLCWA &             False &  0.481774 \\
+   SimplE &   BCEL &              LCWA &              True &  0.395807 \\
+   TransD &    MRL &             sLCWA &              True &  0.397397 \\
+   TransE &    CEL &              LCWA &              True &  0.444001 \\
+   TransH &    MRL &             sLCWA &             False &  0.337215 \\
+   TransR &    CEL &              LCWA &              True &  0.383183 \\
+   TuckER &    SPL &              LCWA &              True &  0.452833 \\
+       UM &    CEL &              LCWA &             False &  0.080414 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Best configuration for each model in Kinships}
+\label{best_models_kinships}
+\begin{tabular}{llllr}
+\toprule
+    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+\midrule
+  ComplEx &  NSSAL &             sLCWA &              True &  0.982775 \\
+    ConvE &   BCEL &              LCWA &              True &  0.982775 \\
+   ConvKB &  NSSAL &             sLCWA &              True &  0.964153 \\
+ DistMult &    CEL &              LCWA &              True &  0.924581 \\
+    ERMLP &  NSSAL &             sLCWA &              True &  0.973929 \\
+     HolE &    CEL &              LCWA &              True &  0.933892 \\
+     KG2E &    MRL &             sLCWA &              True &  0.912942 \\
+      NTN &   BCEL &             sLCWA &              True &  0.938547 \\
+    ProjE &    SPL &             sLCWA &              True &  0.960894 \\
+   RESCAL &    SPL &             sLCWA &             False &  0.976257 \\
+   RotatE &    MRL &             sLCWA &             False &  0.984637 \\
+       SE &  NSSAL &             sLCWA &              True &  0.978585 \\
+   SimplE &   BCEL &              LCWA &              True &  0.983706 \\
+   TransD &    CEL &              LCWA &              True &  0.467877 \\
+   TransE &    CEL &              LCWA &              True &  0.920391 \\
+   TransH &    CEL &              LCWA &              True &  0.520019 \\
+   TransR &    CEL &              LCWA &              True &  0.713687 \\
+   TuckER &    SPL &              LCWA &              True &  0.986965 \\
+       UM &    SPL &              LCWA &             False &  0.118715 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Best configuration for each model in WN18RR}
+\label{best_models_wn18rr}
+\begin{tabular}{llllr}
+\toprule
+    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+\midrule
+  ComplEx &    CEL &              LCWA &             False &  0.531464 \\
+    ConvE &    CEL &              LCWA &              True &  0.563440 \\
+   ConvKB &  NSSAL &             sLCWA &              True &  0.445964 \\
+ DistMult &    CEL &              LCWA &              True &  0.527018 \\
+    ERMLP &   BCEL &             sLCWA &              True &  0.478454 \\
+     HolE &    CEL &              LCWA &             False &  0.501026 \\
+     KG2E &    SPL &              LCWA &             False &  0.513509 \\
+      NTN &    MRL &             sLCWA &             False &  0.310021 \\
+    ProjE &    CEL &              LCWA &              True &  0.514535 \\
+   RESCAL &    CEL &              LCWA &             False &  0.536423 \\
+   RotatE &    SPL &              LCWA &              True &  0.601744 \\
+       SE &    SPL &             sLCWA &             False &  0.430404 \\
+   SimplE &    CEL &              LCWA &              True &  0.507866 \\
+   TransD &   BCEL &             sLCWA &              True &  0.454343 \\
+   TransE &    SPL &              LCWA &             False &  0.570280 \\
+   TransH &    MRL &             sLCWA &             False &  0.479309 \\
+   TransR &    MRL &             sLCWA &             False &  0.423906 \\
+   TuckER &    CEL &              LCWA &              True &  0.548393 \\
+       UM &    SPL &              LCWA &              True &  0.450410 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Best configuration for each model in YAGO310}
+\label{best_models_yago310}
+\begin{tabular}{llllr}
+\toprule
+    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+\midrule
+  ComplEx &   BCEL &             sLCWA &              True &  0.621738 \\
+   ConvKB &    SPL &             sLCWA &              True &  0.562224 \\
+ DistMult &   BCEL &             sLCWA &             False &  0.553493 \\
+    ERMLP &    SPL &             sLCWA &              True &  0.587515 \\
+     HolE &   BCEL &             sLCWA &             False &  0.584906 \\
+   RESCAL &    SPL &             sLCWA &              True &  0.544661 \\
+   RotatE &  NSSAL &             sLCWA &              True &  0.627860 \\
+       SE &  NSSAL &             sLCWA &              True &  0.291650 \\
+   TransD &    MRL &             sLCWA &             False &  0.348756 \\
+   TransE &    MRL &             sLCWA &              True &  0.477017 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

@@ -41,24 +41,28 @@ def do_gold(*, df, target):
     output = os.path.join(SUMMARY_DIRECTORY, 'top_tables')
     os.makedirs(output, exist_ok=True)
     columns = ['loss', 'training_approach', 'inverse_relations', target]
-    for dataset, dataset_df in df.groupby('dataset'):
-        rows = []
-        for model, model_df in dataset_df.groupby('model'):
-            top_df = model_df.sort_values(target, ascending=False)
-            r = top_df.iloc[0]
-            rows.append((
-                model,
-                *[r[c] for c in columns]
-            ))
-        rdf = pd.DataFrame(
-            rows,
-            columns=['model', 'loss', 'training_approach', 'inverse_relations', target],
-        ).sort_values('model')
-        rdf.to_csv(os.path.join(output, f'{dataset.lower()}.tsv'), index=False, sep='\t')
+    with open(os.path.join(output, f'best.tex'), 'w') as file:
+        for dataset, dataset_df in df.groupby('dataset'):
+            rows = []
+            for model, model_df in dataset_df.groupby('model'):
+                top_df = model_df.sort_values(target, ascending=False)
+                r = top_df.iloc[0]
+                rows.append((
+                    model,
+                    *[r[c] for c in columns]
+                ))
+            rdf = pd.DataFrame(
+                rows,
+                columns=['model', 'loss', 'training_approach', 'inverse_relations', target],
+            ).sort_values('model')
+            rdf.to_csv(os.path.join(output, f'{dataset.lower()}.tsv'), index=False, sep='\t')
 
-        rdf.columns = [c.replace('_', ' ').title() for c in rdf.columns]
-        s = rdf.to_latex(index=False)
-        with open(os.path.join(output, f'{dataset.lower()}.tex'), 'w') as file:
+            rdf.columns = [c.replace('_', ' ').title() for c in rdf.columns]
+            s = rdf.to_latex(
+                index=False,
+                caption=f'Best configuration for each model in {dataset}',
+                label=f'best_models_{dataset.lower()}',
+            )
             print(s, file=file)
 
 
