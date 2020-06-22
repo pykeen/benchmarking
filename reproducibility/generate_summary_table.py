@@ -67,7 +67,7 @@ def load_published_results_in_tall_format(
     return pd.DataFrame(data=data, columns=['model', 'columns', 'mean', 'std'])
 
 
-def generate_results_table(with_std: bool):
+def generate_results_table(with_std: bool, midrule_between_models: bool = True):
     all_tables = []
     for dataset, dataset_df in read_experiment_collation().groupby('dataset'):
         if len(dataset_df['model'].unique()) < 2:
@@ -91,6 +91,11 @@ def generate_results_table(with_std: bool):
         )
         # table_latex = _process_tex(table_latex)
         suffix = '' if with_std else '_without_std'
+        # add midrule
+        if midrule_between_models:
+            table_latex_head, table_latex_body = table_latex.split('\\midrule', maxsplit=1)
+            table_latex_body = table_latex_body.replace('\n\\textbf', '\\midrule\n\\textbf')
+            table_latex = table_latex_head + table_latex_body
         with open(os.path.join(SUMMARIES, f'{dataset}_table{suffix}.tex'), 'w') as file:
             print(table_latex, file=file)
 
