@@ -81,6 +81,14 @@ def generate_results_table(with_std: bool, midrule_between_models: bool = True):
         wide_summary_df = reorganize_summary_df(all_results_tall_df, with_std=with_std)
         wide_summary_df = wide_summary_df.applymap(lambda v: ('$' + v + '$') if v != '' else '')
 
+        translation = dict(
+            pub='pub',
+            avg='R',
+            best='O',
+            worst='P',
+        )
+        wide_summary_df = wide_summary_df.reindex(wide_summary_df.index.set_levels([translation[k] for k in wide_summary_df.index.levels[1]], level=1))
+
         # Save as Latex table
         pd.set_option('max_colwidth', 999)
         table_latex = wide_summary_df.to_latex(
