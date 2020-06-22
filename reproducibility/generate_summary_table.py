@@ -67,7 +67,7 @@ def load_published_results_in_tall_format(
     return pd.DataFrame(data=data, columns=['model', 'columns', 'mean', 'std'])
 
 
-def generate_results_table():
+def generate_results_table(with_std: bool):
     all_tables = []
     for dataset, dataset_df in read_experiment_collation().groupby('dataset'):
         if len(dataset_df['model'].unique()) < 2:
@@ -78,7 +78,7 @@ def generate_results_table():
 
         published_results_tall_df = load_published_results_in_tall_format(dataset=dataset)
         all_results_tall_df = pd.concat([tall_summary_df, published_results_tall_df], ignore_index=True)
-        wide_summary_df = reorganize_summary_df(all_results_tall_df)
+        wide_summary_df = reorganize_summary_df(all_results_tall_df, with_std=with_std)
         wide_summary_df = wide_summary_df.applymap(lambda v: ('$' + v + '$') if v != '' else '')
 
         # Save as Latex table
@@ -90,7 +90,8 @@ def generate_results_table():
             bold_rows=True,
         )
         # table_latex = _process_tex(table_latex)
-        with open(os.path.join(SUMMARIES, f'{dataset}_table.tex'), 'w') as file:
+        suffix = '' if with_std else '_without_std'
+        with open(os.path.join(SUMMARIES, f'{dataset}_table{suffix}.tex'), 'w') as file:
             print(table_latex, file=file)
 
         dataset = pykeen.datasets.datasets[dataset].__name__
@@ -133,7 +134,7 @@ def get_width(column):
     return prelen, postlen
 
 
-def format_values(mean, std, mean_w, std_w):
+def format_values(mean, std, mean_w, std_w, with_std: bool) -> str:
     if mean is None:
         return ''
     # format mean
@@ -145,31 +146,32 @@ def format_values(mean, std, mean_w, std_w):
         pre = r'\phantom{' + (pre_len - len(pre)) * '0' + '}' + pre
     if len(post) < post_len:
         post = post + r'\phantom{' + (post_len - len(post)) * '0' + '}'
-    mean_str = pre + '.' + post
-    if std is None:
-        pre_len, post_len = std_w
-        std_str = r'\phantom{ \pm ' + '0' * pre_len + '.' + '0' * post_len + '}'
-    else:
-        pre, post = std.split('.')
-        pre_len, post_len = std_w
-        if len(pre) < pre_len:
-            pre = r'\phantom{' + (pre_len - len(pre)) * '0' + '}' + pre
-        if len(post) < post_len:
-            post = post + r'\phantom{' + (post_len - len(post)) * '0' + '}'
-        std_str = r' \pm ' + pre + '.' + post
-    out = mean_str + std_str
+    out = pre + '.' + post
+    if with_std:
+        if std is None:
+            pre_len, post_len = std_w
+            std_str = r'\phantom{ \pm ' + '0' * pre_len + '.' + '0' * post_len + '}'
+        else:
+            pre, post = std.split('.')
+            pre_len, post_len = std_w
+            if len(pre) < pre_len:
+                pre = r'\phantom{' + (pre_len - len(pre)) * '0' + '}' + pre
+            if len(post) < post_len:
+                post = post + r'\phantom{' + (post_len - len(post)) * '0' + '}'
+            std_str = r' \pm ' + pre + '.' + post
+        out += std_str
     out = out.replace(r'}\phantom{', '')
     return out
 
 
-def reorganize_summary_df(df: pd.DataFrame) -> pd.DataFrame:
+def reorganize_summary_df(df: pd.DataFrame, with_std: bool) -> pd.DataFrame:
     df['short_columns'] = df['columns'].str.replace('.((worst)|(avg)|(best)|(pub))', '', regex=True)
     _n = df.groupby(['short_columns']).aggregate({'mean': get_width, 'std': get_width})
     n = _n['std']
     _mean_n = _n['mean']
 
     df['values'] = [
-        format_values(mean=mean, std=std, mean_w=_mean_n[column], std_w=n[column])
+        format_values(mean=mean, std=std, mean_w=_mean_n[column], std_w=n[column], with_std=with_std)
         for column, mean, std in df[['short_columns', 'mean', 'std']].values
     ]
     inconsistent_rank_mask = df[~df['columns'].str.contains('.pub')].groupby(by=['model']).agg(
@@ -330,7 +332,8 @@ def generate_size_table():
 
 def main():
     size_table = generate_size_table()
-    all_tables = generate_results_table()
+    for with_std in (False, True):
+        all_tables = generate_results_table(with_std=with_std)
     write_pdfs(all_tables=all_tables, size_table=size_table)
 
 
