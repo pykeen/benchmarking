@@ -21,8 +21,8 @@ def main():
 
     columns = [
         'searcher', 'dataset',
-        'create_inverse_triples',
-        'model', 'loss', 'regularizer', 'optimizer', 'training_loop',
+        'inverse_relations',
+        'model', 'loss', 'regularizer', 'optimizer', 'training_approach',
         'negative_sampler',
     ]
     configurations = len(best_replicates_df[columns].drop_duplicates().index)
@@ -32,7 +32,7 @@ def main():
     rows = [
         (k.replace('_', ' ').title() + 's', v)
         for k, v in sdf.values
-        if v > 1 and k != 'create_inverse_triples'
+        if v > 1 and k != 'inverse_relations'
     ]
 
     rows.extend([
