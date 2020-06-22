@@ -28,24 +28,24 @@ show that there are consistent best performers.
 
 ## Investigation of `loss`
 
-|              |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|--------------|------------|------------|----------|-----------|
-| **NSSA**     |          6 |          7 |        6 |        12 |
-| CE           |         10 |         13 |       17 |         0 |
-| **BCE**      |         10 |         14 |       11 |        12 |
-| **SoftPlus** |         14 |          9 |       11 |        12 |
-| **MR**       |         10 |          7 |        5 |        14 |
+|           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|-----------|------------|------------|----------|-----------|
+| **NSSAL** |          6 |          7 |        6 |        12 |
+| CEL       |         10 |         13 |       17 |         0 |
+| **BCEL**  |         10 |         14 |       11 |        12 |
+| **SPL**   |         14 |          9 |       11 |        12 |
+| **MRL**   |         10 |          7 |        5 |        14 |
 
 
-## Investigation of `training_loop`
+## Investigation of `training_approach`
 
-|         |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|---------|------------|------------|----------|-----------|
-| **OWA** |         17 |         26 |       17 |        50 |
-| LCWA    |         33 |         24 |       33 |         0 |
+|           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|-----------|------------|------------|----------|-----------|
+| **sLCWA** |         17 |         26 |       17 |        50 |
+| LCWA      |         33 |         24 |       33 |         0 |
 
 
-## Investigation of `create_inverse_triples`
+## Investigation of `inverse_relations`
 
 |           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------|------------|------------|----------|-----------|
@@ -55,176 +55,176 @@ show that there are consistent best performers.
 
 ## Investigation of `model` and `loss`
 
-|                       |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|-----------------------|------------|------------|----------|-----------|
-| **RotatE and NSSA**   |          2 |          2 |        2 |         2 |
-| DistMult and CE       |          1 |          0 |        2 |         0 |
-| RotatE and BCE        |          2 |          0 |        4 |         0 |
-| RotatE and CE         |          2 |          1 |        2 |         0 |
-| TuckER and SoftPlus   |          1 |          2 |        2 |         0 |
-| RESCAL and CE         |          1 |          0 |        2 |         0 |
-| TransE and CE         |          1 |          0 |        0 |         0 |
-| RotatE and SoftPlus   |          2 |          0 |        4 |         0 |
-| TransE and MR         |          8 |          0 |        2 |         2 |
-| TransE and SoftPlus   |          8 |          0 |        1 |         0 |
-| TuckER and CE         |          2 |          5 |        2 |         0 |
-| RESCAL and BCE        |          1 |          0 |        0 |         1 |
-| KG2E and SoftPlus     |          3 |          0 |        2 |         0 |
-| TransE and BCE        |          4 |          0 |        1 |         0 |
-| ComplEx and CE        |          1 |          3 |        1 |         0 |
-| ERMLP and BCE         |          1 |          0 |        0 |         4 |
-| TransE and NSSA       |          4 |          0 |        2 |         2 |
-| HolE and CE           |          1 |          0 |        1 |         0 |
-| ProjE and CE          |          1 |          0 |        2 |         0 |
-| ProjE and BCE         |          1 |          0 |        0 |         0 |
-| TransD and MR         |          1 |          0 |        0 |         0 |
-| **RotatE and MR**     |          1 |          2 |        1 |         2 |
-| SimplE and BCE        |          1 |          4 |        0 |         0 |
-| TuckER and MR         |          0 |          5 |        1 |         0 |
-| TuckER and BCE        |          0 |          4 |        2 |         0 |
-| ConvE and CE          |          0 |          2 |        2 |         0 |
-| ConvE and BCE         |          0 |          5 |        2 |         0 |
-| ComplEx and NSSA      |          0 |          1 |        0 |         2 |
-| TuckER and NSSA       |          0 |          2 |        0 |         0 |
-| ConvE and NSSA        |          0 |          2 |        0 |         0 |
-| SimplE and CE         |          0 |          2 |        2 |         0 |
-| ComplEx and BCE       |          0 |          1 |        0 |         2 |
-| ConvE and SoftPlus    |          0 |          3 |        2 |         0 |
-| SimplE and SoftPlus   |          0 |          3 |        0 |         0 |
-| ComplEx and SoftPlus  |          0 |          1 |        0 |         2 |
-| DistMult and NSSA     |          0 |          0 |        2 |         2 |
-| DistMult and BCE      |          0 |          0 |        2 |         2 |
-| KG2E and CE           |          0 |          0 |        1 |         0 |
-| TransH and MR         |          0 |          0 |        1 |         0 |
-| ERMLP and SoftPlus    |          0 |          0 |        0 |         2 |
-| HolE and BCE          |          0 |          0 |        0 |         2 |
-| ConvKB and SoftPlus   |          0 |          0 |        0 |         2 |
-| ComplEx and MR        |          0 |          0 |        0 |         2 |
-| ConvKB and BCE        |          0 |          0 |        0 |         1 |
-| HolE and SoftPlus     |          0 |          0 |        0 |         2 |
-| RESCAL and SoftPlus   |          0 |          0 |        0 |         2 |
-| DistMult and MR       |          0 |          0 |        0 |         2 |
-| DistMult and SoftPlus |          0 |          0 |        0 |         2 |
-| ERMLP and NSSA        |          0 |          0 |        0 |         2 |
-| ConvKB and NSSA       |          0 |          0 |        0 |         1 |
-| ConvKB and MR         |          0 |          0 |        0 |         2 |
-| RESCAL and MR         |          0 |          0 |        0 |         1 |
-| RESCAL and NSSA       |          0 |          0 |        0 |         1 |
-| HolE and MR           |          0 |          0 |        0 |         2 |
-| ERMLP and MR          |          0 |          0 |        0 |         1 |
+|                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|----------------------|------------|------------|----------|-----------|
+| **RotatE and NSSAL** |          2 |          2 |        2 |         2 |
+| DistMult and CEL     |          1 |          0 |        2 |         0 |
+| RotatE and BCEL      |          2 |          0 |        4 |         0 |
+| RotatE and CEL       |          2 |          1 |        2 |         0 |
+| TuckER and SPL       |          1 |          2 |        2 |         0 |
+| RESCAL and CEL       |          1 |          0 |        2 |         0 |
+| TransE and CEL       |          1 |          0 |        0 |         0 |
+| RotatE and SPL       |          2 |          0 |        4 |         0 |
+| TransE and MRL       |          8 |          0 |        2 |         2 |
+| TransE and SPL       |          8 |          0 |        1 |         0 |
+| TuckER and CEL       |          2 |          5 |        2 |         0 |
+| RESCAL and BCEL      |          1 |          0 |        0 |         1 |
+| KG2E and SPL         |          3 |          0 |        2 |         0 |
+| TransE and BCEL      |          4 |          0 |        1 |         0 |
+| ComplEx and CEL      |          1 |          3 |        1 |         0 |
+| ERMLP and BCEL       |          1 |          0 |        0 |         4 |
+| TransE and NSSAL     |          4 |          0 |        2 |         2 |
+| HolE and CEL         |          1 |          0 |        1 |         0 |
+| ProjE and CEL        |          1 |          0 |        2 |         0 |
+| ProjE and BCEL       |          1 |          0 |        0 |         0 |
+| TransD and MRL       |          1 |          0 |        0 |         0 |
+| **RotatE and MRL**   |          1 |          2 |        1 |         2 |
+| SimplE and BCEL      |          1 |          4 |        0 |         0 |
+| TuckER and MRL       |          0 |          5 |        1 |         0 |
+| TuckER and BCEL      |          0 |          4 |        2 |         0 |
+| ConvE and CEL        |          0 |          2 |        2 |         0 |
+| ConvE and BCEL       |          0 |          5 |        2 |         0 |
+| ComplEx and NSSAL    |          0 |          1 |        0 |         2 |
+| TuckER and NSSAL     |          0 |          2 |        0 |         0 |
+| ConvE and NSSAL      |          0 |          2 |        0 |         0 |
+| SimplE and CEL       |          0 |          2 |        2 |         0 |
+| ComplEx and BCEL     |          0 |          1 |        0 |         2 |
+| ConvE and SPL        |          0 |          3 |        2 |         0 |
+| SimplE and SPL       |          0 |          3 |        0 |         0 |
+| ComplEx and SPL      |          0 |          1 |        0 |         2 |
+| DistMult and NSSAL   |          0 |          0 |        2 |         2 |
+| DistMult and BCEL    |          0 |          0 |        2 |         2 |
+| KG2E and CEL         |          0 |          0 |        1 |         0 |
+| TransH and MRL       |          0 |          0 |        1 |         0 |
+| ERMLP and SPL        |          0 |          0 |        0 |         2 |
+| HolE and BCEL        |          0 |          0 |        0 |         2 |
+| ConvKB and SPL       |          0 |          0 |        0 |         2 |
+| ComplEx and MRL      |          0 |          0 |        0 |         2 |
+| ConvKB and BCEL      |          0 |          0 |        0 |         1 |
+| HolE and SPL         |          0 |          0 |        0 |         2 |
+| RESCAL and SPL       |          0 |          0 |        0 |         2 |
+| DistMult and MRL     |          0 |          0 |        0 |         2 |
+| DistMult and SPL     |          0 |          0 |        0 |         2 |
+| ERMLP and NSSAL      |          0 |          0 |        0 |         2 |
+| ConvKB and NSSAL     |          0 |          0 |        0 |         1 |
+| ConvKB and MRL       |          0 |          0 |        0 |         2 |
+| RESCAL and MRL       |          0 |          0 |        0 |         1 |
+| RESCAL and NSSAL     |          0 |          0 |        0 |         1 |
+| HolE and MRL         |          0 |          0 |        0 |         2 |
+| ERMLP and MRL        |          0 |          0 |        0 |         1 |
 
 
-## Investigation of `model` and `training_loop`
-
-|                    |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|--------------------|------------|------------|----------|-----------|
-| **RotatE and OWA** |          3 |          4 |        7 |         4 |
-| DistMult and LCWA  |          1 |          0 |        2 |         0 |
-| RotatE and LCWA    |          6 |          1 |        6 |         0 |
-| TuckER and LCWA    |          3 |          7 |        6 |         0 |
-| RESCAL and LCWA    |          2 |          0 |        2 |         0 |
-| TransE and LCWA    |         13 |          0 |        2 |         0 |
-| TransE and OWA     |         12 |          0 |        4 |         4 |
-| KG2E and LCWA      |          2 |          0 |        3 |         0 |
-| ComplEx and LCWA   |          1 |          3 |        1 |         0 |
-| ERMLP and LCWA     |          1 |          0 |        0 |         0 |
-| HolE and LCWA      |          1 |          0 |        1 |         0 |
-| KG2E and OWA       |          1 |          0 |        0 |         0 |
-| ProjE and LCWA     |          2 |          0 |        2 |         0 |
-| TransD and OWA     |          1 |          0 |        0 |         0 |
-| SimplE and LCWA    |          1 |          3 |        2 |         0 |
-| TuckER and OWA     |          0 |         11 |        1 |         0 |
-| ConvE and LCWA     |          0 |         10 |        6 |         0 |
-| ComplEx and OWA    |          0 |          3 |        0 |         8 |
-| ConvE and OWA      |          0 |          2 |        0 |         0 |
-| SimplE and OWA     |          0 |          6 |        0 |         0 |
-| DistMult and OWA   |          0 |          0 |        4 |         8 |
-| TransH and OWA     |          0 |          0 |        1 |         0 |
-| ERMLP and OWA      |          0 |          0 |        0 |         9 |
-| HolE and OWA       |          0 |          0 |        0 |         6 |
-| ConvKB and OWA     |          0 |          0 |        0 |         6 |
-| RESCAL and OWA     |          0 |          0 |        0 |         5 |
-
-
-## Investigation of `loss` and `training_loop`
+## Investigation of `model` and `training_approach`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
-| **NSSA and OWA**     |          6 |          7 |        6 |        12 |
-| CE and LCWA          |         10 |         13 |       17 |         0 |
-| BCE and LCWA         |         10 |          7 |        7 |         0 |
-| SoftPlus and LCWA    |         13 |          4 |        9 |         0 |
-| **MR and OWA**       |         10 |          7 |        5 |        14 |
-| **SoftPlus and OWA** |          1 |          5 |        2 |        12 |
-| BCE and OWA          |          0 |          7 |        4 |        12 |
+| **RotatE and sLCWA** |          3 |          4 |        7 |         4 |
+| DistMult and LCWA    |          1 |          0 |        2 |         0 |
+| RotatE and LCWA      |          6 |          1 |        6 |         0 |
+| TuckER and LCWA      |          3 |          7 |        6 |         0 |
+| RESCAL and LCWA      |          2 |          0 |        2 |         0 |
+| TransE and LCWA      |         13 |          0 |        2 |         0 |
+| TransE and sLCWA     |         12 |          0 |        4 |         4 |
+| KG2E and LCWA        |          2 |          0 |        3 |         0 |
+| ComplEx and LCWA     |          1 |          3 |        1 |         0 |
+| ERMLP and LCWA       |          1 |          0 |        0 |         0 |
+| HolE and LCWA        |          1 |          0 |        1 |         0 |
+| KG2E and sLCWA       |          1 |          0 |        0 |         0 |
+| ProjE and LCWA       |          2 |          0 |        2 |         0 |
+| TransD and sLCWA     |          1 |          0 |        0 |         0 |
+| SimplE and LCWA      |          1 |          3 |        2 |         0 |
+| TuckER and sLCWA     |          0 |         11 |        1 |         0 |
+| ConvE and LCWA       |          0 |         10 |        6 |         0 |
+| ComplEx and sLCWA    |          0 |          3 |        0 |         8 |
+| ConvE and sLCWA      |          0 |          2 |        0 |         0 |
+| SimplE and sLCWA     |          0 |          6 |        0 |         0 |
+| DistMult and sLCWA   |          0 |          0 |        4 |         8 |
+| TransH and sLCWA     |          0 |          0 |        1 |         0 |
+| ERMLP and sLCWA      |          0 |          0 |        0 |         9 |
+| HolE and sLCWA       |          0 |          0 |        0 |         6 |
+| ConvKB and sLCWA     |          0 |          0 |        0 |         6 |
+| RESCAL and sLCWA     |          0 |          0 |        0 |         5 |
 
 
-## Investigation of `model`, `loss`, and `training_loop`
+## Investigation of `loss` and `training_approach`
 
-|                             |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
-|-----------------------------|------------|------------|----------|-----------|
-| **RotatE, NSSA, and OWA**   |          2 |          2 |        2 |         2 |
-| DistMult, CE, and LCWA      |          1 |          0 |        2 |         0 |
-| RotatE, BCE, and LCWA       |          2 |          0 |        2 |         0 |
-| RotatE, CE, and LCWA        |          2 |          1 |        2 |         0 |
-| TuckER, SoftPlus, and LCWA  |          1 |          1 |        2 |         0 |
-| RESCAL, CE, and LCWA        |          1 |          0 |        2 |         0 |
-| TransE, CE, and LCWA        |          1 |          0 |        0 |         0 |
-| RotatE, SoftPlus, and LCWA  |          2 |          0 |        2 |         0 |
-| TransE, MR, and OWA         |          8 |          0 |        2 |         2 |
-| TransE, SoftPlus, and LCWA  |          8 |          0 |        1 |         0 |
-| TuckER, CE, and LCWA        |          2 |          5 |        2 |         0 |
-| RESCAL, BCE, and LCWA       |          1 |          0 |        0 |         0 |
-| KG2E, SoftPlus, and LCWA    |          2 |          0 |        2 |         0 |
-| TransE, BCE, and LCWA       |          4 |          0 |        1 |         0 |
-| ComplEx, CE, and LCWA       |          1 |          3 |        1 |         0 |
-| ERMLP, BCE, and LCWA        |          1 |          0 |        0 |         0 |
-| TransE, NSSA, and OWA       |          4 |          0 |        2 |         2 |
-| HolE, CE, and LCWA          |          1 |          0 |        1 |         0 |
-| KG2E, SoftPlus, and OWA     |          1 |          0 |        0 |         0 |
-| ProjE, CE, and LCWA         |          1 |          0 |        2 |         0 |
-| ProjE, BCE, and LCWA        |          1 |          0 |        0 |         0 |
-| TransD, MR, and OWA         |          1 |          0 |        0 |         0 |
-| **RotatE, MR, and OWA**     |          1 |          2 |        1 |         2 |
-| SimplE, BCE, and LCWA       |          1 |          1 |        0 |         0 |
-| TuckER, MR, and OWA         |          0 |          5 |        1 |         0 |
-| TuckER, BCE, and LCWA       |          0 |          1 |        2 |         0 |
-| TuckER, SoftPlus, and OWA   |          0 |          1 |        0 |         0 |
-| ConvE, CE, and LCWA         |          0 |          2 |        2 |         0 |
-| ConvE, BCE, and LCWA        |          0 |          5 |        2 |         0 |
-| ComplEx, NSSA, and OWA      |          0 |          1 |        0 |         2 |
-| TuckER, BCE, and OWA        |          0 |          3 |        0 |         0 |
-| TuckER, NSSA, and OWA       |          0 |          2 |        0 |         0 |
-| ConvE, NSSA, and OWA        |          0 |          2 |        0 |         0 |
-| SimplE, BCE, and OWA        |          0 |          3 |        0 |         0 |
-| SimplE, CE, and LCWA        |          0 |          2 |        2 |         0 |
-| ComplEx, BCE, and OWA       |          0 |          1 |        0 |         2 |
-| ConvE, SoftPlus, and LCWA   |          0 |          3 |        2 |         0 |
-| SimplE, SoftPlus, and OWA   |          0 |          3 |        0 |         0 |
-| ComplEx, SoftPlus, and OWA  |          0 |          1 |        0 |         2 |
-| RotatE, SoftPlus, and OWA   |          0 |          0 |        2 |         0 |
-| RotatE, BCE, and OWA        |          0 |          0 |        2 |         0 |
-| DistMult, NSSA, and OWA     |          0 |          0 |        2 |         2 |
-| DistMult, BCE, and OWA      |          0 |          0 |        2 |         2 |
-| KG2E, CE, and LCWA          |          0 |          0 |        1 |         0 |
-| TransH, MR, and OWA         |          0 |          0 |        1 |         0 |
-| ERMLP, SoftPlus, and OWA    |          0 |          0 |        0 |         2 |
-| HolE, BCE, and OWA          |          0 |          0 |        0 |         2 |
-| ERMLP, BCE, and OWA         |          0 |          0 |        0 |         4 |
-| ConvKB, SoftPlus, and OWA   |          0 |          0 |        0 |         2 |
-| ComplEx, MR, and OWA        |          0 |          0 |        0 |         2 |
-| ConvKB, BCE, and OWA        |          0 |          0 |        0 |         1 |
-| HolE, SoftPlus, and OWA     |          0 |          0 |        0 |         2 |
-| RESCAL, SoftPlus, and OWA   |          0 |          0 |        0 |         2 |
-| DistMult, MR, and OWA       |          0 |          0 |        0 |         2 |
-| DistMult, SoftPlus, and OWA |          0 |          0 |        0 |         2 |
-| ERMLP, NSSA, and OWA        |          0 |          0 |        0 |         2 |
-| ConvKB, NSSA, and OWA       |          0 |          0 |        0 |         1 |
-| ConvKB, MR, and OWA         |          0 |          0 |        0 |         2 |
-| RESCAL, MR, and OWA         |          0 |          0 |        0 |         1 |
-| RESCAL, BCE, and OWA        |          0 |          0 |        0 |         1 |
-| RESCAL, NSSA, and OWA       |          0 |          0 |        0 |         1 |
-| HolE, MR, and OWA           |          0 |          0 |        0 |         2 |
-| ERMLP, MR, and OWA          |          0 |          0 |        0 |         1 |
+|                     |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|---------------------|------------|------------|----------|-----------|
+| **NSSAL and sLCWA** |          6 |          7 |        6 |        12 |
+| CEL and LCWA        |         10 |         13 |       17 |         0 |
+| BCEL and LCWA       |         10 |          7 |        7 |         0 |
+| SPL and LCWA        |         13 |          4 |        9 |         0 |
+| **MRL and sLCWA**   |         10 |          7 |        5 |        14 |
+| **SPL and sLCWA**   |          1 |          5 |        2 |        12 |
+| BCEL and sLCWA      |          0 |          7 |        4 |        12 |
+
+
+## Investigation of `model`, `loss`, and `training_approach`
+
+|                              |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
+|------------------------------|------------|------------|----------|-----------|
+| **RotatE, NSSAL, and sLCWA** |          2 |          2 |        2 |         2 |
+| DistMult, CEL, and LCWA      |          1 |          0 |        2 |         0 |
+| RotatE, BCEL, and LCWA       |          2 |          0 |        2 |         0 |
+| RotatE, CEL, and LCWA        |          2 |          1 |        2 |         0 |
+| TuckER, SPL, and LCWA        |          1 |          1 |        2 |         0 |
+| RESCAL, CEL, and LCWA        |          1 |          0 |        2 |         0 |
+| TransE, CEL, and LCWA        |          1 |          0 |        0 |         0 |
+| RotatE, SPL, and LCWA        |          2 |          0 |        2 |         0 |
+| TransE, MRL, and sLCWA       |          8 |          0 |        2 |         2 |
+| TransE, SPL, and LCWA        |          8 |          0 |        1 |         0 |
+| TuckER, CEL, and LCWA        |          2 |          5 |        2 |         0 |
+| RESCAL, BCEL, and LCWA       |          1 |          0 |        0 |         0 |
+| KG2E, SPL, and LCWA          |          2 |          0 |        2 |         0 |
+| TransE, BCEL, and LCWA       |          4 |          0 |        1 |         0 |
+| ComplEx, CEL, and LCWA       |          1 |          3 |        1 |         0 |
+| ERMLP, BCEL, and LCWA        |          1 |          0 |        0 |         0 |
+| TransE, NSSAL, and sLCWA     |          4 |          0 |        2 |         2 |
+| HolE, CEL, and LCWA          |          1 |          0 |        1 |         0 |
+| KG2E, SPL, and sLCWA         |          1 |          0 |        0 |         0 |
+| ProjE, CEL, and LCWA         |          1 |          0 |        2 |         0 |
+| ProjE, BCEL, and LCWA        |          1 |          0 |        0 |         0 |
+| TransD, MRL, and sLCWA       |          1 |          0 |        0 |         0 |
+| **RotatE, MRL, and sLCWA**   |          1 |          2 |        1 |         2 |
+| SimplE, BCEL, and LCWA       |          1 |          1 |        0 |         0 |
+| TuckER, MRL, and sLCWA       |          0 |          5 |        1 |         0 |
+| TuckER, BCEL, and LCWA       |          0 |          1 |        2 |         0 |
+| TuckER, SPL, and sLCWA       |          0 |          1 |        0 |         0 |
+| ConvE, CEL, and LCWA         |          0 |          2 |        2 |         0 |
+| ConvE, BCEL, and LCWA        |          0 |          5 |        2 |         0 |
+| ComplEx, NSSAL, and sLCWA    |          0 |          1 |        0 |         2 |
+| TuckER, BCEL, and sLCWA      |          0 |          3 |        0 |         0 |
+| TuckER, NSSAL, and sLCWA     |          0 |          2 |        0 |         0 |
+| ConvE, NSSAL, and sLCWA      |          0 |          2 |        0 |         0 |
+| SimplE, BCEL, and sLCWA      |          0 |          3 |        0 |         0 |
+| SimplE, CEL, and LCWA        |          0 |          2 |        2 |         0 |
+| ComplEx, BCEL, and sLCWA     |          0 |          1 |        0 |         2 |
+| ConvE, SPL, and LCWA         |          0 |          3 |        2 |         0 |
+| SimplE, SPL, and sLCWA       |          0 |          3 |        0 |         0 |
+| ComplEx, SPL, and sLCWA      |          0 |          1 |        0 |         2 |
+| RotatE, SPL, and sLCWA       |          0 |          0 |        2 |         0 |
+| RotatE, BCEL, and sLCWA      |          0 |          0 |        2 |         0 |
+| DistMult, NSSAL, and sLCWA   |          0 |          0 |        2 |         2 |
+| DistMult, BCEL, and sLCWA    |          0 |          0 |        2 |         2 |
+| KG2E, CEL, and LCWA          |          0 |          0 |        1 |         0 |
+| TransH, MRL, and sLCWA       |          0 |          0 |        1 |         0 |
+| ERMLP, SPL, and sLCWA        |          0 |          0 |        0 |         2 |
+| HolE, BCEL, and sLCWA        |          0 |          0 |        0 |         2 |
+| ERMLP, BCEL, and sLCWA       |          0 |          0 |        0 |         4 |
+| ConvKB, SPL, and sLCWA       |          0 |          0 |        0 |         2 |
+| ComplEx, MRL, and sLCWA      |          0 |          0 |        0 |         2 |
+| ConvKB, BCEL, and sLCWA      |          0 |          0 |        0 |         1 |
+| HolE, SPL, and sLCWA         |          0 |          0 |        0 |         2 |
+| RESCAL, SPL, and sLCWA       |          0 |          0 |        0 |         2 |
+| DistMult, MRL, and sLCWA     |          0 |          0 |        0 |         2 |
+| DistMult, SPL, and sLCWA     |          0 |          0 |        0 |         2 |
+| ERMLP, NSSAL, and sLCWA      |          0 |          0 |        0 |         2 |
+| ConvKB, NSSAL, and sLCWA     |          0 |          0 |        0 |         1 |
+| ConvKB, MRL, and sLCWA       |          0 |          0 |        0 |         2 |
+| RESCAL, MRL, and sLCWA       |          0 |          0 |        0 |         1 |
+| RESCAL, BCEL, and sLCWA      |          0 |          0 |        0 |         1 |
+| RESCAL, NSSAL, and sLCWA     |          0 |          0 |        0 |         1 |
+| HolE, MRL, and sLCWA         |          0 |          0 |        0 |         2 |
+| ERMLP, MRL, and sLCWA        |          0 |          0 |        0 |         1 |
 
 

@@ -28,14 +28,48 @@ from collate import SUMMARY_DIRECTORY, read_collation
 def main():
     """Make interpretation at top 5, 10, and 15 best."""
     df = read_collation()
+    target = 'hits@10'
+    do_gold(df=df, target=target)
+    do_top(df=df, target=target)
+
+
+def do_gold(*, df, target):
+    """Get the best configuration for each dataset/model.
+
+    Columns returned: dataset, model, loss, training approach, inverse
+    """
+    output = os.path.join(SUMMARY_DIRECTORY, 'top_tables')
+    os.makedirs(output, exist_ok=True)
+    columns = ['loss', 'training_approach', 'inverse_relations', target]
+    for dataset, dataset_df in df.groupby('dataset'):
+        rows = []
+        for model, model_df in dataset_df.groupby('model'):
+            top_df = model_df.sort_values(target, ascending=False)
+            r = top_df.iloc[0]
+            rows.append((
+                model,
+                *[r[c] for c in columns]
+            ))
+        rdf = pd.DataFrame(
+            rows,
+            columns=['model', 'loss', 'training_approach', 'inverse_relations', target],
+        ).sort_values('model')
+        rdf.to_csv(os.path.join(output, f'{dataset.lower()}.tsv'), index=False, sep='\t')
+
+        rdf.columns = [c.replace('_', ' ').title() for c in rdf.columns]
+        s = rdf.to_latex(index=False)
+        with open(os.path.join(output, f'{dataset.lower()}.tex'), 'w') as file:
+            print(s, file=file)
+
+
+def do_top(*, df, target):
     for top in (5, 10, 50):
         with open(os.path.join(SUMMARY_DIRECTORY, f'winners_at_top_{top:02}.md'), 'w') as file:
             configurations = [
-                'model', 'loss', 'training_loop', 'create_inverse_triples',
-                ('model', 'loss'), ('model', 'training_loop'), ('loss', 'training_loop'),
-                ('model', 'loss', 'training_loop'),
+                'model', 'loss', 'training_approach', 'inverse_relations',
+                ('model', 'loss'), ('model', 'training_approach'), ('loss', 'training_approach'),
+                ('model', 'loss', 'training_approach'),
             ]
-            target = 'hits@10'
             print(f'# Investigation of Top {top} Results\n', file=file)
             print(f'''This document gives insight into which models, loss functions, etc. are consistently
 appearing in the top {top} experiments rated by {target} for **all** datasets. The ones that appear in the top {top}
@@ -43,10 +77,10 @@ experiments for every dataset are shown in **bold** in the index of each table. 
 show that there are consistent best performers.
 ''', file=file)
             for config in configurations:
-                print_winners(df=df, top=top, target=target, file=file, config=config)
+                print_top_winners(df=df, top=top, target=target, file=file, config=config)
 
 
-def get_winners_df(
+def get_top_winners_df(
     *,
     df: pd.DataFrame,
     top: int,
@@ -74,7 +108,7 @@ def make_index(r):
         raise ValueError
 
 
-def print_winners(
+def print_top_winners(
     *,
     df: pd.DataFrame,
     top: int,
@@ -82,7 +116,7 @@ def print_winners(
     config: Union[str, Iterable[str]],
     file: Optional[TextIO] = None,
 ) -> None:
-    r = get_winners_df(df=df, top=top, config=config, target=target)
+    r = get_top_winners_df(df=df, top=top, config=config, target=target)
 
     r_transpose = r.transpose()
     winners = {
