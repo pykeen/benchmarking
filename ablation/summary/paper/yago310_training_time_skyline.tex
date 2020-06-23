@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\caption{Pareto-optimal models for YAGO310}
+\begin{tabular}{llllr}
+\toprule
+    model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+\midrule
+   RotatE &  NSSAL &             sLCWA &              True &  0.627860 \\
+  ComplEx &    SPL &             sLCWA &             False &  0.619932 \\
+  ComplEx &    SPL &             sLCWA &              True &  0.609996 \\
+  ComplEx &   BCEL &             sLCWA &             False &  0.601967 \\
+    ERMLP &   BCEL &             sLCWA &             False &  0.581092 \\
+ DistMult &    MRL &             sLCWA &             False &  0.487154 \\
+   TransE &    MRL &             sLCWA &             False &  0.408470 \\
+   TransE &    SPL &             sLCWA &             False &  0.162184 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

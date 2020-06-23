@@ -1,0 +1,17 @@
+\begin{table}
+\centering
+\caption{Pareto-optimal models for FB15k237}
+\begin{tabular}{llllr}
+\toprule
+    model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+\midrule
+   RotatE &  NSSAL &             sLCWA &             False &  0.481774 \\
+   RotatE &  NSSAL &             sLCWA &              True &  0.477101 \\
+ DistMult &    CEL &              LCWA &              True &  0.459683 \\
+   TransE &    SPL &              LCWA &             False &  0.439280 \\
+       UM &    MRL &             sLCWA &             False &  0.032170 \\
+       UM &    MRL &             sLCWA &              True &  0.029577 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

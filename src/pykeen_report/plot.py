@@ -808,6 +808,15 @@ def _skyline_plot(
     )
 
 
+_skyline_output_columns = [
+    'model',
+    'loss',
+    'training_approach',
+    'inverse_relations',
+    'hits@10',
+]
+
+
 def make_sizeplots_trellised(
     *,
     df: pd.DataFrame,
@@ -827,9 +836,17 @@ def make_sizeplots_trellised(
             columns=[target_x_header, target_y_header],
             smaller_is_better=(True, False),
         )
-        skyline_df.to_csv(os.path.join(output_directory, f'{dataset.lower()}_skyline.tsv'), index=False, sep='\t')
-        with open(os.path.join(output_directory, f'{dataset.lower()}_skyline.tex'), 'w') as file:
-            s = skyline_df.to_latex(index=False, caption=f'Pareto-optimal models for {dataset}')
+        skyline_df = skyline_df.sort_values(target_y_header, ascending=False)
+        skyline_df[_skyline_output_columns + [target_x_header]].to_csv(
+            os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tsv'),
+            index=False,
+            sep='\t',
+        )
+        with open(os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tex'), 'w') as file:
+            s = skyline_df[_skyline_output_columns].to_latex(
+                index=False,
+                caption=f'Pareto-optimal models for {dataset}',
+            )
             print(s, file=file)
 
         sdf.loc[skyline_df.index, 'skyline'] = True

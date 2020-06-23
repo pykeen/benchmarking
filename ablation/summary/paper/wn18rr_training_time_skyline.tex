@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\caption{Pareto-optimal models for WN18RR}
+\begin{tabular}{llllr}
+\toprule
+  model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+\midrule
+ RotatE &    SPL &              LCWA &              True &  0.601744 \\
+ RotatE &   BCEL &              LCWA &              True &  0.592852 \\
+ RotatE &  NSSAL &             sLCWA &              True &  0.579685 \\
+ RotatE &  NSSAL &             sLCWA &             False &  0.577975 \\
+ RotatE &    SPL &             sLCWA &             False &  0.507353 \\
+ TransE &  NSSAL &             sLCWA &             False &  0.498119 \\
+ TransE &   BCEL &             sLCWA &             False &  0.433995 \\
+     UM &   BCEL &             sLCWA &             False &  0.402702 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
