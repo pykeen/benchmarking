@@ -380,8 +380,7 @@ def write_experimental_heatmap(
     # cbar = g.fig.colorbar(g.axes[0, 0].collections[0], ax=g.axes, fraction=0.1)
     # cbar.set_label(target_header, rotation=270)
     sns.despine()
-    a = 2
-    g.fig.set_size_inches(a*8.3, a*11.7)
+    g.fig.set_size_inches(8.3*g.axes.shape[1], 11.7*g.axes.shape[0])
     if name is None:
         name = f'{dataset}_{optimizer}_heatmap'
     if make_pngs:
