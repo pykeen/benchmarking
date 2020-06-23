@@ -1,18 +1,18 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for Kinships}
-\begin{tabular}{llllr}
+\begin{tabular}{llllrr}
 \toprule
-  model &  loss & training\_approach & inverse\_relations &   hits@10 \\
+  model &  loss & training\_approach & inverse\_relations &  model\_bytes &   hits@10 \\
 \midrule
- TuckER &   SPL &              LCWA &              True &  0.986965 \\
- RotatE &   MRL &             sLCWA &             False &  0.984637 \\
- SimplE &  BCEL &              LCWA &              True &  0.983706 \\
-  ProjE &  BCEL &             sLCWA &              True &  0.960894 \\
-  ProjE &   SPL &             sLCWA &             False &  0.952514 \\
-   HolE &   SPL &              LCWA &             False &  0.879888 \\
-     UM &   SPL &              LCWA &             False &  0.118715 \\
-     UM &   SPL &             sLCWA &              True &  0.054469 \\
+ TuckER &   SPL &              LCWA &              True &     33686528 &  0.986965 \\
+ RotatE &   MRL &             sLCWA &             False &       264192 &  0.984637 \\
+ SimplE &  BCEL &              LCWA &              True &        78848 &  0.983706 \\
+  ProjE &  BCEL &             sLCWA &              True &        40196 &  0.960894 \\
+  ProjE &   SPL &             sLCWA &             False &        33796 &  0.952514 \\
+   HolE &   SPL &              LCWA &             False &        33024 &  0.879888 \\
+     UM &   SPL &              LCWA &             False &        26624 &  0.118715 \\
+     UM &   SPL &             sLCWA &              True &        26624 &  0.054469 \\
 \bottomrule
 \end{tabular}
 \end{table}

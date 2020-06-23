@@ -1,15 +1,15 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for FB15k237}
-\begin{tabular}{llllr}
+\begin{tabular}{llllrr}
 \toprule
-  model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+  model &   loss & training\_approach & inverse\_relations &  training\_time &   hits@10 \\
 \midrule
- RotatE &  NSSAL &             sLCWA &             False &  0.481774 \\
- TransE &    MRL &             sLCWA &             False &  0.441286 \\
- TransE &  NSSAL &             sLCWA &             False &  0.411806 \\
-     UM &    SPL &             sLCWA &             False &  0.058812 \\
-     UM &    MRL &             sLCWA &             False &  0.032170 \\
+ RotatE &  NSSAL &             sLCWA &             False &    3134.706910 &  0.481774 \\
+ TransE &    MRL &             sLCWA &             False &    1072.069131 &  0.441286 \\
+ TransE &  NSSAL &             sLCWA &             False &     909.334732 &  0.411806 \\
+     UM &    SPL &             sLCWA &             False &     728.047770 &  0.058812 \\
+     UM &    MRL &             sLCWA &             False &     715.349390 &  0.032170 \\
 \bottomrule
 \end{tabular}
 \end{table}

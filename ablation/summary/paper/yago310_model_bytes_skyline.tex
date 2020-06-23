@@ -1,17 +1,17 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for YAGO310}
-\begin{tabular}{llllr}
+\begin{tabular}{llllrr}
 \toprule
-    model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+    model &   loss & training\_approach & inverse\_relations &  model\_bytes &   hits@10 \\
 \midrule
-   RotatE &  NSSAL &             sLCWA &              True &  0.627860 \\
-  ComplEx &    SPL &             sLCWA &              True &  0.609996 \\
-    ERMLP &    SPL &             sLCWA &              True &  0.587515 \\
-   ConvKB &    SPL &             sLCWA &             False &  0.527098 \\
-   ConvKB &  NSSAL &             sLCWA &             False &  0.514452 \\
- DistMult &    SPL &             sLCWA &              True &  0.499498 \\
-   TransE &   BCEL &             sLCWA &             False &  0.142513 \\
+   RotatE &  NSSAL &             sLCWA &              True &    252348416 &  0.627860 \\
+  ComplEx &    SPL &             sLCWA &              True &    126174208 &  0.609996 \\
+    ERMLP &    SPL &             sLCWA &              True &     63284740 &  0.587515 \\
+   ConvKB &    SPL &             sLCWA &             False &     31561284 &  0.527098 \\
+   ConvKB &  NSSAL &             sLCWA &             False &     31547684 &  0.514452 \\
+ DistMult &    SPL &             sLCWA &              True &     31543552 &  0.499498 \\
+   TransE &   BCEL &             sLCWA &             False &     31534080 &  0.142513 \\
 \bottomrule
 \end{tabular}
 \end{table}

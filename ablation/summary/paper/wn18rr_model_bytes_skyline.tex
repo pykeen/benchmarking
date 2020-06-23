@@ -1,15 +1,15 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for WN18RR}
-\begin{tabular}{llllr}
+\begin{tabular}{llllrr}
 \toprule
-  model &   loss & training\_approach & inverse\_relations &   hits@10 \\
+  model &   loss & training\_approach & inverse\_relations &  model\_bytes &   hits@10 \\
 \midrule
- RotatE &    SPL &              LCWA &              True &  0.601744 \\
- RotatE &   BCEL &              LCWA &              True &  0.592852 \\
-  ConvE &    SPL &              LCWA &              True &  0.530609 \\
- ConvKB &   BCEL &             sLCWA &             False &  0.418605 \\
- ConvKB &  NSSAL &             sLCWA &             False &  0.200923 \\
+ RotatE &    SPL &              LCWA &              True &     83109888 &  0.601744 \\
+ RotatE &   BCEL &              LCWA &              True &     20777472 &  0.592852 \\
+  ConvE &    SPL &              LCWA &              True &     11112100 &  0.530609 \\
+ ConvKB &   BCEL &             sLCWA &             False &      5211396 &  0.418605 \\
+ ConvKB &  NSSAL &             sLCWA &             False &      2599044 &  0.200923 \\
 \bottomrule
 \end{tabular}
 \end{table}

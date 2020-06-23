@@ -813,7 +813,6 @@ _skyline_output_columns = [
     'loss',
     'training_approach',
     'inverse_relations',
-    'hits@10',
 ]
 
 
@@ -837,13 +836,13 @@ def make_sizeplots_trellised(
             smaller_is_better=(True, False),
         )
         skyline_df = skyline_df.sort_values(target_y_header, ascending=False)
-        skyline_df[_skyline_output_columns + [target_x_header]].to_csv(
+        skyline_df[_skyline_output_columns + [target_x_header, target_y_header]].to_csv(
             os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tsv'),
             index=False,
             sep='\t',
         )
         with open(os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tex'), 'w') as file:
-            s = skyline_df[_skyline_output_columns].to_latex(
+            s = skyline_df[_skyline_output_columns + [target_x_header, target_y_header]].to_latex(
                 index=False,
                 caption=f'Pareto-optimal models for {dataset}',
             )
