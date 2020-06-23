@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\caption{Pareto-optimal models for YAGO310}
+\begin{tabular}{lllllllllrrrrr}
+\toprule
+searcher &  dataset & inverse\_relations &     model &   loss & regularizer & optimizer & training\_approach & negative\_sampler &  model\_bytes &  replicate &  training\_time &  evaluation\_time &   hits@10 \\
+\midrule
+  random &  YAGO310 &              True &    RotatE &  NSSAL &     No Reg. &      Adam &             sLCWA &            Basic &    252348416 &          0 &   13324.229883 &        69.321414 &  0.627860 \\
+  random &  YAGO310 &             False &   ComplEx &    SPL &     No Reg. &      Adam &             sLCWA &            Basic &    252272640 &          0 &    6988.109294 &       208.797256 &  0.619932 \\
+  random &  YAGO310 &              True &   ComplEx &    SPL &     No Reg. &      Adam &             sLCWA &            Basic &    126174208 &          0 &    5192.009419 &        94.384222 &  0.609996 \\
+  random &  YAGO310 &             False &   ComplEx &   BCEL &     No Reg. &      Adam &             sLCWA &            Basic &    126136320 &          0 &    4149.036398 &       140.183261 &  0.601967 \\
+  random &  YAGO310 &             False &     ERMLP &   BCEL &     No Reg. &      Adam &             sLCWA &            Basic &     63265796 &          0 &    3519.348289 &       157.421946 &  0.581092 \\
+  random &  YAGO310 &             False &  DistMult &    MRL &     No Reg. &      Adam &             sLCWA &            Basic &    126136320 &          0 &    1906.535029 &        27.653629 &  0.487154 \\
+  random &  YAGO310 &             False &    TransE &    MRL &     No Reg. &      Adam &             sLCWA &            Basic &    126136320 &          0 &     950.038965 &        17.621060 &  0.408470 \\
+  random &  YAGO310 &             False &    TransE &    SPL &     No Reg. &      Adam &             sLCWA &            Basic &     63068160 &          0 &     939.801064 &        16.078748 &  0.162184 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

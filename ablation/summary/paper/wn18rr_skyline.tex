@@ -1,0 +1,19 @@
+\begin{table}
+\centering
+\caption{Pareto-optimal models for WN18RR}
+\begin{tabular}{lllllllllrrrrr}
+\toprule
+searcher & dataset & inverse\_relations &   model &   loss & regularizer & optimizer & training\_approach & negative\_sampler &  model\_bytes &  replicate &  training\_time &  evaluation\_time &   hits@10 \\
+\midrule
+  random &  WN18RR &              True &  RotatE &    SPL &     No Reg. &      Adam &              LCWA &             None &     83109888 &          0 &   62017.374280 &        11.544936 &  0.601744 \\
+  random &  WN18RR &              True &  RotatE &   BCEL &     No Reg. &      Adam &              LCWA &             None &     20777472 &          0 &   18070.137722 &         5.851069 &  0.592852 \\
+  random &  WN18RR &              True &  RotatE &  NSSAL &     No Reg. &      Adam &             sLCWA &            Basic &     41554944 &          0 &    2063.501005 &         6.314969 &  0.579685 \\
+  random &  WN18RR &             False &  RotatE &  NSSAL &     No Reg. &      Adam &             sLCWA &            Basic &     41543680 &          0 &    1404.837356 &         6.188087 &  0.577975 \\
+  random &  WN18RR &             False &  RotatE &    SPL &     No Reg. &      Adam &             sLCWA &            Basic &     20771840 &          0 &     432.040505 &         5.981503 &  0.507353 \\
+  random &  WN18RR &             False &  TransE &  NSSAL &     No Reg. &      Adam &             sLCWA &            Basic &     20771840 &          0 &     415.439118 &         4.410866 &  0.498119 \\
+  random &  WN18RR &             False &  TransE &   BCEL &     No Reg. &      Adam &             sLCWA &            Basic &     10385920 &          0 &     302.594469 &         4.506621 &  0.433995 \\
+  random &  WN18RR &             False &      UM &   BCEL &     No Reg. &      Adam &             sLCWA &            Basic &     10383104 &          0 &     284.367905 &         4.634719 &  0.402702 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
