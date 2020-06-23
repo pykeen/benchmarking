@@ -1,16 +1,16 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for FB15k237 regarding Model Bytes and Hits@10}
-\begin{tabular}{lllllr}
+\begin{tabular}{llllrr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (%) \\
+    Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
 \midrule
-   RotatE &  NSSAL &             sLCWA &                   &     30.2 MB &       48.177 \\
-   RotatE &  NSSAL &             sLCWA &        \checkmark &     15.3 MB &       47.710 \\
- DistMult &    CEL &              LCWA &        \checkmark &      3.8 MB &       45.968 \\
-   TransE &    SPL &              LCWA &                   &      3.8 MB &       43.928 \\
-       UM &    MRL &             sLCWA &                   &      3.7 MB &        3.217 \\
-       UM &    MRL &             sLCWA &        \checkmark &      3.7 MB &        2.958 \\
+   RotatE &  NSSAL &             sLCWA &                no &    28.8 MiB &       48.177 \\
+   RotatE &  NSSAL &             sLCWA &               yes &    14.6 MiB &       47.710 \\
+ DistMult &    CEL &              LCWA &               yes &     3.7 MiB &       45.968 \\
+   TransE &    SPL &              LCWA &                no &     3.6 MiB &       43.928 \\
+       UM &    MRL &             sLCWA &                no &     3.5 MiB &        3.217 \\
+       UM &    MRL &             sLCWA &               yes &     3.5 MiB &        2.958 \\
 \bottomrule
 \end{tabular}
 \end{table}

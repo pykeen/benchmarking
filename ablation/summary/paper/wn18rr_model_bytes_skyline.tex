@@ -1,15 +1,15 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for WN18RR regarding Model Bytes and Hits@10}
-\begin{tabular}{lllllr}
+\begin{tabular}{llllrr}
 \toprule
-  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (%) \\
+  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
 \midrule
- RotatE &    SPL &              LCWA &        \checkmark &     83.1 MB &       60.174 \\
- RotatE &   BCEL &              LCWA &        \checkmark &     20.8 MB &       59.285 \\
-  ConvE &    SPL &              LCWA &        \checkmark &     11.1 MB &       53.061 \\
- ConvKB &   BCEL &             sLCWA &                   &      5.2 MB &       41.860 \\
- ConvKB &  NSSAL &             sLCWA &                   &      2.6 MB &       20.092 \\
+ RotatE &    SPL &              LCWA &               yes &    79.3 MiB &       60.174 \\
+ RotatE &   BCEL &              LCWA &               yes &    19.8 MiB &       59.285 \\
+  ConvE &    SPL &              LCWA &               yes &    10.6 MiB &       53.061 \\
+ ConvKB &   BCEL &             sLCWA &                no &     5.0 MiB &       41.860 \\
+ ConvKB &  NSSAL &             sLCWA &                no &     2.5 MiB &       20.092 \\
 \bottomrule
 \end{tabular}
 \end{table}

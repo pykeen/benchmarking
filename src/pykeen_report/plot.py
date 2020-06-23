@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Tools for plotting PyKEEN experiments."""
-
+import functools
 import itertools as itt
 import logging
 import os
@@ -817,6 +817,14 @@ _skyline_output_columns = [
 ]
 
 
+def _normalize_time_delta(x: float) -> str:
+    if x > 3600:
+        return f'{x / 3600:2.2f} h'
+    elif x > 60:
+        return f'{x / 60:2.2f} min'
+    return f'{x:2.2f} s'
+
+
 def make_sizeplots_trellised(
     *,
     df: pd.DataFrame,
@@ -837,7 +845,7 @@ def make_sizeplots_trellised(
             smaller_is_better=(True, False),
         )
         skyline_df = skyline_df.sort_values(target_y_header, ascending=False)
-        _skyline_df_op = skyline_df[_skyline_output_columns + [target_x_header, target_y_header]]
+        _skyline_df_op = skyline_df[_skyline_output_columns + [target_x_header, target_y_header]].copy()
         _skyline_df_op.to_csv(
             os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tsv'),
             index=False,
@@ -845,12 +853,12 @@ def make_sizeplots_trellised(
         )
         with open(os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tex'), 'w') as file:
             if 'time' in target_x_header:
-                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(humanize.naturaldelta)
+                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(_normalize_time_delta)
             elif 'bytes' in target_x_header:
-                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(humanize.naturalsize)
+                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(functools.partial(humanize.naturalsize, binary=True))
 
             _skyline_df_op['inverse_relations'] = _skyline_df_op['inverse_relations'].map(
-                lambda x: r'\checkmark' if x == 'True' else ''
+                lambda x: 'yes' if x == 'True' else 'no'
             )
             if 'hits@' in target_y_header:
                 _skyline_df_op[f'{target_y_header} (%)'] = _skyline_df_op[target_y_header].map(
@@ -861,9 +869,10 @@ def make_sizeplots_trellised(
 
             s = _skyline_df_op.to_latex(
                 index=False,
-                escape=False,
+                escape=True,
                 caption=f'Pareto-optimal models for {dataset} regarding {target_x_header.replace("_", " ").title()}'
                         f' and {target_y_header.replace("_", " ").title()}',
+                column_format='llllrr'
             )
             print(s, file=file)
 

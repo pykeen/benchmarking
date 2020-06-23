@@ -1,18 +1,18 @@
 \begin{table}
 \centering
 \caption{Pareto-optimal models for WN18RR regarding Training Time and Hits@10}
-\begin{tabular}{lllllr}
+\begin{tabular}{llllrr}
 \toprule
-  Model &   Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (%) \\
+  Model &   Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
 \midrule
- RotatE &    SPL &              LCWA &        \checkmark &      17 hours &       60.174 \\
- RotatE &   BCEL &              LCWA &        \checkmark &       5 hours &       59.285 \\
- RotatE &  NSSAL &             sLCWA &        \checkmark &    34 minutes &       57.969 \\
- RotatE &  NSSAL &             sLCWA &                   &    23 minutes &       57.798 \\
- RotatE &    SPL &             sLCWA &                   &     7 minutes &       50.735 \\
- TransE &  NSSAL &             sLCWA &                   &     6 minutes &       49.812 \\
- TransE &   BCEL &             sLCWA &                   &     5 minutes &       43.399 \\
-     UM &   BCEL &             sLCWA &                   &     4 minutes &       40.270 \\
+ RotatE &    SPL &              LCWA &               yes &       17.23 h &       60.174 \\
+ RotatE &   BCEL &              LCWA &               yes &        5.02 h &       59.285 \\
+ RotatE &  NSSAL &             sLCWA &               yes &     34.39 min &       57.969 \\
+ RotatE &  NSSAL &             sLCWA &                no &     23.41 min &       57.798 \\
+ RotatE &    SPL &             sLCWA &                no &      7.20 min &       50.735 \\
+ TransE &  NSSAL &             sLCWA &                no &      6.92 min &       49.812 \\
+ TransE &   BCEL &             sLCWA &                no &      5.04 min &       43.399 \\
+     UM &   BCEL &             sLCWA &                no &      4.74 min &       40.270 \\
 \bottomrule
 \end{tabular}
 \end{table}
