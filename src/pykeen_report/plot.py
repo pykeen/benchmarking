@@ -397,9 +397,9 @@ def write_dataset_optimizer_barplots(
 
 def make_config_index(row: Mapping[str, Any]) -> str:
     return ' / '.join([
-        'Inv.' if row['inverse_relations'] == 'True' else 'No Inv.',
-        row["loss"],
-        row["training_approach"],
+        'Inv.   ' if row['inverse_relations'] == 'True' else 'No Inv.',
+        row["loss"].rjust(5),
+        row["training_approach"].rjust(5),
     ])
 
 
