@@ -341,6 +341,53 @@ def write_2d_summaries(
                 )
 
 
+def _custom_heatmap(*, x: str, y: str, z: str, data: pd.DataFrame, rows, cols, vmin=0, vmax=1, **kwargs):
+    df = pd.DataFrame(data=np.empty((len(rows), len(cols))).fill(float('nan')), index=rows, columns=cols, dtype=np.float64)
+    d = data.groupby(by=[x, y]).agg({z: np.median}).reset_index().pivot(index=y, columns=x, values=z)
+    df.loc[d.index, d.columns] = d.values
+    df = df.dropna(axis=1, how='all')
+    sns.heatmap(data=df, vmin=vmin, vmax=vmax, cbar=False, annot=True, fmt='.2%')
+
+
+def write_experimental_heatmap(
+    *,
+    dataset: str,
+    optimizer: str,
+    df: pd.DataFrame,
+    target_header: str,
+    output_directory: str,
+    name: Optional[str] = None,
+    make_pngs: bool = True,
+    make_pdfs: bool = True,
+    font_scale: float = 1.5,
+):
+    g = sns.FacetGrid(
+        data=df,
+        row='inverse_relations',
+        col='training_approach',
+        despine=True,
+        size=10,
+        margin_titles=True,
+        sharex=False,
+        sharey=False,
+    )
+    rows = sorted(df['model'].unique())
+    cols = sorted(df['loss'].unique())
+    g.map_dataframe(_custom_heatmap, y='model', x='loss', z=target_header, rows=rows, cols=cols)
+    # for a in g.axes[0, :]:
+    #     a.set_xticks([])
+    # cbar = g.fig.colorbar(g.axes[0, 0].collections[0], ax=g.axes, fraction=0.1)
+    # cbar.set_label(target_header, rotation=270)
+    sns.despine()
+    if name is None:
+        name = f'{dataset}_{optimizer}_heatmap'
+    if make_pngs:
+        g.savefig(os.path.join(output_directory, f'{name}.png'.lower()), dpi=300)
+    if make_pdfs:
+        g.savefig(os.path.join(output_directory, f'{name}.pdf'.lower()))
+    plt.close(g.fig)
+
+
 def write_dataset_optimizer_barplots(
     *,
     dataset: str,
@@ -351,6 +398,7 @@ def write_dataset_optimizer_barplots(
     name: Optional[str] = None,
     make_pngs: bool = True,
     make_pdfs: bool = True,
+    font_scale: float = 1.5,
 ) -> None:
     """Write model summaries, but trellis it on model."""
     data = pd.DataFrame([
@@ -367,25 +415,25 @@ def write_dataset_optimizer_barplots(
     means = data.groupby('configuration')[target_header].mean().sort_values()
     logger.debug('%d means mapped for %s/%s', len(means.index), dataset, optimizer)
 
-    g = sns.catplot(
-        kind='bar',
-        estimator=np.median,
-        data=data,
-        x=target_header,
-        y='configuration',
-        col='model',
-        col_wrap=4,
-        ci=None,
-        # capsize=.2, # restore if you want CIs
-        order=means.index,
-        palette="GnBu_d",
-    )
-    g.set_titles(template='{col_name}')
-    g.set_ylabels('')
-    g.set(xlim=[0.0, 1.0])
+    with sns.plotting_context(font_scale=font_scale):
+        g = sns.catplot(
+            kind='bar',
+            estimator=np.median,
+            data=data,
+            x=target_header,
+            y='configuration',
+            col='model',
+            col_wrap=4,
+            ci=None,
+            # capsize=.2, # restore if you want CIs
+            order=means.index,
+            palette="GnBu_d",
+        )
+        g.set_titles(template='{col_name}')
+        g.set_ylabels('')
+        g.set(xlim=[0.0, 1.0])
 
     sns.despine()
-    g.fig.tight_layout()
     if name is None:
         name = f'{dataset}_{optimizer}'
     if make_pngs:
@@ -396,10 +444,10 @@ def write_dataset_optimizer_barplots(
 
 
 def make_config_index(row: Mapping[str, Any]) -> str:
-    return ' / '.join([
-        'Inv.   ' if row['inverse_relations'] == 'True' else 'No Inv.',
-        row["loss"].rjust(5),
-        row["training_approach"].rjust(5),
+    return ''.join([
+        'I' if row['inverse_relations'] == 'True' else '-',
+        row["loss"][0],
+        row["training_approach"][0].upper(),
     ])
 
 

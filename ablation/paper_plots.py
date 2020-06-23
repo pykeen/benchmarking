@@ -48,6 +48,14 @@ def make_plots(
     it = tqdm(df.groupby(['dataset', 'optimizer']), desc='Making dataset/optimizer figures')
     for (dataset, optimizer), sub_df in it:
         it.write(f'creating trellised barplots: dataset/optimizer ({dataset}/{optimizer})')
+        pkp.write_experimental_heatmap(
+            df=sub_df,
+            dataset=dataset,
+            optimizer=optimizer,
+            target_header=target_header,
+            output_directory=output_directory,
+            name=f'{dataset}_{optimizer}_heat',
+        )
         pkp.write_dataset_optimizer_barplots(
             df=sub_df,
             dataset=dataset,
