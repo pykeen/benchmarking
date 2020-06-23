@@ -3,16 +3,16 @@
 \caption{Pareto-optimal models for YAGO310 regarding Training Time and Hits@10}
 \begin{tabular}{lllllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations & Training Time &   Hits@10 \\
+    Model &   Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (%) \\
 \midrule
-   RotatE &  NSSAL &             sLCWA &              True &       3 hours &  0.627860 \\
-  ComplEx &    SPL &             sLCWA &             False &       an hour &  0.619932 \\
-  ComplEx &    SPL &             sLCWA &              True &       an hour &  0.609996 \\
-  ComplEx &   BCEL &             sLCWA &             False &       an hour &  0.601967 \\
-    ERMLP &   BCEL &             sLCWA &             False &    58 minutes &  0.581092 \\
- DistMult &    MRL &             sLCWA &             False &    31 minutes &  0.487154 \\
-   TransE &    MRL &             sLCWA &             False &    15 minutes &  0.408470 \\
-   TransE &    SPL &             sLCWA &             False &    15 minutes &  0.162184 \\
+   RotatE &  NSSAL &             sLCWA &        \checkmark &       3 hours &       62.786 \\
+  ComplEx &    SPL &             sLCWA &                   &       an hour &       61.993 \\
+  ComplEx &    SPL &             sLCWA &        \checkmark &       an hour &       61.000 \\
+  ComplEx &   BCEL &             sLCWA &                   &       an hour &       60.197 \\
+    ERMLP &   BCEL &             sLCWA &                   &    58 minutes &       58.109 \\
+ DistMult &    MRL &             sLCWA &                   &    31 minutes &       48.715 \\
+   TransE &    MRL &             sLCWA &                   &    15 minutes &       40.847 \\
+   TransE &    SPL &             sLCWA &                   &    15 minutes &       16.218 \\
 \bottomrule
 \end{tabular}
 \end{table}

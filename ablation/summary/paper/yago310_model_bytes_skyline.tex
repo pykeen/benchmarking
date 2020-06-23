@@ -3,15 +3,15 @@
 \caption{Pareto-optimal models for YAGO310 regarding Model Bytes and Hits@10}
 \begin{tabular}{lllllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations & Model Bytes &   Hits@10 \\
+    Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (%) \\
 \midrule
-   RotatE &  NSSAL &             sLCWA &              True &    252.3 MB &  0.627860 \\
-  ComplEx &    SPL &             sLCWA &              True &    126.2 MB &  0.609996 \\
-    ERMLP &    SPL &             sLCWA &              True &     63.3 MB &  0.587515 \\
-   ConvKB &    SPL &             sLCWA &             False &     31.6 MB &  0.527098 \\
-   ConvKB &  NSSAL &             sLCWA &             False &     31.5 MB &  0.514452 \\
- DistMult &    SPL &             sLCWA &              True &     31.5 MB &  0.499498 \\
-   TransE &   BCEL &             sLCWA &             False &     31.5 MB &  0.142513 \\
+   RotatE &  NSSAL &             sLCWA &        \checkmark &    252.3 MB &       62.786 \\
+  ComplEx &    SPL &             sLCWA &        \checkmark &    126.2 MB &       61.000 \\
+    ERMLP &    SPL &             sLCWA &        \checkmark &     63.3 MB &       58.752 \\
+   ConvKB &    SPL &             sLCWA &                   &     31.6 MB &       52.710 \\
+   ConvKB &  NSSAL &             sLCWA &                   &     31.5 MB &       51.445 \\
+ DistMult &    SPL &             sLCWA &        \checkmark &     31.5 MB &       49.950 \\
+   TransE &   BCEL &             sLCWA &                   &     31.5 MB &       14.251 \\
 \bottomrule
 \end{tabular}
 \end{table}

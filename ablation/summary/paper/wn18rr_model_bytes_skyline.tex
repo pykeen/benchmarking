@@ -3,13 +3,13 @@
 \caption{Pareto-optimal models for WN18RR regarding Model Bytes and Hits@10}
 \begin{tabular}{lllllr}
 \toprule
-  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &   Hits@10 \\
+  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (%) \\
 \midrule
- RotatE &    SPL &              LCWA &              True &     83.1 MB &  0.601744 \\
- RotatE &   BCEL &              LCWA &              True &     20.8 MB &  0.592852 \\
-  ConvE &    SPL &              LCWA &              True &     11.1 MB &  0.530609 \\
- ConvKB &   BCEL &             sLCWA &             False &      5.2 MB &  0.418605 \\
- ConvKB &  NSSAL &             sLCWA &             False &      2.6 MB &  0.200923 \\
+ RotatE &    SPL &              LCWA &        \checkmark &     83.1 MB &       60.174 \\
+ RotatE &   BCEL &              LCWA &        \checkmark &     20.8 MB &       59.285 \\
+  ConvE &    SPL &              LCWA &        \checkmark &     11.1 MB &       53.061 \\
+ ConvKB &   BCEL &             sLCWA &                   &      5.2 MB &       41.860 \\
+ ConvKB &  NSSAL &             sLCWA &                   &      2.6 MB &       20.092 \\
 \bottomrule
 \end{tabular}
 \end{table}

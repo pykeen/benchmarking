@@ -837,21 +837,31 @@ def make_sizeplots_trellised(
             smaller_is_better=(True, False),
         )
         skyline_df = skyline_df.sort_values(target_y_header, ascending=False)
-        skyline_df[_skyline_output_columns + [target_x_header, target_y_header]].to_csv(
+        _skyline_df_op = skyline_df[_skyline_output_columns + [target_x_header, target_y_header]]
+        _skyline_df_op.to_csv(
             os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tsv'),
             index=False,
             sep='\t',
         )
         with open(os.path.join(output_directory, f'{dataset.lower()}_{target_x_header}_skyline.tex'), 'w') as file:
-            _latex_df = skyline_df[_skyline_output_columns + [target_x_header, target_y_header]]
             if 'time' in target_x_header:
-                _latex_df[target_x_header] = _latex_df[target_x_header].map(humanize.naturaldelta)
+                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(humanize.naturaldelta)
             elif 'bytes' in target_x_header:
-                _latex_df[target_x_header] = _latex_df[target_x_header].map(humanize.naturalsize)
+                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(humanize.naturalsize)
 
-            _latex_df.columns = [c.replace('_', ' ').title() for c in _latex_df.columns]
-            s = _latex_df.to_latex(
+            _skyline_df_op['inverse_relations'] = _skyline_df_op['inverse_relations'].map(
+                lambda x: r'\checkmark' if x == 'True' else ''
+            )
+            if 'hits@' in target_y_header:
+                _skyline_df_op[f'{target_y_header} (%)'] = _skyline_df_op[target_y_header].map(
+                    lambda x: round(100 * x, 3))
+                del _skyline_df_op[target_y_header]
+
+            _skyline_df_op.columns = [c.replace('_', ' ').title() for c in _skyline_df_op.columns]
+
+            s = _skyline_df_op.to_latex(
                 index=False,
+                escape=False,
                 caption=f'Pareto-optimal models for {dataset} regarding {target_x_header.replace("_", " ").title()}'
                         f' and {target_y_header.replace("_", " ").title()}',
             )

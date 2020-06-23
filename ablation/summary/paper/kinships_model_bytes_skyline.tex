@@ -3,16 +3,16 @@
 \caption{Pareto-optimal models for Kinships regarding Model Bytes and Hits@10}
 \begin{tabular}{lllllr}
 \toprule
-  Model &  Loss & Training Approach & Inverse Relations & Model Bytes &   Hits@10 \\
+  Model &  Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (%) \\
 \midrule
- TuckER &   SPL &              LCWA &              True &     33.7 MB &  0.986965 \\
- RotatE &   MRL &             sLCWA &             False &    264.2 kB &  0.984637 \\
- SimplE &  BCEL &              LCWA &              True &     78.8 kB &  0.983706 \\
-  ProjE &  BCEL &             sLCWA &              True &     40.2 kB &  0.960894 \\
-  ProjE &   SPL &             sLCWA &             False &     33.8 kB &  0.952514 \\
-   HolE &   SPL &              LCWA &             False &     33.0 kB &  0.879888 \\
-     UM &   SPL &              LCWA &             False &     26.6 kB &  0.118715 \\
-     UM &   SPL &             sLCWA &              True &     26.6 kB &  0.054469 \\
+ TuckER &   SPL &              LCWA &        \checkmark &     33.7 MB &       98.696 \\
+ RotatE &   MRL &             sLCWA &                   &    264.2 kB &       98.464 \\
+ SimplE &  BCEL &              LCWA &        \checkmark &     78.8 kB &       98.371 \\
+  ProjE &  BCEL &             sLCWA &        \checkmark &     40.2 kB &       96.089 \\
+  ProjE &   SPL &             sLCWA &                   &     33.8 kB &       95.251 \\
+   HolE &   SPL &              LCWA &                   &     33.0 kB &       87.989 \\
+     UM &   SPL &              LCWA &                   &     26.6 kB &       11.872 \\
+     UM &   SPL &             sLCWA &        \checkmark &     26.6 kB &        5.447 \\
 \bottomrule
 \end{tabular}
 \end{table}
