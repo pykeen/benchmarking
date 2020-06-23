@@ -341,12 +341,12 @@ def write_2d_summaries(
                 )
 
 
-def _custom_heatmap(*, x: str, y: str, z: str, data: pd.DataFrame, rows, cols, vmin=0, vmax=1, **kwargs):
+def _custom_heatmap(*, x: str, y: str, z: str, data: pd.DataFrame, rows, cols, vmin=0, vmax=1, cmap, **kwargs):
     df = pd.DataFrame(data=np.empty((len(rows), len(cols))).fill(float('nan')), index=rows, columns=cols, dtype=np.float64)
     d = data.groupby(by=[x, y]).agg({z: np.median}).reset_index().pivot(index=y, columns=x, values=z)
     df.loc[d.index, d.columns] = d.values
     df = df.dropna(axis=1, how='all')
-    sns.heatmap(data=df, vmin=vmin, vmax=vmax, cbar=False, annot=True, fmt='.2%')
+    sns.heatmap(data=df, vmin=vmin, vmax=vmax, cbar=False, annot=True, fmt='.2%', cmap=cmap)
 
 
 def write_experimental_heatmap(
@@ -370,15 +370,18 @@ def write_experimental_heatmap(
         margin_titles=True,
         sharex=False,
         sharey=False,
+        height=1,
     )
     rows = sorted(df['model'].unique())
     cols = sorted(df['loss'].unique())
-    g.map_dataframe(_custom_heatmap, y='model', x='loss', z=target_header, rows=rows, cols=cols)
+    g.map_dataframe(_custom_heatmap, y='model', x='loss', z=target_header, rows=rows, cols=cols, cmap=None)
     # for a in g.axes[0, :]:
     #     a.set_xticks([])
     # cbar = g.fig.colorbar(g.axes[0, 0].collections[0], ax=g.axes, fraction=0.1)
     # cbar.set_label(target_header, rotation=270)
     sns.despine()
+    a = 2
+    g.fig.set_size_inches(a*8.3, a*11.7)
     if name is None:
         name = f'{dataset}_{optimizer}_heatmap'
     if make_pngs:
