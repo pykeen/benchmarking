@@ -136,6 +136,21 @@ def make_plots(
             dataset=dataset,
             make_pngs=make_pngs,
             make_pdfs=make_pdfs,
+            name=dataset,
+        )
+
+        gkey = [c for c in sub_df.columns if c not in {target_header, 'replicate'}]
+        gdf = sub_df.groupby(gkey)[target_header].median().reset_index()
+
+        it.write(f'creating summary chart for {dataset} (aggregated)')
+        pkp.make_summary_chart(
+            df=gdf,
+            target_header=target_header,
+            slice_dir=output_directory,
+            dataset=dataset,
+            make_pngs=make_pngs,
+            make_pdfs=make_pdfs,
+            name=f'{dataset}_agg',
         )
 
 

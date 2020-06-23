@@ -412,6 +412,7 @@ def make_summary_chart(
     nrows=2,
     make_pngs: bool = True,
     make_pdfs: bool = True,
+    name: Optional[str] = None,
 ) -> None:
     if df['optimizer'].nunique() == 1:  # Don't bother with optimizer plot
         ablation_headers = ['model', 'loss_training_approach', 'inverse_relations']
@@ -456,10 +457,12 @@ def make_summary_chart(
         ax.set_ylim([0.0, 1.0])
 
     fig.tight_layout()
+    if name is None:
+        name = dataset
     if make_pngs:
-        fig.savefig(os.path.join(slice_dir, f'{dataset}.png'.lower()), dpi=300)
+        fig.savefig(os.path.join(slice_dir, f'{name}.png'.lower()), dpi=300)
     if make_pdfs:
-        fig.savefig(os.path.join(slice_dir, f'{dataset}.pdf'.lower()))
+        fig.savefig(os.path.join(slice_dir, f'{name}.pdf'.lower()))
     plt.close(fig)
 
 
