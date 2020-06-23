@@ -874,6 +874,7 @@ def make_sizeplots_trellised(
                         f' and {target_y_header.replace("_", " ").title()}',
                 column_format='llllrr'
             )
+            s = s.replace('}\n\\begin{tabular', '}\n' + '\\label{tab:skyline_' + dataset.lower() + '_' + target_x_header + '}\n\\begin{tabular')
             print(s, file=file)
 
         sdf.loc[skyline_df.index, 'skyline'] = True
