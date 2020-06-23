@@ -872,9 +872,10 @@ def make_sizeplots_trellised(
                 escape=True,
                 caption=f'Pareto-optimal models for {dataset} regarding {target_x_header.replace("_", " ").title()}'
                         f' and {target_y_header.replace("_", " ").title()}',
-                column_format='llllrr'
+                column_format='llllrr',
+                label=f'tab:skyline_{dataset.lower()}_{target_x_header}',
             )
-            s = s.replace('}\n\\begin{tabular', '}\n' + '\\label{tab:skyline_' + dataset.lower() + '_' + target_x_header + '}\n\\begin{tabular')
+            s = s.replace('\\begin{table}', '\\begin{table}[H]')
             print(s, file=file)
 
         sdf.loc[skyline_df.index, 'skyline'] = True
