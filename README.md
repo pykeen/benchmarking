@@ -7,6 +7,8 @@ described in
 <br /> Ali, M., Berrendorf, M., Hoyt, C. T., Vermue, L., Galkin, M., Sharifzadeh, S., Fischer, A., Tresp, V., & Lehmann, J. (2020).
 <br /> *arXiv*, 2006.13365.
 
+This repository itself is archived on Zenodo at [![DOI](https://zenodo.org/badge/222931424.svg)](https://zenodo.org/badge/latestdoi/222931424).
+
 ## Reproducibility Study
 
 In this study, we use the KGEMs reimplemented in PyKEEN and the authors' best
