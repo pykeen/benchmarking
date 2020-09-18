@@ -1,13 +1,20 @@
-# PyKEEN Experimental Results
+# PyKEEN Benchmarking Results
 
-This repository contains two main experiments:
+This repository contains the results from the reproducibility and benchmarking studies
+described in 
+
+> [**Bringing Light Into the Dark: A Large-scale Evaluation of Knowledge Graph Embedding Models Under a Unified Framework**](http://arxiv.org/abs/2006.13365).
+<br /> Ali, M., Berrendorf, M., Hoyt, C. T., Vermue, L., Galkin, M., Sharifzadeh, S., Fischer, A., Tresp, V., & Lehmann, J. (2020).
+<br /> *arXiv*, 2006.13365.
+
+This repository itself is archived on Zenodo at [![DOI](https://zenodo.org/badge/222931424.svg)](https://zenodo.org/badge/latestdoi/222931424).
 
 ## Reproducibility Study
 
 In this study, we use the KGEMs reimplemented in PyKEEN and the authors' best
-reported hyperparameters to make reproductions of past experiments.
+reported hyper-parameters to make reproductions of past experiments.
 
-## Ablation Study
+## Benchmarking Study
 
 In this study, we conduct a large number of hyper-parameter optimizations to
 investigate the effects of certain aspects of models (training assumption,
@@ -24,8 +31,8 @@ A summary of the results can be found [here](/ablation/results/_results/README.m
 ## Regeneration of Charts
 
 ```sh
-git clone https://github.com/mali-git/pykeen_experimental_results.git
-cd pykeen_experimental_results
+git clone https://github.com/pykeen/benchmarking.git pykeen_benchmarking
+cd pykeen_benchmarking
 pip install -e .
 # ABLATION
 python ablation/collate.py
