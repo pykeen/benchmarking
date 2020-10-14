@@ -45,13 +45,13 @@ ABLATION_HEADERS = [
     'model',
     'loss',
     'optimizer',
-    'training_loop',
+    'training_approach',
     'create_inverse_triples',
 ]
 
 BINARY_ABLATION_HEADERS = {
     'create_inverse_triples',
-    'training_loop',
+    'training_approach',
 }
 
 MODEL_BYTES = 'model_bytes'
