@@ -46,11 +46,11 @@ ABLATION_HEADERS = [
     'loss',
     'optimizer',
     'training_approach',
-    'create_inverse_triples',
+    'inverse_relations',
 ]
 
 BINARY_ABLATION_HEADERS = {
-    'create_inverse_triples',
+    'inverse_relations',
     'training_approach',
 }
 
