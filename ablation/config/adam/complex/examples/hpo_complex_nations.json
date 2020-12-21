@@ -19,13 +19,13 @@
         "embedding_dim": {
           "type": "int",
           "low": 10,
-          "high": 10,
-          "q": 10
+          "high": 15,
+          "q": 1
         }
       }
     },
     "training_loops": [
-      "owa",
+      "slcwa",
       "lcwa"
     ],
     "optimizers": [
@@ -126,7 +126,7 @@
     },
     "training_kwargs": {
       "ComplEx": {
-        "owa": {},
+        "slcwa": {},
         "lcwa": {
           "label_smoothing": 0.0
         }
@@ -134,7 +134,7 @@
     },
     "training_kwargs_ranges": {
       "ComplEx": {
-        "owa": {
+        "slcwa": {
           "num_epochs": {
             "type": "int",
             "low": 5,
@@ -151,9 +151,9 @@
         "lcwa": {
           "num_epochs": {
             "type": "int",
-            "low": 5,
-            "high": 10,
-            "q": 100
+            "low": 1,
+            "high": 2,
+            "q": 1
           },
           "batch_size": {
             "type": "int",
@@ -167,8 +167,7 @@
     "stopper": "early",
     "stopper_kwargs": {
       "frequency": 1,
-      "patience": 2,
-      "delta": 0.002
+      "patience": 2
     }
   },
   "optuna": {
