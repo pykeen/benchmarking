@@ -1,7 +1,7 @@
-
 import os
 import json
 from tqdm import tqdm
+
 HERE = os.path.dirname(__file__)
 RESULTS = os.path.join(HERE, 'results')
 

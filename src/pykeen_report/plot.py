@@ -343,7 +343,8 @@ def write_2d_summaries(
 
 
 def _custom_heatmap(*, x: str, y: str, z: str, data: pd.DataFrame, rows, cols, vmin=0, vmax=1, cmap, **kwargs):
-    df = pd.DataFrame(data=np.empty((len(rows), len(cols))).fill(float('nan')), index=rows, columns=cols, dtype=np.float64)
+    df = pd.DataFrame(data=np.empty((len(rows), len(cols))).fill(float('nan')), index=rows, columns=cols,
+                      dtype=np.float64)
     d = data.groupby(by=[x, y]).agg({z: np.median}).reset_index().pivot(index=y, columns=x, values=z)
     df.loc[d.index, d.columns] = d.values
     df = df.dropna(axis=1, how='all')
@@ -381,7 +382,7 @@ def write_experimental_heatmap(
     # cbar = g.fig.colorbar(g.axes[0, 0].collections[0], ax=g.axes, fraction=0.1)
     # cbar.set_label(target_header, rotation=270)
     sns.despine()
-    g.fig.set_size_inches(8.3*g.axes.shape[1], 11.7*g.axes.shape[0])
+    g.fig.set_size_inches(8.3 * g.axes.shape[1], 11.7 * g.axes.shape[0])
     if name is None:
         name = f'{dataset}_{optimizer}_heatmap'
     if make_pngs:
@@ -465,31 +466,48 @@ def make_summary_chart(
     make_pngs: bool = True,
     make_pdfs: bool = True,
     name: Optional[str] = None,
+    autocenter: bool = False
 ) -> None:
     if df['optimizer'].nunique() == 1:  # Don't bother with optimizer plot
         ablation_headers = ['model', 'loss_training_approach', 'inverse_relations']
-        figsize = (7 * ncols, 5 * nrows)
-        fig = plt.figure(figsize=figsize)
+        if autocenter:  # auto-layout with centering
+            figsize = (7 * ncols, 5 * nrows)
+            fig = plt.figure(figsize=figsize)
 
-        width = 2
-        shape = (nrows, width * ncols)
-        axes = []
-        for i in range(nrows - 1):
-            for j in range(ncols):
-                axes.append(plt.subplot2grid(shape=shape, loc=(i, j * width), colspan=width))
+            width = 2
+            shape = (nrows, width * ncols)
+            axes = []
+            for i in range(nrows - 1):
+                for j in range(ncols):
+                    axes.append(plt.subplot2grid(shape=shape, loc=(i, j * width), colspan=width))
 
-        extra_rows = 1
-        offset = width * (ncols - extra_rows) // 2
-        # last row
-        for j in range(extra_rows):
-            axes.append(plt.subplot2grid(shape=shape, loc=(nrows - 1, offset + j * width), colspan=width))
+            extra_rows = 1
+            offset = width * (ncols - extra_rows) // 2
+            # last row
+            for j in range(extra_rows):
+                axes.append(plt.subplot2grid(shape=shape, loc=(nrows - 1, offset + j * width), colspan=width))
+        else:
+            # n_models = df['model'].nunique()
+            # n_losses = df['loss_training_approach'].nunique()
+            # n_inverse = df['inverse_relations'].nunique()
+            # n_bars = n_models + n_losses + n_inverse
+            nrows = 1
+            scale = 1.5
+            figsize = (11 * scale, 3.5 * scale)
+            fig = plt.figure(figsize=figsize)
+            axes = []
+            shape = (1, 11)
+            axes.append(plt.subplot2grid(shape=shape, loc=(0, 0), colspan=5, fig=fig))
+            axes.append(plt.subplot2grid(shape=shape, loc=(0, 5), colspan=4, fig=fig))
+            axes.append(plt.subplot2grid(shape=shape, loc=(0, 9), colspan=2, fig=fig))
+
     else:
         ablation_headers = ['model', 'loss_training_approach', 'optimizer', 'inverse_relations']
         figsize = (7 * ncols, 5 * nrows)
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
         axes = axes.ravel()
 
-    for ablation_header, ax in zip(ablation_headers, axes):
+    for i, (ablation_header, ax) in enumerate(zip(ablation_headers, axes)):
         sns.boxplot(data=df, x=ablation_header, y=target_header, ax=ax)
 
         if ablation_header == 'loss_training_approach':
@@ -502,6 +520,10 @@ def make_summary_chart(
             target_header,
             fontdict={'fontsize': 16},
         )
+        if nrows == 1 and i != 0:
+            ax.set_ylabel('')
+            ax.set_yticklabels([])
+
         for label in ax.get_xticklabels():
             label.set_ha("center")
             label.set_rotation(55)
@@ -906,7 +928,8 @@ def make_sizeplots_trellised(
             if 'time' in target_x_header:
                 _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(_normalize_time_delta)
             elif 'bytes' in target_x_header:
-                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(functools.partial(humanize.naturalsize, binary=True))
+                _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(
+                    functools.partial(humanize.naturalsize, binary=True))
 
             _skyline_df_op['inverse_relations'] = _skyline_df_op['inverse_relations'].map(
                 lambda x: 'yes' if x == 'True' else 'no'
