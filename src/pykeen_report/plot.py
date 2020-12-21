@@ -19,7 +19,7 @@ from matplotlib import gridspec
 from scipy.spatial import ConvexHull
 from tqdm import tqdm
 
-from .constants import ABLATION_HEADERS, BINARY_ABLATION_HEADERS
+from pykeen_report.constants import BINARY_ABLATION_HEADERS, ABLATION_HEADERS
 
 logger = logging.getLogger(__name__)
 
