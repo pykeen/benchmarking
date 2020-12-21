@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, Iterable, List, Mapping, Optional, Type, Union
 
 import pandas as pd
-from pykeen.datasets import DataSet, get_dataset
+from pykeen.datasets import Dataset, get_dataset
 from pykeen.losses import Loss, get_loss_cls
 from pykeen.models import get_model_cls, models
 from pykeen.models.base import Model
@@ -204,7 +204,7 @@ def make_checklist_df(df: pd.DataFrame, output_csv_path=None, output_latex_path=
 
 def get_model_size(  # noqa: C901
     *,
-    dataset: Union[None, str, Type[DataSet]] = None,
+    dataset: Union[None, str, Type[Dataset]] = None,
     dataset_kwargs: Optional[Mapping[str, Any]] = None,
     training_triples_factory: Optional[TriplesFactory] = None,
     testing_triples_factory: Optional[TriplesFactory] = None,
