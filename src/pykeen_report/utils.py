@@ -12,7 +12,8 @@ from typing import Any, Iterable, List, Mapping, Optional, Type, Union
 import pandas as pd
 from tqdm import tqdm
 
-from pykeen.datasets import DataSet, get_dataset
+from pykeen.datasets import get_dataset
+from pykeen.datasets.base import Dataset
 from pykeen.losses import Loss, get_loss_cls
 from pykeen.models import get_model_cls, models
 from pykeen.models.base import Model
@@ -65,8 +66,9 @@ def collate_ablation(
 ) -> pd.DataFrame:
     """Collate all results for a given metric.
 
-    :param key: The metric which you care about. Should be the same one against which you
-     optimized
+    :param key: The metric which you care about. Should be the same one against which you optimized
+    :param results_directory:
+    :param output_path:
     """
     columns = [
         'searcher',
@@ -186,6 +188,8 @@ def make_checklist_df(df: pd.DataFrame, output_csv_path=None, output_latex_path=
     """Make a checklist dataframe.
 
     :param df: A collated dataframe from :func:`read_collation`
+    :param output_csv_path:
+    :param output_latex_path:
     """
     experiments = {model: {} for model in models}
     for model, dataset in df[['model', 'dataset']].values:
@@ -201,11 +205,11 @@ def make_checklist_df(df: pd.DataFrame, output_csv_path=None, output_latex_path=
 
 def get_model_size(  # noqa: C901
     *,
-    dataset: Union[None, str, Type[DataSet]] = None,
+    dataset: Union[None, str, Type[Dataset]] = None,
     dataset_kwargs: Optional[Mapping[str, Any]] = None,
-    training_triples_factory: Optional[TriplesFactory] = None,
-    testing_triples_factory: Optional[TriplesFactory] = None,
-    validation_triples_factory: Optional[TriplesFactory] = None,
+    training: Optional[TriplesFactory] = None,
+    testing: Optional[TriplesFactory] = None,
+    validation: Optional[TriplesFactory] = None,
     model: Union[str, Type[Model]],
     model_kwargs: Optional[Mapping[str, Any]] = None,
     loss: Union[None, str, Type[Loss]] = None,
@@ -216,12 +220,12 @@ def get_model_size(  # noqa: C901
 ) -> int:
     """Make a model instance, similarly to how the pipelin is started, then return the model size."""
     device = resolve_device('cpu')
-    training_triples_factory, testing_triples_factory, validation_triples_factory = get_dataset(
+    dataset = get_dataset(
         dataset=dataset,
         dataset_kwargs=dataset_kwargs,
-        training_triples_factory=training_triples_factory,
-        testing_triples_factory=testing_triples_factory,
-        validation_triples_factory=validation_triples_factory,
+        training=training,
+        testing=testing,
+        validation=validation,
     )
 
     if model_kwargs is None:
@@ -242,7 +246,7 @@ def get_model_size(  # noqa: C901
     model_instance: Model = model(
         random_seed=0,
         preferred_device=device,
-        triples_factory=training_triples_factory,
+        triples_factory=dataset.training,
         **model_kwargs,
     )
     return model_instance.num_parameter_bytes

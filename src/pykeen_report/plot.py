@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""Tools for plotting PyKEEN experiments."""
+"""Tools for plotting ablation studies."""
+
 import functools
 import itertools as itt
 import logging

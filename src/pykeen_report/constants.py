@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+"""Constants for reporting on ablation studies."""
+
 from pykeen.datasets import datasets
 from pykeen.models import models
 
