@@ -14,7 +14,7 @@ This repository itself is archived on Zenodo at [![DOI](https://zenodo.org/badge
 In this study, we use the KGEMs reimplemented in PyKEEN and the authors' best
 reported hyper-parameters to make reproductions of past experiments.
 
-## Benchmarking Study
+## Benchmarking (Ablation) Study
 
 In this study, we conduct a large number of hyper-parameter optimizations to
 investigate the effects of certain aspects of models (training assumption,
@@ -26,19 +26,15 @@ methodology, training strategy). There are two folders:
 2. [`results`](/ablation/config) - The results from the ablation studies based
    on the configuration files
 
-A summary of the results can be found [here](/ablation/results/_results/README.md)
+A summary of the results can be found [here](/ablation#ablation-results)
 
 ## Regeneration of Charts
 
-```sh
-git clone https://github.com/pykeen/benchmarking.git pykeen_benchmarking
-cd pykeen_benchmarking
-pip install -e .
-# ABLATION
-python ablation/collate.py
-python ablation/paper_plots.py
-python ablation/plot.py
-# REPRODUCTIONS
-python reproducibility/generate_summary_table.py
-python reproducibility/plot.py
+All configuration for installation of relevant code, collation of results,
+and generation of charts is included in the `tox.ini` configuration that
+can be run with:
+
+```shell
+$ pip install tox
+$ tox
 ```

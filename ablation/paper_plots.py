@@ -45,6 +45,33 @@ def make_plots(
         for loss, training_approach in df[['loss', 'training_loop']].values
     ]
 
+    it = tqdm(df.groupby('dataset'), desc=f'Making 1D slice plots for dataset')
+    for dataset, sub_df in it:
+        it.write(f'creating summary chart for {dataset}')
+        pkp.make_summary_chart(
+            df=sub_df,
+            target_header=target_header,
+            slice_dir=output_directory,
+            dataset=dataset,
+            make_pngs=make_pngs,
+            make_pdfs=make_pdfs,
+            name=dataset,
+        )
+
+        gkey = [c for c in sub_df.columns if c not in {target_header, 'replicate'}]
+        gdf = sub_df.groupby(gkey)[target_header].median().reset_index()
+
+        it.write(f'creating summary chart for {dataset} (aggregated)')
+        pkp.make_summary_chart(
+            df=gdf,
+            target_header=target_header,
+            slice_dir=output_directory,
+            dataset=dataset,
+            make_pngs=make_pngs,
+            make_pdfs=make_pdfs,
+            name=f'{dataset}_agg',
+        )
+
     it = tqdm(df.groupby(['dataset', 'optimizer']), desc='Making dataset/optimizer figures')
     for (dataset, optimizer), sub_df in it:
         it.write(f'creating trellised barplots: dataset/optimizer ({dataset}/{optimizer})')
@@ -136,33 +163,6 @@ def make_plots(
                 make_pdfs=make_pdfs,
             )
 
-    it = tqdm(df.groupby('dataset'), desc=f'Making 1D slice plots for dataset')
-    for dataset, sub_df in it:
-        it.write(f'creating summary chart for {dataset}')
-        pkp.make_summary_chart(
-            df=sub_df,
-            target_header=target_header,
-            slice_dir=output_directory,
-            dataset=dataset,
-            make_pngs=make_pngs,
-            make_pdfs=make_pdfs,
-            name=dataset,
-        )
-
-        gkey = [c for c in sub_df.columns if c not in {target_header, 'replicate'}]
-        gdf = sub_df.groupby(gkey)[target_header].median().reset_index()
-
-        it.write(f'creating summary chart for {dataset} (aggregated)')
-        pkp.make_summary_chart(
-            df=gdf,
-            target_header=target_header,
-            slice_dir=output_directory,
-            dataset=dataset,
-            make_pngs=make_pngs,
-            make_pdfs=make_pdfs,
-            name=f'{dataset}_agg',
-        )
-
 
 def make_sizeplots(
     *,
@@ -196,7 +196,7 @@ def main():
     os.makedirs(output_directory, exist_ok=True)
 
     make_plots(target_header=key, output_directory=output_directory)
-    make_sizeplots(output_directory=output_directory, target_y_header=key)
+    # make_sizeplots(output_directory=output_directory, target_y_header=key)
     click.echo('done!')
 
 
