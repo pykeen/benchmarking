@@ -4,16 +4,15 @@
 \label{tab:skyline_kinships_model_bytes}
 \begin{tabular}{llllrr}
 \toprule
-  Model &  Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
+  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
 \midrule
- TuckER &   SPL &              LCWA &               yes &    32.1 MiB &       98.696 \\
- RotatE &   MRL &             sLCWA &                no &   258.0 KiB &       98.464 \\
- SimplE &  BCEL &              LCWA &               yes &    77.0 KiB &       98.371 \\
-  ProjE &  BCEL &             sLCWA &               yes &    39.3 KiB &       96.089 \\
-  ProjE &   SPL &             sLCWA &                no &    33.0 KiB &       95.251 \\
-   HolE &   SPL &              LCWA &                no &    32.2 KiB &       87.989 \\
-     UM &   SPL &              LCWA &                no &    26.0 KiB &       11.872 \\
-     UM &   SPL &             sLCWA &               yes &    26.0 KiB &        5.447 \\
+ RotatE &    MRL &             sLCWA &                no &   258.0 KiB &       98.743 \\
+ RotatE &  NSSAL &             sLCWA &               yes &    77.0 KiB &       98.417 \\
+  ProjE &  NSSAL &             sLCWA &               yes &    39.3 KiB &       95.438 \\
+  ProjE &    SPL &             sLCWA &                no &    33.0 KiB &       94.088 \\
+   HolE &    SPL &              LCWA &                no &    32.2 KiB &       87.384 \\
+     UM &    SPL &              LCWA &                no &    26.0 KiB &       10.335 \\
+     UM &    MRL &             sLCWA &                no &    26.0 KiB &        6.844 \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -10,16 +10,15 @@ from pathlib import Path
 from typing import Any, Iterable, List, Mapping, Optional, Type, Union
 
 import pandas as pd
-from tqdm import tqdm
-
-from pykeen.datasets import get_dataset
-from pykeen.datasets.base import Dataset
+from pykeen.datasets import Dataset, get_dataset
 from pykeen.losses import Loss, get_loss_cls
 from pykeen.models import get_model_cls, models
 from pykeen.models.base import Model
 from pykeen.regularizers import Regularizer, get_regularizer_cls
 from pykeen.triples import TriplesFactory
 from pykeen.utils import flatten_dictionary, resolve_device
+from tqdm import tqdm
+
 from .constants import DATASETS, GETTERS, LOSS, MODEL, MODEL_BYTES, NEGATIVE_SAMPELR, REGULARIZER, TRAINING_LOOP
 
 __all__ = [
@@ -66,9 +65,8 @@ def collate_ablation(
 ) -> pd.DataFrame:
     """Collate all results for a given metric.
 
-    :param key: The metric which you care about. Should be the same one against which you optimized
-    :param results_directory:
-    :param output_path:
+    :param key: The metric which you care about. Should be the same one against which you
+     optimized
     """
     columns = [
         'searcher',
@@ -150,23 +148,26 @@ def iterate_studies_from_hpo_directory(directory: str, keys: List[str]) -> Itera
     for _delete_key in ['metric', 'pykeen_git_hash', 'pykeen_version', 'evaluator']:
         del study[_delete_key]
 
-    replicates_directory = os.path.join(directory, 'best_pipeline', 'replicates')
-    if not os.path.exists(replicates_directory):
-        logger.warning('Can not find %s', replicates_directory)
-        return
+    # Get replicates directory
+    for directory, dirnames, _ in os.walk(os.path.join(directory, 'best_pipeline')):
+        if 'replicates' in dirnames:
+            replicates_directory = os.path.join(directory, 'replicates')
+            if not os.path.exists(replicates_directory):
+                logger.warning('Can not find %s', replicates_directory)
+                return
 
-    for replicate in os.listdir(replicates_directory):
-        yv = deepcopy(study)
-        yv['replicate'] = int(replicate.split('-')[1])
+            for replicate in os.listdir(replicates_directory):
+                yv = deepcopy(study)
+                yv['replicate'] = int(replicate.split('-')[1])
 
-        replicate_results_path = os.path.join(replicates_directory, replicate, 'results.json')
-        with open(replicate_results_path) as file:
-            replicate_results = json.load(file)
-        for key in keys:
-            yv[key] = GETTERS[key](replicate_results['metrics'])
-        yv['training_time'] = replicate_results['times']['training']
-        yv['evaluation_time'] = replicate_results['times']['evaluation']
-        yield yv
+                replicate_results_path = os.path.join(replicates_directory, replicate, 'results.json')
+                with open(replicate_results_path) as file:
+                    replicate_results = json.load(file)
+                for key in keys:
+                    yv[key] = GETTERS[key](replicate_results['metrics'])
+                yv['training_time'] = replicate_results['times']['training']
+                yv['evaluation_time'] = replicate_results['times']['evaluation']
+                yield yv
 
 
 def read_ablation_collation(path: str) -> pd.DataFrame:
@@ -176,11 +177,11 @@ def read_ablation_collation(path: str) -> pd.DataFrame:
     df['regularizer'] = df['regularizer'].map(lambda l: REGULARIZER.get(l.lower(), l))
     df['dataset'] = df['dataset'].map(lambda l: DATASETS.get(l.lower(), l))
     df['optimizer'] = df['optimizer'].map(str.capitalize)
-    df['training_approach'] = df['training_approach'].map(lambda l: TRAINING_LOOP[l.lower()])
+    df['training_approach'] = df['training_loop'].map(lambda l: TRAINING_LOOP[l.lower()])
     df['negative_sampler'] = df['negative_sampler'].map(
         lambda l: NEGATIVE_SAMPELR.get(l.lower(), l) if pd.notna(l) else 'None'
     )
-    df['inverse_relations'] = df['inverse_relations'].map(lambda s: 'True' if s else 'False')
+    df['inverse_relations'] = df['create_inverse_triples'].map(lambda s: 'True' if s else 'False')
     return df
 
 
@@ -188,8 +189,6 @@ def make_checklist_df(df: pd.DataFrame, output_csv_path=None, output_latex_path=
     """Make a checklist dataframe.
 
     :param df: A collated dataframe from :func:`read_collation`
-    :param output_csv_path:
-    :param output_latex_path:
     """
     experiments = {model: {} for model in models}
     for model, dataset in df[['model', 'dataset']].values:

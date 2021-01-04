@@ -1,7 +1,5 @@
 {
   "metadata": {
-    "_stopper_comment": "While the original config had 1000, early stopping will now switch it to 360",
-    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 10, 'patience': 5, 'delta': 0.002}",
     "best_trial_evaluation": 0.4659501807955002,
     "best_trial_number": 3,
     "git_hash": "UNHASHED",
@@ -42,7 +40,7 @@
     "training_kwargs": {
       "batch_size": 8192,
       "label_smoothing": 0.0,
-      "num_epochs": 360
+      "num_epochs": 351
     },
     "training_loop": "owa"
   }
