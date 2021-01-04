@@ -19,7 +19,7 @@ from matplotlib import gridspec
 from scipy.spatial import ConvexHull
 from tqdm import tqdm
 
-from .constants import ABLATION_HEADERS, BINARY_ABLATION_HEADERS
+from pykeen_report.constants import BINARY_ABLATION_HEADERS, ABLATION_HEADERS
 
 logger = logging.getLogger(__name__)
 
@@ -467,28 +467,22 @@ def make_summary_chart(
 ) -> None:
     if df['optimizer'].nunique() == 1:  # Don't bother with optimizer plot
         ablation_headers = ['model', 'loss_training_approach', 'inverse_relations']
-        figsize = (7 * ncols, 5 * nrows)
+        nrows = 1
+        scale = 1.5
+        figsize = (11 * scale, 3.5 * scale)
         fig = plt.figure(figsize=figsize)
-
-        width = 2
-        shape = (nrows, width * ncols)
         axes = []
-        for i in range(nrows - 1):
-            for j in range(ncols):
-                axes.append(plt.subplot2grid(shape=shape, loc=(i, j * width), colspan=width))
-
-        extra_rows = 1
-        offset = width * (ncols - extra_rows) // 2
-        # last row
-        for j in range(extra_rows):
-            axes.append(plt.subplot2grid(shape=shape, loc=(nrows - 1, offset + j * width), colspan=width))
+        shape = (1, 11)
+        axes.append(plt.subplot2grid(shape=shape, loc=(0, 0), colspan=5, fig=fig))
+        axes.append(plt.subplot2grid(shape=shape, loc=(0, 5), colspan=4, fig=fig))
+        axes.append(plt.subplot2grid(shape=shape, loc=(0, 9), colspan=2, fig=fig))
     else:
         ablation_headers = ['model', 'loss_training_approach', 'optimizer', 'inverse_relations']
         figsize = (7 * ncols, 5 * nrows)
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
         axes = axes.ravel()
 
-    for ablation_header, ax in zip(ablation_headers, axes):
+    for i, (ablation_header, ax) in enumerate(zip(ablation_headers, axes)):
         sns.boxplot(data=df, x=ablation_header, y=target_header, ax=ax)
 
         if ablation_header == 'loss_training_approach':
@@ -505,6 +499,9 @@ def make_summary_chart(
             label.set_ha("center")
             label.set_rotation(55)
             label.set_fontsize(15)
+        if nrows == 1 and i != 0:
+            ax.set_ylabel('')
+            ax.set_yticklabels([])
         ax.set_ylim([0.0, 1.0])
 
     fig.tight_layout()
@@ -525,6 +522,7 @@ def make_2way_boxplot(
     hue,
     slice_dir,
     dataset,
+    aspect,
     name: Optional[str] = None,
     make_pngs: bool = True,
     make_pdfs: bool = True,
@@ -537,6 +535,7 @@ def make_2way_boxplot(
         data=df,
         kind='box',
         legend_out=False,
+        aspect=aspect,
     )
     g.set(xlim=[0, 1.0], ylabel='')
     _clean_legend_title(g._legend)

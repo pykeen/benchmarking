@@ -1,7 +1,5 @@
 {
   "metadata": {
-    "_stopper_comment": "While the original config had 1000, early stopping will now switch it to 250",
-    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}",
     "best_trial_evaluation": 0.27096884628551865,
     "best_trial_number": 0,
     "git_hash": "ec6b0751",

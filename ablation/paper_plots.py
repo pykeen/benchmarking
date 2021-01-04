@@ -33,7 +33,7 @@ def make_plots(
     del df['evaluation_time']
     del df['model_bytes']
     del df['searcher']  # always same
-    loss_loops = set(map(tuple, df[['loss', 'training_approach']].values))
+    loss_loops = set(map(tuple, df[['loss', 'training_loop']].values))
     loss_loops_counter = Counter(loss for loss, _ in loss_loops)
     loss_mult = {loss for loss, count in loss_loops_counter.items() if count > 1}
     df['loss_training_approach'] = [
@@ -42,7 +42,7 @@ def make_plots(
             if loss in loss_mult
             else loss
         )
-        for loss, training_approach in df[['loss', 'training_approach']].values
+        for loss, training_approach in df[['loss', 'training_loop']].values
     ]
 
     it = tqdm(df.groupby(['dataset', 'optimizer']), desc='Making dataset/optimizer figures')
@@ -101,11 +101,11 @@ def make_plots(
         gdf = sub_df.groupby(gkey)[target_header].median().reset_index()
 
         # 2-way plots
-        for y, hue in [
-            ('loss_training_approach', 'inverse_relations'),
-            ('loss', 'inverse_relations'),
-            ('loss', 'training_approach'),
-            ('training_approach', 'inverse_relations'),
+        for y, hue, aspect in [
+            ('loss_training_approach', 'inverse_relations', 1),
+            ('loss', 'inverse_relations', 1),
+            ('loss', 'training_approach', 1),
+            ('training_approach', 'inverse_relations', 1.6),
         ]:
             it.write(f'creating barplot: {y}/{hue} aggregated')
             # Aggregated
@@ -114,6 +114,7 @@ def make_plots(
                 target_header=target_header,
                 y=y,
                 hue=hue,
+                aspect=aspect,
                 slice_dir=output_directory,
                 dataset=dataset,
                 name=f'{dataset}_{optimizer}_{y}_{hue}_agg',
@@ -127,6 +128,7 @@ def make_plots(
                 target_header=target_header,
                 y=y,
                 hue=hue,
+                aspect=aspect,
                 slice_dir=output_directory,
                 dataset=dataset,
                 name=f'{dataset}_{optimizer}_{y}_{hue}',
