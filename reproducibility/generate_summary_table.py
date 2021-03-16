@@ -9,10 +9,9 @@ from typing import Iterable, List, Mapping, Tuple
 
 import humanize
 import pandas as pd
-from jinja2 import Environment, FileSystemLoader
-
 import pykeen.datasets
 import pykeen.models
+from jinja2 import Environment, FileSystemLoader
 from utils import SKIP, read_experiment_collation
 
 logger = logging.getLogger(__name__)
