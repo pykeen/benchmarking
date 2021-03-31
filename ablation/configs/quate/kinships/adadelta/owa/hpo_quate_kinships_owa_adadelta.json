@@ -28,18 +28,18 @@
       "owa"
     ],
     "optimizers": [
-      "adam"
+      "adadelta"
     ],
     "optimizer_kwargs": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "lr": {
             "type": "float",
             "low": 0.001,
@@ -50,23 +50,19 @@
       }
     },
     "loss_functions": [
-      "MarginRankingLoss"
+      "BCEAfterSigmoidLoss",
+      "SoftplusLoss"
     ],
     "loss_kwargs": {
       "QuatE": {
-        "MarginRankingLoss": {}
+        "BCEAfterSigmoidLoss": {},
+        "SoftplusLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "QuatE": {
-        "MarginRankingLoss": {
-          "margin": {
-            "type": "float",
-            "low": 0.5,
-            "high": 10,
-            "q": 1.0
-          }
-        }
+        "BCEAfterSigmoidLoss": {},
+        "SoftplusLoss": {}
       }
     },
     "regularizers": [

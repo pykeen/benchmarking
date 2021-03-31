@@ -28,18 +28,18 @@
       "owa"
     ],
     "optimizers": [
-      "adam"
+      "adadelta"
     ],
     "optimizer_kwargs": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "lr": {
             "type": "float",
             "low": 0.001,
@@ -50,19 +50,29 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "NSSALoss"
     ],
     "loss_kwargs": {
       "QuatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "NSSALoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "QuatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "NSSALoss": {
+          "margin": {
+            "type": "float",
+            "low": 1,
+            "high": 30,
+            "q": 2.0
+          },
+          "adversarial_temperature": {
+            "type": "float",
+            "low": 0.1,
+            "high": 1.0,
+            "q": 0.1
+          }
+        }
       }
     },
     "regularizers": [

@@ -28,18 +28,18 @@
       "lcwa"
     ],
     "optimizers": [
-      "adam"
+      "adadelta"
     ],
     "optimizer_kwargs": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "weight_decay": 0.0
         }
       }
     },
     "optimizer_kwargs_ranges": {
       "QuatE": {
-        "adam": {
+        "adadelta": {
           "lr": {
             "type": "float",
             "low": 0.001,
