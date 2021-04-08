@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for QuatE"
+    "title": "HPO Over fb15k237 for QuatE"
   },
   "ablation": {
     "datasets": [

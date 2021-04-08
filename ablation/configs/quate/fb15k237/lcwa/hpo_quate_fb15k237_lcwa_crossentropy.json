@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for QuatE"
+    "title": "HPO Over fb15k237 for QuatE"
   },
   "ablation": {
     "datasets": [
@@ -84,7 +84,7 @@
       "filtered": true
     },
     "evaluation_kwargs": {
-      "batch_size": null
+      "batch_size": 32
     },
     "training_kwargs": {
       "QuatE": {

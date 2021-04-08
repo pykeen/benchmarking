@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "HPO Over FB15K-237 for QuatE"
+    "title": "HPO Over fb15k237 for QuatE"
   },
   "ablation": {
     "datasets": [
@@ -50,19 +50,16 @@
       }
     },
     "loss_functions": [
-      "BCEAfterSigmoidLoss",
-      "SoftplusLoss"
+      "BCEAfterSigmoidLoss"
     ],
     "loss_kwargs": {
       "QuatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "loss_kwargs_ranges": {
       "QuatE": {
-        "BCEAfterSigmoidLoss": {},
-        "SoftplusLoss": {}
+        "BCEAfterSigmoidLoss": {}
       }
     },
     "regularizers": [
