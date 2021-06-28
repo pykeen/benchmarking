@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "title": "Learn FB15K-237 Data Set with MuRE as described by Balazevic et al., 2019."
+  },
+  "pipeline": {
+    "dataset": "fb15k237",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "model": "MuRE",
+    "model_kwargs": {
+      "embedding_dim": 200
+    },
+    "optimizer": "SGD",
+    "optimizer_kwargs": {
+      "lr": 10
+    },
+    "loss": "BCEWithLogitsLoss",
+    "loss_kwargs": {
+      "reduction": "mean"
+    },
+    "training_loop": "OWA",
+    "training_kwargs": {
+      "num_epochs": 500,
+      "batch_size": 128
+    },
+    "negative_sampler_kwargs": {
+      "num_negs_per_pos": 50
+    },
+    "evaluator_kwargs": {
+      "filtered": true
+    }
+  }
+}

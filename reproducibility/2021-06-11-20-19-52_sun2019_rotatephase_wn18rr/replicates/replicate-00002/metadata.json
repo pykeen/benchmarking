@@ -1,0 +1,4 @@
+{
+  "title": "Learn WN18RR Data Set with RotatEPhase as described by Sun et al., 2019; https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding/blob/master/best_config.sh",
+  "comments": "Could not find number of epochs since early stopping has been applied."
+}
