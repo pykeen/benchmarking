@@ -4,13 +4,15 @@
 \label{tab:skyline_wn18rr_model_bytes}
 \begin{tabular}{llllrr}
 \toprule
-  Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
+ Model & Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
 \midrule
- RotatE &    SPL &              LCWA &               yes &    79.3 MiB &       60.089 \\
- RotatE &   BCEL &              LCWA &               yes &    19.8 MiB &       59.337 \\
-  ConvE &    SPL &              LCWA &               yes &    10.6 MiB &       53.129 \\
- ConvKB &    SPL &             sLCWA &               yes &     5.0 MiB &       41.365 \\
- ConvKB &  NSSAL &             sLCWA &                no &     2.5 MiB &       20.332 \\
+RotatE & BCEL &              LCWA &               yes &    79.3 MiB &       60.089 \\
+RotatE &  SPL &              LCWA &               yes &    19.8 MiB &       58.328 \\
+TuckER &  CEL &              LCWA &               yes &    11.9 MiB &       56.088 \\
+  MuRE &  SPL &              LCWA &                no &    10.2 MiB &       55.489 \\
+TransH &  MRL &             sLCWA &                no &     9.9 MiB &       48.170 \\
+    UM &  SPL &              LCWA &               yes &     9.9 MiB &       44.682 \\
+    UM &  SPL &             sLCWA &               yes &     9.9 MiB &       39.022 \\
 \bottomrule
 \end{tabular}
 \end{table}

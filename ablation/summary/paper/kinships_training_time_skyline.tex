@@ -4,13 +4,14 @@
 \label{tab:skyline_kinships_training_time}
 \begin{tabular}{llllrr}
 \toprule
-  Model &  Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
+  Model & Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
 \midrule
- RotatE &   MRL &             sLCWA &                no &      1.66 min &       98.743 \\
- RotatE &  BCEL &              LCWA &                no &       19.83 s &       98.231 \\
-     SE &   SPL &              LCWA &                no &       16.35 s &       94.274 \\
- RESCAL &   SPL &              LCWA &                no &       11.69 s &       83.659 \\
-     UM &   SPL &              LCWA &                no &        8.92 s &        9.171 \\
+ TuckER &  SPL &              LCWA &               yes &      1.39 min &       98.603 \\
+ComplEx &  CEL &              LCWA &               yes &       46.75 s &       98.371 \\
+ RotatE & BCEL &              LCWA &                no &       24.50 s &       98.184 \\
+ RotatE & BCEL &              LCWA &               yes &       13.86 s &       97.998 \\
+ RotatE &  SPL &              LCWA &                no &        9.82 s &       92.272 \\
+ RotatE & BCEL &              LCWA &                no &        6.67 s &       11.965 \\
 \bottomrule
 \end{tabular}
 \end{table}

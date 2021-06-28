@@ -9,125 +9,119 @@ show that there are consistent best performers.
 
 |            |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |------------|------------|------------|----------|-----------|
-| **RotatE** |          5 |          6 |        7 |         2 |
+| TuckER     |          3 |          4 |        0 |         0 |
+| **RotatE** |          4 |          3 |        6 |         2 |
+| ConvE      |          1 |          2 |        0 |         0 |
 | DistMult   |          1 |          0 |        0 |         0 |
-| TuckER     |          1 |          3 |        0 |         0 |
-| RESCAL     |          1 |          0 |        0 |         0 |
-| TransE     |          2 |          0 |        2 |         0 |
-| ConvE      |          0 |          1 |        1 |         0 |
-| ComplEx    |          0 |          0 |        0 |         6 |
-| ERMLP      |          0 |          0 |        0 |         2 |
+| MuRE       |          1 |          0 |        3 |         3 |
+| ComplEx    |          0 |          1 |        0 |         5 |
+| TransE     |          0 |          0 |        1 |         0 |
 
 
 ## Investigation of `loss`
 
 |           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------|------------|------------|----------|-----------|
+| **BCEL**  |          4 |          2 |        3 |         2 |
+| **SPL**   |          1 |          2 |        5 |         4 |
+| CEL       |          3 |          2 |        0 |         0 |
 | **NSSAL** |          2 |          3 |        2 |         4 |
-| CEL       |          4 |          1 |        2 |         0 |
-| **BCEL**  |          1 |          2 |        3 |         3 |
-| **SPL**   |          2 |          1 |        3 |         3 |
-| MRL       |          1 |          3 |        0 |         0 |
+| MRL       |          0 |          1 |        0 |         0 |
 
 
 ## Investigation of `training_approach`
 
 |           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------|------------|------------|----------|-----------|
-| **sLCWA** |          3 |          6 |        2 |        10 |
-| LCWA      |          7 |          4 |        8 |         0 |
+| LCWA      |          8 |          6 |        6 |         0 |
+| **sLCWA** |          2 |          4 |        4 |        10 |
 
 
 ## Investigation of `inverse_relations`
 
 |           |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |-----------|------------|------------|----------|-----------|
-| **False** |          3 |          3 |        4 |         4 |
-| **True**  |          7 |          7 |        6 |         6 |
+| **True**  |          8 |          9 |        5 |         5 |
+| **False** |          2 |          1 |        5 |         5 |
 
 
 ## Investigation of `model` and `loss`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
+| TuckER and BCEL      |          1 |          1 |        0 |         0 |
+| TuckER and SPL       |          1 |          2 |        0 |         0 |
+| TuckER and CEL       |          1 |          1 |        0 |         0 |
 | **RotatE and NSSAL** |          2 |          2 |        2 |         2 |
+| ConvE and BCEL       |          1 |          1 |        0 |         0 |
+| RotatE and BCEL      |          1 |          0 |        2 |         0 |
 | DistMult and CEL     |          1 |          0 |        0 |         0 |
-| RotatE and BCEL      |          1 |          1 |        2 |         0 |
-| RotatE and CEL       |          1 |          1 |        1 |         0 |
-| TuckER and SPL       |          1 |          1 |        0 |         0 |
-| RESCAL and CEL       |          1 |          0 |        0 |         0 |
-| RotatE and SPL       |          1 |          0 |        2 |         0 |
-| TransE and CEL       |          1 |          0 |        0 |         0 |
-| TransE and MRL       |          1 |          0 |        0 |         0 |
-| RotatE and MRL       |          0 |          2 |        0 |         0 |
-| TuckER and BCEL      |          0 |          1 |        0 |         0 |
-| TuckER and MRL       |          0 |          1 |        0 |         0 |
+| MuRE and BCEL        |          1 |          0 |        1 |         1 |
+| RotatE and CEL       |          1 |          0 |        0 |         0 |
 | ConvE and NSSAL      |          0 |          1 |        0 |         0 |
+| RotatE and MRL       |          0 |          1 |        0 |         0 |
+| ComplEx and CEL      |          0 |          1 |        0 |         0 |
+| RotatE and SPL       |          0 |          0 |        2 |         0 |
+| MuRE and SPL         |          0 |          0 |        2 |         2 |
 | TransE and SPL       |          0 |          0 |        1 |         0 |
-| TransE and BCEL      |          0 |          0 |        1 |         0 |
-| ConvE and CEL        |          0 |          0 |        1 |         0 |
-| ComplEx and BCEL     |          0 |          0 |        0 |         2 |
+| ComplEx and BCEL     |          0 |          0 |        0 |         1 |
 | ComplEx and SPL      |          0 |          0 |        0 |         2 |
 | ComplEx and NSSAL    |          0 |          0 |        0 |         2 |
-| ERMLP and SPL        |          0 |          0 |        0 |         1 |
-| ERMLP and BCEL       |          0 |          0 |        0 |         1 |
 
 
 ## Investigation of `model` and `training_approach`
 
 |                      |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |----------------------|------------|------------|----------|-----------|
-| **RotatE and sLCWA** |          2 |          4 |        2 |         2 |
+| TuckER and LCWA      |          3 |          4 |        0 |         0 |
+| **RotatE and sLCWA** |          2 |          3 |        2 |         2 |
+| ConvE and LCWA       |          1 |          1 |        0 |         0 |
+| RotatE and LCWA      |          2 |          0 |        4 |         0 |
 | DistMult and LCWA    |          1 |          0 |        0 |         0 |
-| RotatE and LCWA      |          3 |          2 |        5 |         0 |
-| TuckER and LCWA      |          1 |          2 |        0 |         0 |
-| RESCAL and LCWA      |          1 |          0 |        0 |         0 |
-| TransE and LCWA      |          1 |          0 |        2 |         0 |
-| TransE and sLCWA     |          1 |          0 |        0 |         0 |
-| TuckER and sLCWA     |          0 |          1 |        0 |         0 |
+| MuRE and LCWA        |          1 |          0 |        1 |         0 |
 | ConvE and sLCWA      |          0 |          1 |        0 |         0 |
-| ConvE and LCWA       |          0 |          0 |        1 |         0 |
-| ComplEx and sLCWA    |          0 |          0 |        0 |         6 |
-| ERMLP and sLCWA      |          0 |          0 |        0 |         2 |
+| ComplEx and LCWA     |          0 |          1 |        0 |         0 |
+| MuRE and sLCWA       |          0 |          0 |        2 |         3 |
+| TransE and LCWA      |          0 |          0 |        1 |         0 |
+| ComplEx and sLCWA    |          0 |          0 |        0 |         5 |
 
 
 ## Investigation of `loss` and `training_approach`
 
 |                     |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |---------------------|------------|------------|----------|-----------|
+| BCEL and LCWA       |          4 |          2 |        2 |         0 |
+| SPL and LCWA        |          1 |          2 |        4 |         0 |
+| CEL and LCWA        |          3 |          2 |        0 |         0 |
 | **NSSAL and sLCWA** |          2 |          3 |        2 |         4 |
-| CEL and LCWA        |          4 |          1 |        2 |         0 |
-| BCEL and LCWA       |          1 |          2 |        3 |         0 |
-| SPL and LCWA        |          2 |          1 |        3 |         0 |
-| MRL and sLCWA       |          1 |          3 |        0 |         0 |
-| BCEL and sLCWA      |          0 |          0 |        0 |         3 |
-| SPL and sLCWA       |          0 |          0 |        0 |         3 |
+| MRL and sLCWA       |          0 |          1 |        0 |         0 |
+| BCEL and sLCWA      |          0 |          0 |        1 |         2 |
+| SPL and sLCWA       |          0 |          0 |        1 |         4 |
 
 
 ## Investigation of `model`, `loss`, and `training_approach`
 
 |                              |   FB15k237 |   Kinships |   WN18RR |   YAGO310 |
 |------------------------------|------------|------------|----------|-----------|
+| TuckER, BCEL, and LCWA       |          1 |          1 |        0 |         0 |
+| TuckER, SPL, and LCWA        |          1 |          2 |        0 |         0 |
+| TuckER, CEL, and LCWA        |          1 |          1 |        0 |         0 |
 | **RotatE, NSSAL, and sLCWA** |          2 |          2 |        2 |         2 |
+| ConvE, BCEL, and LCWA        |          1 |          1 |        0 |         0 |
+| RotatE, BCEL, and LCWA       |          1 |          0 |        2 |         0 |
 | DistMult, CEL, and LCWA      |          1 |          0 |        0 |         0 |
-| RotatE, BCEL, and LCWA       |          1 |          1 |        2 |         0 |
-| RotatE, CEL, and LCWA        |          1 |          1 |        1 |         0 |
-| TuckER, SPL, and LCWA        |          1 |          1 |        0 |         0 |
-| RESCAL, CEL, and LCWA        |          1 |          0 |        0 |         0 |
-| RotatE, SPL, and LCWA        |          1 |          0 |        2 |         0 |
-| TransE, CEL, and LCWA        |          1 |          0 |        0 |         0 |
-| TransE, MRL, and sLCWA       |          1 |          0 |        0 |         0 |
-| RotatE, MRL, and sLCWA       |          0 |          2 |        0 |         0 |
-| TuckER, BCEL, and LCWA       |          0 |          1 |        0 |         0 |
-| TuckER, MRL, and sLCWA       |          0 |          1 |        0 |         0 |
+| MuRE, BCEL, and LCWA         |          1 |          0 |        0 |         0 |
+| RotatE, CEL, and LCWA        |          1 |          0 |        0 |         0 |
 | ConvE, NSSAL, and sLCWA      |          0 |          1 |        0 |         0 |
+| RotatE, MRL, and sLCWA       |          0 |          1 |        0 |         0 |
+| ComplEx, CEL, and LCWA       |          0 |          1 |        0 |         0 |
+| RotatE, SPL, and LCWA        |          0 |          0 |        2 |         0 |
+| MuRE, SPL, and LCWA          |          0 |          0 |        1 |         0 |
+| MuRE, BCEL, and sLCWA        |          0 |          0 |        1 |         1 |
 | TransE, SPL, and LCWA        |          0 |          0 |        1 |         0 |
-| TransE, BCEL, and LCWA       |          0 |          0 |        1 |         0 |
-| ConvE, CEL, and LCWA         |          0 |          0 |        1 |         0 |
-| ComplEx, BCEL, and sLCWA     |          0 |          0 |        0 |         2 |
+| MuRE, SPL, and sLCWA         |          0 |          0 |        1 |         2 |
+| ComplEx, BCEL, and sLCWA     |          0 |          0 |        0 |         1 |
 | ComplEx, SPL, and sLCWA      |          0 |          0 |        0 |         2 |
 | ComplEx, NSSAL, and sLCWA    |          0 |          0 |        0 |         2 |
-| ERMLP, SPL, and sLCWA        |          0 |          0 |        0 |         1 |
-| ERMLP, BCEL, and sLCWA       |          0 |          0 |        0 |         1 |
 
 

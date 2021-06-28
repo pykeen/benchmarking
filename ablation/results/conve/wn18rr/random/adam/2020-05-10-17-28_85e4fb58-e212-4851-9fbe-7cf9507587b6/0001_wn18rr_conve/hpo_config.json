@@ -1,7 +1,7 @@
 {
   "type": "hpo",
   "metadata": {
-    "title": "HPO Over WN18RR for ConvE"
+    "title": "HPO Over wn18rr for ConvE"
   },
   "pipeline": {
     "stopper": "early",
@@ -10,7 +10,7 @@
       "patience": 2,
       "delta": 0.002
     },
-    "dataset": "wn18RR",
+    "dataset": "wn18rr",
     "dataset_kwargs": {
       "create_inverse_triples": false
     },
