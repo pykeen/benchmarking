@@ -4,24 +4,29 @@
 \label{best_models_fb15k237}
 \begin{tabular}{llllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+   Model &  Loss & Training Approach & Inverse Relations &  Hits@10 (\%) \\
 \midrule
-  ComplEx &    CEL &              LCWA &              True &  0.429470 \\
- DistMult &    CEL &              LCWA &              True &  0.460319 \\
-    ERMLP &   BCEL &              LCWA &              True &  0.430962 \\
-     HolE &    CEL &              LCWA &              True &  0.406571 \\
-     KG2E &    SPL &              LCWA &              True &  0.431647 \\
-      NTN &    SPL &             sLCWA &             False &  0.195983 \\
-    ProjE &    CEL &              LCWA &              True &  0.401458 \\
-   RESCAL &    CEL &              LCWA &              True &  0.445249 \\
-   RotatE &  NSSAL &             sLCWA &             False &  0.480600 \\
-   SimplE &    CEL &              LCWA &              True &  0.386731 \\
-   TransD &    MRL &             sLCWA &              True &  0.394755 \\
-   TransE &    CEL &              LCWA &              True &  0.442827 \\
-   TransH &    MRL &             sLCWA &             False &  0.337998 \\
-   TransR &    CEL &              LCWA &              True &  0.384064 \\
-   TuckER &    SPL &              LCWA &              True &  0.450435 \\
-       UM &    CEL &              LCWA &             False &  0.079974 \\
+ ComplEx &   CEL &              LCWA &              True &       44.838 \\
+   ConvE &  BCEL &              LCWA &              True &       49.212 \\
+  ConvKB &   SPL &             sLCWA &             False &       32.261 \\
+DistMult &   CEL &              LCWA &              True &       47.387 \\
+   ERMLP &  BCEL &              LCWA &              True &       45.100 \\
+    HolE &   CEL &              LCWA &              True &       42.225 \\
+    KG2E &   SPL &              LCWA &              True &       45.501 \\
+    MuRE &  BCEL &              LCWA &              True &       47.199 \\
+     NTN &   SPL &             sLCWA &             False &       20.342 \\
+   ProjE &  BCEL &              LCWA &              True &       41.616 \\
+   QuatE &   CEL &              LCWA &              True &       46.166 \\
+  RESCAL &   CEL &              LCWA &              True &       46.460 \\
+  RotatE & NSSAL &             sLCWA &             False &       49.750 \\
+      SE & NSSAL &             sLCWA &              True &       39.427 \\
+  SimplE &   CEL &              LCWA &              True &       40.307 \\
+  TransD &   MRL &             sLCWA &              True &       41.856 \\
+  TransE &   MRL &             sLCWA &             False &       46.423 \\
+  TransH &   MRL &             sLCWA &             False &       35.295 \\
+  TransR &   CEL &              LCWA &              True &       39.187 \\
+  TuckER &  BCEL &              LCWA &              True &       52.857 \\
+      UM &   CEL &              LCWA &             False &        8.024 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -32,27 +37,29 @@
 \label{best_models_kinships}
 \begin{tabular}{llllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+   Model &  Loss & Training Approach & Inverse Relations &  Hits@10 (\%) \\
 \midrule
-  ComplEx &   BCEL &             sLCWA &              True &  0.979050 \\
-    ConvE &  NSSAL &             sLCWA &              True &  0.982775 \\
-   ConvKB &  NSSAL &             sLCWA &              True &  0.969739 \\
- DistMult &    CEL &              LCWA &              True &  0.922719 \\
-    ERMLP &  NSSAL &             sLCWA &              True &  0.968808 \\
-     HolE &    CEL &              LCWA &              True &  0.927840 \\
-     KG2E &    MRL &             sLCWA &              True &  0.910615 \\
-      NTN &   BCEL &             sLCWA &              True &  0.921788 \\
-    ProjE &  NSSAL &             sLCWA &              True &  0.954376 \\
-   RESCAL &    SPL &             sLCWA &             False &  0.975791 \\
-   RotatE &    MRL &             sLCWA &             False &  0.987430 \\
-       SE &  NSSAL &             sLCWA &              True &  0.980912 \\
-   SimplE &   BCEL &             sLCWA &              True &  0.981378 \\
-   TransD &    CEL &              LCWA &              True &  0.455773 \\
-   TransE &    CEL &              LCWA &              True &  0.912942 \\
-   TransH &    CEL &              LCWA &              True &  0.523743 \\
-   TransR &    SPL &             sLCWA &             False &  0.715549 \\
-   TuckER &   BCEL &              LCWA &              True &  0.985102 \\
-       UM &   BCEL &             sLCWA &             False &  0.109404 \\
+ ComplEx &   CEL &              LCWA &              True &       98.371 \\
+   ConvE & NSSAL &             sLCWA &              True &       98.557 \\
+  ConvKB & NSSAL &             sLCWA &              True &       97.067 \\
+DistMult &   CEL &              LCWA &              True &       93.529 \\
+   ERMLP &   SPL &             sLCWA &              True &       97.486 \\
+    HolE &   CEL &              LCWA &              True &       93.715 \\
+    KG2E &   MRL &             sLCWA &              True &       91.853 \\
+    MuRE &   SPL &              LCWA &              True &       95.019 \\
+     NTN &  BCEL &             sLCWA &              True &       93.622 \\
+   ProjE &   SPL &             sLCWA &              True &       96.648 \\
+   QuatE &   CEL &              LCWA &              True &       98.184 \\
+  RESCAL &   SPL &             sLCWA &              True &       97.719 \\
+  RotatE & NSSAL &             sLCWA &             False &       98.557 \\
+      SE & NSSAL &             sLCWA &              True &       98.324 \\
+  SimplE &  BCEL &             sLCWA &             False &       98.277 \\
+  TransD &   CEL &              LCWA &              True &       45.205 \\
+  TransE &   CEL &              LCWA &              True &       92.877 \\
+  TransH &   CEL &              LCWA &              True &       52.048 \\
+  TransR &   MRL &             sLCWA &             False &       73.324 \\
+  TuckER &   SPL &              LCWA &              True &       98.603 \\
+      UM &   SPL &              LCWA &              True &       11.313 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -63,27 +70,29 @@
 \label{best_models_wn18rr}
 \begin{tabular}{llllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+   Model &  Loss & Training Approach & Inverse Relations &  Hits@10 (\%) \\
 \midrule
-  ComplEx &    CEL &              LCWA &             False &  0.534884 \\
-    ConvE &    CEL &              LCWA &              True &  0.561047 \\
-   ConvKB &  NSSAL &             sLCWA &              True &  0.468707 \\
- DistMult &    CEL &              LCWA &              True &  0.529583 \\
-    ERMLP &   BCEL &             sLCWA &              True &  0.475205 \\
-     HolE &    CEL &              LCWA &             False &  0.507866 \\
-     KG2E &    SPL &              LCWA &             False &  0.507182 \\
-      NTN &    MRL &             sLCWA &             False &  0.313440 \\
-    ProjE &    CEL &              LCWA &              True &  0.517442 \\
-   RESCAL &    CEL &              LCWA &              True &  0.531977 \\
-   RotatE &    SPL &              LCWA &              True &  0.600889 \\
-       SE &    SPL &             sLCWA &             False &  0.453830 \\
-   SimplE &    CEL &              LCWA &              True &  0.509234 \\
-   TransD &    MRL &             sLCWA &             False &  0.463064 \\
-   TransE &    SPL &              LCWA &             False &  0.569767 \\
-   TransH &    MRL &             sLCWA &             False &  0.478112 \\
-   TransR &    MRL &             sLCWA &             False &  0.425274 \\
-   TuckER &    CEL &              LCWA &              True &  0.542579 \\
-       UM &    SPL &              LCWA &             False &  0.450410 \\
+ ComplEx &   CEL &              LCWA &             False &       53.745 \\
+   ConvE &   CEL &              LCWA &              True &       56.327 \\
+  ConvKB & NSSAL &             sLCWA &              True &       42.083 \\
+DistMult &   CEL &              LCWA &              True &       52.616 \\
+   ERMLP &   SPL &             sLCWA &              True &       47.657 \\
+    HolE &   CEL &              LCWA &             False &       50.017 \\
+    KG2E &   SPL &              LCWA &             False &       52.035 \\
+    MuRE &   SPL &              LCWA &              True &       57.900 \\
+     NTN &   MRL &             sLCWA &             False &       31.857 \\
+   ProjE &   CEL &              LCWA &              True &       51.727 \\
+   QuatE &   CEL &              LCWA &             False &       55.010 \\
+  RESCAL &   CEL &              LCWA &             False &       53.916 \\
+  RotatE &  BCEL &              LCWA &              True &       60.089 \\
+      SE &   SPL &             sLCWA &             False &       45.486 \\
+  SimplE &   CEL &              LCWA &              True &       50.889 \\
+  TransD &   MRL &             sLCWA &             False &       46.546 \\
+  TransE &   SPL &              LCWA &             False &       56.977 \\
+  TransH &   MRL &             sLCWA &             False &       48.170 \\
+  TransR &   MRL &             sLCWA &             False &       42.510 \\
+  TuckER &   CEL &              LCWA &              True &       56.088 \\
+      UM &   SPL &              LCWA &             False &       44.887 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -94,18 +103,20 @@
 \label{best_models_yago310}
 \begin{tabular}{llllr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations &   Hits@10 \\
+   Model &  Loss & Training Approach & Inverse Relations &  Hits@10 (\%) \\
 \midrule
-  ComplEx &   BCEL &             sLCWA &              True &  0.625151 \\
-   ConvKB &    SPL &             sLCWA &              True &  0.578081 \\
- DistMult &    MRL &             sLCWA &              True &  0.549077 \\
-    ERMLP &    SPL &             sLCWA &              True &  0.597852 \\
-     HolE &   BCEL &             sLCWA &             False &  0.593135 \\
-   RESCAL &    SPL &             sLCWA &              True &  0.550080 \\
-   RotatE &  NSSAL &             sLCWA &              True &  0.625953 \\
-       SE &  NSSAL &             sLCWA &              True &  0.290044 \\
-   TransD &    MRL &             sLCWA &             False &  0.358691 \\
-   TransE &    MRL &             sLCWA &              True &  0.485448 \\
+ ComplEx &  BCEL &             sLCWA &              True &       62.575 \\
+  ConvKB &   SPL &             sLCWA &              True &       58.149 \\
+DistMult &  BCEL &             sLCWA &             False &       55.580 \\
+   ERMLP &  BCEL &             sLCWA &              True &       58.531 \\
+    HolE &  BCEL &             sLCWA &             False &       60.177 \\
+    MuRE &   SPL &             sLCWA &              True &       66.851 \\
+   QuatE &   SPL &             sLCWA &              True &       60.709 \\
+  RESCAL &   SPL &             sLCWA &              True &       54.045 \\
+  RotatE & NSSAL &             sLCWA &              True &       63.077 \\
+      SE & NSSAL &             sLCWA &              True &       29.757 \\
+  TransD &   MRL &             sLCWA &             False &       35.397 \\
+  TransE &   MRL &             sLCWA &              True &       49.217 \\
 \bottomrule
 \end{tabular}
 \end{table}

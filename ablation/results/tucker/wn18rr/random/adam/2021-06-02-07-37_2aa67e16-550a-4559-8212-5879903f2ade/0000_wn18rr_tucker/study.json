@@ -1,0 +1,13 @@
+{
+  "dataset": "wn18rr",
+  "evaluator": "rankbased",
+  "filter_validation_when_testing": true,
+  "loss": "bceaftersigmoid",
+  "metric": "hits@10",
+  "model": "tucker",
+  "optimizer": "adam",
+  "pykeen_git_hash": "4ac32f00",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}

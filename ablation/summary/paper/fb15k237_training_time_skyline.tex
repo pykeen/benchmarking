@@ -4,11 +4,13 @@
 \label{tab:skyline_fb15k237_training_time}
 \begin{tabular}{llllrr}
 \toprule
-  Model &   Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
+ Model &  Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
 \midrule
- RotatE &  NSSAL &             sLCWA &                no &        1.09 h &       48.060 \\
- TransE &    MRL &             sLCWA &                no &     10.29 min &       43.911 \\
- TransE &  NSSAL &             sLCWA &                no &      8.05 min &       40.660 \\
+TuckER &  BCEL &              LCWA &               yes &        4.90 h &       52.857 \\
+RotatE & NSSAL &             sLCWA &                no &        1.06 h &       49.750 \\
+TransE &   MRL &             sLCWA &                no &     17.70 min &       46.423 \\
+TransE & NSSAL &             sLCWA &                no &     14.66 min &       42.157 \\
+TransH & NSSAL &             sLCWA &                no &     11.05 min &       25.308 \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -4,13 +4,15 @@
 \label{tab:skyline_yago310_training_time}
 \begin{tabular}{llllrr}
 \toprule
-   Model &   Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
+   Model & Loss & Training Approach & Inverse Relations & Training Time &  Hits@10 (\%) \\
 \midrule
-  RotatE &  NSSAL &             sLCWA &               yes &        1.96 h &       62.595 \\
- ComplEx &    SPL &             sLCWA &                no &     53.89 min &       62.224 \\
- ComplEx &   BCEL &             sLCWA &                no &     37.45 min &       59.916 \\
-  TransE &    MRL &             sLCWA &                no &     12.26 min &       40.837 \\
-  TransE &    SPL &             sLCWA &                no &     11.03 min &       16.128 \\
+    MuRE &  SPL &             sLCWA &               yes &        2.72 h &       66.851 \\
+    MuRE &  SPL &             sLCWA &                no &        1.58 h &       64.944 \\
+ ComplEx &  SPL &             sLCWA &                no &     58.62 min &       62.304 \\
+    HolE & BCEL &             sLCWA &                no &     33.77 min &       60.177 \\
+DistMult &  MRL &             sLCWA &                no &     13.16 min &       48.464 \\
+  TransE &  MRL &             sLCWA &                no &      6.81 min &       41.309 \\
+  TransE &  SPL &             sLCWA &                no &      5.96 min &       16.740 \\
 \bottomrule
 \end{tabular}
 \end{table}

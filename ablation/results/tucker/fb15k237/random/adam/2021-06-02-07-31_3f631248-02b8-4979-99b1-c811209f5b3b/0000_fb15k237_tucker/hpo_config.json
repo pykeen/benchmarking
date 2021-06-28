@@ -1,0 +1,121 @@
+{
+  "type": "hpo",
+  "metadata": {
+    "title": "HPO Over fb15k237 for TuckER"
+  },
+  "pipeline": {
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 50,
+      "patience": 2,
+      "delta": 0.002
+    },
+    "dataset": "fb15k237",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "model": "TuckER",
+    "model_kwargs": {
+      "automatic_memory_optimization": true,
+      "apply_batch_normalization": true
+    },
+    "model_kwargs_ranges": {
+      "embedding_dim": {
+        "type": "int",
+        "low": 6,
+        "high": 8,
+        "scale": "power_two"
+      },
+      "relation_dim": {
+        "type": "int",
+        "low": 6,
+        "high": 8,
+        "scale": "power_two"
+      },
+      "dropout_0": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      },
+      "dropout_1": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      },
+      "dropout_2": {
+        "type": "float",
+        "low": 0.1,
+        "high": 0.5,
+        "q": "0.1"
+      }
+    },
+    "loss": "NSSALoss",
+    "loss_kwargs_ranges": {
+      "margin": {
+        "type": "float",
+        "low": 1,
+        "high": 30,
+        "q": 2.0
+      },
+      "adversarial_temperature": {
+        "type": "float",
+        "low": 0.1,
+        "high": 1.0,
+        "q": 0.1
+      }
+    },
+    "regularizer": "NoRegularizer",
+    "optimizer": "adam",
+    "optimizer_kwargs": {
+      "weight_decay": 0.0
+    },
+    "optimizer_kwargs_ranges": {
+      "lr": {
+        "type": "float",
+        "low": 0.001,
+        "high": 0.1,
+        "scale": "log"
+      }
+    },
+    "training_loop": "owa",
+    "negative_sampler": "BasicNegativeSampler",
+    "negative_sampler_kwargs_ranges": {
+      "num_negs_per_pos": {
+        "type": "int",
+        "low": 1,
+        "high": 100,
+        "q": 1
+      }
+    },
+    "training_kwargs": {
+      "num_epochs": 1000,
+      "label_smoothing": 0.0
+    },
+    "training_kwargs_ranges": {
+      "batch_size": {
+        "type": "int",
+        "low": 7,
+        "high": 9,
+        "scale": "power_two"
+      }
+    },
+    "evaluator": "RankBasedEvaluator",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    }
+  },
+  "optuna": {
+    "n_trials": 100,
+    "timeout": 86400,
+    "metric": "hits@10",
+    "direction": "maximize",
+    "sampler": "random",
+    "pruner": "nop",
+    "storage": "sqlite:////beegfs/global0/ws/meal523c-logs/missing_tpami_experiments/2021-06-02-07-31_3f631248-02b8-4979-99b1-c811209f5b3b/0000_fb15k237_tucker/optuna_results.db"
+  }
+}

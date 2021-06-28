@@ -4,14 +4,13 @@
 \label{tab:skyline_fb15k237_model_bytes}
 \begin{tabular}{llllrr}
 \toprule
-    Model &   Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
+   Model & Loss & Training Approach & Inverse Relations & Model Bytes &  Hits@10 (\%) \\
 \midrule
-   RotatE &  NSSAL &             sLCWA &                no &    28.8 MiB &       48.060 \\
-   RotatE &  NSSAL &             sLCWA &               yes &    14.6 MiB &       47.742 \\
- DistMult &    CEL &              LCWA &               yes &     3.7 MiB &       46.032 \\
-   TransE &    SPL &              LCWA &                no &     3.6 MiB &       43.722 \\
-       UM &    MRL &             sLCWA &               yes &     3.5 MiB &        3.166 \\
-       UM &    MRL &             sLCWA &                no &     3.5 MiB &        3.075 \\
+  TuckER & BCEL &              LCWA &               yes &     8.0 MiB &       52.857 \\
+DistMult &  CEL &              LCWA &               yes &     3.7 MiB &       47.387 \\
+  TransE &  SPL &              LCWA &                no &     3.6 MiB &       45.318 \\
+      UM &  MRL &             sLCWA &                no &     3.5 MiB &        3.432 \\
+      UM &  MRL &             sLCWA &               yes &     3.5 MiB &        3.305 \\
 \bottomrule
 \end{tabular}
 \end{table}

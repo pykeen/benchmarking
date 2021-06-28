@@ -1,0 +1,78 @@
+{
+  "type": "hpo",
+  "metadata": {
+    "title": "HPO Over WN18RR for QuatE"
+  },
+  "pipeline": {
+    "stopper": "early",
+    "stopper_kwargs": {
+      "frequency": 50,
+      "patience": 2,
+      "delta": 0.002
+    },
+    "dataset": "wn18rr",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "model": "QuatE",
+    "model_kwargs": {
+      "automatic_memory_optimization": true
+    },
+    "model_kwargs_ranges": {
+      "embedding_dim": {
+        "type": "int",
+        "low": 6,
+        "high": 8,
+        "scale": "power_two"
+      }
+    },
+    "loss": "CrossEntropyLoss",
+    "regularizer": "NoRegularizer",
+    "optimizer": "adam",
+    "optimizer_kwargs": {
+      "weight_decay": 0.0
+    },
+    "optimizer_kwargs_ranges": {
+      "lr": {
+        "type": "float",
+        "low": 0.001,
+        "high": 0.1,
+        "scale": "log"
+      }
+    },
+    "training_loop": "lcwa",
+    "training_kwargs": {
+      "num_epochs": 1000
+    },
+    "training_kwargs_ranges": {
+      "label_smoothing": {
+        "type": "float",
+        "low": 0.001,
+        "high": 1.0,
+        "scale": "log"
+      },
+      "batch_size": {
+        "type": "int",
+        "low": 7,
+        "high": 9,
+        "scale": "power_two"
+      }
+    },
+    "evaluator": "RankBasedEvaluator",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": 32
+    }
+  },
+  "optuna": {
+    "n_trials": 100,
+    "timeout": 86400,
+    "metric": "hits@10",
+    "direction": "maximize",
+    "sampler": "random",
+    "pruner": "nop",
+    "storage": "sqlite:////data/alim/tpami/ablation/quate/wn18rr/2021-04-01-10-58_b788b4ed-91c0-47c1-b1fd-4a409184d855/0000_wn18rr_quate/optuna_results.db"
+  }
+}

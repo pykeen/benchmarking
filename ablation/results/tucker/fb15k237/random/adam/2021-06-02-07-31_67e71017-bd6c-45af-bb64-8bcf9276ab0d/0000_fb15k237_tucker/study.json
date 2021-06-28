@@ -1,0 +1,14 @@
+{
+  "dataset": "fb15k237",
+  "evaluator": "rankbased",
+  "filter_validation_when_testing": true,
+  "loss": "marginranking",
+  "metric": "hits@10",
+  "model": "tucker",
+  "negative_sampler": "basic",
+  "optimizer": "adam",
+  "pykeen_git_hash": "4ac32f00",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "owa"
+}

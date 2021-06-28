@@ -1,5 +1,5 @@
 {
-  "dataset": "wn18RR",
+  "dataset": "wn18rr",
   "evaluator": "rankbased",
   "loss": "crossentropy",
   "metric": "hits@10",

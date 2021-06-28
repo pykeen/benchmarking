@@ -1,0 +1,13 @@
+{
+  "dataset": "kinships",
+  "evaluator": "rankbased",
+  "filter_validation_when_testing": true,
+  "loss": "crossentropy",
+  "metric": "hits@10",
+  "model": "rotate",
+  "optimizer": "adam",
+  "pykeen_git_hash": "427c59e8",
+  "pykeen_version": "0.1.2-dev",
+  "regularizer": "no",
+  "training_loop": "lcwa"
+}

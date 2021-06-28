@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "_stopper_comment": "While the original config had 1000, early stopping will now switch it to 451",
+    "_stopper_kwargs_removed_comment": "stopper_kwargs config removed after HPO: {'frequency': 50, 'patience': 2, 'delta': 0.002}",
+    "best_trial_evaluation": 0.03714481342006162,
+    "best_trial_number": 89,
+    "git_hash": "4ac32f00",
+    "version": "0.1.2-dev"
+  },
+  "pipeline": {
+    "dataset": "fb15k237",
+    "dataset_kwargs": {
+      "create_inverse_triples": true
+    },
+    "evaluation_kwargs": {
+      "batch_size": null
+    },
+    "evaluator": "rankbased",
+    "evaluator_kwargs": {
+      "filtered": true
+    },
+    "filter_validation_when_testing": true,
+    "loss": "nssa",
+    "loss_kwargs": {
+      "adversarial_temperature": 0.6472379735056826,
+      "margin": 5.090414203536993
+    },
+    "model": "tucker",
+    "model_kwargs": {
+      "apply_batch_normalization": true,
+      "automatic_memory_optimization": true,
+      "dropout_0": 0.47162828644399746,
+      "dropout_1": 0.22076421641527277,
+      "dropout_2": 0.36853886446476414,
+      "embedding_dim": 64,
+      "relation_dim": 128
+    },
+    "negative_sampler": "basic",
+    "negative_sampler_kwargs": {
+      "num_negs_per_pos": 5
+    },
+    "optimizer": "adam",
+    "optimizer_kwargs": {
+      "lr": 0.007924293826152208,
+      "weight_decay": 0.0
+    },
+    "regularizer": "no",
+    "training_kwargs": {
+      "batch_size": 128,
+      "label_smoothing": 0.0,
+      "num_epochs": 451
+    },
+    "training_loop": "owa"
+  }
+}

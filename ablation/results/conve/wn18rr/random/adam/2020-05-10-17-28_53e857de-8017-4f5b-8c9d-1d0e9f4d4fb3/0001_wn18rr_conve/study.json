@@ -1,5 +1,5 @@
 {
-  "dataset": "wn18RR",
+  "dataset": "wn18rr",
   "evaluator": "rankbased",
   "loss": "softplus",
   "metric": "hits@10",
