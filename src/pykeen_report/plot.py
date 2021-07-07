@@ -906,9 +906,6 @@ def make_sizeplots_trellised(
             elif 'bytes' in target_x_header:
                 _skyline_df_op[target_x_header] = _skyline_df_op[target_x_header].map(functools.partial(humanize.naturalsize, binary=True))
 
-            _skyline_df_op['inverse_relations'] = _skyline_df_op['inverse_relations'].map(
-                lambda x: 'yes' if x == 'True' else 'no'
-            )
             if 'hits@' in target_y_header:
                 _skyline_df_op[f'{target_y_header} (%)'] = _skyline_df_op[target_y_header].map(
                     lambda x: round(100 * x, 3))
