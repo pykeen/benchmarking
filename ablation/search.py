@@ -92,7 +92,7 @@ def _match_dictionary(
     for key, pattern in patterns.items():
         if pattern is None:
             continue
-        if not pattern.search(dic[key]):
+        if not pattern.search(str(dic[key])):
             return False
     return True
 
@@ -111,21 +111,36 @@ def _iter_results(
 
 
 @click.command()
+@click.option("-c", "--create-inverse-triples", type=str, default=None)
 @click.option("-d", "--dataset", type=str, default=None)
+@click.option("-k", "--filter-keys", type=str, multiple=True, default=None)
+@click.option("-l", "--loss", type=str, default=None)
 @click.option("-m", "--model", type=str, default=None)
+@click.option("-t", "--training-loop", type=str, default=None)
 def main(
-    dataset: Optional[str] = None,
-    model: Optional[str] = None,
+    dataset: Optional[str],
+    create_inverse_triples: Optional[str],
+    filter_keys: Sequence[str],
+    loss: Optional[str],
+    model: Optional[str],
+    training_loop: Optional[str],
 ):
     """Search best configuration for the given setting."""
     logging.basicConfig(level=logging.INFO)
-    pprint.pprint(
-        max(
-            _iter_results(dataset=dataset, model=model),
-            key=lambda study: study.get("metadata.best_trial_evaluation"),
+    best = max(
+        _iter_results(
+            dataset=dataset,
+            model=model,
+            create_inverse_triples=create_inverse_triples,
+            loss=loss,
+            training_loop=training_loop,
         ),
-        sort_dicts=True,
+        key=lambda study: study.get("metadata.best_trial_evaluation"),
     )
+    if filter_keys:
+        key_pattern = re.compile(pattern="|".join(filter_keys))
+        best = {key: value for key, value in best.items() if key_pattern.search(key)}
+    pprint.pprint(best, sort_dicts=True)
 
 
 if __name__ == "__main__":
