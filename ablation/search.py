@@ -8,6 +8,7 @@ from copy import deepcopy
 from typing import *
 
 import click
+import pandas
 
 HERE = pathlib.Path(__file__).parent
 RESULTS = HERE.joinpath("results")
@@ -110,37 +111,78 @@ def _iter_results(
                 yield study
 
 
+def _filter_dictionaries(
+    dics: Iterable[Mapping[str, Any]],
+    keep_keys: Sequence[str],
+    exclude_keys: Sequence[str],
+) -> Iterable[Mapping[str, Any]]:
+    keep_pattern = re.compile(pattern="|".join(keep_keys)) if keep_keys else None
+    exclude_pattern = (
+        re.compile(pattern="|".join(exclude_keys)) if exclude_keys else None
+    )
+    for dic in dics:
+        if exclude_pattern:
+            dic = {
+                key: value
+                for key, value in dic.items()
+                if not exclude_pattern.search(key)
+            }
+        if keep_pattern:
+            dic = {key: value for key, value in dic.items() if keep_pattern.search(key)}
+        yield dic
+
+
 @click.command()
+@click.option("-a", "--at-most", type=int, default=None)
 @click.option("-c", "--create-inverse-triples", type=str, default=None)
 @click.option("-d", "--dataset", type=str, default=None)
-@click.option("-k", "--filter-keys", type=str, multiple=True, default=None)
+@click.option("-e", "--exclude-keys", type=str, multiple=True, default=None)
+@click.option("-k", "--keep-keys", type=str, multiple=True, default=None)
 @click.option("-l", "--loss", type=str, default=None)
 @click.option("-m", "--model", type=str, default=None)
+@click.option("-o", "--output-path", type=pathlib.Path, default=None)
 @click.option("-t", "--training-loop", type=str, default=None)
 def main(
+    at_most: Optional[int],
     dataset: Optional[str],
     create_inverse_triples: Optional[str],
-    filter_keys: Sequence[str],
+    exclude_keys: Sequence[str],
+    keep_keys: Sequence[str],
     loss: Optional[str],
     model: Optional[str],
+    output_path: Optional[pathlib.Path],
     training_loop: Optional[str],
 ):
     """Search best configuration for the given setting."""
     logging.basicConfig(level=logging.INFO)
-    best = max(
-        _iter_results(
-            dataset=dataset,
-            model=model,
-            create_inverse_triples=create_inverse_triples,
-            loss=loss,
-            training_loop=training_loop,
-        ),
-        key=lambda study: study.get("metadata.best_trial_evaluation"),
-    )
-    if filter_keys:
-        key_pattern = re.compile(pattern="|".join(filter_keys))
-        best = {key: value for key, value in best.items() if key_pattern.search(key)}
-    pprint.pprint(best, sort_dicts=True)
+    at_most = at_most or 1
+    best_configs = list(
+        _filter_dictionaries(
+            sorted(
+                _iter_results(
+                    dataset=dataset,
+                    model=model,
+                    create_inverse_triples=create_inverse_triples,
+                    loss=loss,
+                    training_loop=training_loop,
+                ),
+                key=lambda study: study.get("metadata.best_trial_evaluation"),
+                reverse=True,
+            ),
+            keep_keys=keep_keys,
+            exclude_keys=exclude_keys,
+        )
+    )[:at_most]
+
+    if output_path:
+        output_path.parent.mkdir(exist_ok=True, parents=True)
+        pandas.DataFrame.from_records(best_configs).to_csv(output_path, sep="\t")
+        print(f"Written to {output_path.as_posix()}")
+        exit(0)
+
+    for i, best in enumerate(best_configs):
+        print("=" * 30 + f" {i} " + "=" * 30)
+        pprint.pprint(best, sort_dicts=True)
 
 
 if __name__ == "__main__":
