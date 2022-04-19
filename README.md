@@ -22,7 +22,7 @@ investigate the effects of certain aspects of models (training assumption,
 loss function, regularizer, optimizer, negative sampling strategy, HPO
 methodology, training strategy). The experimental artifacts from the ablation study can be found [here](/ablation).
 
-We provide an additional tool to search through these configurations at `ablation/search.py`, by finding configurations with optimal validation H@10 for a number of different queries.
+We provide an additional tool to search through these configurations at [`ablation/search.py`](./ablation/search.py), by finding configurations with optimal validation H@10 for a number of different queries. You can also run this script without full installation, as long as `click` and `pandas` are available.
 General usage information can be obtained by `python3 ablation/search.py --help`.
 Moreover, here are a few examples:
 
